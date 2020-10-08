@@ -1,4 +1,4 @@
-LDSO 2020-2021
+# LDSO 2020-2021
 
 This project was made during the LDSO course of FEUP.
 
@@ -27,4 +27,16 @@ _Step 5_ - At the end of the sprint the sprint branch will be merged to the mast
 
 **Commit Template**
 
-TODO
+_Title:_ Summary, upper case, don't end with a period, no more than 50 chars
+
+_Body:_ Explain *what* and *why* (not *how*).
+
+_(optional)_ Co-authored-by: name
+
+_**Example:**_
+
+UPDATED README.MD
+
+Added "How to contribute" and "Commit template" sections to readme file so that every contributer knows what to do when they want to summit their changes and so that everyone commits with the same message format.
+
+Co-authored-by: Rita Mota
