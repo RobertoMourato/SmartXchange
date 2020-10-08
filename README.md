@@ -17,4 +17,14 @@ and better business ideas. By simulating reality in this virtual competition, pl
 
 **How To Contribute**
 
+_Step 1_ - Assign yourself to an issue in the GitLab issue board "Sprint Backlog" and move it to the "Doing" board
+_Step 2_ - On the issue page you've chosen, select the option "Create branch", use the default name for the branch and select the source branch as being the respective branch of the sprint you're on (sprint-1, sprint-2, etc)
+_Step 3_ - Commit your changes to the brach you've created
+_Step 4_ - After resolving the issue, create a merge request between your issue branch and the respective sprint branch, your colleagues will have to review your solution and at least 2 of them have to to confirm it for the merge request to go forward
+_Step 5_ - At the end of the sprint the sprint branch will be merged to the master branch
+
+**Note:** If your merge request fails, you'll have to resolve the problems yourself.
+
+**Commit Template**
+
 TODO
