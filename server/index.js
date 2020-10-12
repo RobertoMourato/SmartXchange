@@ -1,6 +1,12 @@
 var express = require("express");
 var app = express();
 
-app.listen(3000, () => {
-    console.log("Hello World!");
+const PORT = 8000;
+
+app.listen(PORT, () => {
+    console.log("Server running on PORT " + PORT + "...");
+})
+
+app.get("/", (req, res) => {
+    res.send("Hello World!");
 })
