@@ -15,4 +15,4 @@ app.get("/", (req, res) => {
 })
 
 app.use('/users', usersRouter);
-app.user('/stocks', stockRouter);
+app.use('/stocks', stockRouter);
