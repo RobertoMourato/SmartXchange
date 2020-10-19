@@ -1,0 +1,23 @@
+stages:
+    - build
+    - test
+
+build:
+    stage: build
+    script:
+        - echo "Building"
+        - mkdir build
+        - touch build/info.txt
+        - npm install express
+        - npm install mysql
+        - cd server
+        - npm start
+    artifatcs:
+        paths:
+            - build/
+
+test:
+    stage: test
+    script:
+        - echo "Testing"
+        - test -f "build/info.txt"
