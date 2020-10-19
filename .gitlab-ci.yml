@@ -15,8 +15,8 @@ production:
     image: ruby:latest
     script:
         - dpl --provider=heroku --app=$HEROKU_APP_MASTER --api-key=$HEROKU_API_KEY
-    only:
-        - master
+#    only:
+#        - master
 
 staging:
     type: deploy
