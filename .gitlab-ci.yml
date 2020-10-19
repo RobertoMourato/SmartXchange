@@ -1,32 +1,28 @@
+image: node:latest
+
+before_script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+
 stages:
-    - build
-    - test
-    - deploy
+    - production
+    - staging
 
-build:
-    stage: build
+production:
+    type: deploy
+    stage: production
+    image: ruby:latest
     script:
-        - echo "Building"
-        - mkdir build
-        - touch build/info.txt
-    artifacts:
-        paths:
-            - build/
+        - dpl --provider=heroku --app=$HEROKU_APP_MASTER --api-key=$HEROKU_API_KEY
+    only:
+        - master
 
-test:
-    stage: test
+staging:
+    type: deploy
+    stage: staging
+    image: ruby:latest
     script:
-        - echo "Testing"
-        - test -f "build/info.txt"
-
-pages:
-  stage: deploy
-  script:
-  - mkdir .public
-  - cp -r * .public
-  - mv .public public
-  artifacts:
-    paths:
-    - public
-#  only:
-#  - master
+        - dpl --provider=heroku --app=$HEROKU_APP_MASTER --api-key=$HEROKU_API_KEY
+    only:
+        - staging
