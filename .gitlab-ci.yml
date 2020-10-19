@@ -1,6 +1,7 @@
 stages:
     - build
     - test
+    - deploy
 
 build:
     stage: build
@@ -8,10 +9,6 @@ build:
         - echo "Building"
         - mkdir build
         - touch build/info.txt
-        - npm install express
-        - npm install mysql
-        - cd server
-        - npm start
     artifacts:
         paths:
             - build/
@@ -21,3 +18,15 @@ test:
     script:
         - echo "Testing"
         - test -f "build/info.txt"
+
+pages:
+  stage: deploy
+  script:
+  - mkdir .public
+  - cp -r * .public
+  - mv .public public
+  artifacts:
+    paths:
+    - public
+#  only:
+#  - master
