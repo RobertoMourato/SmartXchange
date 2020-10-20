@@ -13,8 +13,7 @@ install_dependencies:
   stage: build
   script:
     - npm install
-    - npm install express mysql
-  artifacts:
+    - npm install express mysql mocha chai chai-http
     paths:
       - node_modules/
 
