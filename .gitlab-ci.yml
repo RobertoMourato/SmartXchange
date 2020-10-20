@@ -1,0 +1,36 @@
+image: node:latest
+
+stages:
+  - build
+  - test
+  - production
+
+cache:
+  paths:
+    - node_modules/
+
+install_dependencies:
+  stage: build
+  script:
+    - npm install
+    - npm install express mysql mocha chai chai-http
+  artifacts:
+    paths:
+      - node_modules/
+
+testing_testing:
+  stage: test
+  script: npm test
+
+production:
+  type: deploy
+  stage: production
+  image: ruby:latest
+  script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=ldso2021-t3g3 --api-key=$HEROKU_API_KEY
+  only:
+    - master
+    - Issue#54Make_simple_pipeline

@@ -1,0 +1,40 @@
+# Changelog Template
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+### Types of changes
+
+- **Added**  for new features.
+- **Changed** for changes in existing functionality.
+- **Deprecated** for soon-to-be removed features.
+- **Removed** for now removed features.
+- **Fixed** for any bug fixes.
+- **Security** in case of vulnerabilities.
+
+
+# Example
+
+## Sprint X - YYYY-DD-MM 
+### Added 
+- New feature. #[issue number] 
+
+### Changed
+- Change. #[issue number] .
+
+### Fixed
+- bug fix. #45[issue numer] .
+
+
+## Sprint 1 - 2020-10-20
+### Added
+- "How to contribute section" in README.md file. #53 
+- Added pipeline that allows compilation in the repository. #54
+- Database created and running locally. #58
+- Back-end server created and deployed. #59, #54
+
+### Changed
+- Updated interface mockups #61
+
+
