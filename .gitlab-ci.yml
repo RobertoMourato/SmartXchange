@@ -33,3 +33,4 @@ production:
     - dpl --provider=heroku --app=ldso2021-t3g3 --api-key=$HEROKU_API_KEY
   only:
     - master
+    - Issue#54Make_simple_pipeline
