@@ -13,33 +13,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Fixed** for any bug fixes.
 - **Security** in case of vulnerabilities.
 
-## Sprint X - YYYY-DD-MM 
-### Added 
-- New feature. #[issue nยบ] 
-
-### Changed
-- Change, #39.
-
-### Fixed
-- bug fix, #45.
 
 # Example
-## Sprint 1 - 2020-10-01
-### Added
-- `.gitattributes`, force unix eol under windows, for development.
+
+## Sprint X - YYYY-DD-MM 
+### Added 
+- New feature. #[issue number] 
 
 ### Changed
-- Bumped `linkify-it` to 3.0.0, #661 + allow unlimited `.` inside links.
-- Dev deps bump.
-- Switch to `nyc` for coverage reports.
-- Partially moved tasks from Makefile to npm scripts.
-- Automate web update on npm publish.
+- Change. #[issue number] .
 
 ### Fixed
-- Fix em- and en-dashes not being typographed when separated by 1 char, #624.
-- Allow opening quote after another punctuation char in typographer, #641.
-- Assorted wording & typo fixes.
+- bug fix. #45[issue numer] .
 
-### Security
-- Fix quadratic parse time for some combinations of pairs, #583. Algorithm is
-  now similar to one in reference implementation.
+
+## Sprint 1 - 2020-10-20
+### Added
+- "How to contribute section" in README.md file. #53 
+- Added pipeline that allows compilation in the repository. #54
+- Database created and running locally. #58
+- Back-end server created and deployed. #59, #54
+
+### Changed
+- Updated interface mockups #61
+
+
