@@ -12,6 +12,7 @@
       stage: build
       script:
         - npm install
+        - npm install express mysql
       artifacts:
         paths:
           - node_modules/
