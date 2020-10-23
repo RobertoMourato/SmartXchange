@@ -1,4 +1,4 @@
-const db = require("../db/stockDb");
+const db = require("../repository/stockDb");
 
 exports.getMyStocks = async function (req, res, next) {
     try {

@@ -1,9 +1,9 @@
-const db = require("../db/userDb");
+const db = require("../repository/userDb");
 
 exports.getUsers = async function (req, res, next) {
     try {
         console.log("controller");
-        let results = await db.getAll();
+        let results = await db.index;
         res.json(results);
     }
     catch (e) {
