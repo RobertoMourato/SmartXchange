@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('TenantTypes', {
@@ -10,6 +11,9 @@ module.exports = {
       },
       tenantType: {
         type: Sequelize.STRING
+      },
+      isManager: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,

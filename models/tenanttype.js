@@ -11,11 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.hasMany(models.Tenant, {foreignKey:'tenantyype_id', as:'tenant'});
+      this.hasMany(models.Tenant, {foreignKey:'tenanttype_id'});
     }
   };
   TenantType.init({
-    tenantType: DataTypes.STRING
+    tenantType: DataTypes.STRING,
+    isManager: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'TenantType',
