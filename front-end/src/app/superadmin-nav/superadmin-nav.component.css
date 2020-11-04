@@ -4,7 +4,6 @@
 
 .sidenav {
   width: 100px;
-  
 }
 
 .sidenav .mat-toolbar {
@@ -25,22 +24,23 @@
 
 .big-icons .mat-icon
 {
-  font-size: 35px !important;
-  height:35px !important;
-  width:35px !important;
+  font-size: 2.2rem !important;
+  height:2.2rem !important;
+  width:2.2rem !important;
 }
 
 .big-icons{
-  height: 60px !important;
+  height: 4.2rem !important;
 }
 
 :host ::ng-deep .big-icons .mat-list-item-content { 
-  margin-bottom: 20px;
   flex-direction: column !important;
+  padding: 2rem;
 }
 
 :host ::ng-deep .mat-list-item{
-  margin-bottom: 20px !important;
+  margin-bottom: 1rem !important;
+  padding: 2rem;
 }
 
 .logo{
