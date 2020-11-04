@@ -39,9 +39,14 @@
   flex-direction: column !important;
 }
 
+:host ::ng-deep .mat-list-item{
+  margin-bottom: 20px !important;
+}
+
 .logo{
   display:block;
   margin:auto;
+  margin-top: 20px;
 }
 
 span{
