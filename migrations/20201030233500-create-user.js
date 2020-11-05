@@ -38,12 +38,6 @@ module.exports = {
         },
         type: Sequelize.INTEGER
       },
-      initialBudget: {
-        type: Sequelize.INTEGER
-      },
-      currentBalance: {
-        type: Sequelize.INTEGER
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

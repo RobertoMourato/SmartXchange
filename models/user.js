@@ -21,9 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     username: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
-    userTypeId: DataTypes.INTEGER,
-    initialBudget: DataTypes.INTEGER,
-    currentBalance: DataTypes.INTEGER
+    userTypeId: DataTypes.INTEGER
   }, {
     sequelize,
     hooks: {

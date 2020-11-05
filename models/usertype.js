@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   UserType.init({
-    userTypeId: DataTypes.INTEGER,
     userType: DataTypes.STRING,
     isEntrepreneur: DataTypes.BOOLEAN
   }, {
