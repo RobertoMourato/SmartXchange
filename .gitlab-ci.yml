@@ -12,8 +12,9 @@ cache:
 install_dependencies:
   stage: build
   script:
+    - cd back-end
     - npm install
-    - npm install express mysql mocha chai chai-http
+    # - npm install express mysql mocha chai chai-http sequelize
   artifacts:
     paths:
       - node_modules/
