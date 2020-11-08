@@ -9,15 +9,7 @@ cache:
   paths:
     - node_modules/
 
-# install_dependencies:
-#   stage: build
-#   script:
-#     - cd back-end
-    
-#      - npm install express mysql mocha chai chai-http sequelize
-
-
-testing_testing:
+install_and_test:
   stage: test
   script:
     - cd back-end
