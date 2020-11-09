@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.TenantType, {foreignKey:'tenanttype_id'})
+      this.hasMany(models.Competition, {foreignKey:'managerId'})
     }
   };
   Tenant.init({
