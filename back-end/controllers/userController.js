@@ -2,7 +2,7 @@ const dbUser = require("../repository/userDb");
 
 exports.getUsers = async function (req, res, next) {
     try {
-        console.log("controller");
+        //console.log("controller");
         let results = await dbUser.index;
         res.json(results);
     }
@@ -14,7 +14,7 @@ exports.getUsers = async function (req, res, next) {
 
 exports.addUser = async function(req, res){
     try {
-        console.log(req.body)
+        //console.log(req.body)
         let results = await dbUser.addUser(req,res);
         res.json(results);
     }
