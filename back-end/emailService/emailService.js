@@ -35,7 +35,7 @@ exports.sendManagerInvite = function (req, res) {
 
 exports.sendPlayerInvite = function (req, res) {
 
-    mailOptions.text= 'Welcome!\nYou have been invited to play SmartXchange. From now on you can !\n'
+    mailOptions.text= 'Welcome!\nYou have been invited to play SmartXchange. Join the session before it starts!\nYou can start here:'
     mailOptions.to = req.body.email;
     
     // url for invite must be in request

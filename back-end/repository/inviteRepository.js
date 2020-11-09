@@ -14,7 +14,7 @@ module.exports = {
             try {
                 const invite = await models.Invite.create({invitedBy:req.body.invitedBy, isManager:true, competitionId:null,isValid:true});
 
-                res.status(200).json("Invite was created!")
+                res.status(200).json(invite)
             } catch (error) {
                 res.status(400).json(error);
             }
