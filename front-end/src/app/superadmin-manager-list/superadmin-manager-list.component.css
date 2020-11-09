@@ -1,0 +1,19 @@
+table {
+  width: 100%;
+  background-color: whitesmoke;
+  color: black;
+  border-collapse: separate;
+  border-spacing: 0 1em;
+}
+
+.button1 {
+  background-color: white;
+  color: #06b164;
+  display: inline-block;
+  font-weight: bold;
+}
+
+p {
+  padding: 15px;
+  font-weight: bold;
+}

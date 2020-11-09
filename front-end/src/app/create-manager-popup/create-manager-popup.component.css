@@ -1,0 +1,25 @@
+p {
+  padding: 15px;
+  font-weight: bold;
+}
+
+.button1 {
+  background-color: white;
+  color: #06b164;
+
+  font-weight: bold;
+}
+
+.button2 {
+  background-color: #06b164;
+  color: white;
+  float: right;
+  font-weight: bold;
+}
+
+.button3 {
+  background-color: red;
+  color: white;
+  float: left;
+  font-weight: bold;
+}
