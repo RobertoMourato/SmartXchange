@@ -12,6 +12,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       companyName: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       companyValuePropositions: {

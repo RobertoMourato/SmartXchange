@@ -10,6 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       tenantType: {
+        unique: true,
         type: Sequelize.STRING
       },
       isManager: {
