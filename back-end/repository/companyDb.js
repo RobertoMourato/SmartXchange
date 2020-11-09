@@ -3,10 +3,10 @@ const models = require('../models');
 
 module.exports = {
 
-  async addUser(req, res) {
+  async addCompany(req, res) {
     //console.log(req.body)
 
-    const userType = await models.UserType.findOne({ where: { userType: req.body.userType } });
+    /*const userType = await models.UserType.findOne({ where: { userType: req.body.userType } });
     const { name, username, email, password, tenantId } = req.body;
 
     if (userType) {
@@ -20,7 +20,7 @@ module.exports = {
       }
     } else {
       res.status(400).json("No User Type associated");
-    }
+    }*/
 
   }
 }
