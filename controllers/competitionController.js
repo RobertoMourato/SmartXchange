@@ -35,7 +35,7 @@ exports.addCompetition = async function(req, res){
     }
 }
 
-exports.startCompetition = async function(req, res){
+exports.toggleCompetition = async function(req, res){
     try {
         console.log(req.body)
         let results = await competitionRepository.startCompetition(req,res);
@@ -47,3 +47,14 @@ exports.startCompetition = async function(req, res){
     }
 }
 
+exports.changeSettingsCompetition = async function(req, res){
+    try {
+        console.log(req.body)
+        let results = await competitionRepository.changeSettingsCompetition(req,res);
+        res.json(results);
+    }
+    catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}

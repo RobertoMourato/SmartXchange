@@ -3,7 +3,6 @@ const models = require('../models');
 
 module.exports = {
   async index(req, res) {
-    console.log("rep");
     var competition = models.Competition;
     await competition.findAll().then(competitions => {
       res.status(200).json(competitions)
@@ -15,8 +14,7 @@ module.exports = {
   },
 
   async addCompetition(req, res) {
-    console.log(req.body)
-    console.log(req.query)
+
     //const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
     const tenant = await models.Tenant.findByPk(req.query.id);
     const {competitionStartDate, competitionEndDate, competitionMarketOpening ,
@@ -42,14 +40,46 @@ module.exports = {
 
   },
 
-  async startCompetition(req, res) {
+  async toggleCompetition(req, res) {
     console.log(req.query)
     const comp = await models.Competition.findByPk(req.query.id);
+    console.log(comp);
+    if (comp) {
+      try {
+        if(comp.competitionHasStarted==0){
+          models.Competition.update(
+            {competitionHasStarted: true},
+            {returning: true, where: {id: req.query.id}}
+          )
+        }else{
+          models.Competition.update(
+            {competitionHasStarted: false},
+            {returning: true, where: {id: req.query.id}}
+          )
+        }
+        res.status(200).json(competition)
+      } catch (error) {
+        res.status(400).json(error)
+      }
+    } else {
+      res.status(400).json("No competition associated");
+    }
+  },
 
+  async changeSettingsCompetition(req, res) {
+    console.log(req.query)
+    const comp = await models.Competition.findByPk(req.query.id);
+    const {competitionStartDate, competitionEndDate, competitionMarketOpening ,
+      competitionMarketEnding, competitionInitialBudget, competitionInitialStockValue,
+      competitionRefreshRate, competitionNumStocks} = req.body
     if (comp) {
       try {
         models.Competition.update(
-          {competitionHasStarted: true},
+          {competitionStartDate:competitionStartDate, 
+            competitionEndDate:competitionEndDate, competitionMarketOpening:competitionMarketOpening,
+            competitionMarketEnding:competitionMarketEnding, competitionInitialBudget:competitionInitialBudget, 
+            competitionInitialStockValue:competitionInitialStockValue,competitionRefreshRate:competitionRefreshRate, 
+            competitionNumStocks:competitionNumStocks},
           {returning: true, where: {id: req.query.id}}
         )
         res.status(200).json(competition)
@@ -59,6 +89,5 @@ module.exports = {
     } else {
       res.status(400).json("No competition associated");
     }
-
   }
 }
