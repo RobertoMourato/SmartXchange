@@ -1,0 +1,64 @@
+const { response } = require('../index.js');
+const models = require('../models');
+
+module.exports = {
+  async index(req, res) {
+    console.log("rep");
+    var competition = models.Competition;
+    await competition.findAll().then(competitions => {
+      res.status(200).json(competitions)
+    })
+      .catch(error => {
+        res.status(400).send(error)
+      })
+
+  },
+
+  async addCompetition(req, res) {
+    console.log(req.body)
+    console.log(req.query)
+    //const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
+    const tenant = await models.Tenant.findByPk(req.query.id);
+    const {competitionStartDate, competitionEndDate, competitionMarketOpening ,
+        competitionMarketEnding, competitionInitialBudget, competitionInitialStockValue,
+        competitionRefreshRate, competitionNumStocks} = req.body
+
+    if (tenant) {
+      try {
+        console.log("aqui");
+        const manager_Id = tenant.dataValues.id
+        console.log(manager_Id)
+        const competition = await models.Competition.create({managerId:manager_Id, competitionStartDate:competitionStartDate, 
+            competitionEndDate:competitionEndDate, competitionMarketOpening:competitionMarketOpening,
+            competitionMarketEnding:competitionMarketEnding, competitionInitialBudget:competitionInitialBudget, competitionInitialStockValue:competitionInitialStockValue,
+            competitionRefreshRate:competitionRefreshRate, competitionNumStocks:competitionNumStocks , competitionHasStarted:false})
+        res.status(200).json(competition)
+      } catch (error) {
+        res.status(400).json(error)
+      }
+    } else {
+      res.status(400).json("No Tenant associated");
+    }
+
+  },
+
+  async startCompetition(req, res) {
+    console.log(req.query)
+    const comp = await models.Competition.findByPk(req.query.id);
+
+    if (comp) {
+      try {
+        models.Competition.update(
+          {competitionHasStarted: true},
+          {returning: true, where: {id: req.query.id}}
+        )
+        res.status(200).json(competition)
+      } catch (error) {
+        res.status(400).json(error)
+      }
+    } else {
+      res.status(400).json("No competition associated");
+    }
+
+  }
+}

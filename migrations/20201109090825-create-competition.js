@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Competition', {
+    await queryInterface.createTable('Competitions', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -18,41 +18,33 @@ module.exports = {
         },
         type: Sequelize.INTEGER
       },
-      playerId: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
       competitionStartDate: {
-        allowNull: false,
         type: Sequelize.DATE
       },
       competitionEndDate: {
-        allowNull: false,
         type: Sequelize.DATE
       },
       competitionMarketOpening: {
-        allowNull: false,
         type: Sequelize.TIME
       },
       competitionMarketEnding: {
-        allowNull: false,
         type: Sequelize.TIME
       },
       competitionInitialBudget: {
-        allowNull: false,
         type: Sequelize.INTEGER
       },
       competitionInitialStockValue: {
-        allowNull: false,
         type: Sequelize.INTEGER
       },
       competitionRefreshRate: {
-        allowNull: false,
         type: Sequelize.TIME
       },
       competitionNumStocks: {
-        allowNull: false,
         type: Sequelize.INTEGER
+      },
+      competitionHasStarted: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -65,6 +57,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Competition');
+    await queryInterface.dropTable('Competitions');
   }
 };

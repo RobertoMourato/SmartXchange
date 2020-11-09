@@ -10,13 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.Tenant,{foreignKey:'manager_Id'})
+      this.belongsTo(models.Tenant, {foreignKey:'managerId'})
     }
   };
   Competition.init({
-    competitionId: DataTypes.INTEGER,
     managerId: DataTypes.INTEGER,
-    playerId: DataTypes.INTEGER,
     competitionStartDate: DataTypes.DATE,
     competitionEndDate: DataTypes.DATE,
     competitionMarketOpening: DataTypes.TIME,
@@ -24,7 +22,8 @@ module.exports = (sequelize, DataTypes) => {
     competitionInitialBudget: DataTypes.INTEGER,
     competitionInitialStockValue: DataTypes.INTEGER,
     competitionRefreshRate: DataTypes.TIME,
-    competitionNumStocks: DataTypes.INTEGER
+    competitionNumStocks: DataTypes.INTEGER,
+    competitionHasStarted: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Competition',
