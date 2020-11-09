@@ -4,7 +4,7 @@ const models = require('../models');
 module.exports = {
 
   async addUser(req, res) {
-    console.log(req.body)
+    //console.log(req.body)
 
     const userType = await models.UserType.findOne({ where: { userType: req.body.userType } });
     const { name, username, email, password, tenantId } = req.body;
