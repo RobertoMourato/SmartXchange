@@ -8,7 +8,7 @@ var usersRouter = require('./routes/userRoutes');
 var stockRouter = require('./routes/stockRoutes');
 var tenantTypesRouter = require('./routes/tenantTypeRoutes');
 var tenantRouter =  require('./routes/tenantRoutes');
-var competitionRouter = require("./routes/competitionRoutes");
+var companyRouter = require('./routes/companyRoutes');
 
 app.get("/", (req, res) => {
     res.status(200).send("Hello World!");
@@ -28,6 +28,8 @@ app.use('/users', usersRouter);
 app.use('/stocks', stockRouter);
 app.use('/tenanttypes',tenantTypesRouter);
 app.use('/tenants',tenantRouter);
-app.use('/competition',competitionRouter);
+app.use('/companies',companyRouter);
 
 module.exports = app;
+var competitionRouter = require("./routes/competitionRoutes");
+app.use('/competition',competitionRouter);

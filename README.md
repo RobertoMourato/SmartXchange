@@ -31,7 +31,7 @@ _Step 5_ - At the end of the sprint the sprint branch will be merged to the mast
 
 **Commit Template**
 
-_Title:_ Summary, upper case, don't end with a period, no more than 50 chars
+_Title:_ [#Number] < Type > Summary, upper case, don't end with a period, no more than 50 chars, 'Number' is the issue id, and 'Type' can be 'Fix' - resolving a bug; 'Feature' - adding something to the application; 'Refactor' - rewriting code without changing the outcome
 
 _Body:_ Explain *what* and *why* (not *how*).
 
@@ -39,7 +39,7 @@ _(optional)_ Co-authored-by: name
 
 _**Example:**_
 
-UPDATED README.MD
+[#40] < Refactor> UPDATED README.MD
 
 Added "How to contribute" and "Commit template" sections to readme file so that every contributer knows what to do when they want to summit their changes and so that everyone commits with the same message format.
 

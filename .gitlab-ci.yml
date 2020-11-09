@@ -9,18 +9,15 @@ cache:
   paths:
     - node_modules/
 
-install_dependencies:
-  stage: build
+install_and_test:
+  stage: test
   script:
+    - cd back-end
     - npm install
-    - npm install express mysql mocha chai chai-http
+    - npm test
   artifacts:
     paths:
       - node_modules/
-
-testing_testing:
-  stage: test
-  script: npm test
 
 production:
   type: deploy
