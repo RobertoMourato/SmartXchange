@@ -7,20 +7,20 @@ const emailService = require('../emailService/emailService');
   {"invitedBy:"",
     email,""}
   */
- 
+
 exports.inviteManager = async function (req, res) {
     try {
         console.log(req.body)
 
         let results = await inviteRep.inviteManager(req, res);
 
-        let emailInvite = emailService.sendManagerInvite(req, res);
+        emailService.sendManagerInvite(req, res);
 
-        res.json(emailInvite);
+        return res
     }
     catch (e) {
         console.log(e);
-        res.sendStatus(500);
+       return res.sendStatus(500);
     }
 }
 
@@ -30,12 +30,12 @@ exports.inviteUser = async function (req, res) {
 
         let results = await inviteRep.inviteUser(req, res);
 
-        let emailInvite = emailService.sendPlayerInvite(req, res)
+         emailService.sendPlayerInvite(req, res)
 
-        res.json(results);
+        return res
     }
     catch (e) {
         console.log(e);
-        res.sendStatus(500);
+       return res.sendStatus(500);
     }
 }
