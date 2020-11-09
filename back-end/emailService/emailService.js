@@ -1,0 +1,51 @@
+var nodemailer = require('nodemailer');
+
+var transport = nodemailer.createTransport({
+    host: "smtp.mailtrap.io",
+    port: 2525,
+    auth: {
+        user: "4ce38048cf0094",
+        pass: "2231b507a9f3e9"
+    }
+});
+
+var mailOptions = {
+    from: 'from@example.com',
+    subject: 'Join SmartXChange Now!',
+};
+
+exports.sendManagerInvite = function (req, res) {
+
+
+    mailOptions.text= 'Welcome!\nYou have been invited to be a manager for SmartXchange. From now on you can invite players yourself and create/control competitions at your desire!\nJoin here:'
+    mailOptions.to = req.body.email;
+
+    // url for invite must be in request
+    mailOptions.text= mailOptions.text.concat('www.invite.pt');
+
+    transport.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return res.status(400).send("Error! Something went wrong with the invitation!");
+        }
+        console.log('Email sent: ' + info.response);
+        return res.status(200).send("Invite was sent succesfully!")
+    });
+};
+
+
+exports.sendPlayerInvite = function (req, res) {
+
+    mailOptions.text= 'Welcome!\nYou have been invited to play SmartXchange. From now on you can !\n'
+    mailOptions.to = req.body.email;
+    
+    // url for invite must be in request
+    mailOptions.text= mailOptions.text.concat('www.invite.pt');
+
+    transport.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return res.status(400).send("Error! Something went wrong with the invitation!");
+        }
+        console.log('Email sent: ' + info.response);
+        return res.status(200).send("Invite was sent succesfully!")
+    });
+};
