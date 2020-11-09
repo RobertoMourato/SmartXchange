@@ -38,7 +38,7 @@ exports.addCompetition = async function(req, res){
 exports.toggleCompetition = async function(req, res){
     try {
         console.log(req.body)
-        let results = await competitionRepository.startCompetition(req,res);
+        let results = await competitionRepository.toggleCompetition(req,res);
         res.json(results);
     }
     catch (e) {
