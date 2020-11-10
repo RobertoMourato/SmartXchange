@@ -1,24 +1,31 @@
 
 const { response } = require('../index.js');
 const models = require('../models');
+const tenantRep = require('../repository/tenantRepository');
 
 module.exports = {
     /*
     Body:
-    {"invitedBy:""}
+    {"email":"",
+    "invitedBy:""}
     */
     async inviteManager(req, res) {
 
-        const Tenant = models.Tenant.findByPk(req.body.invitedBy);
-        if (Tenant) {
-            try {
-                const invite = await models.Invite.create({invitedBy:req.body.invitedBy, isManager:true, competitionId:null,isValid:true});
+        var tenant = await tenantRep.getTenantByUsername(req.body.invitedBy);
 
-                res.status(200).json(invite)
+        if (tenant) {
+            try {
+                const invite = await models.Invite.create({ invitedBy: tenant.id, isManager: true, competitionId: null, email: req.body.email, isValid: true });
+
+                return models.Invite.build(invite.dataValues);
             } catch (error) {
+                console.log(error)
+                return null;
                 res.status(400).json(error);
             }
         } else {
+            console.log(tenant);
+            return null;
             res.status(400).json("Error! This SuperAdmin doesn't exist!");
 
 
@@ -27,26 +34,40 @@ module.exports = {
 
     /*
   Body:
-  {"invitedBy:"",
+  {"email":""
+  "invitedBy:"",
   "competitionId:"",}
   */
     async inviteUser(req, res) {
+        try {
+            var tenant = await tenantRep.getTenantByUsername(req.body.invitedBy);
+            const competition = await models.Competition.findByPk(req.body.competitionId);
 
-        const Tenant = models.Tenant.findByPk(req.body.invitedBy);
-      //const competition = models.Competition.findByPk(req.body.competitionId);
-        
-      if (Tenant) {
-          //if(competition){
-            try {
-               // const invite = await models.Invite.create({invitedBy:req.body.invitedBy, isManager:false, competitionId:req.body.competitionId,isValid:true});
+            if (tenant != null) {
+                if (competition != null) {
+                    try {
+                        const invite = await models.Invite.create({ invitedBy: tenant.id, isManager: false, competitionId: competition.dataValues.id, email: req.body.email, isValid: true });
+                        console.log(invite);
+                        return models.Invite.build(invite.dataValues);
 
-                res.status(200).json("Invite was created!")
-            } catch (error) {
-                res.status(400).json(error);
+                    } catch (error) {
+                        console.log(error);
+                        return null;
+                    }
+                } else {
+                    console.log('ee')
+                    //  res.json("Error! Invalid competition!");
+                    return null;
+                }
+            } else {
+                console.log('bb')
+                //res.json("Error! This Manager doesn't exist!");
+                return null;
             }
-            //} else{ res.status(400).json("Error! Invalid competition!");}
-        } else {
-            res.status(400).json("Error! This Manager doesn't exist!");
+
+        } catch (error) {
+
+            res.status(400).json(error);
         }
 
     }

@@ -14,38 +14,46 @@ var mailOptions = {
     subject: 'Join SmartXChange Now!',
 };
 
-exports.sendManagerInvite = function (req, res) {
+exports.sendManagerInvite = function (req, invite) {
 
 
-    mailOptions.text= 'Welcome!\nYou have been invited to be a manager for SmartXchange. From now on you can invite players yourself and create/control competitions at your desire!\nJoin here:'
+    mailOptions.text = 'Welcome!\nYou have been invited to be a manager for SmartXchange. From now on you can invite players yourself and create/control competitions at your desire!\nJoin here:'
     mailOptions.to = req.body.email;
 
     // url for invite must be in request
-    mailOptions.text= mailOptions.text.concat('www.invite.pt');
+    mailOptions.text = mailOptions.text.concat('www.invite.pt$invite=', invite);
 
     transport.sendMail(mailOptions, (error, info) => {
         if (error) {
-          return res.status(400).send("Error! Something went wrong with the invitation!");
+            return 400;
+            return res.status(400).send("Error! Something went wrong with the invitation!");
         }
+
         console.log('Email sent: ' + info.response);
-        return res.status(200).send("Invite was sent succesfully!")
+
     });
+    return 200;
+    return res.status(200).send("Invite was sent succesfully!")
 };
 
 
-exports.sendPlayerInvite = function (req, res) {
+exports.sendPlayerInvite = async function (req, invite) {
 
-    mailOptions.text= 'Welcome!\nYou have been invited to play SmartXchange. Join the session before it starts!\nYou can start here:'
+    mailOptions.text = 'Welcome!\nYou have been invited to play SmartXchange. Join the session before it starts!\nYou can start here:'
     mailOptions.to = req.body.email;
-    
-    // url for invite must be in request
-    mailOptions.text= mailOptions.text.concat('www.invite.pt');
+
+    // url for invite must be in request, AINDA FALTA FAZER O ID COM GUUID
+    mailOptions.text = mailOptions.text.concat('www.invite.pt$invite=', invite);
 
     transport.sendMail(mailOptions, (error, info) => {
         if (error) {
-          return res.status(400).send("Error! Something went wrong with the invitation!");
+            //res.send("Error! Something went wrong with the invitation!");
+            return 400;
         }
         console.log('Email sent: ' + info.response);
-        return res.status(200).send("Invite was sent succesfully!")
+
+        // res.json("Invite was sent succesfully!")
+
     });
+    return 200;
 };

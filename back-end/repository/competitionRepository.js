@@ -1,5 +1,6 @@
 const { response } = require('../index.js');
 const models = require('../models');
+const tenantTypeRepository = require('./tenantTypeRepository.js');
 
 module.exports = {
   async index(req, res) {
@@ -11,6 +12,12 @@ module.exports = {
         res.status(400).send(error)
       })
 
+  },
+
+  async getById(id){
+    const tenant = await models.Tenant.findByPk(req.query.id);
+
+    return new Tenant(tenant);
   },
 
   async addCompetition(req, res) {

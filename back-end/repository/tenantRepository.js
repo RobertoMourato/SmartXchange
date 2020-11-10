@@ -1,5 +1,7 @@
 const { response } = require('../index.js');
 const models = require('../models');
+const Tenant = require('../models/tenant')
+
 
 module.exports = {
   async index(req, res) {
@@ -14,6 +16,17 @@ module.exports = {
 
   },
 
+  async getTenantByUsername(username) {
+
+    const tenant = await models.Tenant.findOne({ where: { username: username } });
+    if (tenant != null) {
+      return models.Tenant.build(tenant.dataValues);
+    } else {
+      return null;
+    }
+
+  },
+
   async addTenant(req, res) {
     console.log(req.body)
 
@@ -24,7 +37,7 @@ module.exports = {
       try {
         const typeId = tenantType.dataValues.id;
         console.log(typeId)
-        const tenant = await models.Tenant.create({ name:name, username:username, email:email, password:password, tenanttype_id:typeId });
+        const tenant = await models.Tenant.create({ name: name, username: username, email: email, password: password, tenanttype_id: typeId });
         res.status(200).json(tenant)
       } catch (error) {
         res.status(400).json(error);
