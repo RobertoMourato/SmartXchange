@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     invitedBy: DataTypes.INTEGER,
     isManager: DataTypes.BOOLEAN,
     competitionId: DataTypes.INTEGER,
+    email: DataTypes.STRING,
     isValid: DataTypes.BOOLEAN
   }, {
     sequelize,
