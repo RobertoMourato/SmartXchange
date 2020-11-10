@@ -46,6 +46,15 @@ module.exports = {
       res.status(400).json("No Tenant Type associated");
     }
 
+  },
+
+  async getByEmail(email) {
+
+    const tenant = await models.Tenant.findOne({ where: { email: email } });
+
+    return models.Tenant.build(tenant.dataValues);
+
   }
+
 
 }

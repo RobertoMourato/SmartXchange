@@ -10,6 +10,8 @@ var tenantTypesRouter = require('./routes/tenantTypeRoutes');
 var tenantRouter =  require('./routes/tenantRoutes');
 var companyRouter = require("./routes/companyRoutes");
 var competitionRouter = require("./routes/competitionRoutes");
+var authRouter = require('./routes/AuthRoutes')
+
 app.get("/", (req, res) => {
     res.status(200).send("Hello World!");
 })
@@ -30,5 +32,6 @@ app.use('/tenanttypes',tenantTypesRouter);
 app.use('/tenants',tenantRouter);
 app.use('/competition',competitionRouter);
 app.use('/companies', companyRouter);
+app.use('/login', authRouter);
 
 module.exports = app;
