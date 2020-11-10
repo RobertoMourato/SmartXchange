@@ -18,7 +18,8 @@ export class CreateManagerPopupComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(CreateManagerPopupDialogComponent, {
-      width: '250px'
+      height: '350px',
+      width: '600px',
     });
 
     dialogRef.afterClosed().subscribe(result => {

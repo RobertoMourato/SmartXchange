@@ -6,7 +6,6 @@ p {
 .button1 {
   background-color: white;
   color: #06b164;
-
   font-weight: bold;
 }
 
@@ -22,4 +21,16 @@ p {
   color: white;
   float: left;
   font-weight: bold;
+}
+
+.popup {
+  padding: 15px;
+  border: 1px;
+  width: 80%;
+}
+
+.popup-dialog .mat-dialog-content {
+  background-color: whitesmoke;
+  width: 250px;
+  height: 250px
 }

@@ -64,6 +64,40 @@
         <td>{{mgr.name}}</td>
         <td>{{mgr.email}}</td>
       </tr>
+
+
     </tbody>
   </table>
 </table>
+
+<!--
+<table mat-table [dataSource]="dataSource" multiTemplateDataRows
+       class="mat-elevation-z8">
+  <ng-container matColumnDef="{{column}}" *ngFor="let column of headElements">
+    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+    <td mat-cell *matCellDef="let manager"> {{manager[column]}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let manager" [attr.colspan]="headElements.length">
+      <div class="example-manager-detail"
+           [@detailExpand]="manager == expandedElement ? 'expanded' : 'collapsed'">
+        <div class="example-manager-diagram">
+          <div class="example-manager-id"> {{manager.id}} </div>
+          <div class="example-manager-name"> {{manager.name}} </div>
+          <div class="example-manager-email"> {{manager.email}} </div>
+        </div>
+        <button mdbBtn color="green" rounded="true" size="sm" type="button" class="m-0" float="left" mdbWavesEffect>Edit</button>
+        <button mdbBtn color="red" rounded="true" size="sm" type="button" class="m-0" float="right" mdbWavesEffect>Delete</button>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="headElements"></tr>
+  <tr mat-row *matRowDef="let manager; columns: headElements;"
+      class="example-manager-row"
+      [class.example-expanded-row]="expandedElement === manager"
+      (click)="expandedElement = manager">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+</table>-->

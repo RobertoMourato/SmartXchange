@@ -17,6 +17,8 @@ import { MatInputModule } from '@angular/material/input';
 import { CreateManagerPopupComponent } from './create-manager-popup/create-manager-popup.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
