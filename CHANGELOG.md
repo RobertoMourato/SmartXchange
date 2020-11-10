@@ -40,7 +40,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Sprint 2 - 2020-11-10 
 ### Added 
-
 - Create queries to populate Tenants. #66
 - Create queries to populate User. #67
 - Created queries to populate Comptetitions. #68
@@ -48,6 +47,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Created main nav-bar. #65
 - Added option to invite users and managers. #75
 - Created method to autenticate users. #76
+- Created page to list managers. #55
+- Added invite manager pop-up. #73
 
 ### Changed
 - Updated database attributes and tables. #71
