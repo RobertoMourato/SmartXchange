@@ -2,6 +2,12 @@
 const {
   Model
 } = require('sequelize');
+
+var TokenGenerator = require( 'token-generator' )({
+  salt: '9JqAgBqDMq2hfiF',
+  timestampMap: 'XcWkdr4ayR', // 10 chars array for obfuscation proposes
+});
+
 module.exports = (sequelize, DataTypes) => {
   class Invite extends Model {
     /**
@@ -14,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Invite.init({
+    token: DataTypes.STRING,
     invitedBy: DataTypes.INTEGER,
     isManager: DataTypes.BOOLEAN,
     competitionId: DataTypes.INTEGER,
@@ -21,6 +28,11 @@ module.exports = (sequelize, DataTypes) => {
     isValid: DataTypes.BOOLEAN
   }, {
     sequelize,
+    hooks: {
+      beforeCreate: (invite) => {
+        invite.token = TokenGenerator.generate();
+      }
+    },
     modelName: 'Invite',
   });
   return Invite;

@@ -11,12 +11,10 @@ const { sequelize } = require('sequelize');
 
 exports.inviteManager = async function (req, res) {
     try {
-        console.log(req.body)
 
         let invite = await inviteRep.inviteManager(req, res);
-        console.log(invite);
         if (invite) {
-            const emailstatus = await emailService.sendManagerInvite(req, invite.id);
+            const emailstatus = await emailService.sendManagerInvite(req, invite.dataValues.token);
 
             if (emailstatus == 200) {
                 return res.status(emailstatus).json("Invite sent succesfully");
@@ -47,7 +45,7 @@ exports.inviteManager = async function (req, res) {
 exports.inviteUser = async function (req, res) {
     //  const t = await sequelize.transaction();
     try {
-        console.log(req.body)
+       // console.log(req.body)
 
         let invite = await inviteRep.inviteUser(req, res);
         if (invite) {

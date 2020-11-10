@@ -8,8 +8,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      token: {
+        allowNull:false,
+        type:Sequelize.STRING
+      },
       invitedBy: {
- 
+
         type: Sequelize.INTEGER,
         references: {
           model: {
@@ -17,7 +21,7 @@ module.exports = {
           },
           key: 'id'
         },
-        allowNull:false
+        allowNull: false
       },
       IsManager: {
         allowNull: false,
@@ -37,9 +41,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.BOOLEAN
       },
-      email:{
-        allowNull:false,
-        type:Sequelize.STRING
+      email: {
+        allowNull: false,
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -57,6 +61,6 @@ module.exports = {
 };
 
 
-/* 
+/*
 type: Sequelize.UUID,
         defaultValue: require('sequelize').UUIDV4, */
