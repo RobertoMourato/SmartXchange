@@ -43,7 +43,7 @@ _**Example:**_
 
 Added "How to contribute" and "Commit template" sections to readme file so that every contributer knows what to do when they want to summit their changes and so that everyone commits with the same message format.
 
-##How to start
+## How to start
 
 First you need to download all the packages used in this project. For this you must use these commands:
 ```commmand
