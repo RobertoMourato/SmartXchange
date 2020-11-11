@@ -11,5 +11,4 @@ export class ManagerHomepageBissunessComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

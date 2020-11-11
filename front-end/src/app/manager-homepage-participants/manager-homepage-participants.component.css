@@ -1,0 +1,40 @@
+.container{
+    background-color: #E8E8E8;
+    padding: 1em;
+    padding-bottom: 3em;
+    border-radius: 1em;
+}
+.title{
+    color:#06B164;
+    font-size: 2em;
+}
+button{
+    display: inline-block;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin: 0;
+    text-decoration: none;
+    background: #B10606;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background 250ms ease-in-out, 
+                transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+button:hover,
+button:focus {
+    background:#cc0808;
+}
+
+button:focus {
+    outline: transparent;
+}
+
+button:active {
+    transform: scale(0.99);
+}

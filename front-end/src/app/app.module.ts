@@ -14,6 +14,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { ManagerHomepageComponent } from './manager-homepage/manager-homepage.component';
 import { ManagerHomepageCompetitionComponent } from './manager-homepage-competition/manager-homepage-competition.component';
 import { ManagerHomepageBissunessComponent } from './manager-homepage-bissuness/manager-homepage-bissuness.component';
+import { ManagerHomepageParticipantsComponent } from './manager-homepage-participants/manager-homepage-participants.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ManagerHomepageBissunessComponent } from './manager-homepage-bissuness/
     SuperadminNavComponent,
     ManagerHomepageComponent,
     ManagerHomepageCompetitionComponent,
-    ManagerHomepageBissunessComponent
+    ManagerHomepageBissunessComponent,
+    ManagerHomepageParticipantsComponent
   ],
   imports: [
     BrowserModule,
