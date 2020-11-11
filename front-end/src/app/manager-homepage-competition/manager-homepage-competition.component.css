@@ -2,9 +2,11 @@
     background-color: #E8E8E8;
     padding: 1em;
     padding-bottom: 3em;
+    border-radius: 1em;
 }
 .title{
     color:#06B164;
+    font-size: 2em;
 }
 input{
     border-color: transparent;
@@ -52,6 +54,7 @@ button:active {
 p{
     color:black;
     font-weight: bold;
+    font-size: 0.9rem;
 }
 .participants{
     text-align: left;

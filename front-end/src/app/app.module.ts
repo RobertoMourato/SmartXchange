@@ -13,13 +13,15 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ManagerHomepageComponent } from './manager-homepage/manager-homepage.component';
 import { ManagerHomepageCompetitionComponent } from './manager-homepage-competition/manager-homepage-competition.component';
+import { ManagerHomepageBissunessComponent } from './manager-homepage-bissuness/manager-homepage-bissuness.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SuperadminNavComponent,
     ManagerHomepageComponent,
-    ManagerHomepageCompetitionComponent
+    ManagerHomepageCompetitionComponent,
+    ManagerHomepageBissunessComponent
   ],
   imports: [
     BrowserModule,
