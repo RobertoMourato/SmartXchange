@@ -10,11 +10,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { ManagerHomepageComponent } from './manager-homepage/manager-homepage.component';
+import { ManagerHomepageCompetitionComponent } from './manager-homepage-competition/manager-homepage-competition.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SuperadminNavComponent
+    SuperadminNavComponent,
+    ManagerHomepageComponent,
+    ManagerHomepageCompetitionComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +29,8 @@ import { MatListModule } from '@angular/material/list';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
