@@ -4,7 +4,7 @@ pool = mysql.createPool({
 password : 'SmartXchange',
 user: 'SmartXChange',
 database: 'mydb',
-host: 'localhost',
+host: 'database',
 port: '3306' 
 });
 
