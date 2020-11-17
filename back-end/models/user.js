@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   User.init({
-    userId: DataTypes.INTEGER,
     tenantId: DataTypes.INTEGER,
     name: DataTypes.STRING,
     username: DataTypes.STRING,
