@@ -7,5 +7,6 @@ var inviteControlller = require('../controllers/inviteController');
 router.get('/',tenantController.getAllTenants);
 router.post('/',tenantController.addTenant);
 router.post('/invite',inviteControlller.inviteManager);
+router.put('/update', tenantController.updateTenant)
 
 module.exports = router;

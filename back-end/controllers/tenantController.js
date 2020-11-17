@@ -15,7 +15,7 @@ exports.getAllTenantTypes = async function (req, res, next) {
 exports.getAllTenants = async function (req, res, next) {
     try {
         let results = await tenantRepository.index(req,res);
-        res.json(results);
+        res.json();
     }
     catch (e) {
         console.log(e);
@@ -25,13 +25,33 @@ exports.getAllTenants = async function (req, res, next) {
 
 exports.addTenant = async function(req, res){
     try {
-        console.log(req.body)
+       // console.log(req.body)
         let results = await tenantRepository.addTenant(req,res);
         res.json(results);
     }
     catch (e) {
         console.log(e);
         res.sendStatus(500);
+    }
+}
+
+exports.updateTenant = async function(req,res){
+    try{
+      await tenantRepository.updateTenant(req,res);
+      res.json("Tenant updated succesfully!");
+    }
+    catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+
+}
+
+exports.updateTenant = async function(req,res){
+    try{
+        
+    }catch{
+
     }
 }
 
