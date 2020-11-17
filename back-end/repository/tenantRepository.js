@@ -54,41 +54,20 @@ module.exports = {
   },
 
   async updateTenant(req, res) {
+    var { username, name, email, password } = req.body;
 
-    var { username, name, newUsername, email, password } = req.body;
-    constTenant = await models.Tenant.findOne({ where: { username: username } });
-    tenantNewUsername = await models.Tenant.findOne({ where: { username: newUsername } });
+    const salt = bcrypt.genSaltSync();
+    var EncryptedPassword = bcrypt.hashSync(password, salt);
 
-    if (constTenant) {
-      if (!tenantNewUsername) {
-        name = (name != undefined ? name : constTenant.name);
-        email = (email != undefined ? email : constTenant.email);
-        password = (password != undefined ? password : constTenant.name);
-        newUsername = (password != undefined ? newUsername : constTenant.username);
+    const updated = await models.Tenant.update({
+      username: username,
+      name: name,
+      email: email,
+      password: EncryptedPassword
+    }, {
+      where: { username: username }
+    })
 
-        if (name.split() != "" && email.trim("") && password.trim("")) {
-
-          const salt = bcrypt.genSaltSync();
-          var EncryptedPassword = bcrypt.hashSync(password, salt);
-
-          const updated = await models.Tenant.update({
-            username: newUsername,
-            name: name,
-            email: email,
-            password: EncryptedPassword
-          }, {
-            where: { username: username }
-          })
-          res.status(200);
-        } else {
-          res.status(400).json("Invaid arguments!");
-        }
-      } else {
-        res.status(400).json("New username is unavailable!");
-      }
-    } else {
-      res.status(400).json("Tenant not found!");
-    }
   },
 
 
