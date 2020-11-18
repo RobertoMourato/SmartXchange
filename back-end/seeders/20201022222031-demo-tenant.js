@@ -10,6 +10,14 @@ module.exports = {
       tenanttype_id: '2', 
       createdAt: new Date(),
       updatedAt: new Date()
+    },{
+      name: 'Vinicius Furlan',
+      username: 'mr.furlan98',
+      email: 'mr.furlan98@gmail.com',
+      password: '12345',
+      tenanttype_id: '2', 
+      createdAt: new Date(),
+      updatedAt: new Date()
     }]);
   },
 
