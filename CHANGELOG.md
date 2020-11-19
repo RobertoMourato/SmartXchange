@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 # Example
 
-## Sprint X - YYYY-DD-MM 
+## Sprint X - YYYY-MM-DD 
 ### Added 
 - New feature. #[issue number] 
 
@@ -36,5 +36,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Updated interface mockups #61
+
+
+## Sprint 2 - 2020-11-10 
+In this sprint we established the final version of the database model aproved by the PO. We have the sequelize migrations and nodeJS models for the two types of tenants (super-admin and manager), users, company and competition. Users can now authenticate themselfs. There is the possibility for managers to invite users by email. For the front-end we developed pages related to the Super-Admin interface and default Nav bar. In terms of Security we fixed the pipeline so it's no longer broken.
+
+### Added 
+- Create queries to populate Tenants. #66
+- Create queries to populate User. #67
+- Created queries to populate Comptetitions. #68
+- Created queries to populate Companies. #70
+- Created main nav-bar. #65
+- Added option to invite users and managers. #75
+- Created method to autenticate users. #76
+- Created page to list managers. #55
+- Added invite manager pop-up. #73
+
+### Changed
+- Updated database attributes and tables. #71
+
+### Fixed
+- Fixed pipeline (ENOENT err). #77 
+
+
 
 

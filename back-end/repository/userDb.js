@@ -22,5 +22,22 @@ module.exports = {
       res.status(400).json("No User Type associated");
     }
 
+  },
+
+  
+  async getByEmail(email) {
+
+    const user = await models.User.findOne({ where: { email: email } });
+
+    return models.User.build(user.dataValues);
+
+  },
+
+  async getUserTypeById(id){
+    
+    const usertype = await models.UserType.findByPk(id);
+
+    return models.UserType.build(usertype.dataValues);
+
   }
 }

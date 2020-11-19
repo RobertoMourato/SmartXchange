@@ -13,7 +13,8 @@ module.exports = {
           model: {
             tableName: 'tenants'
           },
-          key: 'id'
+          key: 'id',
+          allowNull: false
         },
         type: Sequelize.INTEGER
       },
