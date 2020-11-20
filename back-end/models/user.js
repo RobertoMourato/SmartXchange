@@ -12,10 +12,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.UserType, {foreignKey:'userTypeId'})
+      this.hasMany(models.Order, {foreignKey:'playerId'});
     }
   };
   User.init({
-    userId: DataTypes.INTEGER,
     tenantId: DataTypes.INTEGER,
     name: DataTypes.STRING,
     username: DataTypes.STRING,
