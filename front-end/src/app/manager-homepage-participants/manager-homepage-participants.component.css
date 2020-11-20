@@ -6,7 +6,7 @@
 }
 .title{
     color:#06B164;
-    font-size: 2em;
+    font-size: 1.8rem;
 }
 button{
     
@@ -49,6 +49,7 @@ button:active {
 }
 th{
     height: 2rem;
+    text-align: left;
 }
 td{
     margin:0;

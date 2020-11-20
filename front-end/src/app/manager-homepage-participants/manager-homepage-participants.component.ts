@@ -14,7 +14,7 @@ export class ManagerHomepageParticipantsComponent implements OnInit {
     {id: 4, name: 'André Arrojado', role: 'Investor'},
   ];
 
-  headElements = ['ID', 'Name', 'role'];
+  headElements = ['#', 'Name', 'Role'];
 
   dataSource = ELEMENT_DATA;
   expandedElement: Participants;
