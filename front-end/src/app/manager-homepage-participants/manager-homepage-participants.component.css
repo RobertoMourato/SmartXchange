@@ -2,17 +2,19 @@
     background-color: #E8E8E8;
     padding: 1em;
     padding-bottom: 3em;
-    border-radius: 1em;
+    height:100%;
 }
 .title{
     color:#06B164;
     font-size: 2em;
 }
 button{
-    display: inline-block;
+    
+    position: absolute;
+    right: 0;
+    top: 0;
     border: none;
     padding: 0.5rem 1rem;
-    margin: 0;
     text-decoration: none;
     background: #B10606;
     color: #ffffff;
@@ -37,4 +39,17 @@ button:focus {
 
 button:active {
     transform: scale(0.99);
+}
+.tableHead{
+    background-color: #343434;
+}
+.tableContent{
+    background-color: #FFFFFF;
+    color: #000000;
+}
+th{
+    height: 2rem;
+}
+td{
+    margin:0;
 }

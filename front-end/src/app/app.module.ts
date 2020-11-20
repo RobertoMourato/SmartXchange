@@ -13,7 +13,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ManagerHomepageComponent } from './manager-homepage/manager-homepage.component';
 import { ManagerHomepageCompetitionComponent } from './manager-homepage-competition/manager-homepage-competition.component';
-import { ManagerHomepageBissunessComponent } from './manager-homepage-bissuness/manager-homepage-bissuness.component';
+import { ManagerHomepageBusinessComponent } from './manager-homepage-business/manager-homepage-business.component';
 import { ManagerHomepageParticipantsComponent } from './manager-homepage-participants/manager-homepage-participants.component';
 
 @NgModule({
@@ -22,7 +22,7 @@ import { ManagerHomepageParticipantsComponent } from './manager-homepage-partici
     SuperadminNavComponent,
     ManagerHomepageComponent,
     ManagerHomepageCompetitionComponent,
-    ManagerHomepageBissunessComponent,
+    ManagerHomepageBusinessComponent,
     ManagerHomepageParticipantsComponent
   ],
   imports: [

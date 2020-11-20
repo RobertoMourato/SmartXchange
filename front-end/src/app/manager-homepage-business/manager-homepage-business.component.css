@@ -2,7 +2,7 @@
     background-color: #E8E8E8;
     padding: 1em;
     padding-bottom: 3em;
-    border-radius: 1em;
+    height: 100%;
 }
 .title{
     color:#06B164;
@@ -72,6 +72,7 @@ p{
     height: 25px;
     width: 25px;
     background-color:white;
+    border: 1px #707070 solid;
   }
   
 

@@ -1,17 +1,16 @@
 <div class="container">
     <h1 class= "title">Participants<div> </div></h1>
-    <table mdbTable striped="true">
-        <thead>
+    <table mdbTable striped="true" style="width: 100%;">
+        <thead class="tableHead" style="width:100%">
           <tr>
             <th *ngFor="let head of headElements" scope="col">{{head}} </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="tableContent">
           <tr mdbTableCol *ngFor="let par of Participants">
             <th scope="row">{{par.id}}</th>
             <td>{{par.name}}</td>
-            <td>{{par.role}}</td>
-            <td><button mdbBtn color="red" rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect>Kick</button></td>
+            <td style="position: relative;">{{par.role}}<button mdbBtn color="red" rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect>Kick Player</button></td>
           </tr>
         </tbody>
       </table>
