@@ -11,7 +11,7 @@ module.exports = {
       buyOrderId: {
         references: {
           model: {
-            tableName: 'Order'
+            tableName: 'Orders'
           },
           key: 'id'
         },
@@ -20,7 +20,7 @@ module.exports = {
       sellOrderId: {
         references: {
           model: {
-            tableName: 'Order'
+            tableName: 'Orders'
           },
           key: 'id'
         },
@@ -30,7 +30,7 @@ module.exports = {
         allowNull: false,
         references: {
           model: {
-            tableName: 'Stock'
+            tableName: 'Stocks'
           },
           key: 'id'
         },
