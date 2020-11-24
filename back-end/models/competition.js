@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.Tenant, {foreignKey:'managerId'});
       this.hasMany(models.News, {foreignKey:'competitionId'});
+      this.hasMany(models.PlayerCompetition, {foreignKey:'competitionId'});
     }
   };
   Competition.init({
