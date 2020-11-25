@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.UserType, {foreignKey:'userTypeId'});
 
       this.hasMany(models.Order, {foreignKey:'playerId'});
+      this.hasMany(models.Stock, {foreignKey:'playerId'});
       this.hasMany(models.PlayerCompetition, {foreignKey:'playerId'});
     }
   };
