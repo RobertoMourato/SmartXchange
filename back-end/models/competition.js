@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.Tenant, {foreignKey:'managerId'})
+
+      this.hasMany(models.PlayerCompetition, {foreignKey:'competitionId'});
     }
   };
   Competition.init({
