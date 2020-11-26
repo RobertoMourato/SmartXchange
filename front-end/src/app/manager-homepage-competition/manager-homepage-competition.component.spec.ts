@@ -8,6 +8,7 @@ describe('ManagerHomepageCompetitionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+
       declarations: [ ManagerHomepageCompetitionComponent ]
     })
     .compileComponents();
