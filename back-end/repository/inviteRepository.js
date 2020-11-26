@@ -1,7 +1,7 @@
 
 const { response } = require('../index.js');
 const models = require('../models');
-const tenantRep = require('../repository/tenantRepository');
+const userRep = require('./userRepository');
 
 module.exports = {
     /*
@@ -11,9 +11,9 @@ module.exports = {
     */
     async inviteManager(req, res) {
 
-        var tenant = await tenantRep.getTenantByUsername(req.body.invitedBy);
+        var manager = await userRep.getByUsername(req.body.invitedBy);
 
-        if (tenant) {
+        if (manager) {
             try {
                 const invite = await models.Invite.create({ invitedBy: tenant.id, isManager: true, competitionId: null, email: req.body.email, isValid: true });
 
