@@ -5,13 +5,7 @@ module.exports = {
     return queryInterface.bulkInsert('TenantTypes', [{
       tenantType: 'SuperAdmin',
       createdAt: new Date(),
-      updatedAt: new Date(),
-      isManager: false
-    },{
-      tenantType: 'Manager',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      isManager: true
+      updatedAt: new Date()
     }]);
   },
 
