@@ -15,6 +15,7 @@ import { ManagerHomepageComponent } from './manager-homepage/manager-homepage.co
 import { ManagerHomepageCompetitionComponent } from './manager-homepage-competition/manager-homepage-competition.component';
 import { ManagerHomepageBusinessComponent } from './manager-homepage-business/manager-homepage-business.component';
 import { ManagerHomepageParticipantsComponent } from './manager-homepage-participants/manager-homepage-participants.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,10 @@ import { ManagerHomepageParticipantsComponent } from './manager-homepage-partici
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatGridListModule
+    MatGridListModule,
+    FormsModule,
+    ReactiveFormsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

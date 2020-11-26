@@ -1,11 +1,32 @@
 <div class="container">
-    <h1 class= "title">Competition Settings<div> <p class="participants">{{participants}} participants</p></div></h1>
+    <h1 class="title">Competition Settings<div>
+            <p class="participants">{{participants}} participants</p>
+        </div>
+    </h1>
     <div>
-        <p>Duration <input><button>Prolong Game</button></p> 
-        <p>Refresh rate <input> </p>
-        <p>Initial company value <input></p> 
-        <p>Number of initial stocks<input> </p> 
-        <p>Investor initial cash <input> </p> 
-        <button>Call dividends </button>
+            <div>
+                <label>Duration
+                </label>
+                <input id="duration" type="text" formControlName="duration">
+                <button>Prolong Game</button>
+            </div>
+        <form [formGroup]="competitionForm" (ngSubmit)="onSubmit(competitionForm.value)">
+            
+            <div>
+                <label>Refresh rate</label> <input id="rate" type="text" formControlName="rate">
+            </div>
+            <div>
+                <label>Initial company value </label><input id="companyValue" type="text" formControlName="companyValue">
+            </div>
+            <div>
+                <label>Number of initial stocks</label><input id="stocks" type="text" formControlName="stocks">
+            </div>
+            <div>
+                <label>Investor initial cash </label><input id="cash" type="text" formControlName="cash">
+            </div>
+            <button>Call dividends </button>
+            <button class="button" type="submit">Create Competition </button>
+
+        </form>
     </div>
 </div>

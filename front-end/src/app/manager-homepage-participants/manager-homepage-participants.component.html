@@ -1,6 +1,7 @@
 <div class="container">
-    <h1 class= "title">Participants<div> </div></h1>
-    <table mdbTable striped="true" style="width: 100%; border-collapse:collapse;">
+    <h1 class= "title">Participants</h1>
+    <div>
+      <table mdbTable striped="true" style="width: 100%; border-collapse:collapse;">
         <thead class="tableHead" style="width:100%">
           <tr>
             <th *ngFor="let head of headElements" scope="col">{{head}} </th>
@@ -14,4 +15,6 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    
 </div>

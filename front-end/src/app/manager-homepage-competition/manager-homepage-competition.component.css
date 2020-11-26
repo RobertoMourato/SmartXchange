@@ -4,6 +4,9 @@
     padding-bottom: 3em;
     height: 100%;
 }
+div{
+    margin-bottom: 1em;
+}
 .title{
     color:#06B164;
     font-size:1.8rem;
@@ -11,8 +14,8 @@
 input{
     border-color: transparent;
     border-radius: 7px;
+    width: 10em;
     text-align: center;
-    margin-right: 0.3rem;
 }
 input:active{
     text-align: center;
@@ -51,11 +54,11 @@ button:focus {
 button:active {
     transform: scale(0.99);
 }
-p{
+label{
     color:black;
     font-weight: bold;
     font-size: 0.9rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 .participants{
     text-align: left;
