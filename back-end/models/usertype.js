@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   UserType.init({
     userType: DataTypes.STRING,
-    isEntrepreneur: DataTypes.BOOLEAN
+    isManager: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'UserType',

@@ -15,8 +15,9 @@ module.exports = {
     if (userType) {
       const manager = await models.User.findByPk(managerId);
       if (manager) {
-        if (UserType.dataValues.isManager) {
+        if (userType.dataValues.isManager) {
           try {
+            const typeId = userType.dataValues.id;
             const user = await models.User.create({ name: name, username: username, email: email, password: password, managerId: manager.dataValues.id, tenantId: manager.dataValues.tenantId, userTypeId: typeId });
             res.status(200).json(user)
           } catch (error) {
