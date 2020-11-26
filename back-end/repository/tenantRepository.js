@@ -2,7 +2,7 @@ const { response } = require('../index.js');
 const models = require('../models');
 const Tenant = require('../models/tenant')
 
-const bcrypt = require('bcryptjs');
+
 
 
 module.exports = {

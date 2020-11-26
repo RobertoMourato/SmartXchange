@@ -1,6 +1,8 @@
+const { updateUser } = require('../controllers/userController.js');
 const { response } = require('../index.js');
 const models = require('../models');
 const { get } = require('../routes/userRoutes.js');
+const bcrypt = require('bcryptjs');
 
 module.exports = {
 
@@ -65,8 +67,11 @@ module.exports = {
   async getByUsername(username) {
 
     const user = await models.User.findOne({ where: { username: username } });
-
-    return models.User.build(user.dataValues);
+    if(user){
+      console.log(user);
+      return models.User.build(user.dataValues);
+    }
+    return null;
 
   },
 
@@ -79,14 +84,14 @@ module.exports = {
   },
 
   
-  async updateTenant(req, res) {
-    var { username, name, email, password } = req.body;
+  async updateUser(req, res) {
+    var {username, newUsername, name, email, password } = req.body;
 
     const salt = bcrypt.genSaltSync();
     var EncryptedPassword = bcrypt.hashSync(password, salt);
 
     const updated = await models.User.update({
-      username: username,
+      username: newUsername,
       name: name,
       email: email,
       password: EncryptedPassword

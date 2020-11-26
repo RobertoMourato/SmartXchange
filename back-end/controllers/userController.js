@@ -42,7 +42,7 @@ exports.deleteUser = async function(req,res){
        res.sendStatus(200);
     }catch(e){
       console.log(e);
-      res.sendStatus(500);
+      res.sendStatus(400);
     }
 }
 
@@ -51,19 +51,20 @@ exports.updateUser = async function(req,res){
     try{
         var usernewUsername;
         var { username, name, newUsername, email, password } = req.body;
-        constTenant = await dbUser.getByUsername(username);
+        constUser = await dbUser.getByUsername(username);
 
         if(newUsername !=undefined){
           usernewUsername = await dbUser.getByUsername(newUsername);
         } 
-        if (constTenant) {
+        if (constUser) {
           if (!usernewUsername) {
-            req.body.name = (name != undefined ? name : constTenant.name);
-            req.body.email = (email != undefined ? email : constTenant.email);
-            req.body.password = (password != undefined ? password : constTenant.name);
-            req.body.username = (newUsername != undefined ? newUsername : constTenant.username);
+            
+            req.body.name = (name != undefined ? name : constUser.name);
+            req.body.email = (email != undefined ? email : constUser.email);
+            req.body.password = (password != undefined ? password : constUser.name);
+            req.body.newUsername = (newUsername != undefined ? newUsername : constUser.username);
             if (name.trim() != "" && email.trim()!="" && password.trim()!="" && username.trim()!="") {
-              dbUser.u(req,res);
+              await dbUser.updateUser(req,res);
               res.status(200).json("Tenant updated succesfully!");;
             } else {
               res.status(400).json("Invalid arguments!");
