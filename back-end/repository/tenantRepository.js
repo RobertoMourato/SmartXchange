@@ -9,6 +9,7 @@ module.exports = {
   async index(req, res) {
     console.log("rep");
     var tenant = models.Tenant;
+   // await tenant.findAll({include : ["competitions", "tenantType"]})
     await tenant.findAll().then(tenants => {
       res.status(200).json(tenants)
     })
@@ -53,23 +54,6 @@ module.exports = {
     }
   },
 
-  async updateTenant(req, res) {
-    var { username, name, email, password } = req.body;
-
-    const salt = bcrypt.genSaltSync();
-    var EncryptedPassword = bcrypt.hashSync(password, salt);
-
-    const updated = await models.Tenant.update({
-      username: username,
-      name: name,
-      email: email,
-      password: EncryptedPassword
-    }, {
-      where: { username: username }
-    })
-
-  },
-
 
   async getByEmail(email) {
 
@@ -78,6 +62,4 @@ module.exports = {
     return models.Tenant.build(tenant.dataValues);
 
   }
-
-
 }
