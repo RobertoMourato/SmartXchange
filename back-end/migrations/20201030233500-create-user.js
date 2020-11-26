@@ -18,6 +18,17 @@ module.exports = {
         },
         type: Sequelize.INTEGER
       },
+      managerId: {
+        references:{
+          model: {
+            tableName: 'users'
+          },
+          key: 'id',
+          allowNull: true,
+          onDelete:'SET NULL'
+        },
+        type: Sequelize.INTEGER
+      },
       name: {
         type: Sequelize.STRING
       },
