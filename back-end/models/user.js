@@ -12,15 +12,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.UserType, {foreignKey:'userTypeId'});
+      
+      //manager de um user
+      this.hasMany(models.User, {foreignKey:'managerId', as:'players'})
+      this.belongsTo(models.User,{foreignKey:'managerId', as:'manager'})
 
       this.hasMany(models.Order, {foreignKey:'playerId'});
       this.hasMany(models.News, {foreignKey:'userId'});
       this.hasMany(models.Stock, {foreignKey:'playerId'});
       this.hasMany(models.PlayerCompetition, {foreignKey:'playerId'});
+
+      this.hasMany(models.Competition, {foreignKey:'managerId', as:'competitions'})
     }
   };
   User.init({
     tenantId: DataTypes.INTEGER,
+    managerId:DataTypes.INTEGER,
     name: DataTypes.STRING,
     username: DataTypes.STRING,
     email: DataTypes.STRING,
