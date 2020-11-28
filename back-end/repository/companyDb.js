@@ -7,13 +7,6 @@ module.exports = {
 
     const { playerCompetitionId,
             companyName,
-            companyValuePropositions, 
-            companyCostumerSegments, 
-            companyCostumerRelationships, 
-            companyChannels, 
-            companyCostStructure, 
-            companyKeyPartners, 
-            companyKeyResources, 
             companyWebsiteURL, 
             companyShortPitch, 
             companyCurrentStockPrice } = req.body;
@@ -22,13 +15,6 @@ module.exports = {
       try {
         const company = await models.Company.create({ playerCompetitionId:playerCompetitionId, 
                                                       companyName:companyName, 
-                                                      companyValuePropositions:companyValuePropositions, 
-                                                      companyCostumerSegments:companyCostumerSegments, 
-                                                      companyCostumerRelationships:companyCostumerRelationships, 
-                                                      companyChannels:companyChannels, 
-                                                      companyCostStructure:companyCostStructure, 
-                                                      companyKeyPartners:companyKeyPartners, 
-                                                      companyKeyResources:companyKeyResources, 
                                                       companyWebsiteURL:companyWebsiteURL, 
                                                       companyShortPitch:companyShortPitch, 
                                                       companyCurrentStockPrice:companyCurrentStockPrice });

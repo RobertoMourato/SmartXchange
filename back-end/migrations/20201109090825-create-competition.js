@@ -9,14 +9,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       managerId: {
-        allowNull: false,
+        allowNull: true,
         references:{
           model: {
-            tableName: 'tenants'
+            tableName: 'users'
           },
           key: 'id'
         },
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        onDelete:'SET NULL'
       },
       competitionStartDate: {
         type: Sequelize.DATE
