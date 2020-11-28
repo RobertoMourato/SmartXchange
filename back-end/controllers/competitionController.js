@@ -1,7 +1,8 @@
 const competitionRepository = require("../repository/competitionRepository");
 const tenantRepository = require("../repository/tenantRepository");
 const questionRep = require('../repository/questionRepository');
-const answerRep = require('../repository/answerRepository')
+const answerRep = require('../repository/answerRepository');
+const answer = require("../models/answer");
 
 exports.getAllCompetitions = async function (req, res, next) {
     try {
@@ -89,10 +90,12 @@ exports.toggleQuestions = async function (req, res) {
     }
 }
 
-exports.answerQuestion = async function (req, res) {
+exports.answerQuestions = async function (req, res) {
 
     try {
-        await answerRep.addAnswer(req.body.answerText, req.body.companyId, req.body.questionId);
+        req.body.answers.forEach(answer => {
+         answerRep.addAnswer(answer.answerText, answer.companyId, answer.questionId);
+        });
         res.status(200).json("Answers submited");
     } catch (error) {
         console.log(e);
