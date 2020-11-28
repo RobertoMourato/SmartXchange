@@ -24,7 +24,8 @@ module.exports = {
                 await models.Question.create({
                     questionText: element,
                     competitionId: competition.id,
-                    order: index + 1
+                    order: index + 1,
+                    isSelected: false
                 }
                     //  ,{transaction: t}
                 )
@@ -40,19 +41,32 @@ module.exports = {
 
     },
 
-    async addQuestion(questionText, competitionId, order) {
+    async addQuestion(questionText, competitionId) {
+        var order = await models.Question.max('order', { where: { competitionId: competitionId } });
+        console.log(order);
         try {
-            this.models.Question.create({
+            var question = await models.Question.create({
                 questionText: questionText,
                 competitionId: competitionId,
-                order: order
+                order: order + 1,
+                isSelected: false
             })
-            return true;
+            return question;
         } catch (error) {
             return false;
         }
+    },
+
+    async toggleQuestion(questionId, isSelected) {
+        try {
+            const updated = await models.Question.update({
+                isSelected: isSelected
+            }, {
+                where: { id: questionId }
+            })
+            return true;
+        } catch (error) {
+            return error;
+        }
     }
-
-
-
 }
