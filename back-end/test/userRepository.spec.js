@@ -1,0 +1,207 @@
+process.env.NODE_ENV = 'test'
+
+const chai = require('chai')
+const sinon = require('sinon')
+const sinonChai = require('sinon-chai')
+
+chai.use(sinonChai)
+const proxyquire = require('proxyquire')
+
+const { makeMockModels } = require('sequelize-test-helpers')
+
+describe('../repository/userRepository', () => {
+  const mockModels = makeMockModels({ User: { findOne: sinon.stub(), findByPk: sinon.stub(), build: sinon.stub(), create: sinon.stub() }, UserType: { findOne: sinon.stub() } }, 'models', 'js')
+
+  const repository = proxyquire('../repository/userRepository', {
+    '../models': mockModels
+  })
+
+  const requestData = {
+    userType: 'Entrepeneur',
+    managerId: 2,
+    tenantId: 2,
+    name: 'Testy',
+    username: 'McTestface',
+    email: 'testy.mctestface.test.tes',
+    password: 'ppopo'
+  }
+
+  const requestDataManager = {
+    userType: 'Manager',
+    managerId: null,
+    tenantId: 2,
+    name: 'Testy',
+    username: 'McTestface',
+    email: 'testy.mctestface.test.tes',
+    password: 'ppopo'
+  }
+  const createArgs = {
+    email: 'testy.mctestface.test.tes',
+    managerId: 2,
+    name: 'Testy',
+    password: 'ppopo',
+    tenantId: 2,
+    userTypeId: 1,
+    username: 'McTestface'
+  }
+  const createdUser = {
+    id: 1,
+    managerId: 2,
+    tenantId: 2,
+    userTypeId: 1,
+    name: 'Testy',
+    username: 'McTestface',
+    email: 'testy.mctestface.test.tes',
+    password: 'ppopo'
+  }
+  const manager = {
+    dataValues: {
+      id: 2,
+      managerId: null,
+      tenantId: 2,
+      userTypeId: 3,
+      name: 'Testy',
+      username: 'McTestface',
+      email: 'testy.mctestface.test.tes',
+      password: 'ppopo'
+    }
+  }
+  const UserTypes = [
+    {
+      dataValues: {
+        id: 1,
+        userType: 'Entrepeneur',
+        isManager: false
+      }
+    },
+    {
+      dataValues: {
+        id: 1,
+        userType: 'Entrepeneur',
+        isManager: true
+      }
+    }
+  ]
+
+  let result, req, res
+  describe('AddUser - Entrepeneur', () => {
+    before(async () => {
+      mockModels.User.findOne.resolves(undefined)
+      mockModels.User.findByPk.resolves(manager)
+      mockModels.UserType.findOne.resolves(UserTypes[0])
+      mockModels.User.create.resolves({ dataValues: createdUser })
+      mockModels.User.build.resolves(createdUser)
+      req = { body: requestData }
+      result = await repository.addUser(req, res)
+    })
+
+    after(sinon.resetHistory)
+
+    it('called UserType.findOne, find userType', () => {
+      chai.expect(mockModels.UserType.findOne).to.have.been.calledWith(sinon.match({ where: { userType: requestData.userType } }))
+    })
+
+    it('called User.findByPk, find manager', () => {
+      chai.expect(mockModels.User.findByPk).to.have.been.calledWith(requestData.managerId)
+    })
+
+    it('called User.create, create User', () => {
+      // console.log(createArgs);
+      chai.expect(mockModels.User.create).to.have.been
+        .calledWith({
+          name: createArgs.name,
+          username: createArgs.username,
+          email: createArgs.email,
+          password: createArgs.password,
+          tenantId: createArgs.tenantId,
+          userTypeId: createArgs.userTypeId
+        })
+    })
+
+    it('Created User', () => {
+      chai.expect(result).to.be.equals(createdUser)
+
+      // chai.expect(res.status).to.be.equals(200);
+      // chai.expect(res.json).to.be.equals(createdUser);
+    })
+  })
+
+  describe('AddUser - Manager', () => {
+    before(async () => {
+      mockModels.UserType.findOne.resolves(UserTypes[1])
+      mockModels.User.create.resolves({ dataValues: manager })
+      mockModels.User.build.resolves(manager)
+      req = { body: {} }
+      req.body = requestDataManager
+      result = await repository.addUser(req, res)
+    })
+
+    after(sinon.resetHistory)
+
+    it('called UserType.findOne, find userType', () => {
+      chai.expect(mockModels.UserType.findOne).to.have.been.calledWith(sinon.match({ where: { userType: requestDataManager.userType } }))
+    })
+
+    it('called User.findByPk, find manager', () => {
+      chai.expect(mockModels.User.findByPk).to.have.been.calledWith(null)
+    })
+
+    it('called User.create, create User', () => {
+      // console.log(createArgs);
+      chai.expect(mockModels.User.create).to.have.been
+        .calledWith({
+          name: createArgs.name,
+          username: createArgs.username,
+          email: createArgs.email,
+          password: createArgs.password,
+          tenantId: createArgs.tenantId,
+          userTypeId: createArgs.userTypeId
+        })
+    })
+
+    it('Created User', () => {
+      chai.expect(result).to.be.equals(manager)
+
+      // chai.expect(res.status).to.be.equals(200);
+      // chai.expect(res.json).to.be.equals(createdUser);
+    })
+  })
+
+  context('User Type doesn\'t exists', () => {
+    before(async () => {
+      mockModels.UserType.findOne.resolves(undefined)
+      mockModels.User.findByPk.resolves(null)
+      req = { body: requestData }
+      result = await repository.addUser(req, res)
+    })
+
+    after(sinon.resetHistory)
+
+    it('called UserType.findOne, find userType', () => {
+      chai.expect(mockModels.UserType.findOne).to.have.been.calledWith(sinon.match({ where: { userType: requestData.userType } }))
+    })
+
+    it('Returns 400, does not find the manager', () => {
+      chai.expect(result).to.deep.equal(400)
+    })
+  })
+
+  context('Manager doesn\'t exists', () => {
+    before(async () => {
+      mockModels.UserType.findOne.resolves(UserTypes[0])
+      req = { body: {} }
+      req.body = requestData
+      result = await repository.addUser(req, res)
+    })
+
+    after(sinon.resetHistory)
+
+    it('called UserType.findOne, find userType', () => {
+      chai.expect(mockModels.UserType.findOne).to.have.been.calledWith(sinon.match({ where: { userType: requestData.userType } }))
+    })
+
+    it('Returns 400, does not find the user', () => {
+      chai.expect(result).to.deep.equal(400)
+    })
+  })
+})

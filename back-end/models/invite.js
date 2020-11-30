@@ -1,12 +1,12 @@
-'use strict';
+'use strict'
 const {
   Model
-} = require('sequelize');
+} = require('sequelize')
 
-var TokenGenerator = require( 'token-generator' )({
+const TokenGenerator = require('token-generator')({
   salt: '9JqAgBqDMq2hfiF',
-  timestampMap: 'XcWkdr4ayR', // 10 chars array for obfuscation proposes
-});
+  timestampMap: 'XcWkdr4ayR' // 10 chars array for obfuscation proposes
+})
 
 module.exports = (sequelize, DataTypes) => {
   class Invite extends Model {
@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate (models) {
       // define association here
     }
   };
@@ -30,10 +30,10 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     hooks: {
       beforeCreate: (invite) => {
-        invite.token = TokenGenerator.generate();
+        invite.token = TokenGenerator.generate()
       }
     },
-    modelName: 'Invite',
-  });
-  return Invite;
-};
+    modelName: 'Invite'
+  })
+  return Invite
+}

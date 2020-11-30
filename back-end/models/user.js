@@ -1,8 +1,8 @@
-'use strict';
+'use strict'
 const {
   Model
-} = require('sequelize');
-const bcrypt = require('bcryptjs');
+} = require('sequelize')
+const bcrypt = require('bcryptjs')
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -10,24 +10,24 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
-      this.belongsTo(models.UserType, {foreignKey:'userTypeId'});
-      
-      //manager de um user
-      this.hasMany(models.User, {foreignKey:'managerId', as:'players'})
-      this.belongsTo(models.User,{foreignKey:'managerId', as:'manager'})
+    static associate (models) {
+      this.belongsTo(models.UserType, { foreignKey: 'userTypeId' })
 
-      this.hasMany(models.Order, {foreignKey:'playerId'});
-      this.hasMany(models.News, {foreignKey:'userId'});
-      this.hasMany(models.Stock, {foreignKey:'playerId'});
-      this.hasMany(models.PlayerCompetition, {foreignKey:'playerId'});
+      // manager de um user
+      this.hasMany(models.User, { foreignKey: 'managerId', as: 'players' })
+      this.belongsTo(models.User, { foreignKey: 'managerId', as: 'manager' })
 
-      this.hasMany(models.Competition, {foreignKey:'managerId', as:'competitions'})
+      this.hasMany(models.Order, { foreignKey: 'playerId' })
+      this.hasMany(models.News, { foreignKey: 'userId' })
+      this.hasMany(models.Stock, { foreignKey: 'playerId' })
+      this.hasMany(models.PlayerCompetition, { foreignKey: 'playerId' })
+
+      this.hasMany(models.Competition, { foreignKey: 'managerId', as: 'competitions' })
     }
   };
   User.init({
     tenantId: DataTypes.INTEGER,
-    managerId:DataTypes.INTEGER,
+    managerId: DataTypes.INTEGER,
     name: DataTypes.STRING,
     username: DataTypes.STRING,
     email: DataTypes.STRING,
@@ -37,11 +37,11 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     hooks: {
       beforeCreate: (user) => {
-          const salt = bcrypt.genSaltSync();
-          user.password = bcrypt.hashSync(user.password, salt);
-      },
-  },
-    modelName: 'User',
-  });
-  return User;
-};
+        const salt = bcrypt.genSaltSync()
+        user.password = bcrypt.hashSync(user.password, salt)
+      }
+    },
+    modelName: 'User'
+  })
+  return User
+}

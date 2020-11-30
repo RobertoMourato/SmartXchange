@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Competitions', {
@@ -10,14 +10,14 @@ module.exports = {
       },
       managerId: {
         allowNull: true,
-        references:{
+        references: {
           model: {
             tableName: 'users'
           },
           key: 'id'
         },
         type: Sequelize.INTEGER,
-        onDelete:'SET NULL'
+        onDelete: 'SET NULL'
       },
       competitionStartDate: {
         type: Sequelize.DATE
@@ -55,9 +55,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Competitions');
+    await queryInterface.dropTable('Competitions')
   }
-};
+}
