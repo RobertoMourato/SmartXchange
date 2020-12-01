@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  smartxchange-front-end:
+    restart: always
+    container_name: smartxchange-front-end
+    build:
+      context: .
+      dockerfile: docker-dev.dockerfile
+    volumes:
+      - '.:/app'   
+    ports:
+       - 4500:4200
