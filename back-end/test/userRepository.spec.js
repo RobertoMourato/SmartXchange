@@ -204,4 +204,62 @@ describe('../repository/userRepository', () => {
       chai.expect(result).to.deep.equal(400)
     })
   })
+
+  describe('GetUserById', () => {
+    before(async () => {
+      mockModels.User.findOne.resolves(createdUser)
+      req = { body: { id: 1 } }
+      result = await repository.getUserById(req, res)
+    })
+
+    after(sinon.resetHistory)
+
+    it('called User.findOne', () => {
+      chai.expect(mockModels.User.findOne).to.have.been.calledWith(sinon.match({ where: { id: req.body.id } }))
+    })
+    it('Returns the user', () => {
+      chai.expect(result).to.deep.equal(createdUser)
+    })
+  })
+
+  describe('GetUserByEmail', () => {
+    before(async () => {
+      mockModels.User.findOne.resolves(createdUser)
+      mockModels.User.build.resolves(createdUser)
+      req = { body: { id: 1 } }
+      result = await repository.getByEmail(requestData.email)
+    })
+
+    after(sinon.resetHistory)
+
+    it('called User.findOne', () => {
+      chai.expect(mockModels.User.findOne).to.have.been.calledWith(sinon.match({ where: { email: requestData.email } }))
+    })
+    it('Returns the user', () => {
+      chai.expect(result).to.deep.equal(createdUser)
+    })
+  })
+
+  describe('GetUserByEmail - fails', () => {
+    before(async () => {
+      mockModels.User.findOne.resolves(null)
+      mockModels.User.build.resolves(null)
+      req = { body: { id: 1 } }
+      result = await repository.getByEmail(requestData.email)
+    })
+
+    after(sinon.resetHistory)
+
+    it('called User.findOne', () => {
+      chai.expect(mockModels.User.findOne).to.have.been.calledWith(sinon.match({ where: { email: requestData.email } }))
+    })
+
+    it('did not called User.build', () => {
+      chai.expect(mockModels.User.build).not.to.have.been.called
+    })
+
+    it('Returns the null user', () => {
+      chai.expect(result).to.deep.equal(null)
+    })
+  })
 })

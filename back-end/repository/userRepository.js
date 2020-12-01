@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 
 module.exports = {
 
-  async index(req, res) {
+  async index (req, res) {
     let results
     await models.User.findAll()
       .then((users) => {
@@ -13,7 +13,7 @@ module.exports = {
         console.log(error)
         return null
       })
-      return results;
+    return results
   },
   /*
   //add Manager
@@ -36,7 +36,7 @@ module.exports = {
   }
   */
 
-  async addUser(req, res) {
+  async addUser (req, res) {
     // console.log(req.body)
     const userType = await models.UserType.findOne({ where: { userType: req.body.userType } })
     const { name, username, email, password, managerId, tenantId } = req.body
@@ -78,24 +78,33 @@ module.exports = {
     }
   },
 
-  async getUserById(req, res) {
+  async getUserById (req, res) {
     const user = models.User
+    let User = null
     // await user.findOne({ where: { id: req.body.id }, include: ["players", "manager"] })~
     await user.findOne({ where: { id: req.body.id } })
-      .then(users => {
-        res.status(200).json(users)
+      .then(user => {
+        // res.status(200).json(users)
+        User = user
       })
       .catch(error => {
         res.status(400).send(error)
+        return null
       })
+
+    return User
   },
 
-  async getByEmail(email) {
+  async getByEmail (email) {
     const user = await models.User.findOne({ where: { email: email } })
-
-    return models.User.build(user.dataValues)
+    if (user) {
+      return models.User.build(user.dataValues)
+    } else {
+      return null
+    }
   },
-  async getByUsername(username) {
+
+  async getByUsername (username) {
     const user = await models.User.findOne({ where: { username: username } })
     if (user) {
       console.log(user)
@@ -104,13 +113,16 @@ module.exports = {
     return null
   },
 
-  async getUserTypeById(id) {
+  async getUserTypeById (id) {
     const usertype = await models.UserType.findByPk(id)
-
-    return models.UserType.build(usertype.dataValues)
+    if (usertype) {
+      return models.UserType.build(usertype.dataValues)
+    } else {
+      return null
+    }
   },
 
-  async updateUser(req, res) {
+  async updateUser (req, res) {
     const { username, newUsername, name, email, password } = req.body
 
     const salt = bcrypt.genSaltSync()
@@ -126,7 +138,7 @@ module.exports = {
     })
   },
 
-  async deleteUser(req) {
+  async deleteUser (req) {
     console.log('entrou')
     await models.User.destroy({ where: { username: req.body.username } })
   }
