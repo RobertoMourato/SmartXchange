@@ -2,14 +2,16 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('TenantTypes', [{
-      tenantType: 'SuperAdmin',
+    await queryInterface.bulkInsert('StockValues', [{
+      stockId: '1',
+      stockValue: '20',
+      stockValueDate: new Date,
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('TenantTypes', null, {});
+    return queryInterface.bulkDelete('StockValues', null, {});
   }
 };

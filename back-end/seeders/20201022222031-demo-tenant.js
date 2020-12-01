@@ -7,7 +7,7 @@ module.exports = {
       username: 'John1Administrator',
       email: 'john@gmail.com',
       password: 'password',
-      tenanttype_id: '2', 
+      tenanttype_id: '1', 
       createdAt: new Date(),
       updatedAt: new Date()
     },{
@@ -15,7 +15,7 @@ module.exports = {
       username: 'mr.furlan98',
       email: 'mr.furlan98@gmail.com',
       password: '12345',
-      tenanttype_id: '2', 
+      tenanttype_id: '1', 
       createdAt: new Date(),
       updatedAt: new Date()
     }]);

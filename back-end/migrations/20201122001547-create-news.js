@@ -1,28 +1,42 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Companies', {
+    await queryInterface.createTable('News', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      playerCompetitionId: {
-        type: Sequelize.INTEGER
+      competitionId: {
+        type: Sequelize.INTEGER,
+        references:{
+          model: {
+            tableName: 'competitions'
+          },
+          key: 'id'
+        }
       },
-      companyName: {
-        allowNull: false,
+      userId: {
+        type: Sequelize.INTEGER,
+        references:{
+          model: {
+            tableName: 'users'
+          },
+          key: 'id'
+        },
+      },
+      newsTitle: {
         type: Sequelize.STRING
       },
-      companyWebsiteURL: {
+      newsContent: {
         type: Sequelize.STRING
       },
-      companyShortPitch: {
+      newsType: {
         type: Sequelize.STRING
       },
-      companyCurrentStockPrice: {
-        type: Sequelize.INTEGER
+      newsDate: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -35,6 +49,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Companies');
+    await queryInterface.dropTable('News');
   }
 };

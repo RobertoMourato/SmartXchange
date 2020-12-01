@@ -1,3 +1,4 @@
+const { text } = require("express");
 const db = require("../repository/companyDb");
 
 exports.addCompany = async function(req, res){
