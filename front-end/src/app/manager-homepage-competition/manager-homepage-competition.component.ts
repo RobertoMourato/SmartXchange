@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HostListener } from "@angular/core";
 import { FormBuilder } from '@angular/forms';
-import { FormGroup, FormControl } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { ManagerHomepageDialogComponent } from '../manager-homepage-dialog/manager-homepage-dialog.component';
 //import { competitionSettings } from '../cart.service';
 //import { CartService } from '../cart.service';
-
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-manager-homepage-competition',
   templateUrl: './manager-homepage-competition.component.html',
@@ -17,6 +15,7 @@ export class ManagerHomepageCompetitionComponent implements OnInit {
   competitionForm;
   constructor(
     //private cartService: CartService,
+    public dialog: MatDialog,
     private formBuilder: FormBuilder,
     ) { 
     
@@ -34,10 +33,23 @@ export class ManagerHomepageCompetitionComponent implements OnInit {
   }
   onSubmit(competitionData) {
     // Process checkout data here
-    //this.items = this.cartService.clearCart();
     this.competitionForm.reset();
-
-    console.warn('Your order has been submitted', competitionData);
+    //send info
   }
+  openDialog(competitionData: any){
+    let dialogRef = this.dialog.open(ManagerHomepageDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if(`${result}` == "true"){
+        console.warn('Your order has been submitted', competitionData);
+      }
+        //send info
+      else{
+
+          }
+
+    })
+    ;
+  }
+
 
 }

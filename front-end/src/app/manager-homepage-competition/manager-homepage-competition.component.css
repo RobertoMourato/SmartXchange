@@ -5,16 +5,16 @@
     height: 100%;
 }
 div{
-    margin-bottom: 1em;
+    margin-bottom: 1vw;
 }
 .title{
     color:#06B164;
-    font-size:1.8rem;
+    font-size: 1.5rem;
 }
 input{
     border-color: transparent;
     border-radius: 7px;
-    width: 10em;
+    width: 8rem;
     text-align: center;
 }
 input:active{
@@ -27,7 +27,7 @@ input:focus{
 button{
     display: inline-block;
     border: none;
-    padding: 0.5rem 1rem;
+    padding: 0.5vw 1vw;
     margin: 0;
     text-decoration: none;
     background: #343434;
@@ -42,8 +42,8 @@ button{
     -webkit-appearance: none;
     -moz-appearance: none;
 }
-button:hover,
-button:focus {
+
+button:hover{
     background: #707070;
 }
 

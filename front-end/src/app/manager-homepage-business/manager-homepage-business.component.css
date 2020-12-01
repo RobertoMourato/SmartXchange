@@ -6,7 +6,10 @@
 }
 .title{
     color:#06B164;
-    font-size: 1.8rem;
+    font-size: 1.4rem;
+    margin-top: 1vw;
+
+    margin-bottom: 1vw;
 }
 
 button{
@@ -43,16 +46,23 @@ p{
     color:black;
     font-weight: bold;
     font-size: 0.9rem;
+    margin: 0;
 }
 
 .cont {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    color: black;
-    font-size: 1em;
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 1vw;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  color: black;
+  font-size: 0.8em;
   }
   
   /* Hide the browser's default checkbox */
@@ -69,8 +79,8 @@ p{
     position: absolute;
     top: 0;
     left: 0;
-    height: 25px;
-    width: 25px;
+    height: 15px;
+    width: 15px;
     background-color:white;
     border: 1px #707070 solid;
   }
@@ -91,8 +101,8 @@ p{
   
   /* Style the checkmark/indicator */
   .cont .checkmark:after {
-    left: 9px;
-    top: 5px;
+    left: 4px;
+    top: 0px;
     width: 5px;
     height: 10px;
     border: solid black;

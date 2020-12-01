@@ -2,16 +2,16 @@
     <h1 class= "title">Participants</h1>
     <div>
       <table mdbTable striped="true" style="width: 100%; border-collapse:collapse;">
-        <thead class="tableHead" style="width:100%">
+        <thead class="tableHead">
           <tr>
             <th *ngFor="let head of headElements" scope="col">{{head}} </th>
           </tr>
         </thead>
-        <tbody class="tableContent">
+        <tbody class="tableContent"style="width:100%">
           <tr mdbTableCol *ngFor="let par of Participants">
-            <th scope="row">{{par.id}}</th>
-            <td>{{par.name}}</td>
-            <td style="position: relative;">{{par.role}}<button mdbBtn color="red" rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect>Kick Player</button></td>
+            <th style="width: 5%;"><p>{{par.id}}</p></th>
+            <td style="width: 35%;"><p>{{par.name}}</p></td>
+            <td><div style="float: left;"><p>{{par.role}}</p></div><div style="float: right;"><button mdbBtn color="red" rounded="true" size="sm" type="button" mdbWavesEffect>Kick Player</button></div></td>
           </tr>
         </tbody>
       </table>

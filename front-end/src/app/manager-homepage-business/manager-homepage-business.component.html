@@ -1,39 +1,48 @@
 <div class="container">
-    <h1 class= "title">Busines Model Questions<div> <p class="participants"> Select the questions you want to be available</p></div></h1>
+    <h1 class= "title">Business Model Questions<div> <p> Select the questions you want to be available</p></div></h1>
     <div>
-        <label class="cont">Value Propositions
-            <input type="checkbox" checked="checked">
+      <form [formGroup]="businessForm" (ngSubmit)="onSubmit(businessForm.value)">
+        <div class="cont">
+          <label >Value Propositions
+            <input id="value" type="checkbox" formControlName="value">
             <span class="checkmark"></span>
           </label>
-          <label class="cont">Key Activities
-            <input type="checkbox">
+        </div>
+        <div class="cont">
+          <label>Key Activities
+            <input id="activities" type="checkbox" formControlName="activities">
             <span class="checkmark"></span>
           </label>
+        </div>
           <label class="cont">Customer Segments & Customer
             Relationships
-            <input type="checkbox">
+            <input id="customer" type="checkbox" formControlName="customer">
             <span class="checkmark"></span>
           </label>
           <label class="cont">Channels
-            <input type="checkbox">
+            <input id="channels" type="checkbox" formControlName="channels">
             <span class="checkmark"></span>
           </label>
           <label class="cont">Cost structure
-            <input type="checkbox">
+            <input id="structure" type="checkbox" formControlName="structure">
             <span class="checkmark"></span>
           </label>
           <label class="cont">Key partners
-            <input type="checkbox">
+            <input id="partners" type="checkbox" formControlName="partners">
             <span class="checkmark"></span>
           </label>
           <label class="cont">Key Resources
-            <input type="checkbox">
+            <input id="resources" type="checkbox" formControlName="resources">
             <span class="checkmark"></span>
           </label>
           <label class="cont">Revenue streams
-            <input type="checkbox">
-            <span class="checkmark"></span>
+            <div>
+              <input id="revenue" type="checkbox" formControlName="revenue">
+              <span class="checkmark"></span>
+            </div>
           </label>
-          <button>Commit changes</button>
+          <button class="button" type="submit">Commit Changes</button>
+        </form>
+
     </div>
 </div>

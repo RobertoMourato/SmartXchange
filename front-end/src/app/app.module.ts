@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SuperadminNavComponent } from './superadmin-nav/superadmin-nav.component';
@@ -10,12 +9,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ManagerHomepageComponent } from './manager-homepage/manager-homepage.component';
 import { ManagerHomepageCompetitionComponent } from './manager-homepage-competition/manager-homepage-competition.component';
 import { ManagerHomepageBusinessComponent } from './manager-homepage-business/manager-homepage-business.component';
 import { ManagerHomepageParticipantsComponent } from './manager-homepage-participants/manager-homepage-participants.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ManagerHomepageDialogComponent } from './manager-homepage-dialog/manager-homepage-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ManagerHomepageComponent,
     ManagerHomepageCompetitionComponent,
     ManagerHomepageBusinessComponent,
-    ManagerHomepageParticipantsComponent
+    ManagerHomepageParticipantsComponent,
+    ManagerHomepageDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +37,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatDialogModule,
     MatGridListModule,
     FormsModule,
     ReactiveFormsModule,
