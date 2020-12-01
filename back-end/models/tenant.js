@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.TenantType, {foreignKey:'tenanttype_id', as :'tenantType'})
+      this.belongsTo(models.TenantType, {foreignKey:'tenanttype_id'})
+      this.hasMany(models.Competition, {foreignKey:'managerId'})
     }
   };
   Tenant.init({

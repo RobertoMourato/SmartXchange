@@ -6,17 +6,12 @@ module.exports = {
       userType: 'Entrepreneur',
       createdAt: new Date(),
       updatedAt: new Date(),
-      isManager: false
+      isEntrepreneur: true
     },{
       userType: 'Investor',
       createdAt: new Date(),
       updatedAt: new Date(),
-      isManager: false
-    },{
-      userType: 'Manager',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      isManager: true
+      isEntrepreneur: false
     }]);
   },
 
@@ -24,9 +19,3 @@ module.exports = {
     return queryInterface.bulkDelete('UserTypes', null, {});
   }
 };
-/*,{
-      userType: 'Manager',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      isManager: true
-    }*/ 

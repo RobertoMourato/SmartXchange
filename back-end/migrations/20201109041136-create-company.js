@@ -15,6 +15,27 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      companyValuePropositions: {
+        type: Sequelize.STRING
+      },
+      companyCostumerSegments: {
+        type: Sequelize.STRING
+      },
+      companyCostumerRelationships: {
+        type: Sequelize.STRING
+      },
+      companyChannels: {
+        type: Sequelize.STRING
+      },
+      companyCostStructure: {
+        type: Sequelize.STRING
+      },
+      companyKeyPartners: {
+        type: Sequelize.STRING
+      },
+      companyKeyResources: {
+        type: Sequelize.STRING
+      },
       companyWebsiteURL: {
         type: Sequelize.STRING
       },

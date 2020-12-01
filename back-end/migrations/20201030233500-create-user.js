@@ -18,27 +18,14 @@ module.exports = {
         },
         type: Sequelize.INTEGER
       },
-      managerId: {
-        allowNull: true,
-        references:{
-          model: {
-            tableName: 'users'
-          },
-          key: 'id',
-        },
-        type: Sequelize.INTEGER,
-        onDelete:'SET NULL'
-      },
       name: {
         type: Sequelize.STRING
       },
       username: {
-        type: Sequelize.STRING,
-        unique: true
+        type: Sequelize.STRING
       },
       email: {
-        type: Sequelize.STRING,
-        unique:true
+        type: Sequelize.STRING
       },
       password: {
         type: Sequelize.STRING

@@ -6,10 +6,7 @@ var inviteControlller = require('../controllers/inviteController')
 
 
 router.get("/all", UserController.getUsers);
-router.get("/", UserController.getUserById)
 router.post('/', UserController.addUser);
 router.post('/invite', inviteControlller.inviteUser);
-router.delete('/',UserController.deleteUser);
-router.put('/update', UserController.updateUser)
 
 module.exports = router;

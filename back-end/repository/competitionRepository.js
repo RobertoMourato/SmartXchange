@@ -1,7 +1,6 @@
 const { response } = require('../index.js');
 const models = require('../models');
 const tenantTypeRepository = require('./tenantTypeRepository.js');
-const questionRepository = require('./questionRepository.js')
 
 module.exports = {
   async index(req, res) {
@@ -16,30 +15,28 @@ module.exports = {
   },
 
   async getById(id){
-    const competition = await models.Competition.findByPk(id);
+    const tenant = await models.Tenant.findByPk(req.query.id);
 
-    return  models.Competition.build(competition.dataValues);
+    return new Tenant(tenant);
   },
 
   async addCompetition(req, res) {
 
     //const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
-    const manager = await models.User.findByPk(req.body.managerId);
+    const tenant = await models.Tenant.findByPk(req.query.id);
     const {competitionStartDate, competitionEndDate, competitionMarketOpening ,
         competitionMarketEnding, competitionInitialBudget, competitionInitialStockValue,
         competitionRefreshRate, competitionNumStocks} = req.body
 
-    if (manager) {
+    if (tenant) {
       try {
         console.log("aqui");
-        const manager_Id = manager.dataValues.id
+        const manager_Id = tenant.dataValues.id
         console.log(manager_Id)
         const competition = await models.Competition.create({managerId:manager_Id, competitionStartDate:competitionStartDate, 
             competitionEndDate:competitionEndDate, competitionMarketOpening:competitionMarketOpening,
             competitionMarketEnding:competitionMarketEnding, competitionInitialBudget:competitionInitialBudget, competitionInitialStockValue:competitionInitialStockValue,
-            competitionRefreshRate:competitionRefreshRate, competitionNumStocks:competitionNumStocks , competitionHasStarted:false});
-
-          await questionRepository.loadQuestions(competition.dataValues);
+            competitionRefreshRate:competitionRefreshRate, competitionNumStocks:competitionNumStocks , competitionHasStarted:false})
         res.status(200).json(competition)
       } catch (error) {
         res.status(400).json(error)

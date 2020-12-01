@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+
 var stockController = require('../controllers/stockController'); 
 
-router.get('/',stockController.getAllStocks);
-router.post('/',stockController.addStock);
+router.use('/my-stocks/:username',stockController.getMyStocks);
 
 module.exports = router;
