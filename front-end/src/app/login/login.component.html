@@ -1,0 +1,7 @@
+<form action="/action_page.php">
+    <input type="email" #email id="email" placeholder="Email" value="" />
+    <br>
+    <input type="password" #password id="password" placeholder="Password" value="" />
+    <br>
+    <button (click)="login(email.value,password.value)" type="submit" id="botaoLogin">Login</button>
+</form>
