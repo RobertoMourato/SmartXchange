@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.User, {foreignKey:'managerId', as:'manager'});
       this.hasMany(models.News, {foreignKey:'competitionId'});
       this.hasMany(models.PlayerCompetition, {foreignKey:'competitionId'});
+      this.hasMany(models.Question, {foreignKey:'competitionId', as:'questions'})
     }
   };
   Competition.init({

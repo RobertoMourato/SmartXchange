@@ -1,6 +1,7 @@
 const { response } = require('../index.js');
 const models = require('../models');
 const tenantTypeRepository = require('./tenantTypeRepository.js');
+const questionRepository = require('./questionRepository.js')
 
 module.exports = {
   async index(req, res) {
@@ -36,7 +37,9 @@ module.exports = {
         const competition = await models.Competition.create({managerId:manager_Id, competitionStartDate:competitionStartDate, 
             competitionEndDate:competitionEndDate, competitionMarketOpening:competitionMarketOpening,
             competitionMarketEnding:competitionMarketEnding, competitionInitialBudget:competitionInitialBudget, competitionInitialStockValue:competitionInitialStockValue,
-            competitionRefreshRate:competitionRefreshRate, competitionNumStocks:competitionNumStocks , competitionHasStarted:false})
+            competitionRefreshRate:competitionRefreshRate, competitionNumStocks:competitionNumStocks , competitionHasStarted:false});
+
+          await questionRepository.loadQuestions(competition.dataValues);
         res.status(200).json(competition)
       } catch (error) {
         res.status(400).json(error)
