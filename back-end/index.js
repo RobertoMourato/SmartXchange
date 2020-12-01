@@ -15,6 +15,16 @@ var competitionRouter = require("./routes/competitionRoutes");
 var orderRouter = require('./routes/orderRoutes')
 var authRouter = require('./routes/AuthRoutes')
 
+
+var morgan = require('morgan')
+
+app.use(morgan('combined'))
+
+var cors = require('cors')
+app.use(cors());
+
+
+
 app.get("/", (req, res) => {
     res.status(200).send("Hello World!");
 })

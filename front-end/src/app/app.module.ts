@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SuperadminNavComponent } from './superadmin-nav/superadmin-nav.component';
@@ -18,7 +21,10 @@ import { CreateManagerPopupComponent } from './create-manager-popup/create-manag
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
+
+import { IssueService } from './issue.service';
+
 
 @NgModule({
   declarations: [
@@ -40,9 +46,12 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatIconModule,
     MatListModule,
     MatDialogModule,
-    FormsModule
+    MatTableModule,
+    MatExpansionModule,
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [IssueService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
