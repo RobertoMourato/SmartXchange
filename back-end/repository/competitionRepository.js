@@ -15,23 +15,23 @@ module.exports = {
   },
 
   async getById(id){
-    const tenant = await models.Tenant.findByPk(req.query.id);
+    const competition = await models.Competition.findByPk(id);
 
-    return new Tenant(tenant);
+    return  models.Competition.build(competition.dataValues);
   },
 
   async addCompetition(req, res) {
 
     //const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
-    const tenant = await models.Tenant.findByPk(req.query.id);
+    const manager = await models.User.findByPk(req.body.managerId);
     const {competitionStartDate, competitionEndDate, competitionMarketOpening ,
         competitionMarketEnding, competitionInitialBudget, competitionInitialStockValue,
         competitionRefreshRate, competitionNumStocks} = req.body
 
-    if (tenant) {
+    if (manager) {
       try {
         console.log("aqui");
-        const manager_Id = tenant.dataValues.id
+        const manager_Id = manager.dataValues.id
         console.log(manager_Id)
         const competition = await models.Competition.create({managerId:manager_Id, competitionStartDate:competitionStartDate, 
             competitionEndDate:competitionEndDate, competitionMarketOpening:competitionMarketOpening,
