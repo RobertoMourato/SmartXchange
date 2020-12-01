@@ -13,15 +13,15 @@ module.exports = {
         type:Sequelize.STRING
       },
       invitedBy: {
-
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'tenants'
+            tableName: 'users'
           },
           key: 'id'
         },
-        allowNull: false
+        allowNull: false,
+        onDelete:'CASCADE'
       },
       IsManager: {
         allowNull: false,

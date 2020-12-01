@@ -12,18 +12,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.hasOne(models.PlayerCompetition, {foreignKey:'playerCompetitionId'});
       this.hasMany(models.Stock, {foreignKey:'companyId'})
+      this.hasMany(models.Answer, {foreignKey:'companyId', as: 'answers'})
     }
   };
   Company.init({
     playerCompetitionId: DataTypes.INTEGER,
     companyName: DataTypes.STRING,
-    companyValuePropositions: DataTypes.STRING,
-    companyCostumerSegments: DataTypes.STRING,
-    companyCostumerRelationships: DataTypes.STRING,
-    companyChannels: DataTypes.STRING,
-    companyCostStructure: DataTypes.STRING,
-    companyKeyPartners: DataTypes.STRING,
-    companyKeyResources: DataTypes.STRING,
     companyWebsiteURL: DataTypes.STRING,
     companyShortPitch: DataTypes.STRING,
     companyCurrentStockPrice: DataTypes.INTEGER

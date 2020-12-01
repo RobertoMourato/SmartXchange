@@ -1,6 +1,6 @@
 const tenantRepository = require("../repository/tenantRepository");
 const tenantTypeRepository = require("../repository/tenantTypeRepository")
-const userRepository = require('../repository/userDb');
+const userRepository = require('../repository/userRepository');
 const bcrypt = require('bcryptjs')
 var jwt = require('jsonwebtoken');
 const auth = require('../config/auth.json')
