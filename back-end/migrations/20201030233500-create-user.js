@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Users', {
@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       tenantId: {
-        references:{
+        references: {
           model: {
             tableName: 'tenants'
           },
@@ -20,14 +20,14 @@ module.exports = {
       },
       managerId: {
         allowNull: true,
-        references:{
+        references: {
           model: {
             tableName: 'users'
           },
-          key: 'id',
+          key: 'id'
         },
         type: Sequelize.INTEGER,
-        onDelete:'SET NULL'
+        onDelete: 'SET NULL'
       },
       name: {
         type: Sequelize.STRING
@@ -38,13 +38,13 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
-        unique:true
+        unique: true
       },
       password: {
         type: Sequelize.STRING
       },
       userTypeId: {
-        references:{
+        references: {
           model: {
             tableName: 'usertypes'
           },
@@ -60,9 +60,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Users')
   }
-};
+}

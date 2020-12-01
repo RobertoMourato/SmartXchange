@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-var competitionController = require('../controllers/competitionController'); 
+const competitionController = require('../controllers/competitionController')
 
 router.get('/',competitionController.getAllCompetitions);
 router.post('/',competitionController.addCompetition);
@@ -11,4 +11,4 @@ router.post('/question', competitionController.addQuestion);
 router.put('/selectQuestions', competitionController.toggleQuestions);
 router.post('/answerQuestion', competitionController.answerQuestions);
 
-module.exports = router;
+module.exports = router
