@@ -9,6 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       managerId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references:{
           model: {
@@ -18,6 +19,7 @@ module.exports = {
         }
       },
       companyId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references:{
           model: {
@@ -27,12 +29,15 @@ module.exports = {
         }
       },
       evaluationType: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       evaluationContent: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       evaluationDate: {
+        allowNull: false,
         type: Sequelize.DATE
       },
       createdAt: {
