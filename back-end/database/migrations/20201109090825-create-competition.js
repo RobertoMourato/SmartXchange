@@ -1,51 +1,50 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('orders', {
+    await queryInterface.createTable('Competitions', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      companyId: {
+      managerId: {
         allowNull: false,
-        references: {
+        references:{
           model: {
-            tableName: 'Companies'
+            tableName: 'Tenants'
           },
           key: 'id'
         },
         type: Sequelize.INTEGER
       },
-      playerId: {
-        allowNull: false,references: {
-          model: {
-            tableName: 'users'
-          },
-          key: 'id'
-        },
-        type: Sequelize.INTEGER
-      },
-      orderNumStock: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      orderValue: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      orderDate: {
-        allowNull: false,
+      competitionStartDate: {
         type: Sequelize.DATE
       },
-      orderType: {
-        allowNull: false,
-        type: Sequelize.STRING
+      competitionEndDate: {
+        type: Sequelize.DATE
       },
-      orderStatus: {
-        allowNull: false,
+      competitionMarketOpening: {
+        type: Sequelize.TIME
+      },
+      competitionMarketEnding: {
+        type: Sequelize.TIME
+      },
+      competitionInitialBudget: {
         type: Sequelize.INTEGER
+      },
+      competitionInitialStockValue: {
+        type: Sequelize.INTEGER
+      },
+      competitionRefreshRate: {
+        type: Sequelize.TIME
+      },
+      competitionNumStocks: {
+        type: Sequelize.INTEGER
+      },
+      competitionHasStarted: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -58,6 +57,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Orders');
+    await queryInterface.dropTable('Competitions');
   }
 };

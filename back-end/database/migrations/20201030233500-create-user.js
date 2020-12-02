@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('users', {
+    await queryInterface.createTable('Users', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,7 +11,7 @@ module.exports = {
       tenantId: {
         references:{
           model: {
-            tableName: 'tenants'
+            tableName: 'Tenants'
           },
           key: 'id',
           allowNull: false
@@ -33,7 +33,7 @@ module.exports = {
       userTypeId: {
         references:{
           model: {
-            tableName: 'usertypes'
+            tableName: 'UserTypes'
           },
           key: 'id'
         },

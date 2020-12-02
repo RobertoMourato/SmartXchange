@@ -1,20 +1,18 @@
 'use strict';
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('tenanttypes', {
+    await queryInterface.createTable('PlayerCompetitions', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      tenantType: {
-        unique: true,
-        type: Sequelize.STRING
+      playerId: {
+        type: Sequelize.INTEGER
       },
-      isManager: {
-        type: Sequelize.BOOLEAN
+      competitionId: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -27,13 +25,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('TenantTypes');
+    await queryInterface.dropTable('PlayerCompetitions');
   }
 };
-
-/*
-uuid: {
-  type: DataTypes.UUID,
-  defaultValue: DataTypes.UUIDV1,
-  primaryKey: true
-}*/

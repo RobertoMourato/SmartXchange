@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
     res.status(200).send("Hello World!");
 })
 
-app.listen(3000, function() {
+app.listen(process.env.PORT, function() {
   console.log(`App listening on port ${process.env.PORT}`);
 });
 
