@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 const {
   Model
-} = require('sequelize');
+} = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class Competition extends Model {
     /**
@@ -9,10 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
-      this.belongsTo(models.Tenant, {foreignKey:'managerId'})
-
-      this.hasMany(models.PlayerCompetition, {foreignKey:'competitionId'});
+    static associate (models) {
+      this.belongsTo(models.User, { foreignKey: 'managerId', as: 'manager' })
+      this.hasMany(models.News, { foreignKey: 'competitionId' })
+      this.hasMany(models.PlayerCompetition, { foreignKey: 'competitionId' })
+      this.hasMany(models.Question, { foreignKey: 'competitionId', as: 'questions' })
     }
   };
   Competition.init({
@@ -28,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     competitionHasStarted: DataTypes.BOOLEAN
   }, {
     sequelize,
-    modelName: 'Competition',
-  });
-  return Competition;
-};
+    modelName: 'Competition'
+  })
+  return Competition
+}

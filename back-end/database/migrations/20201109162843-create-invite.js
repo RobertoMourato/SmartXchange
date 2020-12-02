@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Invites', {
@@ -9,19 +9,19 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       token: {
-        allowNull:false,
-        type:Sequelize.STRING
+        allowNull: false,
+        type: Sequelize.STRING
       },
       invitedBy: {
-
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'Tenants'
+            tableName: 'users'
           },
           key: 'id'
         },
-        allowNull: false
+        allowNull: false,
+        onDelete: 'CASCADE'
       },
       IsManager: {
         allowNull: false,
@@ -30,7 +30,7 @@ module.exports = {
       competitionId: {
         references: {
           model: {
-            tableName: 'Competitions'
+            tableName: 'competitions'
           },
           key: 'id'
         },
@@ -53,13 +53,12 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Invites');
+    await queryInterface.dropTable('Invites')
   }
-};
-
+}
 
 /*
 type: Sequelize.UUID,

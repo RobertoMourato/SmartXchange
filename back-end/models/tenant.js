@@ -1,8 +1,8 @@
-'use strict';
+'use strict'
 const {
   Model
-} = require('sequelize');
-const bcrypt = require('bcryptjs');
+} = require('sequelize')
+const bcrypt = require('bcryptjs')
 
 module.exports = (sequelize, DataTypes) => {
   class Tenant extends Model {
@@ -11,9 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
-      this.belongsTo(models.TenantType, {foreignKey:'tenanttype_id'})
-      this.hasMany(models.Competition, {foreignKey:'managerId'})
+    static associate (models) {
+      this.belongsTo(models.TenantType, { foreignKey: 'tenanttype_id', as: 'tenantType' })
     }
   };
   Tenant.init({
@@ -26,11 +25,11 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     hooks: {
       beforeCreate: (tenant) => {
-          const salt = bcrypt.genSaltSync();
-          tenant.password = bcrypt.hashSync(tenant.password, salt);
-      },
-  },
-    modelName: 'Tenant',
-  });
-  return Tenant;
-};
+        const salt = bcrypt.genSaltSync()
+        tenant.password = bcrypt.hashSync(tenant.password, salt)
+      }
+    },
+    modelName: 'Tenant'
+  })
+  return Tenant
+}

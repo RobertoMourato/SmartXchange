@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Orders', {
@@ -19,7 +19,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       playerId: {
-        allowNull: false,references: {
+        allowNull: false,
+        references: {
           model: {
             tableName: 'Users'
           },
@@ -55,9 +56,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Orders');
+    await queryInterface.dropTable('Orders')
   }
-};
+}
