@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Questions', {
@@ -16,15 +16,15 @@ module.exports = {
       },
       competitionId: {
         type: Sequelize.INTEGER,
-        references:{
+        references: {
           model: {
             tableName: 'competitions'
           },
           key: 'id'
         }
       },
-      isSelected:{
-        type:Sequelize.BOOLEAN
+      isSelected: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -34,9 +34,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Questions');
+    await queryInterface.dropTable('Questions')
   }
-};
+}
