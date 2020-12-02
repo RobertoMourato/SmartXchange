@@ -3,7 +3,7 @@ const models = require('../models');
 
 module.exports = {
     async index(req, res) {
-      var ranking = models.Stock;
+      var ranking = models.Ranking;
       await ranking.findAll().then(ranking => {
         res.status(200).json(ranking)
       })
@@ -13,8 +13,9 @@ module.exports = {
   
     },
     async addRanking(req, res) {
-        const playercomp = await models.PlayerCompetition.findByPk(req.body.playerCompetitionId);
-        const {
+        const playercomp = await models.PlayerCompetition.findOne({ where: { playerId: req.body.playerId , competitionId: req.body.competitionId}});
+        const { playerId,
+                competitionId,
                 rankingPosition,
                 rankingType}= req.body
     
