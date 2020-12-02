@@ -2,6 +2,7 @@ const competitionRepository = require("../repository/competitionRepository");
 const tenantRepository = require("../repository/tenantRepository");
 const questionRep = require('../repository/questionRepository');
 const answerRep = require('../repository/answerRepository');
+const rankingRep = require('../repository/rankingRepository');
 const answer = require("../models/answer");
 
 exports.getAllCompetitions = async function (req, res, next) {
@@ -98,6 +99,29 @@ exports.answerQuestions = async function (req, res) {
         });
         res.status(200).json("Answers submited");
     } catch (error) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
+
+exports.addRanking = async function (req, res) {
+    try {
+        //console.log(req.body)
+        let results = await rankingRep.addRanking(req, res);
+        res.json(results);
+    }
+    catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
+
+exports.getAllRankings = async function (req, res) {
+    try {
+        let results = await rankingRep.index(req, res);
+        res.json(results);
+    }
+    catch (e) {
         console.log(e);
         res.sendStatus(500);
     }
