@@ -15,6 +15,7 @@ var companyRouter = require("./routes/companyRoutes");
 var competitionRouter = require("./routes/competitionRoutes");
 var rankingRouter = require("./routes/rankingRoutes");
 var orderRouter = require('./routes/orderRoutes')
+var evaluationRouter = require('./routes/evaluationRoutes')
 var authRouter = require('./routes/AuthRoutes')
 
 app.get("/", (req, res) => {
@@ -42,6 +43,7 @@ app.use('/competition',competitionRouter);
 app.use('/ranking',rankingRouter);
 app.use('/companies', companyRouter);
 app.use('/order', orderRouter);
+app.use('/evaluation', evaluationRouter);
 app.use('/login', authRouter);
 
 module.exports = app;
