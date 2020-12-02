@@ -25,20 +25,7 @@ export class AppComponent {
     this.users = this.http.get<User[]>(this.ROOT_URL + '/users/all');
   }
 
-  createUser() {
-    const data: User = {
-      id: 3,
-      tenantId: 4,
-      name: 'Abc',
-      username: 'Aaa',
-      email: 'aaa@aaa.pt',
-      password: 'aaaaa',
-      userTypeId: 2,
-      createdAt: 'Jun 15, 2015, 9:43:11 PM',
-      updatedAt: 'Jun 15, 2015, 9:43:11 PM',
-    };
 
-  }
 
 
 }

@@ -3,7 +3,46 @@
 
 <p> Unverified managers </p>
 
-<table mat-table>
+
+  <table mdbTable striped="true">
+    <thead>
+      <tr>
+        <th *ngFor="let head of displayedColumns" scope="col">{{head}} </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr mdbTableCol *ngFor="let user of users | async">
+
+        <th scope="row">{{user.id}}</th>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td><button mdbBtn color="red" rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect>Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p> Verified managers </p>
+
+
+  <table mdbTable striped="true">
+    <thead>
+      <tr>
+        <th *ngFor="let head of displayedColumns" scope="col">{{head}} </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr mdbTableCol *ngFor="let user of users | async">
+
+        <th scope="row">{{user.managerId}}</th>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td><button mdbBtn color="red" rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect>Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
 
   <!--
   <ng-container matColumnDef="id">
@@ -31,7 +70,7 @@
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>-->
 
 
-  <table mdbTable striped="true">
+  <!--<table mdbTable striped="true">
     <thead>
       <tr>
         <th *ngFor="let head of headElements" scope="col">{{head}} </th>
@@ -68,7 +107,7 @@
 
     </tbody>
   </table>
-</table>
+</table>-->
 
 <!--
 <table mat-table [dataSource]="dataSource" multiTemplateDataRows

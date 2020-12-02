@@ -3,6 +3,7 @@ import { EmailForInvite } from './create-manager-popup/create-manager-popup.comp
 export interface User {
   id: number;
   tenantId: number;
+  managerId: number;
   name: string;
   username: string;
   email: string;

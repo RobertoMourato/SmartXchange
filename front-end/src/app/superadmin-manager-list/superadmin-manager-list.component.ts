@@ -3,7 +3,10 @@ import { Directive } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { HttpClient } from '@angular/common/http';
+import { User } from '../user';
+import { Observable } from 'rxjs';
 
 
 
@@ -39,9 +42,23 @@ export class SuperadminManagerListComponent implements OnInit {
   dataSource = ELEMENT_DATA;
   expandedElement: Manager;
 
-  constructor() { }
+  displayedColumns: string[] = ['ID', 'Name', 'Email', ''];
+
+  readonly ROOT_URL = '/api';
+
+  users: Observable<User[]>;
+  newUser: Observable<User[]>;
+
+  constructor(private http: HttpClient) {
+
+  }
+
+  getUsers() {
+    this.users = this.http.get<User[]>(this.ROOT_URL + '/users/all');
+  }
 
   ngOnInit(): void {
+    this.getUsers();
   }
 
 
@@ -54,6 +71,7 @@ export interface Manager {
   email: string;
 }
 
+
 const ELEMENT_DATA: Manager[] = [
   {
     id: 1, name: 'Mark', email: 'matty@yahoo.ca'
@@ -63,4 +81,5 @@ const ELEMENT_DATA: Manager[] = [
     id: 3, name: 'Larry', email: 'ozawa@comcast.net'
   }
 ];
+
 
