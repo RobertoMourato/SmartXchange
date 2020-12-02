@@ -13,6 +13,7 @@ var tenantTypesRouter = require('./routes/tenantTypeRoutes');
 var tenantRouter =  require('./routes/tenantRoutes');
 var companyRouter = require("./routes/companyRoutes");
 var competitionRouter = require("./routes/competitionRoutes");
+var rankingRouter = require("./routes/rankingRoutes");
 var orderRouter = require('./routes/orderRoutes')
 var authRouter = require('./routes/AuthRoutes')
 
@@ -38,6 +39,7 @@ app.use('/stockExchanges', stockExchangeRouter);
 app.use('/tenanttypes',tenantTypesRouter);
 app.use('/tenants',tenantRouter);
 app.use('/competition',competitionRouter);
+app.use('/ranking',rankingRouter);
 app.use('/companies', companyRouter);
 app.use('/order', orderRouter);
 app.use('/login', authRouter);
