@@ -12,7 +12,7 @@ var tenantTypesRouter = require('./routes/tenantTypeRoutes');
 var tenantRouter =  require('./routes/tenantRoutes');
 var companyRouter = require("./routes/companyRoutes");
 var competitionRouter = require("./routes/competitionRoutes");
-var rankingRouter = require("./routes/ranikngRoutes");
+var rankingRouter = require("./routes/rankingRoutes");
 var orderRouter = require('./routes/orderRoutes')
 var authRouter = require('./routes/AuthRoutes')
 
