@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -7,26 +7,26 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date(),
       isManager: false
-    },{
+    }, {
       userType: 'Investor',
       createdAt: new Date(),
       updatedAt: new Date(),
       isManager: false
-    },{
+    }, {
       userType: 'Manager',
       createdAt: new Date(),
       updatedAt: new Date(),
       isManager: true
-    }]);
+    }])
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('UserTypes', null, {});
+    return queryInterface.bulkDelete('UserTypes', null, {})
   }
-};
-/*,{
+}
+/*, {
       userType: 'Manager',
       createdAt: new Date(),
       updatedAt: new Date(),
       isManager: true
-    }*/ 
+    } */

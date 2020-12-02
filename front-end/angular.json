@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "smartxchange"
+  "defaultProject": "smartxchange",
+  "cli": {
+    "analytics": false
+  }
 }

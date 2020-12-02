@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 const {
   Model
-} = require('sequelize');
+} = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class PlayerCompetition extends Model {
     /**
@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasOne(models.Company, {foreignKey:'playerCompetitionId'});
       this.hasMany(models.Ranking, {foreignKey:'playerCompetitionId'});
 
-      //this.hasMany(models.Order, {foreignKey:'playerId'});
+      // this.hasMany(models.Order, {foreignKey:'playerId'});
     }
   };
   PlayerCompetition.init({
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     competitionId: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'PlayerCompetition',
-  });
-  return PlayerCompetition;
-};
+    modelName: 'PlayerCompetition'
+  })
+  return PlayerCompetition
+}
