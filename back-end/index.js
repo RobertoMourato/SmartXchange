@@ -1,6 +1,7 @@
 var express = require("express");
 require('./models');
 var app = express();
+var cors = require('cors')
 
 var bodyParser = require('body-parser');
 
@@ -29,6 +30,7 @@ app.listen(PORT, function() {
 
 
 app.use(bodyParser.json());
+app.use(cors());
 
 app.use('/users', usersRouter);
 app.use('/stocks', stockRouter);
