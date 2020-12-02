@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.News, {foreignKey:'userId'});
       this.hasMany(models.Stock, {foreignKey:'playerId'});
       this.hasMany(models.PlayerCompetition, {foreignKey:'playerId'});
+      this.hasMany(models.Evaluation, {foreignKey:'managerId'});
 
       this.hasMany(models.Competition, {foreignKey:'managerId', as:'competitions'})
     }
