@@ -11,7 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate (models) {
       // define association here
+<<<<<<< HEAD
       this.belongsTo(models.Competition, { foreignKey: 'competitionId', as: 'competition' })
+=======
+      this.belongsTo(models.Competition, {foreignKey:'competitionId', as:'competition'})
+      this.hasMany(models.Answer, {foreignKey: 'questionId', as: 'responses'})
+>>>>>>> sprint-3
     }
   };
   Question.init({
