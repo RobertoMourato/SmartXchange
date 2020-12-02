@@ -48,7 +48,8 @@ module.exports = {
 
   async getByEmail (email) {
     const tenant = await models.Tenant.findOne({ where: { email: email } })
-
-    return models.Tenant.build(tenant.dataValues)
+    if (tenant) {
+      return models.Tenant.build(tenant.dataValues)
+    } else { return null }
   }
 }

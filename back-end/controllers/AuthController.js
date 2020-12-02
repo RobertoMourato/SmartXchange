@@ -10,13 +10,13 @@ exports.login = async function (req, res) {
   let theToken
   try {
     const tenant = await tenantRepository.getByEmail(email)
-
+    console.log(tenant)
     if (!tenant) {
       const user = await userRepository.getByEmail(email)
-
+      console.log(user)
       if (user) {
         if (!bcrypt.compareSync(password, user.password)) {
-          return res.status(400).json('Passwor is incorrect!')
+          return res.status(400).json('Password is incorrect!')
         } else {
           const usertype = await userRepository.getUserTypeById(user.userTypeId)
           usertype.dataValues.id = undefined
@@ -27,11 +27,11 @@ exports.login = async function (req, res) {
           return res.status(200).json({ user, usertype, token: theToken })
         }
       } else {
-        return res.status(400).json('Email not fount')
+        return res.status(400).json('Email not found')
       }
     } else {
       if (!bcrypt.compareSync(password, tenant.password)) {
-        return res.status(400).json('Passwor is incorrect!')
+        return res.status(400).json('Password is incorrect!')
       } else {
         const tenanttype = await tenantTypeRepository.getTenantTypeById(tenant.tenanttype_id)
         tenanttype.dataValues.id = undefined
