@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -7,13 +7,21 @@ module.exports = {
       username: 'John1Administrator',
       email: 'john@gmail.com',
       password: 'password',
-      tenanttype_id: '2', 
+      tenanttype_id: '1',
       createdAt: new Date(),
       updatedAt: new Date()
-    }]);
+    }, {
+      name: 'Vinicius Furlan',
+      username: 'mr.furlan98',
+      email: 'mr.furlan98@gmail.com',
+      password: '12345',
+      tenanttype_id: '1',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }])
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Tenants', null, {});
+    return queryInterface.bulkDelete('Tenants', null, {})
   }
-};
+}
