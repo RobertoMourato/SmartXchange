@@ -1,7 +1,7 @@
 const models = require('../models')
 
 module.exports = {
-  async index(req, res) {
+  async index (req, res) {
     console.log('rep')
     const tenant = models.Tenant
     // await tenant.findAll({include : ["competitions", "tenantType"]})
@@ -13,7 +13,7 @@ module.exports = {
       })
   },
 
-  async getTenantByUsername(username) {
+  async getTenantByUsername (username) {
     const tenant = await models.Tenant.findOne({ where: { username: username } })
     if (tenant != null) {
       return models.Tenant.build(tenant.dataValues)
@@ -22,7 +22,7 @@ module.exports = {
     }
   },
 
-  async addTenant(req, res) {
+  async addTenant (req, res) {
     console.log(req.body)
 
     const tenantType = await models.TenantType.findOne({ where: { tenantType: req.body.type } })
@@ -46,11 +46,10 @@ module.exports = {
     }
   },
 
-  async getByEmail(email) {
+  async getByEmail (email) {
     const tenant = await models.Tenant.findOne({ where: { email: email } })
     if (tenant) {
       return models.Tenant.build(tenant.dataValues)
-    }
-    else { return null }
+    } else { return null }
   }
 }

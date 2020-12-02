@@ -3,7 +3,6 @@
 const bcrypt = require('bcryptjs')
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-
     const salt = bcrypt.genSaltSync()
 
     return queryInterface.bulkInsert('Users', [{
