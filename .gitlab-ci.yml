@@ -1,4 +1,4 @@
-image: node:latest
+# image: node:latest
 
 stages:
   - build
@@ -38,9 +38,11 @@ testing:
 staging:
   type: deploy
   stage: staging
+  script:
 
 production:
   type: deploy
   stage: production
+  script:
   only:
     - master
