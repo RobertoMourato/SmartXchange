@@ -21,12 +21,12 @@ install_dependencies:
     paths:
       - back-end/node_modules/
 
-linting:
-  stage: code_analysis
-  script:
-    - cd back-end
-    - npm run lint
-    - cd ..
+#linting:
+#  stage: code_analysis
+#  script:
+#    - cd back-end
+#    - npm run lint
+#    - cd ..
 
 testing:
   stage: test
