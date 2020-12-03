@@ -1,28 +1,27 @@
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const config = require('../config/database');
+const fs = require('fs')
+const path = require('path')
+const Sequelize = require('sequelize')
+const config = require('../config/database')
 
-const db = {};
-const sequelize = new Sequelize(config);//added
+const db = {}
+const sequelize = new Sequelize(config)// added
 
 sequelize
   .authenticate()
   .then(() => {
-    console.log('Connection has been established successfully.');
+    console.log('Connection has been established successfully.')
   })
   .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
-
+    console.error('Unable to connect to the database:', err)
+  })
 
 fs
   .readdirSync(__dirname)
   .filter(file => (file.indexOf('.') !== 0) && (file !== path.basename(__filename)) && (file.slice(-3) === '.js'))
   .forEach((file) => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
-  });
+    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes)
+    db[model.name] = model
+  })
 
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
@@ -30,7 +29,7 @@ Object.keys(db).forEach((modelName) => {
   }
 })
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+db.sequelize = sequelize
+db.Sequelize = Sequelize
 
-module.exports = db;
+module.exports = db
