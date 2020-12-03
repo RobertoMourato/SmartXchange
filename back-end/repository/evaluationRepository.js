@@ -1,7 +1,7 @@
 const models = require('../models')
 
 module.exports = {
-  async index (res) {
+  async index (req, res) {
     const evaluation = models.Evaluation
     await evaluation.findAll().then(evaluation => {
       res.status(200).json(evaluation)
