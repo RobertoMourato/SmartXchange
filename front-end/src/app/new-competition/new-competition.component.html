@@ -1,0 +1,20 @@
+
+<mat-vertical-stepper [linear]="true" #stepper>
+    <mat-step>
+        <form>
+            <ng-template matStepLabel>Enter cenas</ng-template>
+            <mat-form-field>
+                <input matInput placeholder="CENAS" formControlName="cenasCtrl" required>
+            </mat-form-field>
+        </form>
+    </mat-step>
+    <mat-step>
+        <form>
+            <ng-template matStepLabel>Enter cenas</ng-template>
+            <mat-form-field>
+                <input matInput placeholder="CENAS2" formControlName="cenas2Ctrl" required>
+            </mat-form-field>
+        </form>
+    </mat-step>
+    <mat-step [optional]="true"></mat-step>
+</mat-vertical-stepper>
