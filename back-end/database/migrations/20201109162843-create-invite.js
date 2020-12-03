@@ -1,44 +1,49 @@
-'use strict';
+'use strict'
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Evaluations', {
+    await queryInterface.createTable('Invites', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      managerId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references:{
-          model: {
-            tableName: 'users'
-          },
-          key: 'id'
-        }
-      },
-      companyId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references:{
-          model: {
-            tableName: 'companies'
-          },
-          key: 'id'
-        }
-      },
-      evaluationType: {
+      token: {
         allowNull: false,
         type: Sequelize.STRING
       },
-      evaluationContent: {
+      invitedBy: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Users'
+          },
+          key: 'id'
+        },
+        allowNull: false,
+        onDelete: 'CASCADE'
+      },
+      IsManager: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN
+      },
+      competitionId: {
+        references: {
+          model: {
+            tableName: 'Competitions'
+          },
+          key: 'id'
+        },
+        allowNull: true,
+        type: Sequelize.INTEGER
+      },
+      isValid: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN
+      },
+      email: {
         allowNull: false,
         type: Sequelize.STRING
-      },
-      evaluationDate: {
-        allowNull: false,
-        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
@@ -48,9 +53,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Evaluations');
+    await queryInterface.dropTable('Invites')
   }
-};
+}
+
+/*
+type: Sequelize.UUID,
+        defaultValue: require('sequelize').UUIDV4, */

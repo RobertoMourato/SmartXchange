@@ -1,36 +1,42 @@
 'use strict'
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Tenants', {
+    await queryInterface.createTable('News', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING
-      },
-      username: {
-        type: Sequelize.STRING,
-        unique: true
-      },
-      email: {
-        type: Sequelize.STRING,
-        unique: true
-      },
-      password: {
-        type: Sequelize.STRING
-      },
-      tenanttype_id: {
+      competitionId: {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'tenanttypes'
+            tableName: 'Competitions'
           },
           key: 'id'
-        },
-        allowNull: false
+        }
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Users'
+          },
+          key: 'id'
+        }
+      },
+      newsTitle: {
+        type: Sequelize.STRING
+      },
+      newsContent: {
+        type: Sequelize.STRING
+      },
+      newsType: {
+        type: Sequelize.STRING
+      },
+      newsDate: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -43,6 +49,6 @@ module.exports = {
     })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Tenants')
+    await queryInterface.dropTable('News')
   }
 }

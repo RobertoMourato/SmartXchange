@@ -1,49 +1,52 @@
 'use strict'
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Invites', {
+    await queryInterface.createTable('Orders', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      token: {
+      companyId: {
         allowNull: false,
-        type: Sequelize.STRING
-      },
-      invitedBy: {
-        type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'users'
+            tableName: 'Companies'
           },
           key: 'id'
         },
-        allowNull: false,
-        onDelete: 'CASCADE'
-      },
-      IsManager: {
-        allowNull: false,
-        type: Sequelize.BOOLEAN
-      },
-      competitionId: {
-        references: {
-          model: {
-            tableName: 'competitions'
-          },
-          key: 'id'
-        },
-        allowNull: true,
         type: Sequelize.INTEGER
       },
-      isValid: {
+      playerId: {
         allowNull: false,
-        type: Sequelize.BOOLEAN
+        references: {
+          model: {
+            tableName: 'Users'
+          },
+          key: 'id'
+        },
+        type: Sequelize.INTEGER
       },
-      email: {
+      orderNumStock: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
+      orderValue: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
+      orderDate: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      orderType: {
         allowNull: false,
         type: Sequelize.STRING
+      },
+      orderStatus: {
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -56,10 +59,6 @@ module.exports = {
     })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Invites')
+    await queryInterface.dropTable('Orders')
   }
 }
-
-/*
-type: Sequelize.UUID,
-        defaultValue: require('sequelize').UUIDV4, */

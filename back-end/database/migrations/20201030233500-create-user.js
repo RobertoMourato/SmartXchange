@@ -11,7 +11,7 @@ module.exports = {
       tenantId: {
         references: {
           model: {
-            tableName: 'tenants'
+            tableName: 'Tenants'
           },
           key: 'id',
           allowNull: false
@@ -22,7 +22,7 @@ module.exports = {
         allowNull: true,
         references: {
           model: {
-            tableName: 'users'
+            tableName: 'Users'
           },
           key: 'id'
         },
@@ -46,7 +46,7 @@ module.exports = {
       userTypeId: {
         references: {
           model: {
-            tableName: 'usertypes'
+            tableName: 'UserTypes'
           },
           key: 'id'
         },

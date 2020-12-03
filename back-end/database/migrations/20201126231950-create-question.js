@@ -1,42 +1,30 @@
 'use strict'
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('News', {
+    await queryInterface.createTable('Questions', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      questionText: {
+        type: Sequelize.STRING
+      },
+      order: {
+        type: Sequelize.INTEGER
+      },
       competitionId: {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'competitions'
+            tableName: 'Competitions'
           },
           key: 'id'
         }
       },
-      userId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {
-            tableName: 'users'
-          },
-          key: 'id'
-        }
-      },
-      newsTitle: {
-        type: Sequelize.STRING
-      },
-      newsContent: {
-        type: Sequelize.STRING
-      },
-      newsType: {
-        type: Sequelize.STRING
-      },
-      newsDate: {
-        type: Sequelize.STRING
+      isSelected: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -49,6 +37,6 @@ module.exports = {
     })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('News')
+    await queryInterface.dropTable('Questions')
   }
 }

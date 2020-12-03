@@ -1,30 +1,27 @@
-'use strict'
+'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Questions', {
+    await queryInterface.createTable('Rankings', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      questionText: {
-        type: Sequelize.STRING
-      },
-      order: {
-        type: Sequelize.INTEGER
-      },
-      competitionId: {
+      playerCompetitionId: {
         type: Sequelize.INTEGER,
-        references: {
+        references:{
           model: {
-            tableName: 'competitions'
+            tableName: 'PlayerCompetitions'
           },
           key: 'id'
         }
       },
-      isSelected: {
-        type: Sequelize.BOOLEAN
+      rankingPosition: {
+        type: Sequelize.INTEGER
+      },
+      rankingType: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -34,9 +31,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    })
+    });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Questions')
+    await queryInterface.dropTable('Rankings');
   }
-}
+};

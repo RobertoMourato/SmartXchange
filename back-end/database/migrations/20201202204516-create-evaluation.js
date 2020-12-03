@@ -1,33 +1,44 @@
-'use strict'
+'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Answers', {
+    await queryInterface.createTable('Evaluations', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      questionId: {
+      managerId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
-        references: {
+        references:{
           model: {
-            tableName: 'questions'
+            tableName: 'Users'
           },
           key: 'id'
         }
       },
       companyId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
-        references: {
+        references:{
           model: {
-            tableName: 'companies'
+            tableName: 'Companies'
           },
           key: 'id'
         }
       },
-      answerText: {
+      evaluationType: {
+        allowNull: false,
         type: Sequelize.STRING
+      },
+      evaluationContent: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      evaluationDate: {
+        allowNull: false,
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
@@ -37,9 +48,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    })
+    });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Answers')
+    await queryInterface.dropTable('Evaluations');
   }
-}
+};
