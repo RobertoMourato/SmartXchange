@@ -1,20 +1,38 @@
+<mat-card>
+
 
 <mat-vertical-stepper [linear]="true" #stepper>
     <mat-step>
         <form>
-            <ng-template matStepLabel>Enter cenas</ng-template>
+            <ng-template matStepLabel>Define competition settings</ng-template>
             <mat-form-field>
-                <input matInput placeholder="CENAS" formControlName="cenasCtrl" required>
-            </mat-form-field>
+                <input type="number" placeholder="Duration" formControlName="" required>
+            </mat-form-field> 
+            <!-- <mat-form-field>
+                <input type="number" matInput placeholder="Investors Initial Cash" formControlName="" required>
+            </mat-form-field>  -->
+            <!-- <mat-form-field>
+                <input type="number" matInput placeholder="Initial Company Value" formControlName="" required>
+            </mat-form-field> 
+            <mat-form-field>
+                <input type="number" matInput placeholder="Number of Inital Stocks" formControlName="" required>
+            </mat-form-field>  -->
+            <app-sort-questions></app-sort-questions>
         </form>
+        <button mat-button matStepperNext>Next</button>
     </mat-step>
     <mat-step>
         <form>
-            <ng-template matStepLabel>Enter cenas</ng-template>
+            <ng-template matStepLabel>Invite players</ng-template>
             <mat-form-field>
-                <input matInput placeholder="CENAS2" formControlName="cenas2Ctrl" required>
+                <input matInput placeholder="Teste" required>
             </mat-form-field>
         </form>
+        <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
     </mat-step>
-    <mat-step [optional]="true"></mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Wait for players</ng-template>
+    </mat-step>
 </mat-vertical-stepper>
+</mat-card>

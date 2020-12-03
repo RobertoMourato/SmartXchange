@@ -1,0 +1,29 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SortQuestionsComponent } from './sort-questions.component';
+
+describe('SortQuestionsComponent', () => {
+  let component: SortQuestionsComponent;
+  let fixture: ComponentFixture<SortQuestionsComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ SortQuestionsComponent ],
+      imports: [
+        NoopAnimationsModule,
+        DragDropModule,
+      ]
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(SortQuestionsComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should compile', () => {
+    expect(component).toBeTruthy();
+  });
+});

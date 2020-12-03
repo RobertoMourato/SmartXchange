@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 const {
   Model
-} = require('sequelize');
+} = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class Company extends Model {
     /**
@@ -10,25 +10,21 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.hasMany(models.Stock, {foreignKey:'companyId'})
+      this.hasMany(models.Answer, {foreignKey:'companyId', as: 'answers'})
+      this.hasMany(models.Evaluation, {foreignKey:'companyId'})
+      this.belongsTo(models.PlayerCompetition, {foreignKey:'playerCompetitionId'});
     }
   };
   Company.init({
     playerCompetitionId: DataTypes.INTEGER,
     companyName: DataTypes.STRING,
-    companyValuePropositions: DataTypes.STRING,
-    companyCostumerSegments: DataTypes.STRING,
-    companyCostumerRelationships: DataTypes.STRING,
-    companyChannels: DataTypes.STRING,
-    companyCostStructure: DataTypes.STRING,
-    companyKeyPartners: DataTypes.STRING,
-    companyKeyResources: DataTypes.STRING,
     companyWebsiteURL: DataTypes.STRING,
     companyShortPitch: DataTypes.STRING,
     companyCurrentStockPrice: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Company',
-  });
-  return Company;
-};
+    modelName: 'Company'
+  })
+  return Company
+}
