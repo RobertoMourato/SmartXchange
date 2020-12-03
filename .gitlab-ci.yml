@@ -26,11 +26,11 @@ install_dependencies:
       - back-end/node_modules/
 #      - front-end/node_modules/
 
-#linting:
-#  stage: code_analysis
-#  script:
-#    - cd back-end
-#    - npm run lint
+linting:
+  stage: code_analysis
+  script:
+    - cd back-end
+    - npm run lint
 #    - cd ..
 #    - cd front-end
 #    - ng lint

@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Rankings', {
@@ -10,7 +10,7 @@ module.exports = {
       },
       playerCompetitionId: {
         type: Sequelize.INTEGER,
-        references:{
+        references: {
           model: {
             tableName: 'PlayerCompetitions'
           },
@@ -31,9 +31,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Rankings');
+    await queryInterface.dropTable('Rankings')
   }
-};
+}

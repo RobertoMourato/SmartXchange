@@ -8,8 +8,8 @@
     "test": "mocha --exit",
     "test:coverage": "nyc mocha --exit",
     "dev": "nodemon index.js",
-    "lint": "eslint ./*/*.js",
-    "lint:fix": "eslint ./*/*.js --fix"
+    "lint": "eslint --ext .js ./",
+    "lint:fix": "eslint --ext .js ./ --fix"
   },
   "author": "Lucas Stein",
   "license": "ISC",
