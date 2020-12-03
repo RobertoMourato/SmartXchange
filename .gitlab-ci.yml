@@ -1,33 +1,46 @@
-image: node:latest
+# image: node:latest
 
 stages:
   - build
+  - code_analysis
   - test
+  - staging
   - production
 
 cache:
   paths:
-    - node_modules/
+    - back-end/node_modules/
 
-install_and_test:
-  stage: test
+install_dependencies:
+  stage: build
   script:
     - cd back-end
     - npm install
-    - npm test
+    - cd ..
   artifacts:
     paths:
-      - node_modules/
+      - back-end/node_modules/
+
+linting:
+  stage: code_analysis
+  script:
+    - cd back-end
+    - npm run lint
+    - cd ..
+
+testing:
+  stage: test
+  script:
+    - cd back-end
+    - npm test
+    - cd ..
+
+staging:
+  type: deploy
+  stage: staging
 
 production:
   type: deploy
   stage: production
-  image: ruby:latest
-  script:
-    - apt-get update -qy
-    - apt-get install -y ruby-dev
-    - gem install dpl
-    - dpl --provider=heroku --app=ldso2021-t3g3 --api-key=$HEROKU_API_KEY
   only:
     - master
-    - Issue#54Make_simple_pipeline
