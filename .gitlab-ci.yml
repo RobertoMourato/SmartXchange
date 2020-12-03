@@ -10,24 +10,49 @@ stages:
 cache:
   paths:
     - back-end/node_modules/
+    - front-end/node_modules/
 
 install_dependencies:
   stage: build
   script:
     - cd back-end
     - npm install
+    - cd ..
+    - cd front-end
+    - npm install
+    - npm install -g @angular/cli@latest
   artifacts:
     paths:
       - back-end/node_modules/
+      - front-end/node_modules/
 
 #linting:
 #  stage: code_analysis
 #  script:
 #    - cd back-end
 #    - npm run lint
+#    - cd ..
+#    - cd front-end
+#    - ng lint
+
 
 testing:
   stage: test
   script:
     - cd back-end
     - npm test
+#    - cd ..
+#    - cd front-end
+#    - ng test
+
+#staging:
+#  type: deploy
+#  stage: staging
+#  script:
+
+#production:
+#  type: deploy
+#  stage: production
+#  script:
+#  only:
+#    - master
