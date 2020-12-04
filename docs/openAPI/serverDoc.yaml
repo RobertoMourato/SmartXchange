@@ -1,0 +1,604 @@
+swagger: '2.0'
+info:
+  description: |
+    This is the OpenAPI documentation for the SmartXChange app.
+  version: 1.0.0
+  title: Swagger SmartXChange
+  
+tags:
+- name: User
+  description: API handled requests related to Users
+#- name: store
+#  description: Access to Petstore orders
+#- name: user
+#  description: Operations about user
+paths:
+  /users:
+    post:
+      tags:
+      - User
+      summary: Add a new user
+      operationId: addUser
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: User object that needs to be added
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        200:
+          description: Valid input. Returns the User object that was added
+        400:
+          description: Invalid input
+  /users/all:
+    get:
+      tags:
+      - User
+      summary: Finds all Users
+      operationId: getUsers
+      produces:
+      - application/json
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+  /users/invite:
+    post:
+      tags:
+      - User
+      summary: Invite a new user by email
+      operationId: inviteUser
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: User object that needs to be added
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        200:
+          description: Valid input. Returns the User object that was added
+        400:
+          description: Invalid input
+  /tenanttypes:
+    get:
+      tags:
+      - Tenant Type
+      summary: Get all tenant types
+      operationId: getAllTenantTypes
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Valid input. Returns the Tenant types.
+        400:
+          description: Invalid input
+  /tenants:
+    get:
+      tags:
+      - Tenants
+      summary: Get all tenant
+      operationId: getAllTenants
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Valid input. Returns the Tenants.
+        400:
+          description: Invalid input
+    post:
+      tags:
+      - Tenants
+      summary: Add a new tenant
+      operationId: addTenant
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Tenant object that needs to be added
+        required: true
+        schema:
+          $ref: '#/definitions/Tenant'
+      responses:
+        200:
+          description: Valid input. Returns the Tenant object that was added
+        400:
+          description: Invalid input
+  /stockValues:
+    post:
+      tags:
+      - Stock Values
+      summary: Add a new stock value
+      operationId: addStockValue
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Tenant object that needs to be added
+        required: true
+        schema:
+          $ref: '#/definitions/StockValue'
+      responses:
+        200:
+          description: Valid input. Returns the stock value object that was added
+        400:
+          description: Invalid input
+  /stockValues/all:
+    get:
+      tags:
+      - Stock Values
+      summary: Get all stock values
+      operationId: getAllStocksValues
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Valid input. Returns the stock values.
+        400:
+          description: Invalid input
+  /stocks:
+    get:
+      tags:
+      - Stocks
+      summary: Get all stock values
+      operationId: getAllStocks
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Valid input. Returns the stocks.
+        400:
+          description: Invalid input
+    post:
+      tags:
+      - Stocks
+      summary: Add a new stock value
+      operationId: addStock
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Tenant object that needs to be added
+        required: true
+        schema:
+          $ref: '#/definitions/Stock'
+      responses:
+        200:
+          description: Valid input. Returns the stock object that was added
+        400:
+          description: Invalid input
+  /auth:
+    get:
+      tags:
+        - Auth
+      summary: Log in
+      description: the user inform his email and passaword and his data is verified in the database
+      operationId: login
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+      - name: username
+        in: query
+        description: The user name for login
+        required: true
+        type: string
+      - name: password
+        in: query
+        description: The password for login in clear text
+        required: true
+        type: string
+      responses:
+        200:
+          description: successful operation
+          schema:
+            type: string
+          headers:
+            X-Rate-Limit:
+              type: integer
+              format: int32
+              description: calls per hour allowed by the user
+            X-Expires-After:
+              type: string
+              format: date-time
+              description: date in UTC when token expires
+        400:
+          description: Invalid username/password supplied
+          
+  /company:
+    post:
+      tags:
+      - Company
+      summary: create company
+      description: a company is created by a user to enter competitions
+      operationId: createCompany
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - in: body
+        name: body
+        description: Created company object
+        required: true
+        schema:
+          $ref: '#/definitions/Company'
+      responses:
+        default:
+          description: successful operation
+  
+  /competition/all:
+    get:
+      tags:
+      - competition
+      summary: Get all competitions information
+      operationId: getAllCompetitions
+      produces:
+      - application/json
+      - application/xml
+      responses:
+        default:
+          description: successful operation
+  /competition:
+    post:
+      tags:
+      - competition
+      summary: create a new competition
+      operationId: addCompetition
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - in: body
+        name: body
+        description: Created competition object
+        required: true
+        schema:
+          $ref: '#/definitions/Competition'
+      responses:
+        default:
+          description: successful operation
+          
+  /competition/toggle:
+    put:
+      tags:
+      - competition
+      summary: start or end a competition
+      operationId: toggleCompetition
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: id
+        in: query
+        description: The competition id
+        required: true
+        type: integer
+      responses:
+        default:
+          description: successful operation
+  /competition/settings:
+    put:
+      tags:
+      - competition
+      summary: change the settings of a competition
+      operationId: changeSettingsCompetition
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - in: query
+        name: id
+        description: the competition id
+        required: true
+        type: integer
+      responses:
+        default:
+          description: successful operation
+  /competition/question:
+    post:
+      tags:
+      - competition
+      summary: add a new question to a competition
+      operationId: addQuestion
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - in: body
+        name: body
+        description: Created question object
+        required: true
+        schema:
+          $ref: '#/definitions/Question'
+      responses:
+        default:
+          description: successful operation
+          
+  /competition/selectQuestions:
+    put:
+      tags:
+      - competition
+      summary: select the questions that will be used in that competition
+      operationId: toggleQuestions
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - in: body
+        name: body
+        description: array of questions id
+        required: true
+        schema:
+          type: integer
+      responses:
+        default:
+          description: successful operation 
+  /competition/answerQuestions:
+    post:
+      tags:
+      - competition
+      summary: add a answer to a competition question
+      operationId: answerQuestions
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - in: body
+        name: body
+        description: Created answer object
+        required: true
+        schema:
+          $ref: '#/definitions/Answer'
+      responses:
+        default:
+          description: successful operation
+  
+    
+definitions:
+
+  Tenant Type:
+    type: object
+    properties:
+      tenantType:
+        type: string
+      isManager:
+        type: boolean
+        
+  Tenant:
+    type: object
+    properties:
+      name:
+        type: string
+      username:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      tenanttype_id:
+        type: integer
+      
+  User Type:
+    type: object
+    properties:
+      userType:
+        type: string
+      isEntrepreneur:
+        type: boolean
+        
+  User:
+    type: object
+    properties:
+      tenantId:
+        type: integer
+      name:
+        type: string
+      username:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      userTypeId:
+        type: integer
+        
+  Company:
+    type: object
+    properties:
+      playerCompetitionId:
+        type: integer
+      companyName:
+        type: string
+      companyValuePropositions:
+        type: string
+      companyCostumerSegments:
+        type: string
+      companyCostumerRelationships:
+        type: string
+      companyChannels:
+        type: string
+      companyCostStructure:
+        type: string
+      companyKeyPartners:
+        type: string
+      companyKeyResources:
+        type: string
+      companyWebsiteURL:
+        type: string
+      companyShortPitch:
+        type: string
+      companyCurrentStockPrice:
+        type: integer
+        
+  Competition:
+    type: object
+    properties:
+      managerId:
+        type: integer
+      competitionStartDate:
+        type: integer
+      competitionEndDate:
+        type: integer
+      competitionMarketOpening:
+        type: integer
+      competitionMarketEnding:
+        type: integer
+      competitionInitialBudget:
+        type: integer
+      competitionInitialStockValue:
+        type: integer
+      competitionRefreshRate:
+        type: integer
+      competitionNumStocks:
+        type: integer
+      competitionHasStarted:
+        type: boolean
+        
+  Invite:
+    type: object
+    properties:
+      token:
+        type: string
+      invitedBy:
+        type: integer
+      IsManager:
+        type: boolean
+      competitionId:
+        type: integer
+      isValid:
+        type: boolean
+      email:
+        type: string
+        
+  Order:
+    type: object
+    properties:
+      companyId:
+        type: integer
+      playerId:
+        type: integer
+      orderNumStock:
+        type: integer
+      orderValue:
+        type: integer
+      orderDate:
+        type: integer
+      orderType:
+        type: integer
+      orderStatus:
+        type: integer
+        
+  Stock:
+    type: object
+    properties:
+      companyId:
+        type: integer
+      playerId:
+        type: integer
+      stockLastExchange:
+        type: integer
+      stockValue:
+        type: integer
+        
+  StockValue:
+    type: object
+    properties:
+      stockId:
+        type: integer
+      stockValue:
+        type: integer
+      stockValueDate:
+        type: integer
+        
+  Stock Exchange:
+    type: object
+    properties:
+      buyOrderId:
+        type: integer
+      sellOrderId:
+        type: integer
+      stockId:
+        type: integer
+        
+  Player Competition:
+    type: object
+    properties:
+      playerId:
+        type: integer
+      competitionId:
+        type: integer
+        
+  News:
+    type: object
+    properties:
+      competitionId:
+        type: integer
+      userId:
+        type: integer
+      newsTitle:
+        type: string
+      newsContent:
+        type: string
+      newsType:
+        type: string
+      newsDate:
+        type: string
+        
+  Question:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      questionText: 
+        type: string
+      order: 
+        type: integer
+        format: int64
+      competitionId: 
+        type: integer
+        format: int64
+      isSelected:
+        type: boolean
+
+  Answer:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      questionId: 
+        type: integer
+        format: int64
+      companyId:
+        type: integer
+        format: int64
+      answerText: 
+        type: string
+
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /LucasVStein/SmartXChange/1.0.0
+schemes:
+ - https
