@@ -1,38 +1,58 @@
 <mat-card>
-
-
-<mat-vertical-stepper [linear]="true" #stepper>
+  <mat-vertical-stepper [linear]="true" #stepper>
     <mat-step>
-        <form>
-            <ng-template matStepLabel>Define competition settings</ng-template>
-            <mat-form-field>
-                <input type="number" placeholder="Duration" formControlName="" required>
-            </mat-form-field> 
-            <!-- <mat-form-field>
-                <input type="number" matInput placeholder="Investors Initial Cash" formControlName="" required>
-            </mat-form-field>  -->
-            <!-- <mat-form-field>
-                <input type="number" matInput placeholder="Initial Company Value" formControlName="" required>
-            </mat-form-field> 
-            <mat-form-field>
-                <input type="number" matInput placeholder="Number of Inital Stocks" formControlName="" required>
-            </mat-form-field>  -->
-            <app-sort-questions></app-sort-questions>
-        </form>
-        <button mat-button matStepperNext>Next</button>
-    </mat-step>
-    <mat-step>
-        <form>
-            <ng-template matStepLabel>Invite players</ng-template>
-            <mat-form-field>
-                <input matInput placeholder="Teste" required>
+      <form>
+        <ng-template matStepLabel>Define competition settings</ng-template>
+        <div fxLayout="row" fxLayoutGap="10px">
+          <div fxLayout="column">
+            <mat-form-field appearance="legacy">
+              <mat-label>Duration</mat-label>
+              <input matInput placeholder="Placeholder" />
+              <mat-hint></mat-hint>
             </mat-form-field>
-        </form>
-        <button mat-button matStepperPrevious>Back</button>
+            <mat-form-field appearance="legacy">
+              <mat-label>Refresh Rate</mat-label>
+              <input matInput placeholder="Placeholder" />
+              <mat-hint></mat-hint>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="legacy">
+              <mat-label>Initial Company Value</mat-label>
+              <input matInput placeholder="Placeholder" />
+              <mat-hint></mat-hint>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="legacy">
+              <mat-label>Number of Initial Stocks</mat-label>
+              <input matInput placeholder="Placeholder" />
+              <mat-hint></mat-hint>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="legacy">
+              <mat-label>Investor Initial Cash</mat-label>
+              <input matInput placeholder="Placeholder" />
+              <mat-hint></mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <app-sort-questions></app-sort-questions>
+          </div>
+        </div>
+      </form>
       <button mat-button matStepperNext>Next</button>
     </mat-step>
     <mat-step>
-        <ng-template matStepLabel>Wait for players</ng-template>
+      <form>
+        <ng-template matStepLabel>Invite players</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Teste" required />
+        </mat-form-field>
+      </form>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
     </mat-step>
-</mat-vertical-stepper>
+    <mat-step>
+      <ng-template matStepLabel>Wait for players</ng-template>
+    </mat-step>
+  </mat-vertical-stepper>
 </mat-card>

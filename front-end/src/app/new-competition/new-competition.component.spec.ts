@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { NewCompetitionComponent } from './new-competition.component';
 
 describe('NewCompetitionComponent', () => {
@@ -8,7 +7,7 @@ describe('NewCompetitionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NewCompetitionComponent ]
+      declarations: [ NewCompetitionComponent ],
     })
     .compileComponents();
   });
