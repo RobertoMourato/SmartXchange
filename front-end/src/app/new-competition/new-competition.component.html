@@ -1,20 +1,29 @@
-<mat-card>
-  <mat-vertical-stepper [linear]="true" #stepper>
+<mat-card style="width: 75%; margin: 20px auto;">
+  <mat-horizontal-stepper [linear]="true" #stepper>
     <mat-step>
       <form>
         <ng-template matStepLabel>Define competition settings</ng-template>
         <div fxLayout="row" fxLayoutGap="10px">
-          <div fxLayout="column">
-            <mat-form-field appearance="legacy">
-              <mat-label>Duration</mat-label>
-              <input matInput placeholder="Placeholder" />
-              <mat-hint></mat-hint>
-            </mat-form-field>
-            <mat-form-field appearance="legacy">
-              <mat-label>Refresh Rate</mat-label>
-              <input matInput placeholder="Placeholder" />
-              <mat-hint></mat-hint>
-            </mat-form-field>
+          <div fxLayout="column" style="width: 50%;">
+            <mat-label>Duration: {{ formatLabel(durationslider.value) }}</mat-label>
+            <mat-slider 
+              #durationslider
+              tickInterval="0.25"
+              step="0.25"
+              min="0.25"
+              max="2"
+              value="1.5">
+            </mat-slider>
+            
+            <mat-label>Refresh Rate: {{refreshslider.value}} seconds</mat-label>
+            <mat-slider
+              #refreshslider
+              tickInterval="1"
+              min="1"
+              max="60"
+              value="30">
+            </mat-slider>
+
             <br>
             <mat-form-field appearance="legacy">
               <mat-label>Initial Company Value</mat-label>
@@ -24,13 +33,13 @@
             <br>
             <mat-form-field appearance="legacy">
               <mat-label>Number of Initial Stocks</mat-label>
-              <input matInput placeholder="Placeholder" />
+              <input matInput placeholder="" />
               <mat-hint></mat-hint>
             </mat-form-field>
             <br>
             <mat-form-field appearance="legacy">
               <mat-label>Investor Initial Cash</mat-label>
-              <input matInput placeholder="Placeholder" />
+              <input matInput placeholder="" />
               <mat-hint></mat-hint>
             </mat-form-field>
           </div>
@@ -39,7 +48,7 @@
           </div>
         </div>
       </form>
-      <button mat-button matStepperNext>Next</button>
+      <button fxLayoutAlign="end end" mat-button matStepperNext>Next</button>
     </mat-step>
     <mat-step>
       <form>
@@ -53,6 +62,7 @@
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Wait for players</ng-template>
+      <button mat-button matStepperPrevious>Back</button>
     </mat-step>
-  </mat-vertical-stepper>
+  </mat-horizontal-stepper>
 </mat-card>

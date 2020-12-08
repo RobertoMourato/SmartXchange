@@ -20,7 +20,7 @@ export class LoginService {
     .pipe(map(this.extractData));
   }
 
-  private extractData(res: Response) : object {
+  private extractData(res: Response): object {
     console.log(res || {});
     return res || {};
   }
