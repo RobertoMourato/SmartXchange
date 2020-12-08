@@ -1,7 +1,5 @@
 .container {
-  width: 400px;
-  max-width: 100%;
-  margin: 0 20px;
+  width: 100%;
   display: inline-block;
   vertical-align: top;
 }
@@ -9,7 +7,7 @@
 .list {
   border: solid 1px #ccc;
   min-height: 60px;
-  background: white;
+  background:  #424242;
   border-radius: 4px;
   display: block;
   overflow: hidden;
@@ -25,8 +23,9 @@
   font-size: 14px;
 }
 
-.list-item:last-child {
-  border: none;
+
+.list-item p{
+  word-wrap: break-word;
 }
 
 /* Highlight the list item that is being dragged. */
@@ -54,3 +53,9 @@
 ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
   background-color: #06b164;
 }
+
+::ng-deep .mat-checkbox-label{
+  word-wrap: break-word;
+  white-space: initial;
+}
+

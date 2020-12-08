@@ -27,7 +27,7 @@
             <br>
             <mat-form-field appearance="legacy">
               <mat-label>Initial Company Value</mat-label>
-              <input matInput placeholder="Placeholder" />
+              <input matInput placeholder="" />
               <mat-hint></mat-hint>
             </mat-form-field>
             <br>
@@ -43,12 +43,14 @@
               <mat-hint></mat-hint>
             </mat-form-field>
           </div>
-          <div class="col">
+          <div fxLayout="column" style="width: 50%;">
             <app-sort-questions></app-sort-questions>
           </div>
         </div>
       </form>
-      <button fxLayoutAlign="end end" mat-button matStepperNext>Next</button>
+      <div fxLayoutAlign="end end" style="margin-top: 20px">
+        <button mat-button matStepperNext>Next</button>
+      </div>
     </mat-step>
     <mat-step>
       <form>
@@ -57,12 +59,16 @@
           <input matInput placeholder="Teste" required />
         </mat-form-field>
       </form>
+      <div fxLayout="row" fxLayoutAlign="space-between center" > 
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button matStepperNext>Next</button>
+      </div>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Wait for players</ng-template>
-      <button mat-button matStepperPrevious>Back</button>
+      <div fxLayout="row" fxLayoutAlign="center center" > 
+      <button mat-button>Start Competition</button>
+      </div>
     </mat-step>
   </mat-horizontal-stepper>
 </mat-card>

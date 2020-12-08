@@ -10,7 +10,7 @@ export class SortQuestionsComponent {
   questions = [
     'Value Propositions',
     'Key Activities',
-    'Costumer Segments & Costumer Relationships',
+    'Costumer Segments \ & Costumer Relationships',
     'Channels',
     'Cost Structure',
     'Key Partners',
