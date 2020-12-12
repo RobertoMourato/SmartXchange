@@ -37,16 +37,22 @@ module.exports = {
   */
 
   async addUser (req, res) {
-    // console.log(req.body)
-    const userType = await models.UserType.findOne({ where: { userType: req.body.userType } })
-    const { name, username, email, password, managerId, tenantId } = req.body
-
-    if (userType) {
-      const manager = await models.User.findByPk(managerId)
-      if (manager) {
+    //  console.log(req.body)
+    const { name, username, email, password, token2 } = req.body
+    const token3=token2.split("=")[1]
+    console.log(token3)
+    const invite = await models.Invite.findOne({where: {token:token3}})
+    if(invite.dataValues.isValid){
+      const manager = await models.User.findByPk(invite.dataValues.invitedBy)
+      if(manager){
         try {
-          const typeId = userType.dataValues.id
-          const user = await models.User.create({ name: name, username: username, email: email, password: password, tenantId: manager.dataValues.tenantId, userTypeId: typeId })
+          const user = await models.User.create({ name: name, 
+                                                  username: username, 
+                                                  email: email, 
+                                                  password: password, 
+                                                  tenantId: manager.dataValues.tenantId, 
+                                                  userTypeId: "2",
+                                                  managerId:manager.dataValues.id })
           return await models.User.build(user.dataValues)
           // console.log('user',user)
           // res.status(200).json(user)
@@ -54,25 +60,9 @@ module.exports = {
           return null
           // res.status(400).json(error);
         }
-      } else {
-        console.log(userType.dataValues.isManager)
-        if (userType.dataValues.isManager == true) {
-          console.log('aqui')
-          try {
-            const typeId = userType.dataValues.id
-            const man = await models.User.create({ name: name, username: username, email: email, password: password, tenantId: tenantId, userTypeId: typeId })
-            return await models.User.build(man.dataValues)
-            // res.status(200).json(man)
-          } catch (error) {
-            return null
-            // res.status(400).json(error);
-          }
-        } else {
-          return 400
-          // res.status(400).json("No Manager associated");
-        }
+        
       }
-    } else {
+    }else {
       return 400
       // res.status(400).json("No User Type associated");
     }
