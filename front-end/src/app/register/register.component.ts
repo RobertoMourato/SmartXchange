@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
   
   register(name:string,username:string,email: string, password: string): void {
     if (!this.validateForm(name,username,email,password)) {
-      alert("Email or password invalid");
+      alert("Invalid data");
     } else {
       this.RegisterService.register(name,username,email, password).subscribe(data => {
         this.user = data.user;
@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
         
         //alert(JSON.stringify(data.user) +'\n'+JSON.stringify(data.usertype))
         //window.location.replace("/menu");
-        alert("Welcome "+ window.sessionStorage.getItem('user'));
+        alert("Account created "+ window.sessionStorage.getItem('user'));
       },
         error => { 
           alert(error.error)});

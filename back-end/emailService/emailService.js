@@ -19,7 +19,7 @@ exports.sendManagerInvite = function (req, invite) {
   mailOptions.to = req.body.email
 
   // url for invite must be in request
-  mailOptions.text = mailOptions.text.concat('www.invite.pt$invite=', invite)
+  mailOptions.text = mailOptions.text.concat('http://localhost:4200/register$invite=', invite)
 
   transport.sendMail(mailOptions, (error, info) => {
     if (error) {
@@ -38,7 +38,7 @@ exports.sendPlayerInvite = async function (req, invite) {
   mailOptions.to = req.body.email
 
   // url for invite must be in request, AINDA FALTA FAZER O ID COM GUUID
-  mailOptions.text = mailOptions.text.concat('www.invite.pt$invite=', invite)
+  mailOptions.text = mailOptions.text.concat('http://localhost:4200/register$invite=', invite)
 
   transport.sendMail(mailOptions, (error, info) => {
     if (error) {
