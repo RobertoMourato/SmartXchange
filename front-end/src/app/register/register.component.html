@@ -13,10 +13,11 @@
             <input type="text" #username name="username" placeholder="Username">
             <input type="text" #email name="email" placeholder="Email">
             <input type="password" #password name="password" placeholder="Password">
-            <label>
+            <input type="hidden" #usertype name="usertype" value="3" />
+            <label *ngIf="isShown">
                 <input type="radio" #usertype  name="usertype" value="1">Entrepreneur
             </label>
-            <label>
+            <label *ngIf="isShown">
                 <input type="radio" #usertype  name="usertype" value="2">Investor
             </label>
             <input type="submit" name="register" class="register register-submit" value="Register"

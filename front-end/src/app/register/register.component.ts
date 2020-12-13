@@ -13,7 +13,7 @@ import { UserType } from './userType';
 export class RegisterComponent implements OnInit {
 
   constructor(private RegisterService: RegisterService, router: Router) { }
-  
+  isShown: boolean = true;
   user: User;
   userType:UserType;
   private invite:Invite;
@@ -22,10 +22,10 @@ export class RegisterComponent implements OnInit {
       console.log(data)
       this.invite = data;
       if(this.invite.isManager){
-        console.log("is a manager hide compoments")
+        this.isShown = false
       }
       else{
-        console.log("is not a manager")
+        this.isShown = true
       }
     })
   }
