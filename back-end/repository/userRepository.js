@@ -38,7 +38,7 @@ module.exports = {
 
   async addUser (req, res) {
     //  console.log(req.body)
-    const { name, username, email, password, token2 } = req.body
+    const { name, username, email, password, token2, usertype } = req.body
     const token3=token2.split("=")[1]
     console.log(token3)
     const invite = await models.Invite.findOne({where: {token:token3}})
@@ -51,7 +51,7 @@ module.exports = {
                                                   email: email, 
                                                   password: password, 
                                                   tenantId: manager.dataValues.tenantId, 
-                                                  userTypeId: "2",
+                                                  userTypeId: usertype,
                                                   managerId:manager.dataValues.id })
           return await models.User.build(user.dataValues)
           // console.log('user',user)

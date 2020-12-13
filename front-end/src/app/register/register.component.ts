@@ -20,11 +20,11 @@ export class RegisterComponent implements OnInit {
 
   }
   
-  register(name:string,username:string,email: string, password: string): void {
+  register(name:string,username:string,email: string, password: string, usertype: Int16Array): void {
     if (!this.validateForm(name,username,email,password)) {
       alert("Invalid data");
     } else {
-      this.RegisterService.register(name,username,email, password,window.location.search).subscribe(data => {
+      this.RegisterService.register(name,username,email,password,window.location.search,usertype).subscribe(data => {
         this.user = data.user;
         this.userType=data.usertype;
         console.log(this.user, ' ' , this.userType)
