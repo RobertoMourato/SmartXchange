@@ -8,6 +8,7 @@ router.get('/all', UserController.getUsers)
 router.get('/', UserController.getUserById)
 router.post('/register', UserController.addUser)
 router.post('/invite', inviteControlller.inviteUser)
+router.get('/isManager', inviteControlller.verifyManager)
 router.delete('/', UserController.deleteUser)
 router.put('/update', UserController.updateUser)
 

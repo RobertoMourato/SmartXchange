@@ -20,7 +20,11 @@ export class RegisterService {
     return this.httpClient.post(this.url + "/users/register", body, {headers: header})
     .pipe(map(this.extractData));
   }
-
+  
+  isManager(token2:string){
+    const header= new HttpHeaders({ 'Content-Type': 'application/JSON' })
+    return this.httpClient.get<any>(this.url + "/users/isManager" + token2,{headers: header})
+  }
   private extractData(res: Response) {
     console.log(res || {})
     return res || {};

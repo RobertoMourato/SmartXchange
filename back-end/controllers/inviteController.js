@@ -26,7 +26,15 @@ exports.inviteManager = async function (req, res) {
     return res.sendStatus(500)
   }
 }
-
+exports.verifyManager = async function (req, res) {
+  try {
+    const results = await inviteRep.isManager(req, res)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
 /*
   Body:
   {"invitedBy:"",

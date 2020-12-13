@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Invite } from './invite';
 import { RegisterService } from './register.service';
 import { User } from './user';
 import { UserType } from './userType';
@@ -15,10 +16,20 @@ export class RegisterComponent implements OnInit {
   
   user: User;
   userType:UserType;
-
+  private invite:Invite;
   ngOnInit() {
-
+    this.RegisterService.isManager(window.location.search).subscribe(data =>{
+      console.log(data)
+      this.invite = data;
+      if(this.invite.isManager){
+        console.log("is a manager hide compoments")
+      }
+      else{
+        console.log("is not a manager")
+      }
+    })
   }
+  
   
   register(name:string,username:string,email: string, password: string, usertype: Int16Array): void {
     if (!this.validateForm(name,username,email,password)) {
@@ -27,8 +38,6 @@ export class RegisterComponent implements OnInit {
       this.RegisterService.register(name,username,email,password,window.location.search,usertype).subscribe(data => {
         this.user = data.user;
         this.userType=data.usertype;
-        console.log(this.user, ' ' , this.userType)
-        console.log(data.token);
         
         window.sessionStorage.setItem('user', this.user.username);
         window.sessionStorage.setItem('usertype', this.userType.userType);
