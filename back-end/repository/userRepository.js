@@ -40,11 +40,11 @@ module.exports = {
     //  console.log(req.body)
     const { name, username, email, password, token2, usertype } = req.body
     const token3=token2.split("=")[1]
-    console.log(token3)
     const invite = await models.Invite.findOne({where: {token:token3}})
+    console.log(invite)
     if(invite.dataValues.isValid){
       const manager = await models.User.findByPk(invite.dataValues.invitedBy)
-      if(invite.dataValues.IsManager && manager){
+      if(invite.dataValues.isManager && manager){
         try {
           const user = await models.User.create({ name: name, 
                                                   username: username, 
@@ -60,8 +60,7 @@ module.exports = {
           return null
           // res.status(400).json(error);
         }
-      }
-      else{  
+      }else{  
         if(manager){
           try {
             const user = await models.User.create({ name: name, 
