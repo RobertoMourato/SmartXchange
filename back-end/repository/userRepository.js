@@ -44,15 +44,15 @@ module.exports = {
     const invite = await models.Invite.findOne({where: {token:token3}})
     if(invite.dataValues.isValid){
       const manager = await models.User.findByPk(invite.dataValues.invitedBy)
-      if(manager){
+      if(invite.dataValues.IsManager && manager){
         try {
           const user = await models.User.create({ name: name, 
                                                   username: username, 
                                                   email: email, 
                                                   password: password, 
                                                   tenantId: manager.dataValues.tenantId, 
-                                                  userTypeId: usertype,
-                                                  managerId:manager.dataValues.id })
+                                                  userTypeId: 3,
+                                                  managerId:null })
           return await models.User.build(user.dataValues)
           // console.log('user',user)
           // res.status(200).json(user)
@@ -60,8 +60,28 @@ module.exports = {
           return null
           // res.status(400).json(error);
         }
-        
       }
+      else{  
+        if(manager){
+          try {
+            const user = await models.User.create({ name: name, 
+                                                    username: username, 
+                                                    email: email, 
+                                                    password: password, 
+                                                    tenantId: manager.dataValues.tenantId, 
+                                                    userTypeId: null,
+                                                    managerId:manager.dataValues.id })
+            return await models.User.build(user.dataValues)
+            // console.log('user',user)
+            // res.status(200).json(user)
+          } catch (error) {
+            return null
+            // res.status(400).json(error);
+          }
+          
+        }
+      }
+      
     }else {
       return 400
       // res.status(400).json("No User Type associated");

@@ -13,8 +13,8 @@ export class RegisterService {
 
   constructor(private httpClient: HttpClient) { }
 
-  register(name2:string,username2:string,email2: string, password2: string, token2:string,usertype:Int16Array): Observable<any> {
-    const body = JSON.stringify({name:name2,username:username2,email: email2, password:password2,token2:token2,usertype:usertype});
+  register(name2:string,username2:string,email2: string, password2: string, token2:string): Observable<any> {
+    const body = JSON.stringify({name:name2,username:username2,email: email2, password:password2,token2:token2});
     console.log(body);
     const header= new HttpHeaders({ 'Content-Type': 'application/JSON' })
     return this.httpClient.post(this.url + "/users/register", body, {headers: header})

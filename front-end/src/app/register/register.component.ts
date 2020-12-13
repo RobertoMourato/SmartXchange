@@ -31,19 +31,14 @@ export class RegisterComponent implements OnInit {
   }
   
   
-  register(name:string,username:string,email: string, password: string, usertype: Int16Array): void {
+  register(name:string,username:string,email: string, password: string): void {
     if (!this.validateForm(name,username,email,password)) {
       alert("Invalid data");
     } else {
-      this.RegisterService.register(name,username,email,password,window.location.search,usertype).subscribe(data => {
+      this.RegisterService.register(name,username,email,password,window.location.search).subscribe(data => {
         this.user = data.user;
-        this.userType=data.usertype;
         
-        window.sessionStorage.setItem('user', this.user.username);
-        window.sessionStorage.setItem('usertype', this.userType.userType);
-        window.sessionStorage.setItem('token', data.token);
-        
-        
+        window.sessionStorage.setItem('user', this.user.username); 
         //alert(JSON.stringify(data.user) +'\n'+JSON.stringify(data.usertype))
         //window.location.replace("/menu");
         alert("Account created "+ window.sessionStorage.getItem('user'));
