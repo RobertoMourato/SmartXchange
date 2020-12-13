@@ -12,9 +12,15 @@
             <input type="text" #name name="name" placeholder="Name">
             <input type="text" #username name="username" placeholder="Username">
             <input type="text" #email name="email" placeholder="Email">
-            <input type="password" #password ame="password" placeholder="Password">
+            <input type="password" #password name="password" placeholder="Password">
+            <label>
+                <input type="radio" #usertype  name="usertype" value="1">Entrepreneur
+            </label>
+            <label>
+                <input type="radio" #usertype  name="usertype" value="2">Investor
+            </label>
             <input type="submit" name="register" class="register register-submit" value="Register"
-                (click)="register(name.value,username.value,email.value,password.value)">
+                (click)="register(name.value,username.value,email.value,password.value,usertype.value)">
         </form>
 
         <div class="register-help">
