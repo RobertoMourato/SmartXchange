@@ -8,21 +8,21 @@ import { map } from 'rxjs/operators';
 })
 export class LoginService {
 
-  private url = 'http://localhost:3000'
-  //private url = 'http://localhost:5000'
+  private url = 'http://localhost:3000';
+  // private url = 'http://localhost:5000'
 
   constructor(private httpClient: HttpClient) { }
 
   login(email2: string, password2: string): Observable<any> {
-    const body = JSON.stringify({email: email2, password:password2});
+    const body = JSON.stringify({email: email2, password: password2});
     console.log(body);
-    const header= new HttpHeaders({ 'Content-Type': 'application/JSON' })
-    return this.httpClient.post(this.url + "/login", body, {headers: header})
+    const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    return this.httpClient.post(this.url + '/login', body, {headers: header})
     .pipe(map(this.extractData));
   }
 
-  private extractData(res: Response) {
-    console.log(res || {})
+  private extractData(res: Response): object {
+    console.log(res || {});
     return res || {};
   }
 

@@ -62,12 +62,11 @@ module.exports = {
       res.status(400).json(error)
     }
   },
-  
+
   async isManager (req, res) {
     try {
-
-      const invite = await models.Invite.findOne({where: {token:req.query.invite}})
-      if (invite != null) {      
+      const invite = await models.Invite.findOne({ where: { token: req.query.invite } })
+      if (invite != null) {
         return invite
       } else {
         console.log('ee')
