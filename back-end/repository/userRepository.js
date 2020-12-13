@@ -38,10 +38,9 @@ module.exports = {
 
   async addUser (req, res) {
     //  console.log(req.body)
-    const { name, username, email, password, token2, usertype } = req.body
-    const token3=token2.split("=")[1]
+    const { name, username, email, password, token2} = req.body
+    const token3 = token2.split("=")[1]
     const invite = await models.Invite.findOne({where: {token:token3}})
-    console.log(invite)
     if(invite.dataValues.isValid){
       const manager = await models.User.findByPk(invite.dataValues.invitedBy)
       if(invite.dataValues.isManager && manager){
@@ -53,9 +52,11 @@ module.exports = {
                                                   tenantId: manager.dataValues.tenantId, 
                                                   userTypeId: 3,
                                                   managerId:null })
+          this.invalidToken(req.body.token2.split("=")[1])
           return await models.User.build(user.dataValues)
           // console.log('user',user)
           // res.status(200).json(user)
+          
         } catch (error) {
           return null
           // res.status(400).json(error);
@@ -70,6 +71,7 @@ module.exports = {
                                                     tenantId: manager.dataValues.tenantId, 
                                                     userTypeId: null,
                                                     managerId:manager.dataValues.id })
+            this.invalidToken(req.body.token2.split("=")[1])
             return await models.User.build(user.dataValues)
             // console.log('user',user)
             // res.status(200).json(user)
@@ -112,7 +114,18 @@ module.exports = {
       return null
     }
   },
-
+  async invalidToken (token2) {
+    console.log(token2)
+    try {
+        models.Invite.update(
+          { isValid: false },
+          { returning: true, where: { token: token2 } }
+        )
+    } catch (error) {
+      console.log("nao invalidou")
+      return null
+    } 
+  },
   async getByUsername (username) {
     const user = await models.User.findOne({ where: { username: username } })
     if (user) {
