@@ -13,6 +13,7 @@ module.exports = {
       competitionRefreshRate: '1:00',
       competitionNumStocks: '100',
       competitionHasStarted: false,
+      competitionHasFinished: false,
       createdAt: new Date(),
       updatedAt: new Date()
     }])

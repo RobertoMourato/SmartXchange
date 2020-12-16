@@ -45,7 +45,7 @@ module.exports = {
         questionText: questionText,
         competitionId: competitionId,
         order: order + 1,
-        isSelected: false
+        isSelected: true
       })
       return question
     } catch (error) {
