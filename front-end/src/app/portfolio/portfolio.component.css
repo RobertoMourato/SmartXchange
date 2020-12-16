@@ -1,0 +1,19 @@
+table {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h1.portfolio {
+  text-align: center;
+}
+
+div.orders {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+tbody {
+  background-color: blue;
+  color: white;
+} 
