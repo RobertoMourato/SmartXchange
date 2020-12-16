@@ -58,7 +58,8 @@ module.exports = {
   async addCompetitionDraft (req, res) {
     // const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
     const manager = await models.User.findByPk(req.body.managerId)
-    const {competitionEndDate, competitionInitialBudget, competitionInitialStockValue,
+    const {
+      competitionEndDate, competitionInitialBudget, competitionInitialStockValue,
       competitionRefreshRate, competitionNumStocks, questions
     } = req.body
 
@@ -77,10 +78,10 @@ module.exports = {
           competitionHasStarted: false
         })
 
-        //await questionRepository.loadQuestions(competition.dataValues)
-        questions.forEach(element => {
+        // await questionRepository.loadQuestions(competition.dataValues)
+        questions.forEach(async element => {
           await questionRepository.addQuestion(element, competition.dataValues.id)
-        });
+        })
 
         res.status(200).json(competition)
       } catch (error) {

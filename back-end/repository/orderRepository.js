@@ -1,7 +1,7 @@
 const models = require('../models')
 
 module.exports = {
-  async index(req, res) {
+  async index (req, res) {
     const order = models.Order
     await order.findAll().then(order => {
       res.status(200).json(order)
@@ -10,7 +10,7 @@ module.exports = {
         res.status(400).send(error)
       })
   },
-  async addOrder(req, res) {
+  async addOrder (req, res) {
     // const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
     const company = await models.Company.findByPk(req.query.companyId)
     const user = await models.User.findByPk(req.query.userId)
@@ -46,7 +46,7 @@ module.exports = {
     }
   },
 
-  async getPendingOrders(req, res) {
+  async getPendingOrders (req, res) {
 
   }
 }
