@@ -17,6 +17,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
+import { MatTableModule } from '@angular/material/table' 
 
 @NgModule({
   declarations: [
@@ -37,8 +38,10 @@ import { MainNavComponent } from './main-nav/main-nav.component';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatTableModule
   ],
+  exports: [MatTableModule],
   providers: [],
   bootstrap: [AppComponent]
 })
