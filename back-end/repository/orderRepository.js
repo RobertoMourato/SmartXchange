@@ -46,7 +46,20 @@ module.exports = {
     }
   },
 
-  async getPendingOrders (req, res) {
-
+  async getPlayerPendingOrders (playerId) {
+    return await models.Order.findAll({
+      where: { playerId: playerId },
+      include: [{
+        model: models.User,
+        as: 'player',
+        include: {
+          model: models.PlayerCompetition,
+          include: {
+            model: models.Competition,
+            where: { competitionHasStarted: true, competitionHasFinished: false }
+          }
+        }
+      }]
+    })
   }
 }

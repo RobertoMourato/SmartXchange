@@ -19,3 +19,14 @@ exports.addOrder = async function (req, res) {
     res.sendStatus(500)
   }
 }
+
+exports.getPlayerPendingOrders = async function (req, res) {
+  const playerId = req.params.playerId
+  console.log(playerId)
+  try {
+    const results = await orderRepository.getPlayerPendingOrders(playerId)
+    if (results.player.PlayerCompetition[0]) { res.json(results).status(200) }
+  } catch (error) {
+    res.json(error).status(500)
+  }
+}
