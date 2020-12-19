@@ -3,17 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Offer } from './Offer';
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { PortfolioOrdersService } from './portfolio-orders.service';
-
-const ELEMENT_DATA: Offer[] = [
-  {
-    id: 12299,
-    type: 'string',
-    company: 'string',
-    status: 'string',
-    qt: 2,
-    offer: 2,
-  },
-];
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-portfolio',
@@ -29,18 +19,29 @@ export class PortfolioComponent implements OnInit {
     'offer',
     'cancelButton',
   ];
+  completedDisplayedColumns: string[] = [
+    'type',
+    'company',
+    'status',
+    'quantity',
+    'offer',
+    'date',
+  ];
+
 
   pendingOffers: Offer[] = [];
   completedOffers: Array<Offer>;
   pendingDataSource: MatTableDataSource<Offer>;
   dataSource: MatTableDataSource<Offer>;
   completedDataSource: MatTableDataSource<Offer>;
-  constructor(private portfolioService: PortfolioOrdersService) {}
+  constructor(private portfolioService: PortfolioOrdersService, public datepipe: DatePipe) {}
 
   ngOnInit(): void {
     this.pendingOffers = new Array<Offer>();
-    this.getPendingOrders();
     
+    this.getPendingOrders();
+    this.getCompletedOrders();
+
     // console.log('pds', this.pendingDataSource.data);
 
     //
@@ -50,7 +51,6 @@ export class PortfolioComponent implements OnInit {
     //console.log('pendingDatasource', this.pendingDataSource);
     //this.dataSource =  new MatTableDataSource(this.offers)
 
-    this.getCompletedOrders;
  
     //this.dataSource = new MatTableDataSource<Offer>(ELEMENT_DATA);
     //console.log('filt', this.dataSource.data);
@@ -74,6 +74,7 @@ export class PortfolioComponent implements OnInit {
           status: element.orderStatus,
           qt: element.orderNumStock,
           offer: element.orderValue,
+          date: element.createdAt
         });
       });
       this.pendingDataSource = new MatTableDataSource<Offer>(arr);
@@ -82,7 +83,7 @@ export class PortfolioComponent implements OnInit {
 
   getCompletedOrders() {
     const username = window.sessionStorage.getItem('user');
-    console.log(username);
+    console.log('completed',username);
     const arr =[];
     this.portfolioService.getCompletedOrders(username).subscribe((data) => {
       console.log('data',data)
@@ -98,6 +99,7 @@ export class PortfolioComponent implements OnInit {
           status: element.orderStatus,
           qt: element.orderNumStock,
           offer: element.orderValue,
+          date: this.datepipe.transform(element.createdAt, 'dd/MM/yyyy hh:mm')
         });
       });
       this.completedDataSource = new MatTableDataSource<Offer>(arr);

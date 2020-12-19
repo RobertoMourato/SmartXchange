@@ -5,6 +5,7 @@ export class Offer {
   status: string;
   qt: number;
   offer: number;
+  date: string;
 
   constructor(
     id:number,
@@ -12,7 +13,8 @@ export class Offer {
     company: string,
     status: string,
     qt: number,
-    offer: number
+    offer: number,
+    date: string
   ) {
     this.id=id;
     this.type= type;
@@ -20,5 +22,6 @@ export class Offer {
     this.status=status;
     this.qt= qt,
     this.offer=offer;
+    this.date=date;
   }
 }

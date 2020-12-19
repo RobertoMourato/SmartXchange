@@ -18,6 +18,7 @@ import { LoginComponent } from './login/login.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { MatTableModule } from '@angular/material/table' 
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { MatTableModule } from '@angular/material/table'
     MatTableModule
   ],
   exports: [],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
