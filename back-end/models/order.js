@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.User, { foreignKey: 'playerId', as: 'player' })
       this.hasMany(models.StockExchange, { foreignKey: 'buyOrderId' })
       this.hasMany(models.StockExchange, { foreignKey: 'sellOrderId' })
-      this.hasOne(models.Company, {foreignKey: 'id', as: 'company'})
+      this.hasOne(models.Company, { foreignKey: 'id', as: 'company' })
     }
   };
   Order.init({
