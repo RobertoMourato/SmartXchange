@@ -1,9 +1,8 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express')
+const router = express.Router()
 
+const tenantController = require('../controllers/tenantController')
 
-var tenantController = require('../controllers/tenantController'); 
+router.get('/', tenantController.getAllTenantTypes)
 
-router.get('/',tenantController.getAllTenantTypes);
-
-module.exports = router;
+module.exports = router

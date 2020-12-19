@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-var stockValueController = require('../controllers/stockValueController'); 
+const stockValueController = require('../controllers/stockValueController')
 
-router.get('/all',stockValueController.getAllStocksValues);
-router.post('/',stockValueController.addStockValue);
+router.get('/all', stockValueController.getAllStocksValues)
+router.post('/', stockValueController.addStockValue)
 
-module.exports = router;
+module.exports = router

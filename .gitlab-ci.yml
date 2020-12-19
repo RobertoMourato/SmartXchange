@@ -2,32 +2,57 @@ image: node:latest
 
 stages:
   - build
+  - code_analysis
   - test
+  - staging
   - production
 
 cache:
   paths:
-    - node_modules/
+    - back-end/node_modules/
+#    - front-end/node_modules/
 
-install_and_test:
-  stage: test
+install_dependencies:
+  stage: build
   script:
     - cd back-end
     - npm install
-    - npm test
+#    - cd ..
+#    - cd front-end
+#    - npm install
+#    - npm install -g @angular/cli@latest
   artifacts:
     paths:
-      - node_modules/
+      - back-end/node_modules/
+#      - front-end/node_modules/
 
-production:
-  type: deploy
-  stage: production
-  image: ruby:latest
+linting:
+  stage: code_analysis
   script:
-    - apt-get update -qy
-    - apt-get install -y ruby-dev
-    - gem install dpl
-    - dpl --provider=heroku --app=ldso2021-t3g3 --api-key=$HEROKU_API_KEY
-  only:
-    - master
-    - Issue#54Make_simple_pipeline
+    - cd back-end
+    - npm run lint
+#    - cd ..
+#    - cd front-end
+#    - ng lint
+
+
+testing:
+  stage: test
+  script:
+    - cd back-end
+    - npm test
+#    - cd ..
+#    - cd front-end
+#    - ng test
+
+#staging:
+#  type: deploy
+#  stage: staging
+#  script:
+
+#production:
+#  type: deploy
+#  stage: production
+#  script:
+#  only:
+#    - master

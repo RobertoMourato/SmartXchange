@@ -4,6 +4,7 @@ exports.getUsers = async function (req, res) {
   try {
     // console.log("controller");
     const results = await dbUser.index()
+    console.log(results)
     if (results) {
       res.status(200).json(results)
     } else {
