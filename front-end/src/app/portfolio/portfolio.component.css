@@ -1,11 +1,10 @@
-mat-table {
-  width: 70%;
-  margin-left: auto;
-  margin-right: auto;
+mat-cell {
+  background-color: aliceblue;
 }
 
-h1.portfolio {
-  text-align: center;
+table {
+  width: 70%;
+  margin-left: 15%;
 }
 
 div.orders {

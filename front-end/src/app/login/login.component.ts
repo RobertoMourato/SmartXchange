@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { windowWhen } from 'rxjs/operators';
 import { LoginService } from './login.service';
 import { User } from './user';
 import { UserType } from './userType';
@@ -33,10 +34,11 @@ export class LoginComponent implements OnInit {
         window.sessionStorage.setItem('usertype', this.userType.userType);
         window.sessionStorage.setItem('token', data.token);
         
-        
-        //alert(JSON.stringify(data.user) +'\n'+JSON.stringify(data.usertype))
+        //alert(JSON.stringify(data.user) +'\n'+JSON.stringify(data.usertype) + '\n' +JSON.stringify(data.username))
         //window.location.replace("/menu");
         alert("Welcome "+ window.sessionStorage.getItem('user'));
+
+        window.location.replace('/portfolio')
       },
         error => { 
           alert(error.error)});

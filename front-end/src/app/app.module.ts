@@ -41,7 +41,7 @@ import { MatTableModule } from '@angular/material/table'
     MatListModule,
     MatTableModule
   ],
-  exports: [MatTableModule],
+  exports: [],
   providers: [],
   bootstrap: [AppComponent]
 })
