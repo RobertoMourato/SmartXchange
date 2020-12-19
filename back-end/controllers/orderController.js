@@ -43,3 +43,18 @@ exports.getPlayerCompleteOrders = async function (req, res) {
     res.json(error).status(500)
   }
 }
+
+exports.cancelOrder = async function (req,res) {
+  const id = req.params.id;
+
+    try {
+      const results = await orderRepository.cancelOrder(id)
+      if (results != null) {
+        res.json(results).status(200)
+      } else{
+        res.json('This order can\'t be canceled').status(400)
+      }
+    } catch (error) {
+      res.json(error).status(500);
+    }
+}
