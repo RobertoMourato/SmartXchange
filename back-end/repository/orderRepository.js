@@ -50,7 +50,7 @@ module.exports = {
   async getPlayerPendingOrders(username) {
     return await models.Order.findAll({
       where: { orderStatus: 'Pending' },
-      include: [{
+      include: ['company', {
         model: models.User,
         where: { username: username },
         as: 'player',
@@ -64,44 +64,46 @@ module.exports = {
             where: { competitionHasStarted: true, competitionHasFinished: false }
           }
         }
-      }, {
-        model: models.Company, as: 'company',
-        required: true
       }]
     })
   },
   async getPlayerCompletedOrders(username) {
     return await models.Order.findAll({
       where: { orderStatus: 'Completed' },
-      include: [{
-        model: models.Company, as: 'company',
-        required: true,
-      },
-      {
-        model: models.User,
-        where: { username: username },
-        as: 'player',
-        include: {
-          model: models.PlayerCompetition,
+      include: [
+        'company',
+        {
+          model: models.User,
+          where: { username: username },
+          as: 'player',
           include: {
-            model: models.Competition,
-            where: { competitionHasStarted: true, competitionHasFinished: false }
+            model: models.PlayerCompetition,
+            required: true,
+            include: {
+              model: models.Competition,
+              required: true,
+              where: { competitionHasStarted: true, competitionHasFinished: false }
+            }
           }
-        }
-      }]
+        }]
     })
-},
 
-  async cancelOrder(orderId){
-  try {
-    return models.Order.update(
-      { orderStatus: 'Canceled' },
-      { where: { id: orderId, orderStatus: 'Pending' } }
-    )
-  } catch (error) {
-    return null;
+    /* return await models.Order.findAll({
+       include: ['company']
+     })*/
+
+  },
+
+  async cancelOrder(orderId) {
+    try {
+      return models.Order.update(
+        { orderStatus: 'Canceled' },
+        { where: { id: orderId, orderStatus: 'Pending' } }
+      )
+    } catch (error) {
+      return null;
+    }
   }
-}
 
   /* async getPlayerPendingOrders(playerId) {
      return await models.User.findOne({
