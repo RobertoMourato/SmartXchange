@@ -35,7 +35,7 @@
       <ng-container matColumnDef="cancelButton">
         <td mat-header-cell *matHeaderCellDef>Cancel</td>
         <td style="background-color: aliceblue;color: black;" mat-cell *matCellDef= "let element">
-          <button mat-raised-button color="warn">Cancel</button>
+          <button mat-raised-button color="warn" (click)="cancelOrder(element.id)">Cancel</button>
         </td>
       </ng-container>
 
@@ -48,7 +48,7 @@
   <div class="div.orders">
     <h4 style="margin-left: 15%;">Completed Orders</h4>
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table mat-table [dataSource]="completedDataSource" class="mat-elevation-z8">
 
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->

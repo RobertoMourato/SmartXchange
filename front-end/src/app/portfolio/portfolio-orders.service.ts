@@ -26,6 +26,13 @@ export class PortfolioOrdersService {
       .get(this.url + '/order/completed/' + username, { headers: header })
       .pipe(map(this.extractData));
   }
+
+  cancelOrder(id: number): Observable<any> {
+    const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    return this.httpClient
+    .put(this.url + '/order/cancel/' + id, {headers:header})
+    .pipe(map(this.extractData));
+  }
   
   private extractData(res: Response) {
     console.log(res || {});
