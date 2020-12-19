@@ -11,7 +11,7 @@ module.exports = {
       orderValue: 10,
       orderDate: new Date(),
       orderType: 'Buy',
-      orderStatus: 'Completed',
+      orderStatus: 'Pending',
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -22,7 +22,7 @@ module.exports = {
       orderValue: 2,
       orderDate: new Date(),
       orderType: 'Buy',
-      orderStatus: 'Completed',
+      orderStatus: 'Pending',
       createdAt: new Date(),
       updatedAt: new Date()
     }], {})
