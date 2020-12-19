@@ -5,36 +5,36 @@
   <div class="div.orders">
     <h4 style="margin-left: 15%;">Pending Orders</h4>
 
-    <table mat-table [dataSource]="pendingDataSource.filteredData" class="mat-elevation-z8">
+    <table mat-table [dataSource]="pendingDataSource" class="mat-elevation-z8">
 
       <ng-container matColumnDef="type">
         <td mat-header-cell *matHeaderCellDef>Type</td>
-        <td mat-cell *matCellDef="let element">{{element.orderType}}</td>
+        <td style="background-color: aliceblue;color: black;" mat-cell *matCellDef="let element">{{element.type}}</td>
       </ng-container>
 
       <ng-container matColumnDef="company">
         <td mat-header-cell *matHeaderCellDef> Company</td>
-        <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+        <td style="background-color: aliceblue;color: black;"mat-cell *matCellDef="let element"> {{element.company}} </td>
       </ng-container>
 
       <ng-container matColumnDef="quantity">
         <td mat-header-cell *matHeaderCellDef> Quantity</td>
-        <td mat-cell *matCellDef="let element">{{element.quantity}}</td>
+        <td style="background-color: aliceblue;color: black;"mat-cell *matCellDef="let element">{{element.qt}}</td>
       </ng-container>
 
       <ng-container matColumnDef="status">
         <td mat-header-cell *matHeaderCellDef> Status</td>
-        <td mat-cell *matCellDef="let element">{{element.status}}</td>
+        <td style="background-color: aliceblue;color: black;" mat-cell *matCellDef="let element">{{element.status}}</td>
       </ng-container>
 
       <ng-container matColumnDef="offer">
         <td td mat-header-cell *matHeaderCellDef> Offer </td>
-        <td mat-cell *matCellDef="let element">{{element.offer }}</td>
+        <td style="background-color: aliceblue;color: black;" mat-cell *matCellDef="let element">{{element.offer }}</td>
       </ng-container>
 
       <ng-container matColumnDef="cancelButton">
-        <td mat-header-cell *matHeaderCellDef></td>
-        <td mat-cell>
+        <td mat-header-cell *matHeaderCellDef>Cancel</td>
+        <td style="background-color: aliceblue;color: black;" mat-cell *matCellDef= "let element">
           <button mat-raised-button color="warn">Cancel</button>
         </td>
       </ng-container>
@@ -48,7 +48,7 @@
   <div class="div.orders">
     <h4 style="margin-left: 15%;">Completed Orders</h4>
 
-    <table mat-table [dataSource]="completedDataSource.filteredData" class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
       <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
@@ -56,7 +56,7 @@
       <!-- Position Column -->
       <ng-container matColumnDef="type">
         <td mat-header-cell *matHeaderCellDef>Type</td>
-        <td mat-cell *matCellDef="let element">{{element.orderType}}</td>
+        <td mat-cell *matCellDef="let element">{{element.type}}</td>
       </ng-container>
 
       <ng-container matColumnDef="company">
@@ -76,12 +76,12 @@
 
       <ng-container matColumnDef="offer">
         <td td mat-header-cell *matHeaderCellDef> Offer </td>
-        <td mat-cell *matCellDef="let element">{{element.offer }}</td>
+        <td mat-cell *matCellDef="let element">{{element.offer}}</td>
       </ng-container>
 
       <ng-container matColumnDef="cancelButton">
-        <td mat-header-cell *matHeaderCellDef></td>
-        <td mat-cell>
+        <td mat-header-cell *matHeaderCellDef>Cancel</td>
+        <td mat-cell *matCellDef="let element">
           <button mat-raised-button color="warn">Cancel</button>
         </td>
       </ng-container>
