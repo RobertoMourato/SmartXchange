@@ -2,7 +2,7 @@ const models = require('../models')
 const questionRepository = require('./questionRepository.js')
 
 module.exports = {
-  async index (req, res) {
+  async index(req, res) {
     const competition = models.Competition
     await competition.findAll().then(competitions => {
       res.status(200).json(competitions)
@@ -12,19 +12,27 @@ module.exports = {
       })
   },
 
-  async getById (id) {
+  async getById(id) {
     const competition = await models.Competition.findByPk(id)
 
     return models.Competition.build(competition.dataValues)
   },
 
-  async addCompetition (req, res) {
+  async getCurrentCompetition(managerId) {
+    try {
+      return await models.Order.findOne({ where: { managerId: managerId, competitionHasStarted: true, competitionHasFinished: false } })
+    } catch (error) {
+      return null;
+    }
+  },
+
+  async startCompetition(req, res) {
     // const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
     const manager = await models.User.findByPk(req.body.managerId)
     const {
       competitionStartDate, competitionEndDate, competitionMarketOpening,
       competitionMarketEnding, competitionInitialBudget, competitionInitialStockValue,
-      competitionRefreshRate, competitionNumStocks
+      competitionRefreshRate, competitionNumStocks, questions
     } = req.body
 
     if (manager) {
@@ -32,8 +40,7 @@ module.exports = {
         console.log('aqui')
         const managerId = manager.dataValues.id
         console.log(managerId)
-        const competition = await models.Competition.create({
-          managerId: managerId,
+        const competition = await models.Competition.update({
           competitionStartDate: competitionStartDate,
           competitionEndDate: competitionEndDate,
           competitionMarketOpening: competitionMarketOpening,
@@ -42,10 +49,34 @@ module.exports = {
           competitionInitialStockValue: competitionInitialStockValue,
           competitionRefreshRate: competitionRefreshRate,
           competitionNumStocks: competitionNumStocks,
-          competitionHasStarted: false
-        })
+          competitionHasStarted: true,
+          competitionHasFinished: false
+        },
+          {
+            where: { managerId: managerId, }
+          })
+        questions.forEach(async element => {
+          if (element.id == undefined) {
+            await models.Question.create({
+              questionText: element.questionText,
+              competitionId: competition.dataValues.id,
+              order: element.order,
+              isSelected: true
+            })
+          } else {
+            await models.Question.update({
+              questionText: element.questionText,
+              competitionId: competition.dataValues.id,
+              order: element.order,
+              isSelected: true
+            }, {
+              where: { id: element.id }
+            }
+            )
+          }
+        });
 
-        await questionRepository.loadQuestions(competition.dataValues)
+        // await questionRepository.loadQuestions(competition.dataValues)
         res.status(200).json(competition)
       } catch (error) {
         res.status(400).json(error)
@@ -54,8 +85,14 @@ module.exports = {
       res.status(400).json('No Tenant associated')
     }
   },
-
-  async addCompetitionDraft (req, res) {
+  async getCurrDraftOrCompetition(managerId) {
+    try {
+      return await models.Order.findOne({ where: { managerId: managerId, competitionHasFinished: false } })
+    } catch (error) {
+      return null;
+    }
+  },
+  async addCompetitionDraft(req, res) {
     // const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
     const manager = await models.User.findByPk(req.body.managerId)
     const {
@@ -75,7 +112,8 @@ module.exports = {
           competitionInitialStockValue: competitionInitialStockValue,
           competitionRefreshRate: competitionRefreshRate,
           competitionNumStocks: competitionNumStocks,
-          competitionHasStarted: false
+          competitionHasStarted: false,
+          competitionHasFinished: false
         })
 
         // await questionRepository.loadQuestions(competition.dataValues)
@@ -92,7 +130,7 @@ module.exports = {
     }
   },
 
-  async toggleCompetition (req, res) {
+  async toggleCompetition(req, res) {
     console.log(req.query)
     const comp = await models.Competition.findByPk(req.query.id)
     console.log(comp)
@@ -118,7 +156,7 @@ module.exports = {
     }
   },
 
-  async changeSettingsCompetition (req, res) {
+  async changeSettingsCompetition(req, res) {
     console.log(req.query)
     const comp = await models.Competition.findByPk(req.query.id)
     const {
