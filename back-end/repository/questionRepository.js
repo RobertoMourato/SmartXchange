@@ -1,3 +1,4 @@
+const { sequelize } = require('../models')
 const models = require('../models')
 
 const questions = ['Value Propositions',
@@ -48,6 +49,18 @@ module.exports = {
         isSelected: false
       })
       return question
+    } catch (error) {
+      return false
+    }
+  },
+
+  async getQuestions (req, res) {
+    const { competitionId } = req.body
+    try {
+        const question = models.Question
+        await question.findAll( { where:{ competitionId: competitionId, isSelected: true }, order: [['order','ASC']]} )
+        console.log(question)
+        return question
     } catch (error) {
       return false
     }
