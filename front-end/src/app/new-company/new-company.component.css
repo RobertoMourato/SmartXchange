@@ -1,0 +1,4 @@
+.base-questions{
+    display: flex;
+    flex-direction: column;
+}

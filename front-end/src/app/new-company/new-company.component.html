@@ -1,0 +1,26 @@
+<mat-horizontal-stepper>
+    <mat-step *ngFor="let step of newSteps; let i = index">
+        <ng-template matStepLabel>{{step.title || 'Choose an action'}} 
+            <mat-icon style="vertical-align:middle" (click)="removeStep(i)">delete</mat-icon>
+        </ng-template>
+        <mat-radio-group class="example-radio-group" (change)="changeStep($event, i)">
+            <mat-radio-button class="example-radio-button" *ngFor="let option of stepOptions" [value]="option.value">
+                {{option.label}}
+            </mat-radio-button>
+        </mat-radio-group>
+    </mat-step>
+    <mat-step>
+        <form class = "base-questions">
+            <input type = "text" name = "name" placeholder="Company Name">
+            <input type = "text" name = "url" placeholder="Company Website">
+            <input type = "text" name = "pitch" placeholder="Company Short Pitch">
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>
+            <button mat-button (click)="addItem()">       
+                Add a Step
+            </button>
+        </ng-template>
+    </mat-step>           
+</mat-horizontal-stepper>
