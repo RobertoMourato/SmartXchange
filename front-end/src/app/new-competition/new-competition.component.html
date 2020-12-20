@@ -3,12 +3,11 @@
     <mat-step>
       <form>
         <ng-template matStepLabel>Define competition settings</ng-template>
-        <div fxLayout="row" fxLayoutGap="10px">
-          <div fxLayout="column" style="width: 50%;">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <div fxLayout="column"  style="width: 50%;">
             <mat-label>Duration: {{ formatLabel(durationslider.value) }}</mat-label>
             <mat-slider 
               #durationslider
-              tickInterval="0.25"
               step="0.25"
               min="0.25"
               max="2"
@@ -23,32 +22,32 @@
               max="60"
               value="30">
             </mat-slider>
-
-            <br>
             <mat-form-field appearance="legacy">
               <mat-label>Initial Company Value</mat-label>
               <input matInput placeholder="" />
-              <mat-hint></mat-hint>
             </mat-form-field>
-            <br>
             <mat-form-field appearance="legacy">
               <mat-label>Number of Initial Stocks</mat-label>
               <input matInput placeholder="" />
-              <mat-hint></mat-hint>
             </mat-form-field>
-            <br>
             <mat-form-field appearance="legacy">
               <mat-label>Investor Initial Cash</mat-label>
               <input matInput placeholder="" />
-              <mat-hint></mat-hint>
             </mat-form-field>
-          </div>
-          <div fxLayout="column" style="width: 50%;">
-            <app-sort-questions></app-sort-questions>
           </div>
         </div>
       </form>
       <div fxLayoutAlign="end end" style="margin-top: 20px">
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Select questions</ng-template>
+      <div fxLayout="row" fxLayoutAlign="center center" > 
+        <app-sort-questions></app-sort-questions>
+      </div>
+      <div fxLayoutAlign="space-between center" style="margin-top: 20px">
+        <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
       </div>
     </mat-step>
@@ -59,15 +58,8 @@
           <input matInput placeholder="Teste" required />
         </mat-form-field>
       </form>
-      <div fxLayout="row" fxLayoutAlign="space-between center" > 
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext>Next</button>
-      </div>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Wait for players</ng-template>
       <div fxLayout="row" fxLayoutAlign="center center" > 
-      <button mat-button>Start Competition</button>
+        <button mat-button>Start Competition</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

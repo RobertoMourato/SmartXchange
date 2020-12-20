@@ -23,12 +23,13 @@ import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDialogModule} from '@angular/material/dialog'; 
 
 import { LoginComponent } from './login/login.component';
 import { SuperadminNavComponent } from './superadmin-nav/superadmin-nav.component';
 import { NewCompetitionComponent } from './new-competition/new-competition.component';
 import { AppRoutingModule } from './app-routing.module';
-import { SortQuestionsComponent } from './new-competition/sort-questions/sort-questions.component';
+import { SortQuestionsComponent, NewQuestionDialogComponent } from './new-competition/sort-questions/sort-questions.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { SortQuestionsComponent } from './new-competition/sort-questions/sort-qu
     SuperadminNavComponent,
     NewCompetitionComponent,
     LoginComponent,
-    SortQuestionsComponent
+    SortQuestionsComponent,
+    NewQuestionDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +63,7 @@ import { SortQuestionsComponent } from './new-competition/sort-questions/sort-qu
     FlexLayoutModule,
     MatSliderModule,
     MatCheckboxModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

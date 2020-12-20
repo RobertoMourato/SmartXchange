@@ -1,0 +1,18 @@
+<div class="popup">
+    <h2 mat-dialog-title>New competition question</h2>
+    <div mat-dialog-content>
+      <form>
+        <mat-form-field appearance="legacy" style="width: 100%;">
+            <mat-label>Question</mat-label>
+            <input matInput [(ngModel)]="data.question">
+        </mat-form-field>
+          <div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+            <button mat-button [mat-dialog-close]="data.question">
+                <mat-icon>add_circle</mat-icon>
+                <span style="margin-left: 10px;">Add question</span>
+            </button>
+          </div>
+      </form>
+    </div>
+  </div>
+  

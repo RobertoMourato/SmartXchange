@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
+import { SortQuestionsComponent, NewQuestionDialogComponent } from './sort-questions/sort-questions.component';
+
+
+
 @Component({
   selector: 'app-new-competition',
   templateUrl: './new-competition.component.html',
   styleUrls: ['./new-competition.component.css', '../app.component.css']
 })
 export class NewCompetitionComponent implements OnInit {
-
-  constructor() { }
 
   ngOnInit(): void {
   }
@@ -29,3 +31,4 @@ export class NewCompetitionComponent implements OnInit {
 
   }
 }
+
