@@ -9,7 +9,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       playerCompetitionId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'PlayerCompetitions'
+          },
+          key: 'id'
+        }
       },
       companyName: {
         allowNull: false,

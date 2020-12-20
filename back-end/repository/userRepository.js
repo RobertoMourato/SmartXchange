@@ -88,7 +88,8 @@ module.exports = {
         User = user
       })
       .catch(error => {
-        res.status(400).send(error)
+        console.log(error)
+        // res.status(400).send(error)
         return null
       })
 

@@ -20,7 +20,11 @@ exports.getUserById = async function (req, res) {
   try {
     // console.log("controller");
     const results = await dbUser.getUserById(req, res)
-    res.json(results)
+    if (results !== null) {
+      res.json(results)
+    } else {
+      res.sendStatus(500)
+    }
   } catch (e) {
     console.log(e)
     res.sendStatus(500)

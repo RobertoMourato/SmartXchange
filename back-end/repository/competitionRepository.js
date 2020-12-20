@@ -55,6 +55,43 @@ module.exports = {
     }
   },
 
+  async addCompetitionDraft (req, res) {
+    // const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
+    const manager = await models.User.findByPk(req.body.managerId)
+    const {
+      competitionEndDate, competitionInitialBudget, competitionInitialStockValue,
+      competitionRefreshRate, competitionNumStocks, questions
+    } = req.body
+
+    if (manager) {
+      try {
+        console.log('aqui')
+        const managerId = manager.dataValues.id
+        console.log(managerId)
+        const competition = await models.Competition.create({
+          managerId: managerId,
+          competitionEndDate: competitionEndDate,
+          competitionInitialBudget: competitionInitialBudget,
+          competitionInitialStockValue: competitionInitialStockValue,
+          competitionRefreshRate: competitionRefreshRate,
+          competitionNumStocks: competitionNumStocks,
+          competitionHasStarted: false
+        })
+
+        // await questionRepository.loadQuestions(competition.dataValues)
+        questions.forEach(async element => {
+          await questionRepository.addQuestion(element, competition.dataValues.id)
+        })
+
+        res.status(200).json(competition)
+      } catch (error) {
+        res.status(400).json(error)
+      }
+    } else {
+      res.status(400).json('No Tenant associated')
+    }
+  },
+
   async toggleCompetition (req, res) {
     console.log(req.query)
     const comp = await models.Competition.findByPk(req.query.id)

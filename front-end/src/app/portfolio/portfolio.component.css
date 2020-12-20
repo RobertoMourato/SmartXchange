@@ -1,0 +1,13 @@
+td-body {
+  background-color: aliceblue;
+}
+
+table {
+  width: 70%;
+  margin-left: 15%;
+}
+
+div.orders {
+  margin-left: auto;
+  margin-right: auto;
+}

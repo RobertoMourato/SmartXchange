@@ -15,12 +15,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { MatTableModule } from '@angular/material/table' 
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
     SuperadminNavComponent,
-    LoginComponent
+    LoginComponent,
+    PortfolioComponent,
+    MainNavComponent
   ],
   imports: [
     BrowserModule,
@@ -33,9 +39,11 @@ import { LoginComponent } from './login/login.component';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatTableModule
   ],
-  providers: [],
+  exports: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
