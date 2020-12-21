@@ -8,33 +8,33 @@
     <table mat-table [dataSource]="pendingDataSource" class="mat-elevation-z8">
 
       <ng-container matColumnDef="type">
-        <td mat-header-cell *matHeaderCellDef>Type</td>
-        <td style="background-color: aliceblue;color: black;" mat-cell *matCellDef="let element">{{element.type}}</td>
+        <th mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let element">{{element.type}}</td>
       </ng-container>
 
       <ng-container matColumnDef="company">
-        <td mat-header-cell *matHeaderCellDef> Company</td>
-        <td style="background-color: aliceblue;color: black;"mat-cell *matCellDef="let element"> {{element.company}} </td>
+        <th mat-header-cell *matHeaderCellDef> Company</th>
+        <td mat-cell *matCellDef="let element"> {{element.company}} </td>
       </ng-container>
 
       <ng-container matColumnDef="quantity">
-        <td mat-header-cell *matHeaderCellDef> Quantity</td>
-        <td style="background-color: aliceblue;color: black;"mat-cell *matCellDef="let element">{{element.qt}}</td>
+        <th mat-header-cell *matHeaderCellDef> Quantity</th>
+        <td mat-cell *matCellDef="let element">{{element.qt}}</td>
       </ng-container>
 
       <ng-container matColumnDef="status">
-        <td mat-header-cell *matHeaderCellDef> Status</td>
-        <td style="background-color: aliceblue;color: black;" mat-cell *matCellDef="let element">{{element.status}}</td>
+        <th mat-header-cell *matHeaderCellDef> Status</th>
+        <td  mat-cell *matCellDef="let element">{{element.status}}</td>
       </ng-container>
 
       <ng-container matColumnDef="offer">
-        <td td mat-header-cell *matHeaderCellDef> Offer </td>
-        <td style="background-color: aliceblue;color: black;" mat-cell *matCellDef="let element">{{element.offer }}</td>
+        <th th mat-header-cell *matHeaderCellDef> Offer </th>
+        <td mat-cell *matCellDef="let element">{{element.offer }}</td>
       </ng-container>
 
       <ng-container matColumnDef="cancelButton">
-        <td mat-header-cell *matHeaderCellDef>Cancel</td>
-        <td style="background-color: aliceblue;color: black;" mat-cell *matCellDef= "let element">
+        <th mat-header-cell *matHeaderCellDef>Cancel</th>
+        <td mat-cell *matCellDef= "let element">
           <button mat-raised-button color="warn" (click)="cancelOrder(element.id)">Cancel</button>
         </td>
       </ng-container>
@@ -50,37 +50,33 @@
 
     <table mat-table [dataSource]="completedDataSource" class="mat-elevation-z8">
 
-      <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
-    
-      <!-- Position Column -->
       <ng-container matColumnDef="type">
-        <td mat-header-cell *matHeaderCellDef>Type</td>
+        <th mat-header-cell *matHeaderCellDef>Type</th>
         <td mat-cell *matCellDef="let element">{{element.type}}</td>
       </ng-container>
 
       <ng-container matColumnDef="company">
-        <td mat-header-cell *matHeaderCellDef> Company</td>
+        <th mat-header-cell *matHeaderCellDef> Company</th>
         <td mat-cell *matCellDef="let element"> {{element.company}} </td>
       </ng-container>
 
       <ng-container matColumnDef="quantity">
-        <td mat-header-cell *matHeaderCellDef> Quantity</td>
+        <th mat-header-cell *matHeaderCellDef> Quantity</th>
         <td mat-cell *matCellDef="let element">{{element.qt}}</td>
       </ng-container>
 
       <ng-container matColumnDef="status">
-        <td mat-header-cell *matHeaderCellDef> Status</td>
+        <th mat-header-cell *matHeaderCellDef> Status</th>
         <td mat-cell *matCellDef="let element">{{element.status}}</td>
       </ng-container>
 
       <ng-container matColumnDef="offer">
-        <td td mat-header-cell *matHeaderCellDef> Offer </td>
+        <th mat-header-cell *matHeaderCellDef> Offer </th>
         <td mat-cell *matCellDef="let element">{{element.offer}}</td>
       </ng-container>
 
       <ng-container matColumnDef="date">
-        <td mat-header-cell *matHeaderCellDef>Date</td>
+        <th mat-header-cell *matHeaderCellDef>Date</th>
         <td mat-cell *matCellDef="let element">{{element.date}}</td>
       </ng-container>
 
