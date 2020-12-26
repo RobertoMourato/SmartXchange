@@ -3,6 +3,6 @@ const router = express.Router()
 
 const companyController = require('../controllers/companyController.js')
 
-router.post('/', companyController.addCompany)
+router.post('/createComp', companyController.addCompany)
 
 module.exports = router

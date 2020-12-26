@@ -55,12 +55,10 @@ module.exports = {
   },
 
   async getQuestions (req, res) {
-    const { competitionId } = req.body
     try {
+        console.log(req.query.competitionId)
         const question = models.Question
-        await question.findAll( { where:{ competitionId: competitionId, isSelected: true }, order: [['order','ASC']]} )
-        console.log(question)
-        return question
+        return await question.findAll( { where:{ competitionId: req.query.competitionId, isSelected: true }, order: [['order','ASC']]} )
     } catch (error) {
       return false
     }

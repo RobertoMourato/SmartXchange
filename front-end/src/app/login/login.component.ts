@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
         this.userType = data.usertype;
         console.log(this.user, ' ' , this.userType);
         console.log(data.token);
+        window.sessionStorage.setItem('userid', String(this.user.id));
         window.sessionStorage.setItem('user', this.user.username);
         window.sessionStorage.setItem('usertype', this.userType.userType);
         window.sessionStorage.setItem('token', data.token);

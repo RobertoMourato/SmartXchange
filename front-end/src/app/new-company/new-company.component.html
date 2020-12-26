@@ -1,26 +1,23 @@
-<mat-horizontal-stepper>
-    <mat-step *ngFor="let step of newSteps; let i = index">
-        <ng-template matStepLabel>{{step.title || 'Choose an action'}} 
-            <mat-icon style="vertical-align:middle" (click)="removeStep(i)">delete</mat-icon>
-        </ng-template>
-        <mat-radio-group class="example-radio-group" (change)="changeStep($event, i)">
-            <mat-radio-button class="example-radio-button" *ngFor="let option of stepOptions" [value]="option.value">
-                {{option.label}}
-            </mat-radio-button>
-        </mat-radio-group>
-    </mat-step>
-    <mat-step>
-        <form class = "base-questions">
-            <input type = "text" name = "name" placeholder="Company Name">
-            <input type = "text" name = "url" placeholder="Company Website">
-            <input type = "text" name = "pitch" placeholder="Company Short Pitch">
+<body>
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <form fxLayout="column" class="company-form" (ngSubmit)= "onSubmit(compName.value,url.value,pitch.value)">
+            <mat-form-field appearance="fill">
+              <mat-label>Company Name</mat-label>
+              <input matInput type="text" #compName name = "compName" required>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+              <mat-label>Company Website</mat-label>
+              <input matInput type="text" #url name = "url" >
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+              <mat-label>Company Short Pitch</mat-label>
+              <textarea matInput type="text" #pitch name = "pitch" placeholder="Company Short Pitch"></textarea>
+            </mat-form-field>
+            <button mat-button type="submit">Create</button>
         </form>
-    </mat-step>
-    <mat-step>
-        <ng-template matStepLabel>
-            <button mat-button (click)="addItem()">       
-                Add a Step
-            </button>
-        </ng-template>
-    </mat-step>           
-</mat-horizontal-stepper>
+    </div>
+</body>
+
+

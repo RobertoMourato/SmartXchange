@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { NewCompanyService } from './new-company.service';
 
 @Component({
   selector: 'app-new-company',
@@ -6,18 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-company.component.css']
 })
 export class NewCompanyComponent implements OnInit {
-
-  
-  stepOptions = [
-    { label: 'Buy Groceries', value: '1' },
-    { label: 'Cook Dinner', value: '2' },
-    { label: 'Go To Sleep', value: '3' },
-    { label: 'Go To Work', value: '4' },
-    { label: 'Wake Up', value: '5' }
-  ]
-  newSteps = [];
-  constructor() { }
+  constructor(private newCompanyService: NewCompanyService, router: Router) {}
   ngOnInit(): void {
+    
   }
-
+  onSubmit(compName:String,url:String,pitch:String):void{
+    this.newCompanyService.CreateNewCompany(compName, url, pitch)
+    alert("Company Created")
+  }
 }
