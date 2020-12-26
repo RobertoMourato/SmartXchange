@@ -16,6 +16,6 @@ textarea:focus, input:focus {
     color: white;
 }
 
-input, select, textarea{
+input, select, textarea,h1{
     color: white;
 }

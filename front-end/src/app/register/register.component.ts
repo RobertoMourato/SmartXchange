@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit {
         alert('Account created ' + window.sessionStorage.getItem('user'));
       },
         error => {
-          alert(error.error); });
+          alert(error.error) });
     }
   }
 

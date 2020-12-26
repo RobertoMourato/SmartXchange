@@ -1,0 +1,20 @@
+body{
+    height: 100%;
+    background: rgb(42, 40, 40);
+}
+mat-card{
+    max-width: 50%;
+    background: rgb(49, 47, 47);
+    margin-bottom: 20px;
+}
+.Company-card{
+    margin-left:25%
+}
+.question-card{
+    margin-left: 25%;
+}
+
+input, select, textarea{
+    color: white;
+    background: rgb(42, 40, 40);
+}

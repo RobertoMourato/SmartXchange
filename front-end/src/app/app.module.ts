@@ -16,10 +16,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { NewCompanyComponent } from './new-company/new-company.component';
+import { CompanyComponent } from './company/company.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { NewCompanyComponent } from './new-company/new-company.component';
     SuperadminNavComponent,
     LoginComponent,
     RegisterComponent,
-    NewCompanyComponent
+    NewCompanyComponent,
+    CompanyComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { NewCompanyComponent } from './new-company/new-company.component';
     MatIconModule,
     MatListModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
