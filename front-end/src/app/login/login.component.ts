@@ -30,6 +30,13 @@ export class LoginComponent implements OnInit {
         // alert(JSON.stringify(data.user) +'\n'+JSON.stringify(data.usertype))
         // window.location.replace("/menu");
         alert('Welcome ' + window.sessionStorage.getItem('user'));
+        
+        if(window.location.search != ''){
+          const invite = window.location.search.split('=')[1]
+          window.location.replace('/types?invite='+ invite)
+        }else{
+          //window.location.replace('/menu')
+        }
       },
         error => {
           alert(error.error); });
