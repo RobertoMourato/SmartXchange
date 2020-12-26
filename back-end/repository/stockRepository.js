@@ -1,7 +1,7 @@
 const models = require('../models')
 
 module.exports = {
-  async index (req, res) {
+  async index(req, res) {
     const stock = models.Stock
     await stock.findAll().then(stock => {
       res.status(200).json(stock)
@@ -10,7 +10,7 @@ module.exports = {
         res.status(400).send(error)
       })
   },
-  async addStock (req, res) {
+  async addStock(req, res) {
     const company = await models.Company.findByPk(req.query.companyId)
     const user = await models.User.findByPk(req.query.playerId)
     const {
@@ -35,6 +35,26 @@ module.exports = {
       }
     } else {
       res.status(400).json('No company or user associated')
+    }
+  },
+  async addInitialCompanyStocks(companyId, competitionInitialStockValue) {
+    const stocks = []
+    try {
+
+      for (let index = 10; index < array.length; index++) {
+        const stock = await models.Stock.create({
+          companyId: companyId,
+          stockValue: competitionInitialStockValue
+        })
+
+        stocks.push(stock)
+      }
+
+      return stocks
+
+    } catch (error) {
+      console.log(error)
+      return null;
     }
   }
 }

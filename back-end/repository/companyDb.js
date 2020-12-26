@@ -1,8 +1,10 @@
 const models = require('../models')
+const company = require('../models/company')
+const stockRepository = require('../repository/stockRepository')
 
 module.exports = {
 
-  async addCompany (req, res) {
+  async addCompany(req, res) {
     const {
       playerCompetitionId,
       companyName,
@@ -27,5 +29,18 @@ module.exports = {
     } else {
       res.status(400).json('No company name associated')
     }
+  },
+  async startCompaniesStocks(competitionId, competitionInitialStockValue) {
+    const companies = await models.Company.findAll(
+      { include: [{
+        model: models.PlayerCompetition,
+        where: { competitionId: competitionId},
+        required: true
+      }] }
+    )
+    console.log(companies)
+    companies.forEach(async company => {
+      const stocks = await stockRepository.addInitialCompanyStocks(company.id,competitionInitialStockValue )
+    });
   }
 }

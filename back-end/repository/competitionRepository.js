@@ -1,5 +1,6 @@
 const models = require('../models')
 const questionRepository = require('./questionRepository.js')
+const companyRepository = require('./companyDb')
 
 module.exports = {
   async index(req, res) {
@@ -76,6 +77,8 @@ module.exports = {
           }
         });
 
+        this.startStocksForExistingCompanies(competition.dataValues.id, competition.dataValues.competitionInitialStockValue)
+        //setInterval(matchOrder(competitionId),RefreshRate em milisegundos)
         // await questionRepository.loadQuestions(competition.dataValues)
         res.status(200).json(competition)
       } catch (error) {
@@ -84,6 +87,9 @@ module.exports = {
     } else {
       res.status(400).json('No Tenant associated')
     }
+  },
+  async startStocksForExistingCompanies(competitionId, competitionInitialStockValue) {
+    await companyRepository.startCompaniesStocks(competitionId, competitionInitialStockValue)
   },
   async getCurrDraftOrCompetition(managerId) {
     try {

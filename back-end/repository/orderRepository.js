@@ -103,19 +103,9 @@ module.exports = {
     } catch (error) {
       return null;
     }
-  }
+  },
 
-  /* async getPlayerPendingOrders(playerId) {
-     return await models.User.findOne({
-       where: { id: playerId },
-       include: [{
-         model: models.PlayerCompetition,
-         include: {
-           model: models.Competition,
-           where: { competitionHasStarted: true, competitionHasFinished: false }
-         }
-       },
-       { model: models.Order }]
-     })
- } */
+  async matchOrders(competitionId) {
+    
+  }
 }
