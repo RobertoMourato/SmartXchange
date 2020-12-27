@@ -18,7 +18,7 @@ module.exports = {
         })
         return answer
       } else {
-        console.log('NEEEEW', answerText, companyId, questionId)
+        //console.log('NEEEEW', answerText, companyId, questionId)
         const newText = answerText
         // await this.updateAnswer(answerText, companyId, questionId)
         answer = await models.Answer.update({

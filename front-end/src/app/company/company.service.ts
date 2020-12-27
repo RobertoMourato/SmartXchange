@@ -3,6 +3,7 @@ import { HttpClient , HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Question } from './question';
 import { map } from 'rxjs/operators'; 
+import { Company } from './company';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,16 @@ export class CompanyService {
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     return this.httpClient.get<any>(this.url + '/companies/getcompany?userId=' + userId, {headers: header});
   }
+  updateCompany(company: Company){
+    const body = JSON.stringify({id: company.id,
+                                 playerCompetitionId: company.playerCompetitionId,
+                                 companyName: company.companyName,
+                                 companyWebsiteURL: company.companyWebsiteURL,
+                                 companyShortPitch: company.companyShortPitch      
+    })
+    const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    return this.httpClient.put(this.url + '/companies/updatecompany' , body, {headers: header}).pipe(map(this.extractData));
+  }
   updateAnswers(answers: Question []): Observable<any>{
     const body = {answers: []};
     answers.forEach((answer) =>{
@@ -29,7 +40,6 @@ export class CompanyService {
                          "companyId": answer.companyId,
                          "answerText": answer.answerText})
     })
-    console.log(body)
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     return this.httpClient.post(this.url + '/competition/answerQuestion' , body, {headers: header}).pipe(map(this.extractData));
   }

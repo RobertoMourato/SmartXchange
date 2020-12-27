@@ -43,3 +43,13 @@ exports.addEvaluation = async function (req, res) {
     res.sendStatus(500)
   }
 }
+
+exports.updateCompany = async function (req, res) {
+  try {
+    const results = await db.updateCompany(req.body)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}

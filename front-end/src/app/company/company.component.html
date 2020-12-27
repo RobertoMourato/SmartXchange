@@ -22,6 +22,6 @@
                 <textarea matInput type="text" #answer id=answer name = "answer" (change) = "update(i,answer.value)">{{question.answerText}}</textarea>
             </mat-card-header>
         </mat-card>
-        <button mat-button (click) = "save()" >Save</button>
+        <button mat-button (click) = "save(compName.value,compURL.value,pitch.value)" >Save</button>
     </div>  
 </body>
