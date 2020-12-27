@@ -8,47 +8,65 @@ import { UserType } from './userType';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-
-  constructor(private registerService: RegisterService, router: Router) { }
+  constructor(private registerService: RegisterService, router: Router) {}
   isShown = true;
   user: User;
   userType: UserType;
   private invite: Invite;
   ngOnInit(): void {
-    this.registerService.isManager(window.location.search).subscribe(data => {
+    this.registerService.isManager(window.location.search).subscribe((data) => {
       console.log(data);
-      this.invite = data;
-      if (this.invite.isManager){
+      this.invite = data.invite;
+      const user = data.user;
+      console.log(data)
+      if (this.invite.isManager) {
         this.isShown = false;
-      }
-      else{
+      } else {
+        if (user != null) {
+          window.location.replace('/login?invite='+ this.invite.token)
+        }
         this.isShown = true;
       }
     });
   }
 
-
-  register(name: string, username: string, email: string, password: string): void {
+  register(
+    name: string,
+    username: string,
+    email: string,
+    password: string
+  ): void {
     if (!this.validateForm(name, username, email, password)) {
       alert('Invalid data');
     } else {
-      this.registerService.register(name, username, email, password, window.location.search).subscribe(data => {
-        this.user = data.user;
+      const inviteToken = window.location.search.split('=')[1];
+      this.registerService
+        .register(name, username, email, password, inviteToken)
+        .subscribe(
+          (data) => {
+            this.user = data.user;
 
-        window.sessionStorage.setItem('user', this.user.username);
-        // alert(JSON.stringify(data.user) +'\n'+JSON.stringify(data.usertype))
-        // window.location.replace("/menu");
-        alert('Account created ' + window.sessionStorage.getItem('user'));
-      },
-        error => {
-          alert(error.error) });
+            window.sessionStorage.setItem('user', this.user.username);
+            // alert(JSON.stringify(data.user) +'\n'+JSON.stringify(data.usertype))
+            // window.location.replace("/menu");
+            alert('Account created ' + window.sessionStorage.getItem('user'));
+          },
+          (error) => {
+            alert(error.error);
+          }
+        );
     }
   }
 
-  validateForm(name: string, username: string, email: string, password1: string): boolean {
+  validateForm(
+    name: string,
+    username: string,
+    email: string,
+    password1: string
+  ): boolean {
     if (email !== '' && password1 !== '' && name !== '' && username !== '') {
       return true;
     }

@@ -20,6 +20,7 @@ export class RegisterService {
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     return this.httpClient.get<any>(this.url + '/users/isManager' + token2, {headers: header});
   }
+  
   private extractData(res: Response): object {
     console.log(res || {});
     return res || {};
