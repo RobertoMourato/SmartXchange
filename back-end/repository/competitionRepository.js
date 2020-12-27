@@ -1,8 +1,10 @@
 const models = require('../models')
+const { use } = require('../routes/userRoutes')
 const questionRepository = require('./questionRepository.js')
+const inviteRepository = require('./inviteRepository')
 
 module.exports = {
-  async index (req, res) {
+  async index(req, res) {
     const competition = models.Competition
     await competition.findAll().then(competitions => {
       res.status(200).json(competitions)
@@ -12,13 +14,13 @@ module.exports = {
       })
   },
 
-  async getById (id) {
+  async getById(id) {
     const competition = await models.Competition.findByPk(id)
 
     return models.Competition.build(competition.dataValues)
   },
 
-  async addCompetition (req, res) {
+  async addCompetition(req, res) {
     // const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
     const manager = await models.User.findByPk(req.body.managerId)
     const {
@@ -55,7 +57,7 @@ module.exports = {
     }
   },
 
-  async addCompetitionDraft (req, res) {
+  async addCompetitionDraft(req, res) {
     // const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
     const manager = await models.User.findByPk(req.body.managerId)
     const {
@@ -92,7 +94,7 @@ module.exports = {
     }
   },
 
-  async toggleCompetition (req, res) {
+  async toggleCompetition(req, res) {
     console.log(req.query)
     const comp = await models.Competition.findByPk(req.query.id)
     console.log(comp)
@@ -118,7 +120,7 @@ module.exports = {
     }
   },
 
-  async changeSettingsCompetition (req, res) {
+  async changeSettingsCompetition(req, res) {
     console.log(req.query)
     const comp = await models.Competition.findByPk(req.query.id)
     const {
@@ -148,5 +150,27 @@ module.exports = {
     } else {
       res.status(400).json('No competition associated')
     }
+  },
+  async addPlayerCompetitionWithInvite(userId, inviteToken) {
+    try {
+      const invite = await models.Invite.findOne({ where: { token: inviteToken } })
+
+      if (invite) {
+        const pc = await models.PlayerCompetition.create({
+          userId: userId,
+          competitionId: invite.dataValues.competitionId,
+          completedRegistration: false
+        })
+        inviteRepository.invalidToken(invite.dataValues.competitionId)
+        return pc;
+      } else {
+        return null;
+      }
+    } catch (error) {
+
+      return null;
+    }
+
+
   }
 }

@@ -26,6 +26,10 @@ module.exports = {
           key: 'id'
         }
       },
+      completedRegistration: {
+        allowNull:false,
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

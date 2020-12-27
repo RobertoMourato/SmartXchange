@@ -77,5 +77,17 @@ module.exports = {
     } catch (error) {
       res.status(400).json(error)
     }
+  },
+  async invalidToken(token2) {
+    console.log(token2)
+    try {
+      models.Invite.update(
+        { isValid: false },
+        { returning: true, where: { token: token2 } }
+      )
+    } catch (error) {
+      console.log('nao invalidou')
+      return null
+    }
   }
 }

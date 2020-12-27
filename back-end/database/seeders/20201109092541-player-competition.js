@@ -5,11 +5,13 @@ module.exports = {
     await queryInterface.bulkInsert('PlayerCompetitions', [{
       playerId: 2,
       competitionId: 1,
+      completedRegistration: true,
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
       playerId: 2,
       competitionId: 1,
+      completedRegistration: true,
       createdAt: new Date(),
       updatedAt: new Date()
     }

@@ -35,7 +35,11 @@ export class LoginComponent implements OnInit {
         
         if(window.location.search != ''){
           const invite = window.location.search.split('=')[1]
-          window.location.replace('/types?invite='+ invite)
+
+          //criar a playerCompetition atraves do invite e do userId
+          this.loginService.registerPlayercompetition(this.user.id, invite)
+          
+          window.location.replace('/chooseType?invite='+ invite)
         }else{
           //window.location.replace('/menu')
         }
