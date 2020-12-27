@@ -68,6 +68,27 @@ exports.addQuestion = async function (req, res) {
   }
 }
 
+exports.getQuestions = async function (req, res) {
+  try {
+    // console.log(req.body)
+    const results = await questionRep.getQuestions(req, res)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+exports.getQuestionsByCompId = async function (req, res) {
+  try {
+    // console.log(req.body)
+    const results = await questionRep.getQuestionsByCompId(req, res)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+
 exports.toggleQuestions = async function (req, res) {
   console.log(req.body.selected)
   try {

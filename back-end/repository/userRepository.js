@@ -37,16 +37,24 @@ module.exports = {
   */
 
   async addUser (req, res) {
-    // console.log(req.body)
-    const userType = await models.UserType.findOne({ where: { userType: req.body.userType } })
-    const { name, username, email, password, managerId, tenantId } = req.body
-
-    if (userType) {
-      const manager = await models.User.findByPk(managerId)
-      if (manager) {
+    //  console.log(req.body)
+    const { name, username, email, password, token2 } = req.body
+    const token3 = token2.split('=')[1]
+    const invite = await models.Invite.findOne({ where: { token: token3 } })
+    if (invite.dataValues.isValid) {
+      const manager = await models.User.findByPk(invite.dataValues.invitedBy)
+      if (invite.dataValues.isManager && manager) {
         try {
-          const typeId = userType.dataValues.id
-          const user = await models.User.create({ name: name, username: username, email: email, password: password, tenantId: manager.dataValues.tenantId, userTypeId: typeId })
+          const user = await models.User.create({
+            name: name,
+            username: username,
+            email: email,
+            password: password,
+            tenantId: manager.dataValues.tenantId,
+            userTypeId: 3,
+            managerId: null
+          })
+          this.invalidToken(req.body.token2.split('=')[1])
           return await models.User.build(user.dataValues)
           // console.log('user',user)
           // res.status(200).json(user)
@@ -55,21 +63,25 @@ module.exports = {
           // res.status(400).json(error);
         }
       } else {
-        console.log(userType.dataValues.isManager)
-        if (userType.dataValues.isManager == true) {
-          console.log('aqui')
+        if (manager) {
           try {
-            const typeId = userType.dataValues.id
-            const man = await models.User.create({ name: name, username: username, email: email, password: password, tenantId: tenantId, userTypeId: typeId })
-            return await models.User.build(man.dataValues)
-            // res.status(200).json(man)
+            const user = await models.User.create({
+              name: name,
+              username: username,
+              email: email,
+              password: password,
+              tenantId: manager.dataValues.tenantId,
+              userTypeId: null,
+              managerId: manager.dataValues.id
+            })
+            this.invalidToken(req.body.token2.split('=')[1])
+            return await models.User.build(user.dataValues)
+            // console.log('user',user)
+            // res.status(200).json(user)
           } catch (error) {
             return null
             // res.status(400).json(error);
           }
-        } else {
-          return 400
-          // res.status(400).json("No Manager associated");
         }
       }
     } else {
@@ -104,7 +116,18 @@ module.exports = {
       return null
     }
   },
-
+  async invalidToken (token2) {
+    console.log(token2)
+    try {
+      models.Invite.update(
+        { isValid: false },
+        { returning: true, where: { token: token2 } }
+      )
+    } catch (error) {
+      console.log('nao invalidou')
+      return null
+    }
+  },
   async getByUsername (username) {
     const user = await models.User.findOne({ where: { username: username } })
     if (user) {

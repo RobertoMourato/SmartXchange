@@ -6,24 +6,23 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
-
+export class NewCompanyService {
   private url = 'http://localhost:3000';
   // private url = 'http://localhost:5000'
-
   constructor(private httpClient: HttpClient) { }
-
-  login(email2: string, password2: string): Observable<any> {
-    const body = JSON.stringify({email: email2, password: password2});
+  CreateNewCompany(compName:String, compUrl:String, pitch:String): Observable<any>{
+    const body = JSON.stringify({playerCompetitionId:null,
+                                 companyName: compName, 
+                                 companyWebsiteURL: compUrl,
+                                 companyShortPitch: pitch,
+                                 companyCurrentStockPrice:'0'});
     console.log(body);
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
-    return this.httpClient.post(this.url + '/login', body, {headers: header})
+    return this.httpClient.post(this.url + '/companies/createComp', body, {headers: header})
     .pipe(map(this.extractData));
   }
-
   private extractData(res: Response): object {
     console.log(res || {});
     return res || {};
   }
-
 }

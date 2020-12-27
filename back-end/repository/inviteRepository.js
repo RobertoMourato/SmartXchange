@@ -61,5 +61,20 @@ module.exports = {
     } catch (error) {
       res.status(400).json(error)
     }
+  },
+
+  async isManager (req, res) {
+    try {
+      const invite = await models.Invite.findOne({ where: { token: req.query.invite } })
+      if (invite != null) {
+        return invite
+      } else {
+        console.log('ee')
+        //  res.json("Error! Invalid competition!");
+        return null
+      }
+    } catch (error) {
+      res.status(400).json(error)
+    }
   }
 }

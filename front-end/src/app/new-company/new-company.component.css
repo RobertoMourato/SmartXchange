@@ -1,0 +1,21 @@
+body{
+    height: 100%;
+    background: rgb(42, 40, 40);
+}
+.company-form{
+    margin-top: 100px;
+    background: rgb(42, 40, 40);
+    max-width: 30%;
+    align-items: center;
+}
+::ng-deep .mat-button{
+    background-color: #06b164;
+    color:white;
+}
+textarea:focus, input:focus {
+    color: white;
+}
+
+input, select, textarea,h1{
+    color: white;
+}

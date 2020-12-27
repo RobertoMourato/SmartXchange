@@ -1,0 +1,26 @@
+<body>
+    
+    <div fxLayout="row" fxLayoutAlign="center center">
+        
+        <form fxLayout="column" class="company-form" (ngSubmit)= "onSubmit(compName.value,url.value,pitch.value)">
+          <h1>Create Company</h1>
+            <mat-form-field appearance="fill">
+              <mat-label>Company Name</mat-label>
+              <input matInput type="text" #compName name = "compName" required>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+              <mat-label>Company Website</mat-label>
+              <input matInput type="text" #url name = "url" >
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+              <mat-label>Company Short Pitch</mat-label>
+              <textarea matInput type="text" #pitch name = "pitch" placeholder="Company Short Pitch"></textarea>
+            </mat-form-field>
+            <button mat-button type="submit">Create</button>
+        </form>
+    </div>
+</body>
+
+
