@@ -12,13 +12,9 @@ export class CompanyService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getQuestions(userId: Number): Observable<any>{
+  getQuestionsAndAnswers(userId: Number): Observable<any>{
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     return this.httpClient.get<any>(this.url + '/competition/compquestion?userId=' + userId, {headers: header});
-  }
-  getQuestionsByCompId(compId: Number): Observable<any>{
-    const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
-    return this.httpClient.get<any>(this.url + '/competition/compquestionById?compId=' + compId, {headers: header});
   }
   getCompany(userId: Number): Observable<any>{
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
