@@ -6,6 +6,7 @@ import { PortfolioComponent } from './portfolio/portfolio.component';
 import { RegisterComponent } from './register/register.component';
 import { NewCompanyComponent } from './new-company/new-company.component';
 import { CompanyComponent } from './company/company.component';
+import { ChooseTypeComponent } from './choose-type/choose-type.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'newcompany', component: NewCompanyComponent },
   { path: 'mycompany', component: CompanyComponent },
+  {path: 'chooseType' , component: ChooseTypeComponent}
 ];
 
 @NgModule({

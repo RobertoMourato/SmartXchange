@@ -25,6 +25,8 @@ import { DatePipe } from '@angular/common';
 import { RegisterComponent } from './register/register.component';
 import { NewCompanyComponent } from './new-company/new-company.component';
 import { CompanyComponent } from './company/company.component';
+import { ChooseTypeComponent } from './choose-type/choose-type.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { CompanyComponent } from './company/company.component';
     MainNavComponent,
     RegisterComponent,
     NewCompanyComponent,
-    CompanyComponent
+    CompanyComponent,
+    ChooseTypeComponent
   ],
   imports: [
     BrowserModule,
@@ -53,10 +56,11 @@ import { CompanyComponent } from './company/company.component';
     MatTableModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatRadioModule
   ],
   exports: [],
-  providers: [DatePipe],
+  providers: [DatePipe,NewCompanyComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

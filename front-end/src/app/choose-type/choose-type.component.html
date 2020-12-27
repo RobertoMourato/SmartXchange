@@ -1,6 +1,19 @@
-  <body>
-    <mat-radio-group aria-label="Select an option">
+<app-main-nav>
+<body>
+  <div style="align-items: center;">
+    <label>Pick your User Type</label>
+    <mat-radio-group
+      [(ngModel)]="userType"
+      aria-labelledby="choose-radio-group"
+    >
       <mat-radio-button value="Entrepreneur">Entrepreneur</mat-radio-button>
       <mat-radio-button value="Investor">Investor</mat-radio-button>
-    </mat-radio-group>    
-  </body> 
+    </mat-radio-group>
+
+    <app-company *ngIf='showCompany()'></app-company>
+
+
+    <button mat-flat-button color="primary">Complete Competition Registration</button>
+  </div>
+</body>
+</app-main-nav>

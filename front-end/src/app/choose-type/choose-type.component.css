@@ -15,3 +15,9 @@ mat-radio-button {
   color: azure;
   margin-left: 10%;
 }
+
+.choose-radio-group{
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
