@@ -1,17 +1,17 @@
 export class Company{
-    id: Number;
-    playerCompetitionId: Number|null;
+    id: number;
+    playerCompetitionId: number|null;
     companyName: string;
     companyWebsiteURL: string|null;
     companyShortPitch: string|null;
-    companyCurrentStockPrice: Number|null
+    companyCurrentStockPrice: number|null
     constructor(
-      id: Number,
-      playerCompetitionId: Number|null,
+      id: number,
+      playerCompetitionId: number|null,
       companyName: string,
       companyWebsiteURL: string|null,
       companyShortPitch: string|null,
-      companyCurrentStockPrice: Number|null
+      companyCurrentStockPrice: number|null
       ) { 
         this.id = id;
         this.playerCompetitionId = playerCompetitionId;

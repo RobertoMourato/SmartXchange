@@ -94,8 +94,10 @@ exports.toggleQuestions = async function (req, res) {
 }
 
 exports.answerQuestions = async function (req, res) {
+  console.log("controller")
   try {
     req.body.answers.forEach(answer => {
+      console.log(answer)
       answerRep.addAnswer(answer.answerText, answer.companyId, answer.questionId)
     })
     res.status(200).json('Answers submited')

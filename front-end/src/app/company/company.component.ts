@@ -49,6 +49,9 @@ export class CompanyComponent implements OnInit {
   }
   save(): void{
     this.newQuestions = this.newAnswers
+    this.companyService.updateAnswers(this.newQuestions).subscribe(data =>{
+      console.log(data)
+    })
   }
   update(i: number, newTxt: string){
     this.newAnswers[i].answerText = newTxt;

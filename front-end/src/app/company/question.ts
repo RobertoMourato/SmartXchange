@@ -4,8 +4,8 @@ export class Question{
     order: number;
     competitionId: number|null;
     isSelected: boolean;
-    questionId: Number;
-    companyId: Number;
+    questionId: number;
+    companyId: number;
     answerText: string|null;
 
     constructor(
@@ -14,8 +14,8 @@ export class Question{
         order: number,
         competitionId: number,
         isSelected: boolean,
-        questionId: Number,
-        companyId: Number,
+        questionId: number,
+        companyId: number,
         answerText: string|null,
       ) {
         this.id=id;
