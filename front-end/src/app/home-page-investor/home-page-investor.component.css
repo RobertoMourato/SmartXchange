@@ -1,0 +1,44 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100);
+
+body {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: 'Roboto', sans-serif;
+  background-color: rgb(42, 40, 40);
+}
+
+.wallet-card, .ranking-card {
+  margin: 15px;
+  color: white;
+  font-size: 15px;
+  width: 20%;
+}
+
+.wallet-card-info {
+  background-color: rgb(255, 255, 255);
+  color: black;
+  padding: 5px;
+  text-align: center;
+}
+
+.time-card {
+  border-style: solid;
+  border-width: 2px;
+  border-color: grey;
+  background-color: rgb(32, 30, 30);
+
+  margin: auto;
+  width: 10%;
+
+  text-align: center;
+  color: white;
+  font-size: 50px;
+
+  padding: 5px;
+}
+
+#block-container {
+  display: flex;
+}

@@ -15,12 +15,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
+import { HomePageInvestorComponent } from './home-page-investor/home-page-investor.component';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
     AppComponent,
     SuperadminNavComponent,
-    LoginComponent
+    LoginComponent,
+    HomePageInvestorComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { LoginComponent } from './login/login.component';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
