@@ -11,12 +11,12 @@
             <br>
             <mat-form-field appearance="fill">
               <mat-label>Company Website</mat-label>
-              <input matInput type="text" #url_input id="url_input" (change)="changeUrl(url_input.value)"  >
+              <input matInput type="text" #url_input id="url_input" (change)="changeUrl(url_input.value)" required>
             </mat-form-field>
             <br>
             <mat-form-field appearance="fill">
               <mat-label>Company Short Pitch</mat-label>
-              <textarea matInput type="text" #textarea_pitch id="textarea_pitch"  (change)="changePitch(textarea_pitch.value)"placeholder="Company Short Pitch"></textarea>
+              <textarea matInput type="text" #textarea_pitch id="textarea_pitch"  (change)="changePitch(textarea_pitch.value)"placeholder="Company Short Pitch" required></textarea>
             </mat-form-field>
         </form>
     </div>
