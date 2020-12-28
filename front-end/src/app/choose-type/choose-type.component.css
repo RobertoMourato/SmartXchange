@@ -1,14 +1,14 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100);
 
 body {
-  width: auto;
+  width: 100%;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
   font-family: "Roboto", sans-serif;
   background-color: rgb(42, 40, 40);
-  align-self: center;
+  align-items: center;
 }
 
 mat-radio-button {
@@ -17,13 +17,17 @@ mat-radio-button {
   margin-left: 10%;
 }
 
-mat-flat-button {
-  color: aliceblue;
+::ng-deep .mat-flat-button{
   background-color: #06b164;
+  color:white;
 }
 
 .choose-radio-group{
   display: flex;
   flex-direction: column;
-  margin: 15px 0;
+  margin-left: 15px 0;
+}
+
+app-new-company {
+  width: 70%; 
 }

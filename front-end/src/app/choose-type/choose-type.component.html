@@ -1,9 +1,7 @@
 <app-main-nav>
-  <body>
-    <div style="align-items: center; width: 100%">
-      <h1>
-        You're registered for this competition! Pick your User Type</h1
-      >
+  <body fxLayout="row" fxLayoutAlign="center">
+    <div style="align-items: center center; width: 70%">
+      <h1>You're registered for this competition! Pick your role</h1>
       <div>{{ compName }}</div>
       <mat-radio-group
         [(ngModel)]="userType"
@@ -14,7 +12,8 @@
       </mat-radio-group>
       <app-new-company *ngIf="showCompany()"></app-new-company>
       <div>
-        <button style="align-self: auto;"
+        <button
+          style="align-self: auto"
           mat-flat-button
           (click)="completeRegistration()"
         >
