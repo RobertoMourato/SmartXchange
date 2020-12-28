@@ -1,19 +1,26 @@
 <app-main-nav>
-<body>
-  <div style="align-items: center;">
-    <label> You're registered for this competition! Pick your User Type</label>
-    <mat-radio-group
-      [(ngModel)]="userType"
-      aria-labelledby="choose-radio-group"
-    >
-      <mat-radio-button value="Entrepreneur">Entrepreneur</mat-radio-button>
-      <mat-radio-button value="Investor">Investor</mat-radio-button>
-    </mat-radio-group>
-
-    <app-company *ngIf='showCompany()'></app-company>
-
-
-    <button mat-flat-button color="primary">Complete Competition Registration</button>
-  </div>
-</body>
+  <body>
+    <div style="align-items: center; width: 100%">
+      <h1>
+        You're registered for this competition! Pick your User Type</h1
+      >
+      <div>{{ compName }}</div>
+      <mat-radio-group
+        [(ngModel)]="userType"
+        aria-labelledby="choose-radio-group"
+      >
+        <mat-radio-button value="Entrepreneur">Entrepreneur</mat-radio-button>
+        <mat-radio-button value="Investor">Investor</mat-radio-button>
+      </mat-radio-group>
+      <app-new-company *ngIf="showCompany()"></app-new-company>
+      <div>
+        <button style="align-self: auto;"
+          mat-flat-button
+          (click)="completeRegistration()"
+        >
+          Complete Competition Registration
+        </button>
+      </div>
+    </div>
+  </body>
 </app-main-nav>

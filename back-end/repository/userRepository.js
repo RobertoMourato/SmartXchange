@@ -1,5 +1,6 @@
 const models = require('../models')
 const bcrypt = require('bcryptjs')
+const { completeRegistration } = require('../controllers/userController')
 
 module.exports = {
 
@@ -37,15 +38,15 @@ module.exports = {
   */
 
   async addUser(req, res) {
-    //  console.log(req.body)
+    console.log(req.body)
     const { name, username, email, password, inviteToken } = req.body
     const invite = await models.Invite.findOne({ where: { token: inviteToken } })
 
     if (invite.dataValues.isValid) {
       const manager = await models.User.findByPk(invite.dataValues.invitedBy)
 
-      if (invite.dataValues.isManager== true && manager== true) {
-        
+      if (invite.dataValues.isManager == true && manager == true) {
+
         try {
           const user = await models.User.create({
             name: name,
@@ -67,15 +68,17 @@ module.exports = {
       } else {
         if (manager) {
           try {
+            console.log('add')
             const user = await models.User.create({
               name: name,
               username: username,
               email: email,
               password: password,
               tenantId: manager.dataValues.tenantId,
-              userTypeId: usertype.dataValues.id,
+              userTypeId: null,
               managerId: manager.dataValues.id
             })
+            console.log('added')
             this.invalidToken(inviteToken)
             return await models.User.build(user.dataValues)
             // console.log('user',user)
@@ -167,5 +170,35 @@ module.exports = {
   async deleteUser(req) {
     console.log('entrou')
     await models.User.destroy({ where: { username: req.body.username } })
+  },
+
+  async completeRegistration(userT, playerCompetitionId) {
+    console.log(userT, playerCompetitionId)
+    const type = await models.UserType.findOne({ where: { userType: userT } })
+
+    if (type) {
+      await models.PlayerCompetition.update(
+        { completedRegistration: true },
+        {
+          where: { id: playerCompetitionId }
+        })
+
+      const pc = await models.PlayerCompetition.findByPk(playerCompetitionId)
+      console.log('pc', pc)
+      if (pc) {
+        await models.User.update(
+          { userTypeId: type.dataValues.id },
+          { where: { id: pc.dataValues.playerId } })
+
+        const user = await models.User.findOne(
+          { where: { id: pc.dataValues.playerId } }
+        )
+        return user;
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
   }
 }

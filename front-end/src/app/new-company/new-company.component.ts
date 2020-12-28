@@ -1,19 +1,39 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NewCompanyService } from './new-company.service';
 
 @Component({
   selector: 'app-new-company',
   templateUrl: './new-company.component.html',
-  styleUrls: ['./new-company.component.css']
+  styleUrls: ['./new-company.component.css'],
 })
-export class NewCompanyComponent implements OnInit {
+export class NewCompanyComponent {
   constructor(private newCompanyService: NewCompanyService, router: Router) {}
-  ngOnInit(): void {
-    
+
+  compName: string;
+  url: string;
+  pitch: string;
+
+  onSubmit(playerCompetition: string): void {
+    this.newCompanyService
+      .CreateNewCompany(playerCompetition, this.compName, this.url, this.pitch)
+      .subscribe((data) => {
+        alert('Company Created' + data);
+      });
   }
-  onSubmit(compName:String,url:String,pitch:String):void{
-    this.newCompanyService.CreateNewCompany(compName, url, pitch)
-    alert("Company Created")
+  changeCompName(newValue: string) {
+    console.log('trocou ppor', newValue);
+    this.compName = newValue;
+    console.log(this.compName);
+  }
+
+  changeUrl(newValue: string) {
+    this.url = newValue;
+    console.log(this.url);
+  }
+
+  changePitch(newValue: string) {
+    this.pitch = newValue;
+    console.log(this.pitch);
   }
 }

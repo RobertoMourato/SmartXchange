@@ -10,6 +10,7 @@ module.exports = {
       companyShortPitch,
       companyCurrentStockPrice
     } = req.body
+    console.log(req.body)
 
     if (companyName) {
       try {
@@ -22,6 +23,7 @@ module.exports = {
         })
         res.status(200).json(company)
       } catch (error) {
+        console.log(error)
         res.status(400).json(error)
       }
     } else {

@@ -11,5 +11,6 @@ router.post('/invite', inviteControlller.inviteUser)
 router.get('/isManager', inviteControlller.verifyManager)
 router.delete('/', UserController.deleteUser)
 router.put('/update', UserController.updateUser)
+router.put('/completeRegistration',UserController.completeRegistration)
 
 module.exports = router

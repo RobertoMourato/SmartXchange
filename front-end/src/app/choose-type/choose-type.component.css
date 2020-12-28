@@ -1,6 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100);
 
 body {
+  width: auto;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -14,6 +15,11 @@ mat-radio-button {
   font-size: x-large;
   color: azure;
   margin-left: 10%;
+}
+
+mat-flat-button {
+  color: aliceblue;
+  background-color: #06b164;
 }
 
 .choose-radio-group{

@@ -2,23 +2,22 @@
     
     <div fxLayout="row" fxLayoutAlign="center center">
         
-        <form fxLayout="column" class="company-form" (ngSubmit)= "onSubmit(compName.value,url.value,pitch.value)">
+        <form fxLayout="column" class="company-form">
           <h1>Create Company</h1>
             <mat-form-field appearance="fill">
               <mat-label>Company Name</mat-label>
-              <input matInput type="text" #compName name = "compName" required>
+              <input matInput type="text" #input_name id="input_name" (change)="changeCompName(input_name.value)"required> 
             </mat-form-field>
             <br>
             <mat-form-field appearance="fill">
               <mat-label>Company Website</mat-label>
-              <input matInput type="text" #url name = "url" >
+              <input matInput type="text" #url_input id="url_input" (change)="changeUrl(url_input.value)"  >
             </mat-form-field>
             <br>
             <mat-form-field appearance="fill">
               <mat-label>Company Short Pitch</mat-label>
-              <textarea matInput type="text" #pitch name = "pitch" placeholder="Company Short Pitch"></textarea>
+              <textarea matInput type="text" #textarea_pitch id="textarea_pitch"  (change)="changePitch(textarea_pitch.value)"placeholder="Company Short Pitch"></textarea>
             </mat-form-field>
-            <button mat-button type="submit">Create</button>
         </form>
     </div>
 </body>

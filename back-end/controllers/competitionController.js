@@ -139,7 +139,7 @@ exports.getAllRankings = async function (req, res) {
 exports.addPlayerCompetitionWithInvite = async function (req, res) {
   try {
     const userId = req.query.userId
-    const inviteToken = requ.query.invite
+    const inviteToken = req.query.invite
     const playerCompetition = await competitionRepository.addPlayerCompetitionWithInvite(userId, inviteToken)
     if (playerCompetition) {
       res.json(playerCompetition).status(201)

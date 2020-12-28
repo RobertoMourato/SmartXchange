@@ -155,13 +155,13 @@ module.exports = {
     try {
       const invite = await models.Invite.findOne({ where: { token: inviteToken } })
 
-      if (invite) {
+      if (invite && invite.dataValues.isManager == false && invite.dataValues.isValid == true) {
         const pc = await models.PlayerCompetition.create({
-          userId: userId,
+          playerId: userId,
           competitionId: invite.dataValues.competitionId,
           completedRegistration: false
         })
-        inviteRepository.invalidToken(invite.dataValues.competitionId)
+        inviteRepository.invalidToken(invite.dataValues.token)
         return pc;
       } else {
         return null;
