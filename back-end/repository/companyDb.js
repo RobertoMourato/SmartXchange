@@ -34,7 +34,7 @@ module.exports = {
   async getCompany (req, res) {
     const userId = req.query.userId
     const playerComp = await models.PlayerCompetition.findOne({ where: { playerid: userId } })
-    if(playerComp){
+    if (playerComp) {
       try {
         return await models.Company.findOne({ where: { playerCompetitionId: playerComp.dataValues.id } })
       } catch (error) {

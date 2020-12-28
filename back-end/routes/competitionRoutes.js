@@ -12,6 +12,6 @@ router.get('/compquestion', competitionController.getQuestions)
 router.get('/compquestionById', competitionController.getQuestionsByCompId)
 router.put('/selectQuestions', competitionController.toggleQuestions)
 router.post('/answerQuestion', competitionController.answerQuestions)
-router.post('/register/playerCompetition',competitionController.addPlayerCompetitionWithInvite)
+router.post('/register/playerCompetition', competitionController.addPlayerCompetitionWithInvite)
 
 module.exports = router

@@ -27,7 +27,7 @@ module.exports = {
         }
       },
       completedRegistration: {
-        allowNull:false,
+        allowNull: false,
         type: Sequelize.BOOLEAN
       },
       createdAt: {

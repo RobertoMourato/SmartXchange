@@ -39,9 +39,8 @@ exports.addUser = async function (req, res) {
     const user = await dbUser.addUser(req, res)
     if (user != null) {
       const playerCompetition = await competitionRepository.addPlayerCompetitionWithInvite(user.id, req.body.inviteToken)
-      res.json({user, playerCompetition})
-    }
-    else {
+      res.json({ user, playerCompetition })
+    } else {
       res.status(400)
     }
   } catch (e) {
@@ -94,7 +93,6 @@ exports.updateUser = async function (req, res) {
 }
 
 exports.completeRegistration = async function (req, res) {
-
   try {
     const user = await userRepository.completeRegistration(req.query.userType, req.query.playerCompetitionId)
     if (user != null) {

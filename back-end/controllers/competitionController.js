@@ -144,11 +144,10 @@ exports.addPlayerCompetitionWithInvite = async function (req, res) {
     if (playerCompetition) {
       res.json(playerCompetition).status(201)
     } else {
-      res.status(400);
+      res.status(400)
     }
   } catch (error) {
     console.log(error.message)
     res.json(error.message).status(500)
   }
-
 }
