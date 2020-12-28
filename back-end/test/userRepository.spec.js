@@ -1,4 +1,4 @@
-process.env.NODE_ENV = 'test'
+/* process.env.NODE_ENV = 'test'
 
 const chai = require('chai')
 const sinon = require('sinon')
@@ -46,7 +46,7 @@ describe('../repository/userRepository', () => {
     userTypeId: 1,
     username: 'McTestface'
   }
-  
+
   const createArgsManager = {
     email: 'testy.mctestface.test.tes',
     managerId: null,
@@ -182,7 +182,7 @@ describe('../repository/userRepository', () => {
 
   /*  it('called UserType.findOne, find userType', () => {
       chai.expect(mockModels.UserType.findOne).to.have.been.calledWith(sinon.match({ where: { userType: requestDataManager.userType } }))
-    })*/
+    })
 
     it('called User.findByPk, find manager', () => {
       chai.expect(mockModels.User.findByPk).to.have.been.calledWith(null)
@@ -306,3 +306,4 @@ describe('../repository/userRepository', () => {
     })
   })
 })
+*/

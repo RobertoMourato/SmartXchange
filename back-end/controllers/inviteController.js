@@ -1,7 +1,5 @@
 const inviteRep = require('../repository/inviteRepository')
 const emailService = require('../emailService/emailService')
-const userRepository = require('../repository/userRepository')
-
 /*
   Body:
   {"invitedBy:"",

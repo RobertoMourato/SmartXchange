@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 
 module.exports = {
 
-  async index(req, res) {
+  async index (req, res) {
     let results
     await models.User.findAll()
       .then((users) => {
@@ -36,7 +36,7 @@ module.exports = {
   }
   */
 
-  async addUser(req, res) {
+  async addUser (req, res) {
     //  console.log(req.body)
     const { name, username, email, password, inviteToken } = req.body
     const invite = await models.Invite.findOne({ where: { token: inviteToken } })
@@ -44,8 +44,7 @@ module.exports = {
     if (invite.dataValues.isValid) {
       const manager = await models.User.findByPk(invite.dataValues.invitedBy)
 
-      if (invite.dataValues.isManager== true && manager== true) {
-        
+      if (invite.dataValues.isManager == true && manager == true) {
         try {
           const user = await models.User.create({
             name: name,
@@ -73,7 +72,7 @@ module.exports = {
               email: email,
               password: password,
               tenantId: manager.dataValues.tenantId,
-              userTypeId: usertype.dataValues.id,
+              userTypeId: null,
               managerId: manager.dataValues.id
             })
             this.invalidToken(inviteToken)
@@ -92,7 +91,7 @@ module.exports = {
     }
   },
 
-  async getUserById(req, res) {
+  async getUserById (req, res) {
     const user = models.User
     let User = null
     // await user.findOne({ where: { id: req.body.id }, include: ["players", "manager"] })~
@@ -109,7 +108,7 @@ module.exports = {
     return User
   },
 
-  async getByEmail(email) {
+  async getByEmail (email) {
     const user = await models.User.findOne({ where: { email: email } })
     if (user) {
       return models.User.build(user.dataValues)
@@ -117,7 +116,7 @@ module.exports = {
       return null
     }
   },
-  async invalidToken(token2) {
+  async invalidToken (token2) {
     console.log(token2)
     try {
       models.Invite.update(
@@ -129,7 +128,7 @@ module.exports = {
       return null
     }
   },
-  async getByUsername(username) {
+  async getByUsername (username) {
     const user = await models.User.findOne({ where: { username: username } })
     if (user) {
       console.log(user)
@@ -138,7 +137,7 @@ module.exports = {
     return null
   },
 
-  async getUserTypeById(id) {
+  async getUserTypeById (id) {
     const usertype = await models.UserType.findByPk(id)
     if (usertype) {
       return models.UserType.build(usertype.dataValues)
@@ -147,7 +146,7 @@ module.exports = {
     }
   },
 
-  async updateUser(req, res) {
+  async updateUser (req, res) {
     const { username, newUsername, name, email, password } = req.body
 
     const salt = bcrypt.genSaltSync()
@@ -163,7 +162,7 @@ module.exports = {
     })
   },
 
-  async deleteUser(req) {
+  async deleteUser (req) {
     console.log('entrou')
     await models.User.destroy({ where: { username: req.body.username } })
   }
