@@ -16,14 +16,16 @@ import { MatListModule } from '@angular/material/list';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { HomePageInvestorComponent } from './home-page-investor/home-page-investor.component';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
+import { MainNavComponent } from './main-nav/main-nav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SuperadminNavComponent,
     LoginComponent,
-    HomePageInvestorComponent
+    HomePageInvestorComponent,
+    MainNavComponent
   ],
   imports: [
     BrowserModule,

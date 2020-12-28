@@ -17,12 +17,11 @@ export class HomePageInvestorComponent implements OnInit {
     {position: 4, name: "Lucas", price: 500, gain: 24}
   ];
   headers: String[]=["Position", "Name", "Price", "Gain"]
-  rankingData = this.ranking;
+  dataSource = this.ranking;
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.ranking);
   }
 
 }
