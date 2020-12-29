@@ -16,13 +16,17 @@ import { MatListModule } from '@angular/material/list';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { MarketPageInvestorComponent } from './market-page-investor/market-page-investor.component';
+import { MainNavComponent } from './main-nav/main-nav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SuperadminNavComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    MarketPageInvestorComponent,
+    MainNavComponent
   ],
   imports: [
     BrowserModule,
