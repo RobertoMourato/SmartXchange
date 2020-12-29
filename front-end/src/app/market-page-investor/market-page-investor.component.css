@@ -30,3 +30,13 @@ body {
     text-align: center;
     font-size: 50px;
 }
+
+::ng-deep .mat-header-cell{
+    background-color: #06b164;
+    font-size: 20px;
+}
+
+.table {
+    width: 60%;
+    margin-left: 20%;
+}
