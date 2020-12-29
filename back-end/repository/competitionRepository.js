@@ -1,3 +1,4 @@
+const { hasStarted } = require('../controllers/competitionController')
 const models = require('../models')
 const questionRepository = require('./questionRepository.js')
 
@@ -16,6 +17,14 @@ module.exports = {
     const competition = await models.Competition.findByPk(id)
 
     return models.Competition.build(competition.dataValues)
+  },
+
+  async hasStarted (id) {
+    const competition = await models.Competition.findByPk(id)
+    if(competition.dataValues.hasStarted){
+      return true
+    }
+    return false
   },
 
   async addCompetition (req, res) {

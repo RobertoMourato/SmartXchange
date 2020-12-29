@@ -4,6 +4,7 @@ const router = express.Router()
 const competitionController = require('../controllers/competitionController')
 
 router.get('/', competitionController.getAllCompetitions)
+router.get('/', competitionController.hasStarted)
 router.post('/', competitionController.addCompetition)
 router.put('/toggle', competitionController.toggleCompetition)
 router.put('/settings', competitionController.changeSettingsCompetition)

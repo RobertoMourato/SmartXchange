@@ -1,6 +1,6 @@
 <app-main-nav>
     <body>
-        <div>
+        <div *ngIf="!hasStarted">
             <mat-card fxLayout="column" fxLayoutAlign="center center" class="Company-card">
                 <mat-card-header>
                     <mat-label>Company name</mat-label>
@@ -12,8 +12,27 @@
                 <div>       
                     <mat-label style="text-align: center;">Short Pitch</mat-label>
                     <br><br>
-                    <textarea matInput type="text" #pitch name = "pitch" value = {{company.companyShortPitch}}></textarea>
+                    <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
                 </div>
+            </mat-card>
+            <button mat-button fxLayout="column" fxLayoutAlign="center center" (click) = "save(compName.value,compURL.value,htmlContent)" >Save</button>
+        </div>
+        <div *ngIf="hasStarted">
+            <mat-card fxLayout="column" fxLayoutAlign="center center" class="Company-card">
+                <mat-card-header>
+                    <mat-card-title>
+                        {{company.companyName}}
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                        {{company.companyWebsiteURL}}
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <div>       
+                    <mat-label style="text-align: center;">Short Pitch</mat-label>
+                    <br><br>
+                    <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor> 
+                </div>
+                <button mat-button fxLayout="column" fxLayoutAlign="center center" (click) = "savePitch(htmlContent)" >Save</button>
             </mat-card>
             <mat-card fxLayout="column" fxLayoutAlign="center center" class="question-card" *ngFor="let question of newAnswers; let i = index">
                 <h2>{{question.questionText}}</h2>
@@ -23,7 +42,7 @@
                     <textarea matInput type="text" #answer id=answer name = "answer" (change) = "update(i,answer.value)">{{question.answerText}}</textarea>
                 </mat-card-header>
             </mat-card>
-            <button mat-button fxLayout="column" fxLayoutAlign="center center" (click) = "save(compName.value,compURL.value,pitch.value)" >Save</button>
-        </div>  
+            <button mat-button fxLayout="column" fxLayoutAlign="center center" (click) = "saveAnswer()">Save</button>
+        </div>
     </body>
 </app-main-nav>
