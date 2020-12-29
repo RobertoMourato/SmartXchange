@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Market } from './market';
 
 @Component({
-  selector: 'app-market-page-investor',
-  templateUrl: './market-page-investor.component.html',
-  styleUrls: ['./market-page-investor.component.css']
+  selector: 'app-market-page',
+  templateUrl: './market-page.component.html',
+  styleUrls: ['./market-page.component.css']
 })
-export class MarketPageInvestorComponent implements OnInit {
+export class MarketPageComponent implements OnInit {
 
   market: Market[]=[
     {position: 1, name: "Lucas", juryAward: 10, price: 500, gain: 24},

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MarketPageInvestorComponent } from './market-page-investor.component';
+import { MarketPageComponent } from './market-page.component';
 
-describe('MarketPageInvestorComponent', () => {
-  let component: MarketPageInvestorComponent;
-  let fixture: ComponentFixture<MarketPageInvestorComponent>;
+describe('MarketPageComponent', () => {
+  let component: MarketPageComponent;
+  let fixture: ComponentFixture<MarketPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MarketPageInvestorComponent ]
+      declarations: [ MarketPageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MarketPageInvestorComponent);
+    fixture = TestBed.createComponent(MarketPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

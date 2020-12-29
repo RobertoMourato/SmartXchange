@@ -16,9 +16,9 @@ import { MatListModule } from '@angular/material/list';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { MarketPageInvestorComponent } from './market-page-investor/market-page-investor.component';
+import { MarketPageComponent } from './market-page/market-page.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import {MatTableModule} from '@angular/material/table';
     SuperadminNavComponent,
     LoginComponent,
     RegisterComponent,
-    MarketPageInvestorComponent,
+    MarketPageComponent,
     MainNavComponent
   ],
   imports: [
