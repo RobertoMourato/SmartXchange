@@ -18,6 +18,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MarketPageInvestorComponent } from './market-page-investor/market-page-investor.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { MainNavComponent } from './main-nav/main-nav.component';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
