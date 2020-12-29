@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Answer, { foreignKey: 'companyId', as: 'answers' })
       this.hasMany(models.Order, { foreignKey: 'companyId', as: 'orders' })
       this.hasMany(models.Evaluation, { foreignKey: 'companyId' })
+      this.hasMany(models.StockValue, { foreignKey: 'companyId' })
       this.belongsTo(models.PlayerCompetition, { foreignKey: 'playerCompetitionId' })
     }
   };

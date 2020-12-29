@@ -98,6 +98,27 @@ exports.addQuestion = async function (req, res) {
   }
 }
 
+exports.getQuestions = async function (req, res) {
+  try {
+    // console.log(req.body)
+    const results = await questionRep.getQuestions(req, res)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+exports.getQuestionsByCompId = async function (req, res) {
+  try {
+    // console.log(req.body)
+    const results = await questionRep.getQuestionsByCompId(req, res)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+
 exports.toggleQuestions = async function (req, res) {
   console.log(req.body.selected)
   try {
@@ -142,5 +163,21 @@ exports.getAllRankings = async function (req, res) {
   } catch (e) {
     console.log(e)
     res.sendStatus(500)
+  }
+}
+
+exports.addPlayerCompetitionWithInvite = async function (req, res) {
+  try {
+    const userId = req.query.userId
+    const inviteToken = req.query.invite
+    const playerCompetition = await competitionRepository.addPlayerCompetitionWithInvite(userId, inviteToken)
+    if (playerCompetition) {
+      res.json(playerCompetition).status(201)
+    } else {
+      res.status(400)
+    }
+  } catch (error) {
+    console.log(error.message)
+    res.json(error.message).status(500)
   }
 }

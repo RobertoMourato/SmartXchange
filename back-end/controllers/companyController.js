@@ -13,6 +13,17 @@ exports.addCompany = async function (req, res) {
   }
 }
 
+exports.getCompany = async function (req, res) {
+  try {
+    // console.log(req.body)
+    const results = await db.getCompany(req, res)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+
 exports.getAllEvaluations = async function (req, res) {
   try {
     const results = await evaluationRep.index(req, res)

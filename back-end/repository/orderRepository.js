@@ -1,8 +1,7 @@
-const { cancelOrder } = require('../controllers/orderController')
 const models = require('../models')
 
 module.exports = {
-  async index(req, res) {
+  async index (req, res) {
     const order = models.Order
     await order.findAll().then(order => {
       res.status(200).json(order)
@@ -11,7 +10,7 @@ module.exports = {
         res.status(400).send(error)
       })
   },
-  async addOrder(req, res) {
+  async addOrder (req, res) {
     // const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
     const company = await models.Company.findByPk(req.query.companyId)
     const user = await models.User.findByPk(req.query.userId)
@@ -47,7 +46,7 @@ module.exports = {
     }
   },
 
-  async getPlayerPendingOrders(username) {
+  async getPlayerPendingOrders (username) {
     return await models.Order.findAll({
       where: { orderStatus: 'Pending' },
       include: ['company', {
@@ -67,7 +66,7 @@ module.exports = {
       }]
     })
   },
-  async getPlayerCompletedOrders(username) {
+  async getPlayerCompletedOrders (username) {
     return await models.Order.findAll({
       where: { orderStatus: 'Completed' },
       include: [
@@ -90,18 +89,17 @@ module.exports = {
 
     /* return await models.Order.findAll({
        include: ['company']
-     })*/
-
+     }) */
   },
 
-  async cancelOrder(orderId) {
+  async cancelOrder (orderId) {
     try {
       return models.Order.update(
         { orderStatus: 'Canceled' },
         { where: { id: orderId, orderStatus: 'Pending' } }
       )
     } catch (error) {
-      return null;
+      return null
     }
   },
 

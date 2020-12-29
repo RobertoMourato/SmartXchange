@@ -39,21 +39,11 @@ export class PortfolioComponent implements OnInit {
   ngOnInit(): void {
     this.pendingOffers = new Array<Offer>();
     
+    
     this.getPendingOrders();
     this.getCompletedOrders();
 
-    // console.log('pds', this.pendingDataSource.data);
-
-    //
-    //console.log('ED', ELEMENT_DATA);
-    //this.pendingDataSource = new MatTableDataSource<Offer>(ELEMENT_DATA);
-
-    //console.log('pendingDatasource', this.pendingDataSource);
-    //this.dataSource =  new MatTableDataSource(this.offers)
-
- 
-    //this.dataSource = new MatTableDataSource<Offer>(ELEMENT_DATA);
-    //console.log('filt', this.dataSource.data);
+    
   }
 
   getPendingOrders() {

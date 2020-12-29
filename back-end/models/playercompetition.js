@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
   };
   PlayerCompetition.init({
     playerId: DataTypes.INTEGER,
-    competitionId: DataTypes.INTEGER
+    competitionId: DataTypes.INTEGER,
+    completedRegistration: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'PlayerCompetition'

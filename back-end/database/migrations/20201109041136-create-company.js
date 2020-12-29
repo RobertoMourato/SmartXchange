@@ -10,6 +10,7 @@ module.exports = {
       },
       playerCompetitionId: {
         type: Sequelize.INTEGER,
+        unique: true,
         references: {
           model: {
             tableName: 'PlayerCompetitions'

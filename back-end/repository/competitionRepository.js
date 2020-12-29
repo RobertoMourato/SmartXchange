@@ -1,6 +1,7 @@
 const models = require('../models')
 const questionRepository = require('./questionRepository.js')
 const companyRepository = require('./companyDb')
+const inviteRepository = require('./inviteRepository')
 
 module.exports = {
   async index(req, res) {
@@ -191,6 +192,25 @@ module.exports = {
       }
     } else {
       res.status(400).json('No competition associated')
+    }
+  },
+  async addPlayerCompetitionWithInvite (userId, inviteToken) {
+    try {
+      const invite = await models.Invite.findOne({ where: { token: inviteToken } })
+
+      if (invite && invite.dataValues.isManager == false && invite.dataValues.isValid == true) {
+        const pc = await models.PlayerCompetition.create({
+          playerId: userId,
+          competitionId: invite.dataValues.competitionId,
+          completedRegistration: false
+        })
+        inviteRepository.invalidToken(invite.dataValues.token)
+        return pc
+      } else {
+        return null
+      }
+    } catch (error) {
+      return null
     }
   }
 }

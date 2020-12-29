@@ -37,16 +37,25 @@ module.exports = {
   */
 
   async addUser (req, res) {
-    // console.log(req.body)
-    const userType = await models.UserType.findOne({ where: { userType: req.body.userType } })
-    const { name, username, email, password, managerId, tenantId } = req.body
+    console.log(req.body)
+    const { name, username, email, password, inviteToken } = req.body
+    const invite = await models.Invite.findOne({ where: { token: inviteToken } })
 
-    if (userType) {
-      const manager = await models.User.findByPk(managerId)
-      if (manager) {
+    if (invite.dataValues.isValid) {
+      const manager = await models.User.findByPk(invite.dataValues.invitedBy)
+
+      if (invite.dataValues.isManager == true && manager == true) {
         try {
-          const typeId = userType.dataValues.id
-          const user = await models.User.create({ name: name, username: username, email: email, password: password, tenantId: manager.dataValues.tenantId, userTypeId: typeId })
+          const user = await models.User.create({
+            name: name,
+            username: username,
+            email: email,
+            password: password,
+            tenantId: manager.dataValues.tenantId,
+            userTypeId: 3,
+            managerId: null
+          })
+          this.invalidToken(inviteToken)
           return await models.User.build(user.dataValues)
           // console.log('user',user)
           // res.status(200).json(user)
@@ -55,21 +64,27 @@ module.exports = {
           // res.status(400).json(error);
         }
       } else {
-        console.log(userType.dataValues.isManager)
-        if (userType.dataValues.isManager == true) {
-          console.log('aqui')
+        if (manager) {
           try {
-            const typeId = userType.dataValues.id
-            const man = await models.User.create({ name: name, username: username, email: email, password: password, tenantId: tenantId, userTypeId: typeId })
-            return await models.User.build(man.dataValues)
-            // res.status(200).json(man)
+            console.log('add')
+            const user = await models.User.create({
+              name: name,
+              username: username,
+              email: email,
+              password: password,
+              tenantId: manager.dataValues.tenantId,
+              userTypeId: null,
+              managerId: manager.dataValues.id
+            })
+            console.log('added')
+            this.invalidToken(inviteToken)
+            return await models.User.build(user.dataValues)
+            // console.log('user',user)
+            // res.status(200).json(user)
           } catch (error) {
             return null
             // res.status(400).json(error);
           }
-        } else {
-          return 400
-          // res.status(400).json("No Manager associated");
         }
       }
     } else {
@@ -104,7 +119,18 @@ module.exports = {
       return null
     }
   },
-
+  async invalidToken (token2) {
+    console.log(token2)
+    try {
+      models.Invite.update(
+        { isValid: false },
+        { returning: true, where: { token: token2 } }
+      )
+    } catch (error) {
+      console.log('nao invalidou')
+      return null
+    }
+  },
   async getByUsername (username) {
     const user = await models.User.findOne({ where: { username: username } })
     if (user) {
@@ -142,5 +168,35 @@ module.exports = {
   async deleteUser (req) {
     console.log('entrou')
     await models.User.destroy({ where: { username: req.body.username } })
+  },
+
+  async completeRegistration (userT, playerCompetitionId) {
+    console.log(userT, playerCompetitionId)
+    const type = await models.UserType.findOne({ where: { userType: userT } })
+
+    if (type) {
+      await models.PlayerCompetition.update(
+        { completedRegistration: true },
+        {
+          where: { id: playerCompetitionId }
+        })
+
+      const pc = await models.PlayerCompetition.findByPk(playerCompetitionId)
+      console.log('pc', pc)
+      if (pc) {
+        await models.User.update(
+          { userTypeId: type.dataValues.id },
+          { where: { id: pc.dataValues.playerId } })
+
+        const user = await models.User.findOne(
+          { where: { id: pc.dataValues.playerId } }
+        )
+        return user
+      } else {
+        return null
+      }
+    } else {
+      return null
+    }
   }
 }
