@@ -26,7 +26,8 @@ module.exports = (sequelize, DataTypes) => {
     competitionInitialStockValue: DataTypes.INTEGER,
     competitionRefreshRate: DataTypes.TIME,
     competitionNumStocks: DataTypes.INTEGER,
-    competitionHasStarted: DataTypes.BOOLEAN
+    competitionHasStarted: DataTypes.BOOLEAN,
+    competitionHasFinished: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Competition'
