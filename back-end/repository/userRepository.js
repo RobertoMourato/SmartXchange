@@ -37,7 +37,7 @@ module.exports = {
   */
 
   async addUser (req, res) {
-    console.log(req.body)
+    //  console.log(req.body)
     const { name, username, email, password, inviteToken } = req.body
     const invite = await models.Invite.findOne({ where: { token: inviteToken } })
 
