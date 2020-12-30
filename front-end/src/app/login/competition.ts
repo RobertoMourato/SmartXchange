@@ -17,12 +17,12 @@ export class Competition{
         competitionInitialStockValue: number|null,
         competitionNumStocks: number|null,
         competitionHasStarted: boolean,
-        ) { 
+        ) {
           this.id = id;
           this.managerId = managerId;
           this.competitionInitialBudget = competitionInitialBudget;
           this.competitionInitialStockValue = competitionInitialStockValue;
           this.competitionNumStocks = competitionNumStocks;
-          this.competitionHasStarted = competitionHasStarted
+          this.competitionHasStarted = competitionHasStarted;
         }
 }

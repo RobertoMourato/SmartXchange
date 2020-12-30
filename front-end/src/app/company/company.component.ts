@@ -11,11 +11,11 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
   styleUrls: ['./company.component.css']
 })
 export class CompanyComponent implements OnInit {
-  newQuestions: Question[] = []
-  newAnswers: Question[] = []
-  company: Company
-  hasStarted = false
-  htmlContent = ''
+  newQuestions: Question[] = [];
+  newAnswers: Question[] = [];
+  company: Company;
+  hasStarted = false;
+  htmlContent = '';
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -30,35 +30,33 @@ export class CompanyComponent implements OnInit {
       ],
     customClasses: [
       {
-        name: "quote",
-        class: "quote",
+        name: 'quote',
+        class: 'quote',
       },
       {
         name: 'redText',
         class: 'redText'
       },
       {
-        name: "titleText",
-        class: "titleText",
-        tag: "h1",
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
       },
     ]
   };
   constructor(private companyService: CompanyService, router: Router) { }
   ngOnInit(): void {
-    //check if competition has started
-    this.companyService.checkCompetitionStart(window.sessionStorage.getItem('competitionId')).subscribe(data =>{
-      this.hasStarted = data.competitionHasStarted
-      console.log(this.hasStarted)
-    })
-    const param = window.sessionStorage.getItem('userid')
-    var userId: Number = +param
+    this.companyService.checkCompetitionStart(window.sessionStorage.getItem('competitionId')).subscribe(data => {
+      this.hasStarted = data.competitionHasStarted;
+    });
+    const param = window.sessionStorage.getItem('userid');
+    const userId: number = +param;
     this.companyService.getCompany(userId).subscribe(data => {
-      this.company = data
-    })
+      this.company = data;
+    });
     this.companyService.getQuestionsAndAnswers(userId).subscribe(data => {
-      data.forEach(element => {
-        if(typeof element.responses[0] === 'undefined'){
+      data.forEach( element => {
+        if (typeof element.responses[0] === 'undefined'){
           element.responses[0] = new Question(element.id,
                                               element.questionText,
                                               element.order,
@@ -66,7 +64,7 @@ export class CompanyComponent implements OnInit {
                                               element.isSelected,
                                               element.id,
                                               this.company.id,
-                                              "")
+                                              '');
         }
         this.newQuestions.push(new Question ( element.id,
                                               element.questionText,
@@ -75,36 +73,36 @@ export class CompanyComponent implements OnInit {
                                               element.isSelected,
                                               element.responses[0].questionId,
                                               element.responses[0].companyId,
-                                              element.responses[0].answerText));        
-    });
+                                              element.responses[0].answerText ) );
+      });
   });
-  this.newAnswers = this.newQuestions
+    this.newAnswers = this.newQuestions;
   }
-  save(compName:string, compURl: string, pitch: string): void{
-    this.company.companyName = compName
-    this.company.companyWebsiteURL = compURl
-    this.company.companyShortPitch = pitch
+  save(compName: string, compURl: string, pitch: string): void{
+    this.company.companyName = compName;
+    this.company.companyWebsiteURL = compURl;
+    this.company.companyShortPitch = pitch;
 
-    this.newQuestions = this.newAnswers
-    this.companyService.updateCompany(this.company).subscribe(data =>{
-    })
+    this.newQuestions = this.newAnswers;
+    this.companyService.updateCompany(this.company).subscribe(data => {
+    });
 
   }
   savePitch(pitch: string): void{
-    this.company.companyShortPitch = pitch
+    this.company.companyShortPitch = pitch;
 
-    this.newQuestions = this.newAnswers
-    this.companyService.updateCompany(this.company).subscribe(data =>{
-    })
+    this.newQuestions = this.newAnswers;
+    this.companyService.updateCompany(this.company).subscribe(data => {
+    });
 
   }
-  update(i: number, newTxt: string){
+  update(i: number, newTxt: string): void{
     this.newAnswers[i].answerText = newTxt;
   }
-  saveAnswer(){
-    this.newQuestions = this.newAnswers
+  saveAnswer(): void{
+    this.newQuestions = this.newAnswers;
 
-    this.companyService.updateAnswers(this.newQuestions).subscribe(data =>{
-    })
+    this.companyService.updateAnswers(this.newQuestions).subscribe(data => {
+    });
   }
 }

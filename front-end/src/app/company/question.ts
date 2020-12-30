@@ -18,14 +18,14 @@ export class Question{
         companyId: number,
         answerText: string|null,
       ) {
-        this.id=id;
-        this.questionText= questionText;
-        this.order= order;
-        this.competitionId= competitionId;
-        this.isSelected= isSelected;
+        this.id = id;
+        this.questionText = questionText;
+        this.order = order;
+        this.competitionId = competitionId;
+        this.isSelected = isSelected;
         this.questionId = questionId;
         this.companyId = companyId;
         this.answerText = answerText;
     }
-};
+}
 

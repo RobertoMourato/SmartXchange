@@ -10,10 +10,10 @@ import { NewCompanyService } from './new-company.service';
 export class NewCompanyComponent implements OnInit {
   constructor(private newCompanyService: NewCompanyService, router: Router) {}
   ngOnInit(): void {
-    
+
   }
-  onSubmit(compName:String,url:String,pitch:String):void{
-    this.newCompanyService.CreateNewCompany(compName, url, pitch)
-    alert("Company Created")
+  onSubmit(compName: string, url: string, pitch: string): void{
+    this.newCompanyService.CreateNewCompany(compName, url, pitch);
+    alert('Company Created');
   }
 }

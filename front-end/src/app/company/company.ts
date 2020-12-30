@@ -4,7 +4,7 @@ export class Company{
     companyName: string;
     companyWebsiteURL: string|null;
     companyShortPitch: string|null;
-    companyCurrentStockPrice: number|null
+    companyCurrentStockPrice: number|null;
     constructor(
       id: number,
       playerCompetitionId: number|null,
@@ -12,13 +12,13 @@ export class Company{
       companyWebsiteURL: string|null,
       companyShortPitch: string|null,
       companyCurrentStockPrice: number|null
-      ) { 
+      ) {
         this.id = id;
         this.playerCompetitionId = playerCompetitionId;
         this.companyName = companyName;
         this.companyWebsiteURL = companyWebsiteURL;
         this.companyShortPitch = companyShortPitch;
-        this.companyCurrentStockPrice = companyCurrentStockPrice
+        this.companyCurrentStockPrice = companyCurrentStockPrice;
       }
-};
+}
 
