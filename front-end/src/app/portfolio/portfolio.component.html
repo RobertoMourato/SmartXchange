@@ -1,0 +1,89 @@
+<app-main-nav>
+  <div style="width: 100%; margin-top: 5%;">
+    <h1 style="text-align: center;">Portfolio</h1>
+  </div>
+  <div class="div.orders">
+    <h4 style="margin-left: 15%;">Pending Orders</h4>
+
+    <table mat-table [dataSource]="pendingDataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let element">{{element.type}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="company">
+        <th mat-header-cell *matHeaderCellDef> Company</th>
+        <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef> Quantity</th>
+        <td mat-cell *matCellDef="let element">{{element.qt}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status</th>
+        <td  mat-cell *matCellDef="let element">{{element.status}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="offer">
+        <th th mat-header-cell *matHeaderCellDef> Offer </th>
+        <td mat-cell *matCellDef="let element">{{element.offer }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="cancelButton">
+        <th mat-header-cell *matHeaderCellDef>Cancel</th>
+        <td mat-cell *matCellDef= "let element">
+          <button mat-raised-button color="warn" (click)="cancelOrder(element.id)">Cancel</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      
+    </table>
+  </div>
+
+  <div class="div.orders">
+    <h4 style="margin-left: 15%;">Completed Orders</h4>
+
+    <table mat-table [dataSource]="completedDataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let element">{{element.type}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="company">
+        <th mat-header-cell *matHeaderCellDef> Company</th>
+        <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef> Quantity</th>
+        <td mat-cell *matCellDef="let element">{{element.qt}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status</th>
+        <td mat-cell *matCellDef="let element">{{element.status}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="offer">
+        <th mat-header-cell *matHeaderCellDef> Offer </th>
+        <td mat-cell *matCellDef="let element">{{element.offer}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let element">{{element.date}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="completedDisplayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: completedDisplayedColumns"></tr>
+      
+      
+    </table>
+  </div>
+</app-main-nav>
