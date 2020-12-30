@@ -58,3 +58,17 @@ exports.cancelOrder = async function (req, res) {
     res.json(error).status(500)
   }
 }
+
+exports.testMatchOrders = async function (req, res) {
+  try {
+    const results = await orderRepository.matchOrders(1)
+
+
+    res.json(results)
+
+  } catch (error) {
+    res.json(error.message).status(500)
+  }
+
+
+}

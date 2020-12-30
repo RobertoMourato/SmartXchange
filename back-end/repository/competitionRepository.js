@@ -55,22 +55,23 @@ module.exports = {
           competitionHasFinished: false
         },
           {
-            where: { managerId: managerId, }
-          })
+            where: { managerId: managerId, }, returning: true
+          });
+
         questions.forEach(async element => {
           if (element.id == undefined) {
             await models.Question.create({
               questionText: element.questionText,
               competitionId: competition.dataValues.id,
               order: element.order,
-              isSelected: true
+              isSelected: false
             })
           } else {
             await models.Question.update({
               questionText: element.questionText,
               competitionId: competition.dataValues.id,
               order: element.order,
-              isSelected: true
+              isSelected: false
             }, {
               where: { id: element.id }
             }
@@ -78,9 +79,9 @@ module.exports = {
           }
         });
 
-        this.startStocksForExistingCompanies(competition.dataValues.id, competition.dataValues.competitionInitialStockValue)
+        this.startStocksAndOrdersForExistingCompanies(competition.dataValues.id, competition.dataValues.competitionInitialStockValue)
         //setInterval(matchOrder(competitionId),RefreshRate em milisegundos)
-        // await questionRepository.loadQuestions(competition.dataValues)
+
         res.status(200).json(competition)
       } catch (error) {
         res.status(400).json(error)
@@ -89,8 +90,8 @@ module.exports = {
       res.status(400).json('No Tenant associated')
     }
   },
-  async startStocksForExistingCompanies(competitionId, competitionInitialStockValue) {
-    await companyRepository.startCompaniesStocks(competitionId, competitionInitialStockValue)
+  async startStocksAndOrdersForExistingCompanies(competitionId, competitionInitialStockValue) {
+    await companyRepository.startCompaniesStocksAndOrders(competitionId, competitionInitialStockValue)
   },
   async getCurrDraftOrCompetition(managerId) {
     try {
@@ -194,7 +195,7 @@ module.exports = {
       res.status(400).json('No competition associated')
     }
   },
-  async addPlayerCompetitionWithInvite (userId, inviteToken) {
+  async addPlayerCompetitionWithInvite(userId, inviteToken) {
     try {
       const invite = await models.Invite.findOne({ where: { token: inviteToken } })
 

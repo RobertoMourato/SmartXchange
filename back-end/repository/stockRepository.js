@@ -37,7 +37,7 @@ module.exports = {
       res.status(400).json('No company or user associated')
     }
   },
-  async addInitialCompanyStocks(companyId, competitionInitialStockValue) {
+  async addInitialCompanyStocksAndOrders(companyId, competitionInitialStockValue) {
     const stocks = []
     try {
 
@@ -48,6 +48,15 @@ module.exports = {
         })
 
         stocks.push(stock)
+
+        const order = await models.Order.create({
+          companyId: companyId,
+          orderNumStock: 1,
+          orderValue: competitionInitialStockValue,
+          orderDate: new Date(),
+          orderType: 'Sell',
+          orderStatus: 'Pending'
+        })
       }
 
       return stocks
