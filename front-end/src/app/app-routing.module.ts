@@ -11,7 +11,7 @@ import { ChooseTypeComponent } from './choose-type/choose-type.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'market-list', component: MarketPageListComponent }
+  { path: 'market-list', component: MarketPageListComponent },
   { path: 'login', component: LoginComponent },
   { path: 'portfolio', component: PortfolioComponent },
   { path: 'register', component: RegisterComponent },
