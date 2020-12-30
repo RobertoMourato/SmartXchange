@@ -25,6 +25,7 @@ exports.getPlayerPendingOrders = async function (req, res) {
   console.log(username)
   try {
     const results = await orderRepository.getPlayerPendingOrders(username)
+    console.log("pending",results)
     // if (results.player.PlayerCompetition[0]) { }
     res.json(results).status(200)
   } catch (error) {
@@ -37,6 +38,7 @@ exports.getPlayerCompleteOrders = async function (req, res) {
   console.log(username)
   try {
     const results = await orderRepository.getPlayerCompletedOrders(username)
+    console.log(results)
     // if (results.player.PlayerCompetition[0]) { }
     res.json(results).status(200)
   } catch (error) {
