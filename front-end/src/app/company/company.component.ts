@@ -47,14 +47,10 @@ export class CompanyComponent implements OnInit {
   constructor(private companyService: CompanyService, router: Router) { }
   ngOnInit(): void {
     //check if competition has started
-    if(this.companyService.checkCompetitionStart(window.sessionStorage.getItem('competitionId'))){
-      this.hasStarted = true;
-      console.log("comecou")
-    }
-    else{
-      this.hasStarted = false;
-      console.log("nao comecou")
-    }
+    this.companyService.checkCompetitionStart(window.sessionStorage.getItem('competitionId')).subscribe(data =>{
+      this.hasStarted = data.competitionHasStarted
+      console.log(this.hasStarted)
+    })
     const param = window.sessionStorage.getItem('userid')
     var userId: Number = +param
     this.companyService.getCompany(userId).subscribe(data => {

@@ -25,7 +25,6 @@ import { RegisterComponent } from './register/register.component';
 import { NewCompanyComponent } from './new-company/new-company.component';
 import { CompanyComponent } from './company/company.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
-import { angularEditorConfig } from '@kolkov/angular-editor/lib/config';
 
 @NgModule({
   declarations: [

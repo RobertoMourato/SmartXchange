@@ -5,6 +5,11 @@ export class Competition{
     competitionInitialStockValue: number|null;
     competitionNumStocks: number|null;
     competitionHasStarted: boolean;
+    competitionStartDate: string;
+    competitionEndDate: string;
+    competitionMarketOpening: string;
+    competitionMarketEnding: string;
+    competitionRefreshRate: string;
     constructor(
         id: number,
         managerId: number|null,

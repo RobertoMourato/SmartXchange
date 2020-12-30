@@ -14,7 +14,7 @@ module.exports = {
 
   async getById (id) {
     const competition = await models.Competition.findByPk(id)
-
+    console.log(competition)
     return models.Competition.build(competition.dataValues)
   },
 
