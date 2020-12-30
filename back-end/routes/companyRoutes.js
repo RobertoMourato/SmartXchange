@@ -7,5 +7,4 @@ router.get('/getcompany', companyController.getCompany)
 router.put('/updatecompany', companyController.updateCompany)
 router.post('/createComp', companyController.addCompany)
 
-
 module.exports = router

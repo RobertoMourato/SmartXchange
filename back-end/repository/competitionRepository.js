@@ -19,13 +19,9 @@ module.exports = {
   },
 
   async getByPlayerCompId (id) {
-    try{
-      const playerComp = await models.PlayerCompetition.findByPk(id)
-      if(playerComp){
-        return await models.Competition.findByPk(playerComp.dataValues.competitionId)
-      }
-    }catch(erro){
-      res.status(400).json(error)
+    const playerComp = await models.PlayerCompetition.findByPk(id)
+    if (playerComp) {
+      return await models.Competition.findByPk(playerComp.dataValues.competitionId)
     }
   },
 
@@ -59,7 +55,7 @@ module.exports = {
         await questionRepository.loadQuestions(competition.dataValues)
         res.status(200).json(competition)
       } catch (error) {
-        
+
       }
     } else {
       res.status(400).json('No Tenant associated')

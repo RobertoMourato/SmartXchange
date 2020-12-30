@@ -1,4 +1,3 @@
-const { sequelize } = require('../models')
 const models = require('../models')
 
 const questions = ['Value Propositions',
@@ -67,18 +66,18 @@ module.exports = {
     }
   },
 
-  async getQuestionsAndAnswers(userId){
-      const playerComp = await models.PlayerCompetition.findOne( { where:{ playerId: userId } } )
-      if(playerComp){   
-        return await models.Question.findAll({
-        where:{
+  async getQuestionsAndAnswers (userId) {
+    const playerComp = await models.PlayerCompetition.findOne({ where: { playerId: userId } })
+    if (playerComp) {
+      return await models.Question.findAll({
+        where: {
           competitionId: playerComp.dataValues.competitionId, isSelected: true
         },
         order: [
-          ['order','ASC']
+          ['order', 'ASC']
         ],
         include: [
-          "responses"
+          'responses'
         ]
       })
     }

@@ -25,7 +25,7 @@ exports.login = async function (req, res) {
           user.id = undefined
           user.password = undefined
           const payload = { user: email }
-          
+
           theToken = jwt.sign(payload, auth.secret, { expiresIn: 86400 })
           return res.status(200).json({ user, usertype, token: theToken, competition })
         }
