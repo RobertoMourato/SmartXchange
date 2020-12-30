@@ -1,6 +1,7 @@
 const tenantRepository = require('../repository/tenantRepository')
 const tenantTypeRepository = require('../repository/tenantTypeRepository')
 const userRepository = require('../repository/userRepository')
+const competitionRepository = require('../repository/competitionRepository')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const auth = require('../config/auth.json')
@@ -19,12 +20,14 @@ exports.login = async function (req, res) {
           return res.status(400).json('Password is incorrect!')
         } else {
           const usertype = await userRepository.getUserTypeById(user.userTypeId)
+          const competition = await competitionRepository.getByPlayerCompId(user.id)
           usertype.dataValues.id = undefined
           user.id = undefined
           user.password = undefined
           const payload = { user: email }
+          
           theToken = jwt.sign(payload, auth.secret, { expiresIn: 86400 })
-          return res.status(200).json({ user, usertype, token: theToken })
+          return res.status(200).json({ user, usertype, token: theToken, competition })
         }
       } else {
         return res.status(400).json('Email not found')

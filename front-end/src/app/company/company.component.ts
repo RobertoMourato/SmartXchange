@@ -14,7 +14,7 @@ export class CompanyComponent implements OnInit {
   newQuestions: Question[] = []
   newAnswers: Question[] = []
   company: Company
-  hasStarted = true
+  hasStarted = false
   htmlContent = ''
   config: AngularEditorConfig = {
     editable: true,
@@ -47,6 +47,14 @@ export class CompanyComponent implements OnInit {
   constructor(private companyService: CompanyService, router: Router) { }
   ngOnInit(): void {
     //check if competition has started
+    if(this.companyService.checkCompetitionStart(window.sessionStorage.getItem('competitionId'))){
+      this.hasStarted = true;
+      console.log("comecou")
+    }
+    else{
+      this.hasStarted = false;
+      console.log("nao comecou")
+    }
     const param = window.sessionStorage.getItem('userid')
     var userId: Number = +param
     this.companyService.getCompany(userId).subscribe(data => {

@@ -4,12 +4,13 @@ import { Observable } from 'rxjs';
 import { Question } from './question';
 import { map } from 'rxjs/operators'; 
 import { Company } from './company';
+import { Competition } from '../login/competition'
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompanyService {
-
+  competition: Competition
   private url = 'http://localhost:3000';
   // private url = 'http://localhost:5000'
 
@@ -42,6 +43,19 @@ export class CompanyService {
     })
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     return this.httpClient.post(this.url + '/competition/answerQuestion' , body, {headers: header}).pipe(map(this.extractData));
+  }
+  checkCompetitionStart(competitionId: string): boolean{
+    const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    this.httpClient.get<any>(this.url + '/competition/getCompetition?competitionId=' + competitionId, {headers: header}).subscribe(data =>{
+      this.competition = data
+      console.log(this.competition)
+      if(this.competition.competitionHasStarted){
+        return true;
+      }
+      return false;
+    });
+    console.log("deu errado")
+    return false;
   }
   private extractData(res: Response): object {
     console.log(res || {});

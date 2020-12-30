@@ -1,4 +1,3 @@
-const { hasStarted } = require('../controllers/competitionController')
 const models = require('../models')
 const questionRepository = require('./questionRepository.js')
 
@@ -19,12 +18,15 @@ module.exports = {
     return models.Competition.build(competition.dataValues)
   },
 
-  async hasStarted (id) {
-    const competition = await models.Competition.findByPk(id)
-    if(competition.dataValues.hasStarted){
-      return true
+  async getByPlayerCompId (id) {
+    try{
+      const playerComp = await models.PlayerCompetition.findByPk(id)
+      if(playerComp){
+        return await models.Competition.findByPk(playerComp.dataValues.competitionId)
+      }
+    }catch(erro){
+      res.status(400).json(error)
     }
-    return false
   },
 
   async addCompetition (req, res) {
@@ -57,7 +59,7 @@ module.exports = {
         await questionRepository.loadQuestions(competition.dataValues)
         res.status(200).json(competition)
       } catch (error) {
-        res.status(400).json(error)
+        
       }
     } else {
       res.status(400).json('No Tenant associated')

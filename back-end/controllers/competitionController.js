@@ -125,9 +125,9 @@ exports.getAllRankings = async function (req, res) {
     res.sendStatus(500)
   }
 }
-exports.hasStarted = async function (req, res) {
+exports.getById = async function (req, res) {
   try {
-    const results = await competitionRepository.hasStarted(req, res)
+    const results = await competitionRepository.getById(req.query.competitionId)
     res.json(results)
   } catch (e) {
     console.log(e)
