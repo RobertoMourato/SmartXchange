@@ -53,7 +53,9 @@ module.exports = {
   async getPlayerPendingOrders(username) {
     return await models.Order.findAll({
       where: { orderStatus: 'Pending' },
-      include: ['company', {
+      include: [{
+        model: models.Company
+      }, {
         model: models.User,
         where: { username: username },
         as: 'player',
@@ -70,25 +72,27 @@ module.exports = {
       }]
     })
   },
-  async getPlayerCompletedOrders(username) {
+  async getPlayerCompletedOrders (username) {
+    console.log('completed')
     return await models.Order.findAll({
       where: { orderStatus: 'Completed' },
-      include: [
-        'company',
-        {
-          model: models.User,
-          where: { username: username },
-          as: 'player',
+      include: [{
+        model: models.Company
+      },
+      {
+        model: models.User,
+        where: { username: username },
+        as: 'player',
+        include: {
+          model: models.PlayerCompetition,
+          required: true,
           include: {
-            model: models.PlayerCompetition,
+            model: models.Competition,
             required: true,
-            include: {
-              model: models.Competition,
-              required: true,
-              where: { competitionHasStarted: true, competitionHasFinished: false }
-            }
+            where: { competitionHasStarted: true, competitionHasFinished: false }
           }
-        }]
+        }
+      }]
     })
 
     /* return await models.Order.findAll({

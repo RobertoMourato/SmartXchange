@@ -10,7 +10,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
-      playerId: 2,
+      playerId: 3,
       competitionId: 1,
       completedRegistration: true,
       wallet: 10000,
