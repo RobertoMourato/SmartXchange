@@ -14,7 +14,7 @@ export class MarketPageComponent implements OnInit {
     {position: 3, name: "Lucas", juryAward: 10, price: 500, gain: 24},
     {position: 4, name: "Lucas", juryAward: 10, price: 500, gain: 24}
   ];
-  headers: String[]=["Position", "Name", "Jury Award", "Price", "Gain"]
+  headers: String[]=["Position", "Name", "Jury Award", "Price", "Gain", "NextPage"]
   dataSource = this.market;
 
 
