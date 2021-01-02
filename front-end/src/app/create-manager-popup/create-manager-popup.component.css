@@ -10,10 +10,12 @@ p {
 }
 
 .button2 {
-  background-color: #06b164;
+  background-color:  #06b164;
   color: white;
-  float: right;
+  display: inline-block;
   font-weight: bold;
+  margin-right: 20px;
+  float: right;
 }
 
 .button3 {

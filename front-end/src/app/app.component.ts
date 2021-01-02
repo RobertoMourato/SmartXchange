@@ -12,8 +12,6 @@ export class AppComponent {
 
   title = 'smartxchange';
 
-  readonly ROOT_URL = '/api';
-
   users: Observable<User[]>;
   newUser: Observable<User[]>;
 
@@ -22,7 +20,7 @@ export class AppComponent {
   }
 
   getUsers() {
-    this.users = this.http.get<User[]>(this.ROOT_URL + '/users/all');
+    this.users = this.http.get<User[]>('/api/users/all');
   }
 
 

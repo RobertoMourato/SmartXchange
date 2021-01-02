@@ -1,142 +1,47 @@
 <app-create-manager-popup></app-create-manager-popup>
 
-
-<p> Unverified managers </p>
-
-
-  <table mdbTable striped="true">
-    <thead>
-      <tr>
-        <th *ngFor="let head of displayedColumns" scope="col">{{head}} </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr mdbTableCol *ngFor="let user of users | async">
-
-        <th scope="row">{{user.id}}</th>
-        <td>{{user.name}}</td>
-        <td>{{user.email}}</td>
-        <td><button mdbBtn color="red" rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect>Delete</button></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p> Verified managers </p>
-
-
-  <table mdbTable striped="true">
-    <thead>
-      <tr>
-        <th *ngFor="let head of displayedColumns" scope="col">{{head}} </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr mdbTableCol *ngFor="let user of users | async">
-
-        <th scope="row">{{user.managerId}}</th>
-        <td>{{user.name}}</td>
-        <td>{{user.email}}</td>
-        <td><button mdbBtn color="red" rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect>Delete</button></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-
-
-  <!--
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef> ID </th>
-    <td mat-cell *matCellDef="let element"> {{manager.id}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element"> {{manager.name}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef> Email </th>
-    <td mat-cell *matCellDef="let element"> {{manager.email}} </td>
-  </ng-container>
-  <td>
-    <button mdbBtn color="red" rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect>Delete</button>
-  </td>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>-->
-
-
-  <!--<table mdbTable striped="true">
-    <thead>
-      <tr>
-        <th *ngFor="let head of headElements" scope="col">{{head}} </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr mdbTableCol *ngFor="let unv of managersUnverified">
-        <th scope="row">{{unv.id}}</th>
-        <td>{{unv.name}}</td>
-        <td>{{unv.email}}</td>
-        <td><button mdbBtn color="red" rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect>Delete</button></td>
-      </tr>
-    </tbody>
-  </table>
-
-  </table>
-
-<p>Managers</p>
-
-<table mat-table>
-  <table mdbTable striped="true">
-    <thead>
-      <tr>
-        <th *ngFor="let head of headElements" scope="col">{{head}} </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr mdbTableCol *ngFor="let mgr of managers">
-        <th scope="row">{{mgr.id}}</th>
-        <td>{{mgr.name}}</td>
-        <td>{{mgr.email}}</td>
-      </tr>
-
-
-    </tbody>
-  </table>
-</table>-->
-
-<!--
-<table mat-table [dataSource]="dataSource" multiTemplateDataRows
+<table mat-table
+       [dataSource]="users" multiTemplateDataRows
        class="mat-elevation-z8">
-  <ng-container matColumnDef="{{column}}" *ngFor="let column of headElements">
-    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-    <td mat-cell *matCellDef="let manager"> {{manager[column]}} </td>
+  <ng-container matColumnDef="ID">
+    <th mat-header-cell *matHeaderCellDef> ID </th>
+    <td mat-cell *matCellDef="let user"> {{user.id}} </td>
+  </ng-container>
+  <ng-container matColumnDef="Name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let user"> {{user.name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="Email">
+    <th mat-header-cell *matHeaderCellDef> Email </th>
+    <td mat-cell *matCellDef="let game">
+      {{game.email}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="expandedDetail">
-    <td mat-cell *matCellDef="let manager" [attr.colspan]="headElements.length">
-      <div class="example-manager-detail"
-           [@detailExpand]="manager == expandedElement ? 'expanded' : 'collapsed'">
-        <div class="example-manager-diagram">
-          <div class="example-manager-id"> {{manager.id}} </div>
-          <div class="example-manager-name"> {{manager.name}} </div>
-          <div class="example-manager-email"> {{manager.email}} </div>
+  ['ID', 'Name', 'Email'];<!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+<ng-container matColumnDef="expandedDetail">
+  <td mat-cell *matCellDef="let game" [attr.colspan]="headElements.length">
+
+    <div class="example-game-detail"
+         [@detailExpand]="game == expandedElement ? 'expanded' : 'collapsed'">
+
+        <div >
+          <button mat-raised-button waves-effect class="edit-button" >Edit</button>
+          <button mat-raised-button waves-effect class="delete-button" >Delete</button>
         </div>
-        <button mdbBtn color="green" rounded="true" size="sm" type="button" class="m-0" float="left" mdbWavesEffect>Edit</button>
-        <button mdbBtn color="red" rounded="true" size="sm" type="button" class="m-0" float="right" mdbWavesEffect>Delete</button>
-      </div>
-    </td>
-  </ng-container>
+        <div >
+        </div>
+    </div>
+
+  </td>
+</ng-container>
 
   <tr mat-header-row *matHeaderRowDef="headElements"></tr>
-  <tr mat-row *matRowDef="let manager; columns: headElements;"
-      class="example-manager-row"
-      [class.example-expanded-row]="expandedElement === manager"
-      (click)="expandedElement = manager">
+  <tr mat-row *matRowDef="let element; columns: headElements;"
+      class="example-game-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
   </tr>
   <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-</table>-->
+</table>
+
+

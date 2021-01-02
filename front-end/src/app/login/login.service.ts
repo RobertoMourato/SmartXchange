@@ -8,16 +8,13 @@ import { map } from 'rxjs/operators';
 })
 export class LoginService {
 
-  private url = 'http://localhost:3000'
-  //private url = 'http://localhost:5000'
-
   constructor(private httpClient: HttpClient) { }
 
   login(email2: string, password2: string): Observable<any> {
     const body = JSON.stringify({email: email2, password:password2});
     console.log(body);
     const header= new HttpHeaders({ 'Content-Type': 'application/JSON' })
-    return this.httpClient.post(this.url + "/login", body, {headers: header})
+    return this.httpClient.post("/api/login", body, {headers: header})
     .pipe(map(this.extractData));
   }
 

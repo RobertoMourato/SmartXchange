@@ -7,6 +7,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { HttpClient } from '@angular/common/http';
 import { User } from '../user';
 import { Observable } from 'rxjs';
+import { UserService } from '../user.service';
 
 
 
@@ -42,28 +43,36 @@ export class SuperadminManagerListComponent implements OnInit {
   dataSource = ELEMENT_DATA;
   expandedElement: Manager;
 
-  displayedColumns: string[] = ['ID', 'Name', 'Email', ''];
+  displayedColumns: string[] = ['ID', 'Name', 'Email'];
 
   readonly ROOT_URL = '/api';
 
   users: Observable<User[]>;
   newUser: Observable<User[]>;
 
-  constructor(private http: HttpClient) {
+  unverifiedManagers: Observable<User[]>;
+  verifiedManagers: Observable<User[]>;
 
-  }
+  constructor(private userService: UserService) {
 
-  getUsers() {
-    this.users = this.http.get<User[]>(this.ROOT_URL + '/users/all');
   }
 
   ngOnInit(): void {
     this.getUsers();
   }
 
+  getUsers() {
+    this.users = this.userService.getUsers();
 
 
-}
+
+    }
+  }
+
+
+
+
+
 
 export interface Manager {
   id: number;

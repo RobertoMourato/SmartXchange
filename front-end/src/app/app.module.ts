@@ -23,8 +23,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
+import { MatSelectModule } from '@angular/material/select';
 
 import { IssueService } from './issue.service';
+import { UserService } from './user.service';
+import { SuperadminGamesListComponent } from './superadmin-games-list/superadmin-games-list.component';
 
 
 @NgModule({
@@ -32,8 +35,9 @@ import { IssueService } from './issue.service';
     AppComponent,
     SuperadminNavComponent,
     SuperadminManagerListComponent,
-    CreateManagerPopupComponent
-    LoginComponent
+    CreateManagerPopupComponent,
+    LoginComponent,
+    SuperadminGamesListComponent
   ],
   imports: [
     BrowserModule,
@@ -54,9 +58,10 @@ import { IssueService } from './issue.service';
     MatTableModule,
     MatExpansionModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSelectModule
   ],
-  providers: [IssueService],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

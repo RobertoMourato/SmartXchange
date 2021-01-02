@@ -16,8 +16,21 @@ export class CreateManagerPopupComponent {
 
   constructor(public dialog: MatDialog) { }
 
-  openDialog(): void {
+  openNewManagerDialog(): void {
     const dialogRef = this.dialog.open(CreateManagerPopupDialogComponent, {
+      height: '350px',
+      width: '600px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.email = result; // check what happens if no input
+      console.log(this.email);
+    });
+  }
+
+  openInvitesDialog() {
+    const dialogRef = this.dialog.open(SeeInvitesPopupDialogComponent, {
       height: '350px',
       width: '600px',
     });
@@ -40,6 +53,22 @@ export class CreateManagerPopupDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<CreateManagerPopupDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: EmailForInvite) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+}
+
+@Component({
+  selector: 'app-see-invites-popup-dialog',
+  templateUrl: './see-invites-popup-dialog.component.html',
+})
+export class SeeInvitesPopupDialogComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<SeeInvitesPopupDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: EmailForInvite) {}
 
   onNoClick(): void {
