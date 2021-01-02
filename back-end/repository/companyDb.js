@@ -76,5 +76,19 @@ module.exports = {
         res.status(400).json(error)
       }
     }
+  },
+
+  async updateCompany (body) {
+    const company = await models.Company.findOne({ where: { id: body.id, playerCompetitionId: body.playerCompetitionId } })
+
+    if (company) {
+      models.Company.update(
+        {
+          companyName: body.companyName,
+          companyWebsiteURL: body.companyWebsiteURL,
+          companyShortPitch: body.companyShortPitch
+        },
+        { where: { id: body.id } })
+    }
   }
 }

@@ -15,7 +15,7 @@ export class NewCompanyService {
                                  companyName: compName, 
                                  companyWebsiteURL: compUrl,
                                  companyShortPitch: pitch,
-                                 companyCurrentStockPrice:'0'});
+                                 companyCurrentStockPrice: '0'});
     console.log(body);
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     return this.httpClient.post(this.url + '/companies/createComp', body, {headers: header})

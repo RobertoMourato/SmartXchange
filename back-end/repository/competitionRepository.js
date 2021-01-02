@@ -16,7 +16,7 @@ module.exports = {
 
   async getById(id) {
     const competition = await models.Competition.findByPk(id)
-
+    console.log(competition)
     return models.Competition.build(competition.dataValues)
   },
 
@@ -29,6 +29,14 @@ module.exports = {
   },
 
   async startCompetition(req, res) {
+  async getByPlayerCompId (id) {
+    const playerComp = await models.PlayerCompetition.findByPk(id)
+    if (playerComp) {
+      return await models.Competition.findByPk(playerComp.dataValues.competitionId)
+    }
+  },
+
+  async addCompetition (req, res) {
     // const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
     const manager = await models.User.findByPk(req.body.managerId)
     const {
@@ -131,7 +139,7 @@ module.exports = {
 
         res.status(200).json(competition)
       } catch (error) {
-        res.status(400).json(error)
+
       }
     } else {
       res.status(400).json('No Tenant associated')

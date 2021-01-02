@@ -4,6 +4,9 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+
+import { AngularEditorModule } from '@kolkov/angular-editor';
+
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SuperadminNavComponent } from './superadmin-nav/superadmin-nav.component';
@@ -60,6 +63,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatInputModule,
     MatCardModule,
     MatRadioModule
+    AngularEditorModule,
   ],
   exports: [],
   providers: [DatePipe,NewCompanyComponent],
