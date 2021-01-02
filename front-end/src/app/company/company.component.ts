@@ -59,7 +59,7 @@ export class CompanyComponent implements OnInit {
     });
     const param = window.sessionStorage.getItem('userid');
     const userId: number = +param;
-    this.companyService.getCompany(userId).subscribe(data => {
+    this.companyService.getMyCompany(userId).subscribe(data => {
       this.company = data;
     });
     this.companyService.getQuestionsAndAnswers(userId).subscribe(data => {

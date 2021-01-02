@@ -27,13 +27,15 @@ module.exports = {
       return null;
     }
   },
-
-  async startCompetition(req, res) {
   async getByPlayerCompId (id) {
     const playerComp = await models.PlayerCompetition.findByPk(id)
     if (playerComp) {
       return await models.Competition.findByPk(playerComp.dataValues.competitionId)
     }
+  },
+
+  async startCompetition(req, res) {
+    
   },
 
   async addCompetition (req, res) {

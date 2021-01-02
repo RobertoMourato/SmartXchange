@@ -9,7 +9,12 @@
                     </mat-card-header>
                     <mat-card-content>
                         <h1>Short Pitch</h1>
-                        <p>this is a short pitch for this company</p>
+                        <div id = "short-pitch">
+                        </div>   
+                    </mat-card-content>
+                    <mat-card-content *ngFor="let question of questions; let i = index">
+                        <h2>{{question.questionText}}</h2>
+                        <p>{{question.answerText}}</p>
                     </mat-card-content>
                 </mat-card>
             </div>
@@ -20,9 +25,9 @@
                         <mat-card class = "order-card">
                             <mat-card-content fxLayout="column">
                                 <mat-label>Stock Amount</mat-label>
-                                <input matInput #amount placeholder="16">
+                                <input matInput #amount placeholder="100">
                                 <mat-label>Stock Price</mat-label>
-                                <input matInput #price placeholder="{{company.companyCurrentStockPrice}}" value="{{company.companyCurrentStockPrice}}">
+                                <input matInput #price placeholder="{{company.companyCurrentStockPrice}}">
                             </mat-card-content>
                             <mat-card-actions>
                                 <button mat-button>Buy</button>

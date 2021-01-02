@@ -62,7 +62,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    MatRadioModule
+    MatRadioModule,
     AngularEditorModule,
   ],
   exports: [],
