@@ -113,62 +113,61 @@ module.exports = {
     let buyMap = maps.buyMap
     let sellMap = maps.sellMap
     if (buyMap != undefined && sellMap != undefined) {
-      // console.log('buy', maps.buyMap)
-      // console.log('sell', maps.sellMap)
+      console.log('buy', maps.buyMap)
+      console.log('sell', maps.sellMap)
 
       for (let companyId of maps.buyMap.keys()) {
         //console.log(companyId)
-        buyMap.get(companyId).forEach( async buyOrder => {
+        await buyMap.get(companyId).forEach(async buyOrder => {
           if (buyOrder.orderNumStock > 0) {
             //console.log('temp', buyOrder)
-            sellMap.get(companyId).forEach( async sellOrder => {
-              console.log(buyOrder.id ,' - ', sellOrder.id)
-                if (buyOrder.orderValue >= sellOrder.orderValue && sellOrder.orderNumStock > 0) {
-                  if (buyOrder.orderNumStock > sellOrder.orderNumStock) {
-                    console.log('>')
+            await sellMap.get(companyId).forEach(async sellOrder => {
+              console.log(buyOrder.id, ' - ', sellOrder.id)
+              if (buyOrder.orderValue >= sellOrder.orderValue && sellOrder.orderNumStock > 0) {
+                if (buyOrder.orderNumStock > sellOrder.orderNumStock) {
+                  console.log('>')
+                  //create stock exchanges, update wallet, update stocks 
+                  await this.exchangeStocks(buyOrder.id, sellOrder.id, sellOrder.orderNumStock, buyOrder.orderValue, buyOrder.playerId, sellOrder.playerId, companyId)
+                  //complete sellorder bd
+                  await this.completeOrder(sellOrder.id)
+                  await this.updateToPartiallyMatched(buyOrder.id)
+                  // atualiza local numStock, next sell order
+                  buyOrder.orderNumStock = buyOrder.orderNumStock - sellOrder.orderNumStock
+                  sellOrder.orderNumStock = 0;
+                } else {
+                  if (buyOrder.orderNumStock == sellOrder.orderNumStock) {
+                    console.log('=')
                     //create stock exchanges, update wallet, update stocks 
-                    this.exchangeStocks(buyOrder.id, sellOrder.id, sellOrder.orderNumStock, buyOrder.orderValue, buyOrder.playerId, sellOrder.playerId, companyId)
-                    //complete sellorder bd
-                    this.completeOrder(sellOrder.id)
-                    this.updateToPartiallyMatched(buyOrder.id)
-                    // atualiza local numStock, next sell order
-                    buyOrder.orderNumStock = buyOrder.orderNumStock - sellOrder.orderNumStock
-                    sellOrder.orderNumStock = 0;
+                    await this.exchangeStocks(buyOrder.id, sellOrder.id, sellOrder.orderNumStock, buyOrder.orderValue, buyOrder.playerId, sellOrder.playerId, companyId)
+                    //complete both order
+                    await this.completeOrder(sellOrder.id)
+                    await this.completeOrder(buyOrder.id)
+                    //retira as orders do map
+                    sellOrder.orderNumStock = 0
+                    buyOrder.orderNumStock = 0
+                    return; //vai para a próxima buyOrder
                   } else {
-                    if (buyOrder.orderNumStock == sellOrder.orderNumStock) {
-                      console.log('=')
-                      //create stock exchanges, update wallet, update stocks 
-                     await this.exchangeStocks(buyOrder.id, sellOrder.id, sellOrder.orderNumStock, buyOrder.orderValue, buyOrder.playerId, sellOrder.playerId, companyId)
-                      //complete both order
-                      await this.completeOrder(sellOrder.id)
-                      await this.completeOrder(buyOrder.id)
-                      //retira as orders do map
-                      sellOrder.orderNumStock = 0
-                      buyOrder.orderNumStock = 0
-                      return; //vai para a próxima buyOrder
-                    } else {
-                      //buy order stocks < sell order stocks 
-                      console.log('<')
-                      
-                      //create stock exchanges, update wallet, update stocks 
-                     await this.exchangeStocks(buyOrder.id, sellOrder.id, buyOrder.orderNumStock, buyOrder.orderValue, buyOrder.playerId, sellOrder.playerId, companyId)
-                      //complete purchase order bd
-                      await this.completeOrder(buyOrder.id)
-                      await this.updateToPartiallyMatched(sellOrder.id)
-                      sellOrder.orderNumStock = sellOrder.orderNumStock - buyOrder.orderNumStock
-                      buyOrder.orderNumStock = 0
-                      return; //vai para a proxima buyOrder
-                    }
+                    //buy order stocks < sell order stocks 
+                    console.log('<')
+                    //create stock exchanges, update wallet, update stocks 
+                    await this.exchangeStocks(buyOrder.id, sellOrder.id, buyOrder.orderNumStock, buyOrder.orderValue, buyOrder.playerId, sellOrder.playerId, companyId)
+                    //complete purchase order bd
+                    await this.completeOrder(buyOrder.id)
+                    await this.updateToPartiallyMatched(sellOrder.id)
+                    sellOrder.orderNumStock = sellOrder.orderNumStock - buyOrder.orderNumStock
+                    buyOrder.orderNumStock = 0
+                    return; //vai para a proxima buyOrder
                   }
                 }
-              
+              }
+
             });
           }
         });
       }
     }
-    console.log('buyMap - after', buyMap)
-    console.log('sellMap -sell', sellMap)
+    //console.log('buyMap - after', buyMap)
+    //console.log('sellMap -sell', sellMap)
 
   },
 
@@ -246,45 +245,55 @@ module.exports = {
   },
 
   async exchangeStocks(buyOrderId, sellOrderId, orderNumStock, orderValue, buyerId, sellerId, companyId) {
+    console.log(buyOrderId, ' player', buyerId, ' buys ', sellOrderId, ' player', sellerId, ' n stocks=', orderNumStock)
     //create stock exchanges, update wallet, update stocks
     const payment = orderNumStock * orderValue
-    let stocks = await models.Stock.findAll({ limit: orderNumStock }, { where: { playerId: sellerId, companyId: companyId } })
+    let stocks = await models.Stock.findAll({ where: { playerId: sellerId, companyId: companyId }, limit: orderNumStock })
 
-    stocks.forEach(element => {
+
+    //console.log('available',stocks)
+
+    await stocks.forEach(async element => {
       const stock = element.dataValues
+      console.log('stock- ', stock.id)
+      await models.Stock.update({
+        playerId: buyerId
+      },
+        {
+          where: { id: stock.id }
+        }
+      )
+      console.log('updated', stock.id)
 
-      models.StockExchange.create({
+      await models.StockExchange.create({
         buyOrderId: buyOrderId,
         sellOrderId: sellOrderId,
         stockId: stock.id
       })
-
-      models.Stock.update({
-        playerId: buyerId
-      },
-        { where: { id: stock.id } })
-
     });
 
-    models.PlayerCompetition.update({
+    await models.PlayerCompetition.update({
       wallet: Sequelize.literal('wallet -' + payment)
     }, {
       where: { id: buyerId }
     })
 
-    //firstOrders
+    //firstOrders (when competition starts) playerId is null
     if (sellerId != null) {
-      models.PlayerCompetition.update({
+      await models.PlayerCompetition.update({
         wallet: Sequelize.literal('wallet +' + payment)
       }, {
         where: { id: sellerId }
       })
     }
+    //teste
+    //const stocksF = await models.Stock.findAll();
+    //console.log(stocksF)
   }
   ,
   async completeOrder(orderId) {
     try {
-      return models.Order.update(
+      return await models.Order.update(
         { orderStatus: 'Completed' },
         { where: { id: orderId } }
       )
@@ -294,7 +303,7 @@ module.exports = {
   },
   async updateToPartiallyMatched(orderId) {
     try {
-      return models.Order.update(
+      return await models.Order.update(
         { orderStatus: 'Partially Matched' },
         { where: { id: orderId } }
       )
