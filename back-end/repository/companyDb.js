@@ -29,7 +29,7 @@ module.exports = {
     }
   },
 
-  async getCompany (req, res) {
+  async getMyCompany (req, res) {
     const userId = req.query.userId
     const playerComp = await models.PlayerCompetition.findOne({ where: { playerid: userId } })
     if (playerComp) {

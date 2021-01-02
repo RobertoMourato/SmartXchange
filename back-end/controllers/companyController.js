@@ -12,10 +12,10 @@ exports.addCompany = async function (req, res) {
   }
 }
 
-exports.getCompany = async function (req, res) {
+exports.getMyCompany = async function (req, res) {
   try {
     // console.log(req.body)
-    const results = await db.getCompany(req, res)
+    const results = await db.getMyCompany(req, res)
     res.json(results)
   } catch (e) {
     console.log(e)
