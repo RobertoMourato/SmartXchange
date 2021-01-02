@@ -16,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   Ranking.init({
     playerCompetitionId: DataTypes.INTEGER,
     rankingPosition: DataTypes.INTEGER,
-    rankingType: DataTypes.STRING
+    rankingType: DataTypes.STRING,
+    rankingPoints: DataTypes.FLOAT
   }, {
     sequelize,
     modelName: 'Ranking'

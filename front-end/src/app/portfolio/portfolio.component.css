@@ -1,0 +1,19 @@
+table {
+  width: 70%;
+  margin-left: 15%;
+}
+
+div.orders {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+::ng-deep .mat-cell {
+  background: white;
+  color: black;
+}
+
+::ng-deep .mat-header-cell {
+ font-size: medium;
+ color: white;
+}
