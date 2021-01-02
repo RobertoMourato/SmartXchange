@@ -43,20 +43,34 @@ module.exports = {
     const competition = await models.PlayerCompetition.findOne({
       where: { id: competitionId }
     })
-    let rankings = [] 
-    users.forEach(async element => {
-        const player = element.dataValues
 
-        const r= await models.Ranking.build({
-          playerCompetitionId: competitionId,
-          rankingType: 'Investor',
-          rankingPoints: player.wallet - competition.competitionInitialBudget
-        })
-        rankings.push(r)
+    let rankings = []
+    users.forEach(async element => {
+      const player = element.dataValues
+
+      const r = await models.Ranking.build({
+        playerCompetitionId: competitionId,
+        rankingType: 'Investor',
+        rankingPoints: player.wallet - competition.competitionInitialBudget
+      })
+      rankings.push(r)
     });
 
+
     //sort pelos rankingPoint 
+    r.sort(function (a, b) { return a.rankingPoints - b.rankingPoints })
+
+    var count = r.length;
     //create ranking
+    r.forEach(element => {
+      models.Ranking.create({
+        playerCompetitionId: competitionId,
+        rankingType: 'Investor',
+        rankingPoints: element.rankingPoints,
+        rankingPosition: count
+      })
+      count = count -1;
+    });
 
   }
 }
