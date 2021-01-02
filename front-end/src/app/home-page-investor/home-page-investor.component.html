@@ -1,46 +1,46 @@
 <app-main-nav>
-    <body>
-        <div class="time-card">
-            <p>25:13</p>
-        </div>
-        
-        <div fxLayout="row" fxLayoutAlign="center center" id="block-container">
-            <div class="wallet-card" id="block1">
-                
-                <h3><mat-icon>account_balance_wallet</mat-icon>&nbsp;Wallet</h3>
-                <div class="wallet-card-info">
-                    <p>Cash in Account: 1320.00</p>
-                    <p>Stock Amount: 110</p>
-                    <p>Total Worth: 3090</p>
-                    <p>Stock Value: 1770.00</p>
-                </div>
-            </div>
+  <body>
+    <div class="time-card">
+      <p>25:13</p>
+    </div>
 
-            <div class="ranking-card" id="block2">
-                <h3>Ranking</h3>
-                <div class="ranking-card-info">
-                    <table mat-table [dataSource]="dataSource" class="table">
-                        <ng-container matColumnDef="Position">
-                            <th mat-header-cell *matHeaderCellDef> No. </th>
-                            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="Name">
-                            <th mat-header-cell *matHeaderCellDef> Name </th>
-                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="Price">
-                            <th mat-header-cell *matHeaderCellDef> Price </th>
-                            <td mat-cell *matCellDef="let element"> {{element.price}} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="Gain">
-                            <th mat-header-cell *matHeaderCellDef> Gain </th>
-                            <td mat-cell *matCellDef="let element"> {{element.gain}} </td>
-                        </ng-container>
-                        <tr mat-header-row *matHeaderRowDef="headers"></tr>
-                        <tr mat-row *matRowDef="let row; columns: headers"></tr>
-                    </table>
-                </div>
-            </div>
+    <div fxLayout="row" fxLayoutAlign="center center" id="block-container">
+      <div class="wallet-card" id="block1">
+        <h3><mat-icon>account_balance_wallet</mat-icon>&nbsp;Wallet</h3>
+        <div class="wallet-card-info">
+          <p>Cash in Account: 1320.00</p>
+          <p>Stock Amount: 110</p>
+          <p>Total Worth: 3090</p>
+          <p>Stock Value: 1770.00</p>
         </div>
-    </body>
+      </div>
+
+      <div class="ranking-card" id="block2">
+        <h3>Ranking</h3>
+        <div class="ranking-card-info">
+          <table mat-table [dataSource]="dataSource" class="table">
+            <ng-container matColumnDef="Position">
+              <th mat-header-cell *matHeaderCellDef>No.</th>
+              <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+            </ng-container>
+            <ng-container matColumnDef="Name">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+            </ng-container>
+            <ng-container matColumnDef="Price">
+              <th mat-header-cell *matHeaderCellDef>Price</th>
+              <td mat-cell *matCellDef="let element">{{ element.price }}</td>
+            </ng-container>
+            <ng-container matColumnDef="Gain">
+              <th mat-header-cell *matHeaderCellDef>Gain</th>
+              <td mat-cell *matCellDef="let element">{{ element.gain }}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="headers"></tr>
+            <tr mat-row *matRowDef="let row; columns: headers"></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="graph" id="chartdiv"></div>
+  </body>
 </app-main-nav>

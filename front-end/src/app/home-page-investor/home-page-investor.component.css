@@ -63,3 +63,11 @@ body {
 #block-container {
   display: flex;
 }
+
+.graph{
+  height: 40%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 5%;
+  background-color: rgb(54, 53, 53);
+}

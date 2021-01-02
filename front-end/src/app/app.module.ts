@@ -28,6 +28,7 @@ import { NewCompanyComponent } from './new-company/new-company.component';
 import { CompanyComponent } from './company/company.component';
 import { ChooseTypeComponent } from './choose-type/choose-type.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { MatRadioModule } from '@angular/material/radio';
     RegisterComponent,
     NewCompanyComponent,
     CompanyComponent,
-    ChooseTypeComponent
+    ChooseTypeComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,10 +60,11 @@ import { MatRadioModule } from '@angular/material/radio';
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    MatRadioModule
+    MatRadioModule,
+    AngularEditorModule,
   ],
   exports: [],
-  providers: [DatePipe,NewCompanyComponent],
-  bootstrap: [AppComponent]
+  providers: [DatePipe, NewCompanyComponent],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
