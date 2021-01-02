@@ -10,9 +10,9 @@ export class NewCompanyService {
   private url = 'http://localhost:3000';
   // private url = 'http://localhost:5000'
   constructor(private httpClient: HttpClient) { }
-  CreateNewCompany(compName: string, compUrl: string, pitch: string): Observable<any>{
-    const body = JSON.stringify({playerCompetitionId: null,
-                                 companyName: compName,
+  CreateNewCompany(playerCompetitionId :string ,compName:String, compUrl:String, pitch:String): Observable<any>{
+    const body = JSON.stringify({playerCompetitionId:playerCompetitionId,
+                                 companyName: compName, 
                                  companyWebsiteURL: compUrl,
                                  companyShortPitch: pitch,
                                  companyCurrentStockPrice: '0'});

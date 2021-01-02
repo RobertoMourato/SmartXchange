@@ -23,6 +23,9 @@ module.exports = {
       rankingType: {
         type: Sequelize.STRING
       },
+      rankingPoints: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -1,8 +1,10 @@
 const models = require('../models')
+const company = require('../models/company')
+const stockRepository = require('../repository/stockRepository')
 
 module.exports = {
 
-  async addCompany (req, res) {
+  async addCompany(req, res) {
     const {
       playerCompetitionId,
       companyName,
@@ -10,6 +12,7 @@ module.exports = {
       companyShortPitch,
       companyCurrentStockPrice
     } = req.body
+    console.log(req.body)
 
     if (companyName) {
       try {
@@ -22,14 +25,29 @@ module.exports = {
         })
         res.status(200).json(company)
       } catch (error) {
+        console.log(error)
         res.status(400).json(error)
       }
     } else {
       res.status(400).json('No company name associated')
     }
   },
-
-  async getCompany (req, res) {
+  async startCompaniesStocksAndOrders(competitionId, competitionInitialStockValue) {
+    const companies = await models.Company.findAll(
+      {
+        include: [{
+          model: models.PlayerCompetition,
+          where: { competitionId: competitionId },
+          required: true
+        }]
+      }
+    )
+    console.log(companies)
+    companies.forEach(async company => {
+      const stocks = await stockRepository.addInitialCompanyStocksAndOrders(company.id, competitionInitialStockValue)
+    });
+  },
+  async getCompany(req, res) {
     const userId = req.query.userId
     const playerComp = await models.PlayerCompetition.findOne({ where: { playerid: userId } })
     if (playerComp) {
