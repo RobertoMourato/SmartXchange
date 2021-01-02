@@ -5,6 +5,7 @@ const companyController = require('../controllers/companyController.js')
 
 //router.post('/', companyController.addCompany)
 router.get('/testStocks', companyController.testeStartCompStocks)
+router.get('/getmycompany', companyController.getMyCompany)
 router.get('/getcompany', companyController.getCompany)
 router.post('/createComp', companyController.addCompany)
 

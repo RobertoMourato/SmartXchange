@@ -47,7 +47,25 @@ module.exports = {
       const stocks = await stockRepository.addInitialCompanyStocksAndOrders(company.id, competitionInitialStockValue)
     });
   },
-  async getCompany(req, res) {
+
+  async getCompany(companyId) {
+    const company = await models.Company.findByPk(companyId)
+    if (company) {
+      try {
+        return await models.Company.findOne({
+          where: { id: companyId },
+          include: [{
+            model: models.StockValue
+          }]
+        })
+      } catch (error) {
+        console.log(error)
+        res.status(400).json(error)
+      }
+    }
+  },
+
+  async getMyCompany(req, res) {
     const userId = req.query.userId
     const playerComp = await models.PlayerCompetition.findOne({ where: { playerid: userId } })
     if (playerComp) {

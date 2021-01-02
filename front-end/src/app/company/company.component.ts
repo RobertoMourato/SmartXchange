@@ -18,7 +18,7 @@ export class CompanyComponent implements OnInit {
     if(!window.location.search){
       const param = window.sessionStorage.getItem('userid')
       var userId: Number = +param
-      this.companyService.getCompany(userId).subscribe(data => {
+      this.companyService.getMyCompany(userId).subscribe(data => {
         this.company = data
       })
       this.companyService.getQuestions(userId).subscribe(data => {

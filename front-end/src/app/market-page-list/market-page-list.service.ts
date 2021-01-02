@@ -11,5 +11,9 @@ export class MarketPageListService {
   // private url = 'http://localhost:5000'
 
   constructor(private httpClient: HttpClient) { }
-  
+
+  getCompany(companyId: string): Observable<any>{
+    const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    return this.httpClient.get<any>(this.url + '/companies/getcompany' + companyId, {headers: header});
+  }
 }

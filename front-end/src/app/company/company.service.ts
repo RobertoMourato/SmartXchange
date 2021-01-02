@@ -20,8 +20,8 @@ export class CompanyService {
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     return this.httpClient.get<any>(this.url + '/competition/compquestionById?compId=' + compId, {headers: header});
   }
-  getCompany(userId: Number): Observable<any>{
+  getMyCompany(userId: Number): Observable<any>{
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
-    return this.httpClient.get<any>(this.url + '/companies/getcompany?userId=' + userId, {headers: header});
+    return this.httpClient.get<any>(this.url + '/companies/getmycompany?userId=' + userId, {headers: header});
   }
 }
