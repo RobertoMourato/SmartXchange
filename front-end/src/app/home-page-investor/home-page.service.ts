@@ -14,12 +14,13 @@ export class HomePageService {
 
   getPlayerCompetitiontInfo(playerId: string, competitionId: string) {}
 
-  getPlayerRankingsData(playerId: string, competitionId: string) {
+  getPlayerRankingsData(playerId: string, competitionId: string) : Observable<any>{
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    console.log('ser', playerId,' ' , competitionId)
     return this.httpClient
       .get(
         this.url +
-          '/ranking/playerCompetition?playerId=' +
+          '/ranking/playerAndCompetition?playerId=' +
           playerId +
           '&competitionId=' +
           competitionId,

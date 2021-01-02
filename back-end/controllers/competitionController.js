@@ -180,3 +180,19 @@ exports.addPlayerCompetitionWithInvite = async function (req, res) {
     res.json(error.message).status(500)
   }
 }
+
+exports.getRankingsByPlayerAndCompetition = async function (req, res) {
+  try {
+    const playerId = req.query.playerId
+    const competitionId = req.query.competitionId
+    const rankings = await rankingRep.getRankingsByPlayerAndCompetition(playerId, competitionId)
+    if (rankings) {
+      res.json(rankings).status(200)
+    } else {
+      res.status(400)
+    }
+  } catch (error) {
+    console.log(error.message)
+    res.json(error.message).status(500)
+  }
+}

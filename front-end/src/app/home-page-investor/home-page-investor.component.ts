@@ -6,6 +6,7 @@ import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import { HomePageService } from './home-page.service';
+import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
 
 @Component({
   selector: 'app-home-page-investor',
@@ -15,13 +16,14 @@ import { HomePageService } from './home-page.service';
 export class HomePageInvestorComponent implements OnInit {
   user: User;
   rankings: Ranking[] = [];
-  playerRatings: Ranking[] = [];
+  playerRatings = [];
   headers: String[] = ['Position', 'Name', 'Price', 'Gain'];
   dataSource = this.rankings;
 
   constructor(private homePageService: HomePageService) {}
 
   ngOnInit(): void {
+    this.getRankingData();
     this.buildGraph();
   }
 
@@ -30,8 +32,11 @@ export class HomePageInvestorComponent implements OnInit {
     const competitionId = window.sessionStorage.getItem('competition');
     const rankingsArray = this.homePageService
       .getPlayerRankingsData(playerId, competitionId)
-      .subscribe((data) => {});
-    this.rankings;
+      .subscribe((data) => {
+        data.forEach(element => {
+          this.playerRatings.push({value:element.rankingPoints, date: element.createdAt})
+        });
+      });
   }
   buildGraph(): void {
     /* Chart code */
@@ -41,6 +46,7 @@ export class HomePageInvestorComponent implements OnInit {
 
     // Create chart instance
     let chart = am4core.create('chartdiv', am4charts.XYChart);
+    console.log('playerRating',this.playerRatings)
     chart.data = this.playerRatings;
 
     // Set input format for the dates

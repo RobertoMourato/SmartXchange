@@ -72,5 +72,22 @@ module.exports = {
       count = count -1;
     });
 
+  }, 
+
+  async getRankingsByPlayerAndCompetition(playerId, competitionId){
+    try {
+      return await models.Ranking.findAll({
+        order: [['createdAt', 'ASC']],
+        include: {
+          model: models.PlayerCompetition,
+          where: {
+            playerId:playerId,
+            competitionId: competitionId
+          }
+        }
+      })
+    } catch (error) {
+      return null;
+    }
   }
 }
