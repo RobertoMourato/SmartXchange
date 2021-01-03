@@ -26,7 +26,6 @@ export class HomePageInvestorComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPlayerRankingData();
-    this.buildGraph();
     this.getLatestRankings()
   }
 
@@ -71,10 +70,11 @@ export class HomePageInvestorComponent implements OnInit {
     const competitionId = window.sessionStorage.getItem('competitionId');
     this.homePageService
       .getPlayerRankingsData(playerId, competitionId)
-      .subscribe((data) => {
-        data.forEach(element => {
+      .subscribe(async (data) => {
+        await data.forEach(element => {
           this.playerRatings.push({ "value": element.rankingPosition, "date": element.createdAt })
         });
+        this.buildGraph();
       });
   }
   buildGraph(): void {
@@ -95,7 +95,7 @@ export class HomePageInvestorComponent implements OnInit {
     }]
     console.log('t', t)
     this.playerRatings.forEach(element => {
-      
+
     });
     console.log(this.playerRatings)
     chart.data = this.playerRatings;
@@ -103,7 +103,7 @@ export class HomePageInvestorComponent implements OnInit {
 
     // Set input format for the dates
     chart.dateFormatter.inputDateFormat = 'yyyy-MM-ddHH:mm';
-  
+
     // Create axes
     let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.grid.template.stroke = am4core.color('#FFF');
