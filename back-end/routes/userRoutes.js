@@ -12,5 +12,6 @@ router.get('/isManager', inviteControlller.verifyManager)
 router.delete('/', UserController.deleteUser)
 router.put('/update', UserController.updateUser)
 router.put('/completeRegistration', UserController.completeRegistration)
+router.get('/byCompetition', UserController.getUsersByCompetition)
 
 module.exports = router

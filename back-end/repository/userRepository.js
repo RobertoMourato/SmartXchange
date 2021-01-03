@@ -189,5 +189,14 @@ module.exports = {
     } else {
       return null
     }
+  },
+
+  async getUsersByCompetition(competitionId){
+    return await models.User.findAll({
+      include:{
+        model: models.PlayerCompetition,
+        where: { competitionId: competitionId}
+      }
+    })
   }
 }

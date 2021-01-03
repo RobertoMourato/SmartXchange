@@ -101,3 +101,18 @@ exports.completeRegistration = async function (req, res) {
     res.json(error.message).status(500)
   }
 }
+
+exports.getUsersByCompetition = async function (req, res) {
+  try {
+    const users = await userRepository.getUsersByCompetition(req.query.competitionId)
+    if (users) {
+      res.json(users).status(200)
+    } else {
+      res.status(400)
+    }
+
+  } catch (error) {
+    res.json(error.message).status(500)
+  }
+
+}
