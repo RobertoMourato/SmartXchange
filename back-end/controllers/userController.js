@@ -29,6 +29,16 @@ exports.getUserById = async function (req, res) {
   }
 }
 
+exports.deleteManager = async function (req, res) {
+
+  try {
+    const deleted = await userRepository.deleteManager(req.params.id);
+    res.json(deleted).status(200)
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
 exports.addUser = async function (req, res) {
   try {
     console.log(req.body)

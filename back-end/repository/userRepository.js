@@ -156,6 +156,12 @@ module.exports = {
     })
   },
 
+  async deleteManager(managerId) {
+    const managerTypeId = await models.UserType.findOne({ where: { userType: 'Manager' } })
+    return await models.User.destroy({
+      where: { id: managerId, userTypeId: managerTypeId.dataValues.id }
+    })
+  },
   async deleteUser(req) {
     console.log('entrou')
     await models.User.destroy({ where: { username: req.body.username } })
