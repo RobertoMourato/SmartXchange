@@ -40,7 +40,7 @@ export class HomePageInvestorComponent implements OnInit {
       //console.log('data', data)
       const arr = [];
       data.forEach(element => {
-       // console.log('element', element)
+        // console.log('element', element)
         if (element.PlayerCompetition.User.id == playerId) {
           this.playerOrder = element.rankingPosition
         }
@@ -61,7 +61,7 @@ export class HomePageInvestorComponent implements OnInit {
       } catch (error) {
         console.log(error)
       }
-      
+
       this.dataSource = new MatTableDataSource<Ranking>(final)
     })
   }
@@ -73,7 +73,7 @@ export class HomePageInvestorComponent implements OnInit {
       .getPlayerRankingsData(playerId, competitionId)
       .subscribe((data) => {
         data.forEach(element => {
-          this.playerRatings.push({ value: element.rankingPosition, date: element.createdAt })
+          this.playerRatings.push({ "value": element.rankingPosition, "date": element.createdAt })
         });
       });
   }
@@ -86,18 +86,32 @@ export class HomePageInvestorComponent implements OnInit {
     // Create chart instance
     let chart = am4core.create('chartdiv', am4charts.XYChart);
 
+    const t = [{
+      "date": "2013-01-29",
+      "value": 84
+    }, {
+      "date": "2013-01-30",
+      "value": 81
+    }]
+    console.log('t', t)
+    this.playerRatings.forEach(element => {
+      
+    });
+    console.log(this.playerRatings)
     chart.data = this.playerRatings;
     console.log('chart', chart.data)
 
     // Set input format for the dates
     chart.dateFormatter.inputDateFormat = 'yyyy-MM-ddHH:mm';
+  
     // Create axes
     let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.grid.template.stroke = am4core.color('#FFF');
-    
+    dateAxis.renderer.labels.template.fill = am4core.color("#FFF");
+
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.renderer.grid.template.stroke = am4core.color('#FFF');
-    valueAxis.renderer.ticks.template.stroke = am4core.color("#FFF");
+    valueAxis.renderer.labels.template.fill = am4core.color("#FFF");
     valueAxis.title.text = "Rankings";
     valueAxis.min = 0;
     valueAxis.title.stroke = am4core.color('#FFF');
@@ -109,6 +123,7 @@ export class HomePageInvestorComponent implements OnInit {
     series.tooltipText = '{value}';
     series.strokeWidth = 2;
     series.minBulletDistance = 15;
+    series.stroke = am4core.color("#06b164");
 
     // Drop-shaped tooltips
     series.tooltip.background.cornerRadius = 20;
