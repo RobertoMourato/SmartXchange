@@ -11,17 +11,10 @@ import { Observable } from 'rxjs';
 export class AppComponent {
 
   title = 'smartxchange';
-
-  users: Observable<User[]>;
-  newUser: Observable<User[]>;
-
-  constructor(private http: HttpClient) {
-
+  constructor() {
   }
 
-  getUsers() {
-    this.users = this.http.get<User[]>('/api/users/all');
-  }
+
 
 
 

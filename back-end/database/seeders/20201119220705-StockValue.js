@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('StockValues', [{
-      stockId: '1',
+      companyId: '1',
       stockValue: '20',
       stockValueDate: new Date(),
       createdAt: new Date(),

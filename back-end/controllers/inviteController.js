@@ -26,7 +26,15 @@ exports.inviteManager = async function (req, res) {
     return res.sendStatus(500)
   }
 }
-
+exports.verifyManager = async function (req, res) {
+  try {
+    const results = await inviteRep.isManager(req, res)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
 /*
   Body:
   {"invitedBy:"",
@@ -41,7 +49,7 @@ exports.inviteUser = async function (req, res) {
 
     const invite = await inviteRep.inviteUser(req, res)
     if (invite) {
-      const emailstatus = await emailService.sendPlayerInvite(req, invite.id)
+      const emailstatus = await emailService.sendPlayerInvite(req, invite.dataValues.token)
 
       if (emailstatus == 200) {
         return res.status(emailstatus).json('Invite sent succesfully')

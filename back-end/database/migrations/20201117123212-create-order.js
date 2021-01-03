@@ -46,7 +46,7 @@ module.exports = {
       },
       orderStatus: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
