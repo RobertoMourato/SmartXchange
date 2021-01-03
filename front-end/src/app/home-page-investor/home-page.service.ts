@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ConeColumn } from '@amcharts/amcharts4/charts';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,19 @@ export class HomePageService {
           '/ranking/playerAndCompetition?playerId=' +
           playerId +
           '&competitionId=' +
+          competitionId,
+        { headers: header }
+      )
+      .pipe(map(this.extractData));
+  }
+
+  getLatestData(competitionId: string) : Observable<any>{
+    const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    //console.log('competitionId', competitionId)
+    return this.httpClient
+      .get(
+        this.url +
+          '/ranking/latest?competitionId=' +
           competitionId,
         { headers: header }
       )

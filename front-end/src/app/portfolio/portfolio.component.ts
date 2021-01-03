@@ -34,16 +34,14 @@ export class PortfolioComponent implements OnInit {
   pendingDataSource: MatTableDataSource<Offer>;
   dataSource: MatTableDataSource<Offer>;
   completedDataSource: MatTableDataSource<Offer>;
-  constructor(private portfolioService: PortfolioOrdersService, public datepipe: DatePipe) {}
+  constructor(private portfolioService: PortfolioOrdersService, public datepipe: DatePipe) { }
 
   ngOnInit(): void {
-    this.pendingOffers = new Array<Offer>();
-    
-    
+    //this.pendingOffers = new Array<Offer>();
     this.getPendingOrders();
     this.getCompletedOrders();
 
-    
+
   }
 
   getPendingOrders() {
@@ -51,50 +49,60 @@ export class PortfolioComponent implements OnInit {
     //console.log(username);
     const arr = [];
     this.portfolioService.getPendingOrders(username).subscribe((data) => {
-      //  console.log('data', data);
-      data.forEach((element) => {
-        if (element.company == null) {
-          return;
-        }
-
-        arr.push({
-          id: element.id,
-          type: element.orderType,
-          company: element.company.companyName,
-          status: element.orderStatus,
-          qt: element.orderNumStock,
-          offer: element.orderValue,
-          date: element.createdAt
+      //console.log('data', data);
+      if (data.length == 0) { console.log("Pending empty"); } else {
+        data.forEach((element) => {
+          if (element.Company == null) {
+            return;
+          }
+          console.log(element)
+          arr.push({
+            id: element.id,
+            type: element.orderType,
+            company: element.Company.companyName,
+            status: element.orderStatus,
+            qt: element.orderNumStock,
+            offer: element.orderValue,
+            date: element.createdAt
+          });
         });
-      });
-      this.pendingDataSource = new MatTableDataSource<Offer>(arr);
+        console.log('pending', arr)
+        this.pendingDataSource = new MatTableDataSource<Offer>(arr);
+      }
     });
   }
 
   getCompletedOrders() {
     const username = window.sessionStorage.getItem('user');
-    console.log('completed',username);
-    const arr =[];
+    //console.log('completed',username);
+    const arr = [];
     this.portfolioService.getCompletedOrders(username).subscribe((data) => {
-      console.log('data',data)
-      data.forEach((element) => {
-        if (element.company == null) {
-          console.log('No company')
-          return;
-        }
-        arr.push({
-          id: element.id,
-          type: element.orderType,
-          company: element.company.companyName,
-          status: element.orderStatus,
-          qt: element.orderNumStock,
-          offer: element.orderValue,
-          date: this.datepipe.transform(element.createdAt, 'dd/MM/yyyy hh:mm')
+      console.log('data', data)
+      if (data.length == 0) {
+        console.log("Completed empty")
+      }
+      else {
+        data.forEach((element) => {
+          if (element.Company == null) {
+            console.log('No company')
+            return;
+          }
+          arr.push({
+            id: element.id,
+            type: element.orderType,
+            company: element.Company.companyName,
+            status: element.orderStatus,
+            qt: element.orderNumStock,
+            offer: element.orderValue,
+            date: this.datepipe.transform(element.createdAt, 'dd/MM/yyyy hh:mm')
+          });
         });
-      });
-      this.completedDataSource = new MatTableDataSource<Offer>(arr);
+        console.log('completed', arr)
+        this.completedDataSource = new MatTableDataSource<Offer>(arr);
+      }
     });
-    console.log('completed',this.completedDataSource)
+
+    // console.log('completed',this.completedDataSource)
   }
 
   cancelOrder(id: number) {

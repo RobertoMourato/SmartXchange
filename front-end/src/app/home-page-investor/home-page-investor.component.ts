@@ -6,7 +6,7 @@ import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import { HomePageService } from './home-page.service';
-import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-home-page-investor',
@@ -17,24 +17,63 @@ export class HomePageInvestorComponent implements OnInit {
   user: User;
   rankings: Ranking[] = [];
   playerRatings = [];
-  headers: String[] = ['Position', 'Name', 'Price', 'Gain'];
-  dataSource = this.rankings;
+  headers: String[] = ['Position', 'Name', 'Gain', 'Percentage'];
+  dataSource: MatTableDataSource<Ranking>;
+  // dataSource = this.rankings;
+  playerOrder: number;
 
-  constructor(private homePageService: HomePageService) {}
+  constructor(private homePageService: HomePageService) { }
 
   ngOnInit(): void {
-    this.getRankingData();
+    this.getPlayerRankingData();
     this.buildGraph();
+    this.getLatestRankings()
   }
 
-  getRankingData(): void {
+  getLatestRankings(): void {
+
+    const competitionId = window.sessionStorage.getItem('competitionId');
+
     const playerId = window.sessionStorage.getItem('userid');
-    const competitionId = window.sessionStorage.getItem('competition');
-    const rankingsArray = this.homePageService
+
+    this.homePageService.getLatestData(competitionId).subscribe((data) => {
+      //console.log('data', data)
+      const arr = [];
+      data.forEach(element => {
+       // console.log('element', element)
+        if (element.PlayerCompetition.User.id == playerId) {
+          this.playerOrder = element.rankingPosition
+        }
+        arr.push(new Ranking(element.rankingPosition, element.PlayerCompetition.User.name, 0, 0, element.createdAt))
+      });
+      this.dataSource = new MatTableDataSource<Ranking>(arr)
+      const final = []
+      try {
+        if (this.playerOrder == 1) {
+          final.push(arr[0], arr[1], arr[2])
+        } else {
+          if (this.playerOrder == arr.length) {
+            final.push(arr[arr.length - 3], arr[arr.length - 2], arr[arr.length - 1])
+          } else {
+            final.push(arr[this.playerOrder - 2], arr[this.playerOrder - 1], arr[this.playerOrder])
+          }
+        }
+      } catch (error) {
+        console.log(error)
+      }
+      
+      this.dataSource = new MatTableDataSource<Ranking>(final)
+    })
+  }
+
+  getPlayerRankingData(): void {
+    const playerId = window.sessionStorage.getItem('userid');
+    const competitionId = window.sessionStorage.getItem('competitionId');
+    this.homePageService
       .getPlayerRankingsData(playerId, competitionId)
       .subscribe((data) => {
         data.forEach(element => {
-          this.playerRatings.push({value:element.rankingPoints, date: element.createdAt})
+          this.playerRatings.push({ value: element.rankingPosition, date: element.createdAt })
         });
       });
   }
@@ -46,16 +85,22 @@ export class HomePageInvestorComponent implements OnInit {
 
     // Create chart instance
     let chart = am4core.create('chartdiv', am4charts.XYChart);
-    console.log('playerRating',this.playerRatings)
+
     chart.data = this.playerRatings;
+    console.log('chart', chart.data)
 
     // Set input format for the dates
     chart.dateFormatter.inputDateFormat = 'yyyy-MM-ddHH:mm';
     // Create axes
     let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.grid.template.stroke = am4core.color('#FFF');
+    
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.renderer.grid.template.stroke = am4core.color('#FFF');
+    valueAxis.renderer.ticks.template.stroke = am4core.color("#FFF");
+    valueAxis.title.text = "Rankings";
+    valueAxis.min = 0;
+    valueAxis.title.stroke = am4core.color('#FFF');
 
     // Create series
     let series = chart.series.push(new am4charts.LineSeries());
@@ -64,7 +109,6 @@ export class HomePageInvestorComponent implements OnInit {
     series.tooltipText = '{value}';
     series.strokeWidth = 2;
     series.minBulletDistance = 15;
-    series.stroke = am4core.color('#06b164');
 
     // Drop-shaped tooltips
     series.tooltip.background.cornerRadius = 20;
@@ -73,7 +117,6 @@ export class HomePageInvestorComponent implements OnInit {
     series.tooltip.label.minWidth = 40;
     series.tooltip.label.minHeight = 40;
     series.tooltip.label.textAlign = 'middle';
-    series.tooltip.label.textValign = 'middle';
 
     // Make bullets grow on hover
     let bullet = series.bullets.push(new am4charts.CircleBullet());

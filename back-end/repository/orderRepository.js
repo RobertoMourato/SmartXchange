@@ -53,28 +53,35 @@ module.exports = {
   async getPlayerPendingOrders(username) {
     return await models.Order.findAll({
       where: { orderStatus: 'Pending' },
-      include: ['company', {
-        model: models.User,
-        where: { username: username },
-        as: 'player',
-        required: true,
-        include: {
-          model: models.PlayerCompetition,
+      include: [
+        {
+          model: models.Company
+        }, {
+          model: models.User,
+          where: { username: username },
+          as: 'player',
           required: true,
           include: {
-            model: models.Competition,
+            model: models.PlayerCompetition,
             required: true,
-            where: { competitionHasStarted: true, competitionHasFinished: false }
+            include: {
+              model: models.Competition,
+              required: true,
+              where: { competitionHasStarted: true, competitionHasFinished: false }
+            }
           }
-        }
-      }]
+        }]
     })
   },
   async getPlayerCompletedOrders(username) {
     return await models.Order.findAll({
-      where: { orderStatus: 'Completed' },
+      where: {
+        orderStatus: "Completed"
+      },
       include: [
-        'company',
+        {
+          model: models.Company
+        },
         {
           model: models.User,
           where: { username: username },
@@ -89,6 +96,7 @@ module.exports = {
             }
           }
         }]
+
     })
 
     /* return await models.Order.findAll({
