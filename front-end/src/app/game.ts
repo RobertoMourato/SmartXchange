@@ -13,5 +13,4 @@ export interface Game {
   competitionHasStarted: number;
   createdAt: string;
   updatedAt: string;
-  status: string;
 }

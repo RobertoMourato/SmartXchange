@@ -9,6 +9,8 @@ import { Game } from '../game';
 import { Observable } from 'rxjs';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { CompetitionService } from '../competition.service';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -35,51 +37,20 @@ export class SuperadminGamesListComponent implements OnInit {
 
   readonly ROOT_URL = '/api';
 
-  games: Observable<Game[]>;
+  games: Observable<GameToStore[]>;
 
-
-  constructor(private http: HttpClient, public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private competitionService: CompetitionService) {
 
   }
 
 
   ngOnInit(): void {
     this.getGames();
-    this.setUpcomingAndOngoing();
   }
 
   getGames() {
-    this.games = this.http.get<Game[]>(this.ROOT_URL + '/competition/');
-
-
-
-    }
-
-
-  setUpcomingAndOngoing() : void {
-    let games = this.games;
-
-    var newStatus = new String;
-    var today = new Date();
-
-    // Execute with the observer object
-    games.subscribe(x=> {
-      for (let game of x) {
-      let newStartDate = new Date(game.competitionStartDate);
-      let newEndDate = new Date(game.competitionEndDate);
-      if (today < newStartDate)
-        newStatus = "UPCOMING";
-      if (today > newStartDate && today < newEndDate)
-        newStatus = "ONGOING";
-      if (today > newStartDate && today > newEndDate)
-        newStatus = "COMPLETED";
-      //(game.status) = newStatus;
-      }
-
-    });
-
+    this.games = this.competitionService.getGames().pipe(map(convertGameData));
   }
-
 
   openDialog(): void {
       const dialogRef = this.dialog.open(EndGamePopupDialogComponent, {
@@ -102,4 +73,53 @@ export class SuperadminGamesListComponent implements OnInit {
       this.dialogRef.close();
     }
 
+  }
+
+  interface GameToStore {
+    id: number;
+    managerId: number;
+    competitionStartDate: Date;
+    competitionEndDate: Date;
+    competitionMarketOpening: string;
+    competitionMarketEnding: string;
+    competitionInitialBudget: number;
+    competitionInitialStockValue: number;
+    competitionInitialRefreshRate: number;
+    competitionNumStocks: number;
+    competitionHasStarted: number;
+    status: String;
+  }
+
+  function convertGameData(games: Game[]): GameToStore[] {
+    return games.map(convertToGameToStore);
+  }
+
+  function convertToGameToStore(game: Game): GameToStore {
+
+    var newStatus = new String;
+    var today = new Date();
+
+    let newStartDate = new Date(game.competitionStartDate);
+    let newEndDate = new Date(game.competitionEndDate);
+    if (today < newStartDate)
+      newStatus = "UPCOMING";
+    if (today > newStartDate && today < newEndDate)
+      newStatus = "ONGOING";
+    if (today > newStartDate && today > newEndDate)
+      newStatus = "COMPLETED";
+
+    return {
+      id: game.id,
+      managerId: game.managerId,
+      competitionStartDate: game.competitionStartDate,
+      competitionEndDate: game.competitionEndDate,
+      competitionMarketOpening: game.competitionMarketOpening,
+      competitionMarketEnding: game.competitionMarketEnding,
+      competitionInitialBudget: game.competitionInitialBudget,
+      competitionInitialStockValue: game.competitionInitialStockValue,
+      competitionInitialRefreshRate: game.competitionInitialRefreshRate,
+      competitionNumStocks: game.competitionNumStocks,
+      competitionHasStarted: game.competitionHasStarted,
+      status: newStatus,
+    }
   }
