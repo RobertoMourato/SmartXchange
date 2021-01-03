@@ -51,16 +51,16 @@ export class PortfolioComponent implements OnInit {
     //console.log(username);
     const arr = [];
     this.portfolioService.getPendingOrders(username).subscribe((data) => {
-      //  console.log('data', data);
+       console.log('Pending data', data);
       data.forEach((element) => {
-        if (element.company == null) {
+        if (element.Company == null) {
           return;
         }
 
         arr.push({
           id: element.id,
           type: element.orderType,
-          company: element.company.companyName,
+          company: element.Company.companyName,
           status: element.orderStatus,
           qt: element.orderNumStock,
           offer: element.orderValue,
@@ -78,14 +78,14 @@ export class PortfolioComponent implements OnInit {
     this.portfolioService.getCompletedOrders(username).subscribe((data) => {
       console.log('data',data)
       data.forEach((element) => {
-        if (element.company == null) {
+        if (element.Company == null) {
           console.log('No company')
           return;
         }
         arr.push({
           id: element.id,
           type: element.orderType,
-          company: element.company.companyName,
+          company: element.Company.companyName,
           status: element.orderStatus,
           qt: element.orderNumStock,
           offer: element.orderValue,
