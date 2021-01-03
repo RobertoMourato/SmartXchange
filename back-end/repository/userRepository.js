@@ -4,16 +4,7 @@ const bcrypt = require('bcryptjs')
 module.exports = {
 
   async index (req, res) {
-    let results
-    await models.User.findAll()
-      .then((users) => {
-        results = users
-      })
-      .catch(error => {
-        console.log(error)
-        return null
-      })
-    return results
+    return models.User.findAll()
   },
   /*
   //add Manager

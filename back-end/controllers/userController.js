@@ -5,11 +5,7 @@ exports.getUsers = async function (req, res) {
     // console.log("controller");
     const results = await dbUser.index()
     console.log(results)
-    if (results) {
-      res.status(200).json(results)
-    } else {
-      res.sendStatus(400)
-    }
+    res.status(200).json(results)
   } catch (e) {
     console.log(e)
     res.sendStatus(500)
