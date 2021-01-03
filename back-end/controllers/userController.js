@@ -1,6 +1,5 @@
 const dbUser = require('../repository/userRepository')
 const competitionRepository = require('../repository/competitionRepository')
-const userRepository = require('../repository/userRepository')
 
 exports.getUsers = async function (req, res) {
   try {
@@ -16,7 +15,7 @@ exports.getUsers = async function (req, res) {
 
 exports.getUserById = async function (req, res) {
   try {
-    // console.log("controller");
+    console.log("controller");
     const results = await dbUser.getUserById(req, res)
     if (results !== null) {
       res.json(results)
@@ -100,7 +99,7 @@ exports.updateUser = async function (req, res) {
 
 exports.completeRegistration = async function (req, res) {
   try {
-    const user = await userRepository.completeRegistration(req.query.userType, req.query.playerCompetitionId)
+    const user = await dbUser.completeRegistration(req.query.userType, req.query.playerCompetitionId)
     if (user != null) {
       res.json(user).status(200)
     } else {
@@ -113,16 +112,32 @@ exports.completeRegistration = async function (req, res) {
 }
 
 exports.getUsersByCompetition = async function (req, res) {
+  //console.log(req)
   try {
-    const users = await userRepository.getUsersByCompetition(req.query.competitionId)
+    const users = await dbUser.getUsersByCompetition(req.query.competitionId)
     if (users) {
       res.json(users).status(200)
     } else {
       res.status(400)
     }
+  } catch (error) {
+    console.log(error)
+    res.json(error).status(500)
+  }
+}
+
+exports.getManagerByCompetitionId = async function (req, res) {
+
+  try {
+    const manager = await dbUser.getManagerByCompetition(req.query.competitionId)
+    if (manager) {
+      res.json(manager).status(200)
+    } else {
+      res.status(400)
+    }
 
   } catch (error) {
-    res.json(error.message).status(500)
+    console.log(error)
+    res.json(error).status(500)
   }
-
 }

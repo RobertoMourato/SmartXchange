@@ -86,7 +86,7 @@ module.exports = {
 
   async getUserById(req, res) {
     let User = null
-    console.log(req.params.id)
+    console.log('getById', req.params.id)
     // await user.findOne({ where: { id: req.body.id }, include: ["players", "manager"] })~
     await models.User.findOne({ where: { id: req.params.id } })
       .then(user => {
@@ -198,11 +198,29 @@ module.exports = {
   },
 
   async getUsersByCompetition(competitionId) {
+    console.log('rep', competitionId)
     return await models.User.findAll({
       include: {
         model: models.PlayerCompetition,
         where: { competitionId: competitionId }
       }
+    })
+  },
+
+  async getManagerByCompetition(competitionId) {
+    console.log('competition', competitionId)
+    return await models.User.findOne({
+      include: [{
+        model: models.Competition,
+        where: { id: competitionId },
+        as: 'competitions',
+        required: true
+      }, {
+        model: models.UserType,
+        where: { userType: 'Manager' },
+        required: true
+      }
+      ]
     })
   }
 }
