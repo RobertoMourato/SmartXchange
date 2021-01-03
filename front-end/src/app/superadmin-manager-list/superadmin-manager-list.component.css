@@ -1,0 +1,71 @@
+table {
+  width: 100%;
+}
+
+.button1 {
+  background-color: white;
+  color: #06b164;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.button2 {
+  background-color:  #06b164;
+  color: white;
+  display: inline-block;
+  font-weight: bold;
+  margin-right: 15px;
+  margin-top: 50px;
+  float: right;
+}
+
+.edit-button {
+  background-color: #06b164;
+  color: white;
+  display: inline-block;
+  font-weight: bold;
+  text-align: center;
+  margin: 20px;
+}
+
+.delete-button {
+  background-color: red;
+  color: white;
+  display: inline-block;
+  font-weight: bold;
+  text-align: right;
+  margin: 20px;
+}
+
+p {
+  padding: 15px;
+  font-weight: bold;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-game-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-game-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-game-row td {
+  border-bottom-width: 0;
+}
+
+.example-game-detail {
+  overflow: hidden;
+}
+
+.example-game-description {
+  padding: 16px;
+}
+
+.example-game-description-attribution {
+  opacity: 0.5;
+}

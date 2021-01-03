@@ -2,7 +2,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 module.exports = {
-  logging: false,
+  logging: true,
   username: process.env.MYSQL_USERNAME,
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,

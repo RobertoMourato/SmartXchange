@@ -11,3 +11,7 @@ front-end/node_modules/*
 !.vscode/extensions.json  
 
 back-end/.nyc_output/
+
+back-end/package.json
+
+front-end/package.json

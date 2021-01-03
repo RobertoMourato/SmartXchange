@@ -5,12 +5,7 @@ const inviteRepository = require('./inviteRepository')
 module.exports = {
   async index (req, res) {
     const competition = models.Competition
-    await competition.findAll().then(competitions => {
-      res.status(200).json(competitions)
-    })
-      .catch(error => {
-        res.status(400).send(error)
-      })
+    return competition.findAll()
   },
 
   async getById (id) {
