@@ -9,7 +9,7 @@ import {Offer} from './Offer';
 })
 export class PortfolioOrdersService {
   private url = 'http://localhost:3000';
-  //private url = 'http://localhost:5000'
+  // private url = 'http://localhost:5000'
 
   constructor(private httpClient: HttpClient) {}
 
@@ -30,11 +30,11 @@ export class PortfolioOrdersService {
   cancelOrder(id: number): Observable<any> {
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     return this.httpClient
-    .put(this.url + '/order/cancel/' + id, {headers:header})
+    .put(this.url + '/order/cancel/' + id, {headers: header})
     .pipe(map(this.extractData));
   }
-  
-  private extractData(res: Response) {
+
+  private extractData(res: Response): Response | {} {
     console.log(res || {});
     return res || {};
   }

@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private registerService: RegisterService,
     router: Router,
-    private LoginService: LoginService
+    // private LoginService: LoginService
   ) {}
 
   isShown = true;
