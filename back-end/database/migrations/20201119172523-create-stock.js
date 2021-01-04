@@ -19,7 +19,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       playerId: {
-        allowNull: false,
+        allowNull: true,
         references: {
           model: {
             tableName: 'Users'
@@ -29,7 +29,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       stockLastExchange: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       },
       stockValue: {

@@ -5,6 +5,7 @@ const UserController = require('../controllers/userController.js')
 const inviteControlller = require('../controllers/inviteController')
 
 router.get('/all', UserController.getUsers)
+router.get('/wallet', UserController.getWallet)
 router.get('/', UserController.getUserById) // errado
 router.post('/register', UserController.addUser)
 router.post('/invite', inviteControlller.inviteUser)

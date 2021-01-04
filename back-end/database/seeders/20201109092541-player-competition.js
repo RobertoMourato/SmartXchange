@@ -6,12 +6,14 @@ module.exports = {
       playerId: 2,
       competitionId: 1,
       completedRegistration: true,
+      wallet: 10000,
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
       playerId: 3,
       competitionId: 1,
       completedRegistration: true,
+      wallet: 10000,
       createdAt: new Date(),
       updatedAt: new Date()
     }

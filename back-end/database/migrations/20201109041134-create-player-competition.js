@@ -26,6 +26,10 @@ module.exports = {
           key: 'id'
         }
       },
+      wallet: {
+        default: 0,
+        type: Sequelize.FLOAT
+      },
       completedRegistration: {
         allowNull: false,
         type: Sequelize.BOOLEAN

@@ -5,6 +5,7 @@ import { windowWhen } from 'rxjs/operators';
 import { LoginService } from './login.service';
 import { User } from './user';
 import { UserType } from './userType';
+import { Competition } from './competition';
 import { PlayerCompetition } from './playerCompetition';
 
 @Component({
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
   userType: UserType;
   playerCompetition: PlayerCompetition;
   ngOnInit(): void {}
+  competition: Competition;
   login(email: string, password: string): void {
     if (!this.validateForm(email, password)) {
       alert('Email or password invalid');
@@ -26,12 +28,14 @@ export class LoginComponent implements OnInit {
         (data) => {
           this.user = data.user;
           this.userType = data.usertype;
+        this.competition = data.competition;
           console.log(this.user, ' ', this.userType);
           console.log(data.token);
           window.sessionStorage.setItem('userid', String(this.user.id));
           window.sessionStorage.setItem('user', this.user.username);
           window.sessionStorage.setItem('usertype', this.userType.userType);
           window.sessionStorage.setItem('token', data.token);
+        window.sessionStorage.setItem('competitionId', String(this.competition.id));
           // alert(JSON.stringify(data.user) +'\n'+JSON.stringify(data.usertype))
           // window.location.replace("/menu");
           alert('Welcome ' + window.sessionStorage.getItem('user'));

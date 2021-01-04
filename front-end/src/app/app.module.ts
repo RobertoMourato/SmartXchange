@@ -4,6 +4,9 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+
+import { AngularEditorModule } from '@kolkov/angular-editor';
+
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SuperadminNavComponent } from './superadmin-nav/superadmin-nav.component';
@@ -18,6 +21,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
+import { MarketPageListComponent } from './market-page-list/market-page-list.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { MatTableModule } from '@angular/material/table' 
@@ -33,6 +37,7 @@ import { MatRadioModule } from '@angular/material/radio';
   declarations: [
     AppComponent,
     SuperadminNavComponent,
+    MarketPageListComponent,
     LoginComponent,
     RegisterComponent,
     MarketPageComponent,
@@ -58,8 +63,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    MatRadioModule,
-    MatTableModule
+    AngularEditorModule,
   ],
   exports: [],
   providers: [DatePipe,NewCompanyComponent],
