@@ -6,6 +6,7 @@ import { LoginService } from './login.service';
 import { User } from './user';
 import { UserType } from './userType';
 import { PlayerCompetition } from './playerCompetition';
+import { Competition } from './competition';
 
 @Component({
   selector: 'app-login',
@@ -13,11 +14,12 @@ import { PlayerCompetition } from './playerCompetition';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private loginService: LoginService, router: Router) {}
+  constructor(private loginService: LoginService, router: Router) { }
   user: User;
   userType: UserType;
   playerCompetition: PlayerCompetition;
-  ngOnInit(): void {}
+  competition: Competition;
+  ngOnInit(): void { }
   login(email: string, password: string): void {
     if (!this.validateForm(email, password)) {
       alert('Email or password invalid');
@@ -26,8 +28,11 @@ export class LoginComponent implements OnInit {
         (data) => {
           this.user = data.user;
           this.userType = data.usertype;
-          console.log(this.user, ' ', this.userType);
-          console.log(data.token);
+          this.competition = data.competition;
+          console.log(this.competition);
+          // console.log(this.user, ' ' , this.userType);
+          // console.log(data.token);
+          window.sessionStorage.setItem('competitionId', String(this.competition.id));
           window.sessionStorage.setItem('userid', String(this.user.id));
           window.sessionStorage.setItem('user', this.user.username);
           window.sessionStorage.setItem('usertype', this.userType.userType);

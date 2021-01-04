@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Offer } from './Offer';
 
 @Injectable({
   providedIn: 'root',
@@ -34,8 +33,6 @@ export class PortfolioOrdersService {
       .get(this.url + '/order/partiallyMatched?userId=' + userId + '&competitionId=' + competitionId, { headers: header })
       .pipe(map(this.extractData));
   }
-
-
 
   cancelOrder(id: number): Observable<any> {
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });

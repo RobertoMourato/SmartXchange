@@ -18,3 +18,8 @@ input, select, textarea{
     color: white;
     background: rgb(42, 40, 40);
 }
+
+::ng-deep .mat-button{
+    background-color: #06b164;
+    color:white;
+}

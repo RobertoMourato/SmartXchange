@@ -1,0 +1,73 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100);
+
+body {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: 'Roboto', sans-serif;
+  background-color: rgb(42, 40, 40);
+}
+#block-container{
+  width: 80%;
+  margin-left: auto;
+}
+.wallet-card{
+  color: white;
+  font-size: 15px;
+  width: 45%;
+
+}
+.ranking-card {
+  color: white;
+  font-size: 15px;
+  width: 80%;
+}
+.ranking-card-info{
+  color: black;
+  padding: 5px;
+}
+::ng-deep .mat-header-cell{
+  background-color: #06b164;
+  font-size: 20px;
+}
+.wallet-card-info {
+  background-color: rgb(255, 255, 255);
+  color: black;
+  padding: 5px;
+  text-align: center;
+}
+.ranking-card h3{
+  margin-left: 16%;
+}
+.table {
+  width: 60%;
+  margin-left: 15%;
+}
+.time-card {
+  border-style: solid;
+  border-width: 2px;
+  border-color: grey;
+  background-color: rgb(32, 30, 30);
+
+  margin: auto;
+  width: 10%;
+
+  text-align: center;
+  color: white;
+  font-size: 50px;
+
+  padding: 5px;
+}
+
+#block-container {
+  display: flex;
+}
+
+.graph{
+  height: 40%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 5%;
+  background-color: rgb(54, 53, 53);
+}

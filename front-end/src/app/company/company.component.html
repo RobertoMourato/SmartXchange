@@ -1,23 +1,53 @@
-<body>
-    <div>
-        <mat-card fxLayout="column" fxLayoutAlign="center center" class="Company-card">
-            <mat-card-header>
-                <mat-label>Company name</mat-label>
-                <input matInput type="text" #compName name = "compName" value={{company.companyName}} required>
-                <mat-label>Company URL</mat-label>
-                <input matInput type="text" #compURL name = "compURL" value = {{company.companyWebsiteURL}} required>  
-            </mat-card-header>
-            <br>
-            <div>       
-                <mat-label style="text-align: center;">Short Pitch</mat-label>
-                <br><br>
-                <textarea>{{company.companyShortPitch}}</textarea>
+<app-main-nav>
+    <body>
+        <div *ngIf="showSettings">
+            <div *ngIf="!hasStarted">
+                <mat-card fxLayout="column" fxLayoutAlign="center center" class="Company-card">
+                    <mat-card-header>
+                        <mat-label>Company name</mat-label>
+                        <input matInput type="text" #compName name = "compName" value={{company.companyName}} required>
+                        <mat-label>Company URL</mat-label>
+                        <input matInput type="text" #compURL name = "compURL" value = {{company.companyWebsiteURL}}>  
+                    </mat-card-header>
+                    <br>
+                    <div>       
+                        <mat-label style="text-align: center;">Short Pitch</mat-label>
+                        <br><br>
+                        <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
+                    </div>
+                </mat-card>
+                <button mat-button fxLayout="column" fxLayoutAlign="center center" (click) = "save(compName.value,compURL.value,htmlContent)" >Save</button>
             </div>
-        </mat-card>
-        <mat-card fxLayout="column" fxLayoutAlign="center center" class="question-card" *ngFor="let question of newQuestions; let i = index">
-            <mat-card-header>
-                <h2>{{question.questionText}}</h2>
-            </mat-card-header>
-        </mat-card>
-    </div>  
-</body>
+            <div *ngIf="hasStarted">
+                <mat-card fxLayout="column" fxLayoutAlign="center center" class="Company-card">
+                    <mat-card-header>
+                        <mat-card-title>
+                            {{company.companyName}}
+                        </mat-card-title>
+                        <mat-card-subtitle>
+                            {{company.companyWebsiteURL}}
+                        </mat-card-subtitle>
+                    </mat-card-header>
+                    <div>       
+                        <mat-label style="text-align: center;">Short Pitch</mat-label>
+                        <br><br>
+                        <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor> 
+                    </div>
+                    <button mat-button fxLayout="column" fxLayoutAlign="center center" (click) = "savePitch(htmlContent)" >Save</button>
+                </mat-card>
+                <mat-card fxLayout="column" fxLayoutAlign="center center" class="question-card" *ngFor="let question of newAnswers; let i = index">
+                    <h2>{{question.questionText}}</h2>
+                    <mat-card-header fxLayout="row" fxLayoutAlign="center center">   
+                        <mat-label>Answer</mat-label>
+                        <br>
+                        <textarea matInput type="text" #answer id=answer name = "answer" (change) = "update(i,answer.value)">{{question.answerText}}</textarea>
+                    </mat-card-header>
+                </mat-card>
+                <button mat-button fxLayout="column" fxLayoutAlign="center center" (click) = "saveAnswer()">Save</button>
+            </div>
+        </div>
+        <div *ngIf="!showSettings">
+            <h1>A Investor does not owns a Company</h1>
+        </div>
+    </body>
+</app-main-nav>
