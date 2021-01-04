@@ -1,11 +1,8 @@
-const { buyMap } = require('..')
 const models = require('../models')
-const company = require('../models/company')
-const stockValueRepository = require('./stockValueRepository')
 const Sequelize = require('sequelize')
 
 module.exports = {
-  async index(req, res) {
+  async index (req, res) {
     const order = models.Order
     await order.findAll().then(order => {
       res.status(200).json(order)
@@ -14,7 +11,7 @@ module.exports = {
         res.status(400).send(error)
       })
   },
-  async addOrder(req, res) {
+  async addOrder (req, res) {
     // const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
     const company = await models.Company.findByPk(req.query.companyId)
     const user = await models.User.findByPk(req.query.userId)
@@ -50,7 +47,7 @@ module.exports = {
     }
   },
 
-  async getPlayerPendingOrders(username) {
+  async getPlayerPendingOrders (username) {
     return await models.Order.findAll({
       where: { orderStatus: 'Pending' },
       include: [
@@ -73,7 +70,7 @@ module.exports = {
         }]
     })
   },
-  async getPlayerCompletedOrders(username) {
+  async getPlayerCompletedOrders (username) {
     console.log('completed')
     return await models.Order.findAll({
       where: { orderStatus: 'Completed' },
@@ -100,7 +97,7 @@ module.exports = {
      }) */
   },
 
-  async getPlayerPartiallyMatchedOrders(userId, competitionId) {
+  async getPlayerPartiallyMatchedOrders (userId, competitionId) {
     console.log('getPartial', userId, competitionId)
     const orders = await models.Order.findAll({
       where: { orderStatus: 'Partially Matched' },
@@ -110,7 +107,7 @@ module.exports = {
           model: models.StockExchange,
           as: 'buyExchanges'
         }, {
-          model: models.Company,
+          model: models.Company
 
         },
         {
@@ -140,7 +137,7 @@ module.exports = {
             model: models.StockExchange,
             as: 'sellExchanges'
           }, {
-            model: models.Company,
+            model: models.Company
           },
           {
             model: models.User,
@@ -156,11 +153,9 @@ module.exports = {
             }]
           }]
       })
-
-
     }
   },
-  async cancelOrder(orderId) {
+  async cancelOrder (orderId) {
     try {
       return models.Order.update(
         { orderStatus: 'Canceled' },
@@ -171,75 +166,71 @@ module.exports = {
     }
   },
 
-  async matchOrders(competitionId) {
+  async matchOrders (competitionId) {
     const maps = await this.getOrders(competitionId)
-    //console.log('maps', maps)
-    let buyMap = maps.buyMap
-    let sellMap = maps.sellMap
+    // console.log('maps', maps)
+    const buyMap = maps.buyMap
+    const sellMap = maps.sellMap
     if (buyMap != undefined && sellMap != undefined) {
       console.log('buy', maps.buyMap)
       console.log('sell', maps.sellMap)
 
-      for (let companyId of maps.buyMap.keys()) {
-        //console.log(companyId)
+      for (const companyId of maps.buyMap.keys()) {
+        // console.log(companyId)
         await buyMap.get(companyId).forEach(async buyOrder => {
           if (buyOrder.orderNumStock > 0) {
-            //console.log('temp', buyOrder)
+            // console.log('temp', buyOrder)
             await sellMap.get(companyId).forEach(async sellOrder => {
               console.log(buyOrder.id, ' - ', sellOrder.id)
               if (buyOrder.orderValue >= sellOrder.orderValue && sellOrder.orderNumStock > 0) {
                 if (buyOrder.orderNumStock > sellOrder.orderNumStock) {
                   console.log('>')
-                  //create stock exchanges, update wallet, update stocks 
+                  // create stock exchanges, update wallet, update stocks
                   await this.exchangeStocks(buyOrder.id, sellOrder.id, sellOrder.orderNumStock, buyOrder.orderValue, buyOrder.playerId, sellOrder.playerId, companyId)
-                  //complete sellorder bd
+                  // complete sellorder bd
                   await this.completeOrder(sellOrder.id)
                   await this.updateToPartiallyMatched(buyOrder.id)
                   // atualiza local numStock, next sell order
                   buyOrder.orderNumStock = buyOrder.orderNumStock - sellOrder.orderNumStock
-                  sellOrder.orderNumStock = 0;
+                  sellOrder.orderNumStock = 0
                 } else {
                   if (buyOrder.orderNumStock == sellOrder.orderNumStock) {
                     console.log('=')
-                    //create stock exchanges, update wallet, update stocks 
+                    // create stock exchanges, update wallet, update stocks
                     await this.exchangeStocks(buyOrder.id, sellOrder.id, sellOrder.orderNumStock, buyOrder.orderValue, buyOrder.playerId, sellOrder.playerId, companyId)
-                    //complete both order
+                    // complete both order
                     await this.completeOrder(sellOrder.id)
                     await this.completeOrder(buyOrder.id)
-                    //retira as orders do map
+                    // retira as orders do map
                     sellOrder.orderNumStock = 0
                     buyOrder.orderNumStock = 0
-                    return; //vai para a próxima buyOrder
+                    // vai para a próxima buyOrder
                   } else {
-                    //buy order stocks < sell order stocks 
+                    // buy order stocks < sell order stocks
                     console.log('<')
-                    //create stock exchanges, update wallet, update stocks 
+                    // create stock exchanges, update wallet, update stocks
                     await this.exchangeStocks(buyOrder.id, sellOrder.id, buyOrder.orderNumStock, buyOrder.orderValue, buyOrder.playerId, sellOrder.playerId, companyId)
-                    //complete purchase order bd
+                    // complete purchase order bd
                     await this.completeOrder(buyOrder.id)
                     await this.updateToPartiallyMatched(sellOrder.id)
                     sellOrder.orderNumStock = sellOrder.orderNumStock - buyOrder.orderNumStock
                     buyOrder.orderNumStock = 0
-                    return; //vai para a proxima buyOrder
+                    // vai para a proxima buyOrder
                   }
                 }
               }
-
-            });
+            })
           }
-        });
+        })
       }
     }
-    //console.log('buyMap - after', buyMap)
-    //console.log('sellMap -sell', sellMap)
-
+    // console.log('buyMap - after', buyMap)
+    // console.log('sellMap -sell', sellMap)
   },
 
-
-  async getOrders(competitionId) {
-
-    const buyMap = new Map();
-    const sellMap = new Map();
+  async getOrders (competitionId) {
+    const buyMap = new Map()
+    const sellMap = new Map()
 
     const buyOrders = await models.Order.findAll({
       where: { orderStatus: 'Pending', orderType: 'Buy' },
@@ -265,57 +256,51 @@ module.exports = {
     })
 
     buyOrders.forEach((order) => {
-
       const element = order.dataValues
 
-      //buyOrders
-      let companyOrders = buyMap.get(element.companyId)
+      // buyOrders
+      const companyOrders = buyMap.get(element.companyId)
       if (companyOrders != undefined) {
         const order = models.Order.build(element)
         companyOrders.push(order.dataValues)
         buyMap.set(element.companyId, companyOrders)
       } else {
-        const order = models.Order.build(element);
+        const order = models.Order.build(element)
         // console.log('build', order.dataValues)
-        let arr = []
+        const arr = []
         arr.push(order.dataValues)
         buyMap.set(element.companyId, arr)
       }
-
-
-    });
+    })
     sellOrders.forEach((order) => {
-
       const element = order.dataValues
-      //SellOrders
-      let companyOrders = sellMap.get(element.companyId)
+      // SellOrders
+      const companyOrders = sellMap.get(element.companyId)
       if (companyOrders != undefined) {
         const order = models.Order.build(element)
         companyOrders.push(order.dataValues)
         sellMap.set(element.companyId, companyOrders)
       } else {
-        const order = models.Order.build(element);
-        //console.log('build', order.dataValues)
-        let arr = []
+        const order = models.Order.build(element)
+        // console.log('build', order.dataValues)
+        const arr = []
         arr.push(order.dataValues)
         sellMap.set(element.companyId, arr)
       }
 
       // console.log(buyMap, sellMap)
-    });
+    })
 
-
-    return { buyMap, sellMap };
+    return { buyMap, sellMap }
   },
 
-  async exchangeStocks(buyOrderId, sellOrderId, orderNumStock, orderValue, buyerId, sellerId, companyId) {
+  async exchangeStocks (buyOrderId, sellOrderId, orderNumStock, orderValue, buyerId, sellerId, companyId) {
     console.log(buyOrderId, ' player', buyerId, ' buys ', sellOrderId, ' player', sellerId, ' n stocks=', orderNumStock)
-    //create stock exchanges, update wallet, update stocks
+    // create stock exchanges, update wallet, update stocks
     const payment = orderNumStock * orderValue
-    let stocks = await models.Stock.findAll({ where: { playerId: sellerId, companyId: companyId }, limit: orderNumStock })
+    const stocks = await models.Stock.findAll({ where: { playerId: sellerId, companyId: companyId }, limit: orderNumStock })
 
-
-    //console.log('available',stocks)
+    // console.log('available',stocks)
 
     await stocks.forEach(async element => {
       const stock = element.dataValues
@@ -323,9 +308,9 @@ module.exports = {
       await models.Stock.update({
         playerId: buyerId
       },
-        {
-          where: { id: stock.id }
-        }
+      {
+        where: { id: stock.id }
+      }
       )
       console.log('updated', stock.id)
 
@@ -334,7 +319,7 @@ module.exports = {
         sellOrderId: sellOrderId,
         stockId: stock.id
       })
-    });
+    })
 
     await models.PlayerCompetition.update({
       wallet: Sequelize.literal('wallet -' + payment)
@@ -342,7 +327,7 @@ module.exports = {
       where: { id: buyerId }
     })
 
-    //firstOrders (when competition starts) playerId is null
+    // firstOrders (when competition starts) playerId is null
     if (sellerId != null) {
       await models.PlayerCompetition.update({
         wallet: Sequelize.literal('wallet +' + payment)
@@ -350,12 +335,11 @@ module.exports = {
         where: { id: sellerId }
       })
     }
-    //teste
-    //const stocksF = await models.Stock.findAll();
-    //console.log(stocksF)
-  }
-  ,
-  async completeOrder(orderId) {
+    // teste
+    // const stocksF = await models.Stock.findAll();
+    // console.log(stocksF)
+  },
+  async completeOrder (orderId) {
     try {
       return await models.Order.update(
         { orderStatus: 'Completed' },
@@ -365,7 +349,7 @@ module.exports = {
       return null
     }
   },
-  async updateToPartiallyMatched(orderId) {
+  async updateToPartiallyMatched (orderId) {
     try {
       return await models.Order.update(
         { orderStatus: 'Partially Matched' },

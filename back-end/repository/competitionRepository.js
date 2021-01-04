@@ -2,9 +2,10 @@ const models = require('../models')
 const questionRepository = require('./questionRepository.js')
 const companyRepository = require('./companyDb')
 const inviteRepository = require('./inviteRepository')
+const orderRepository = require('./orderRepository')
 
 module.exports = {
-  async index(req, res) {
+  async index (req, res) {
     const competition = models.Competition
     await competition.findAll().then(competitions => {
       res.status(200).json(competitions)
@@ -14,28 +15,28 @@ module.exports = {
       })
   },
 
-  async getById(id) {
+  async getById (id) {
     const competition = await models.Competition.findByPk(id)
     console.log(competition)
     return models.Competition.build(competition.dataValues)
   },
 
   async getByPlayerCompId (id) {
-    const playerComp = await models.PlayerCompetition.findOne({where: {playerId:id}})
+    const playerComp = await models.PlayerCompetition.findOne({ where: { playerId: id } })
     if (playerComp) {
       return await models.Competition.findByPk(playerComp.dataValues.competitionId)
     }
   },
 
-  async getCurrentCompetition(managerId) {
+  async getCurrentCompetition (managerId) {
     try {
       return await models.Order.findOne({ where: { managerId: managerId, competitionHasStarted: true, competitionHasFinished: false } })
     } catch (error) {
-      return null;
+      return null
     }
   },
 
-  async startCompetition(req, res) {
+  async startCompetition (req, res) {
     // const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
     const manager = await models.User.findByPk(req.body.managerId)
     const {
@@ -61,9 +62,9 @@ module.exports = {
           competitionHasStarted: true,
           competitionHasFinished: false
         },
-          {
-            where: { managerId: managerId, }, returning: true
-          });
+        {
+          where: { managerId: managerId }, returning: true
+        })
 
         questions.forEach(async element => {
           if (element.id == undefined) {
@@ -84,10 +85,10 @@ module.exports = {
             }
             )
           }
-        });
+        })
 
         this.startStocksAndOrdersForExistingCompanies(competition.dataValues.id, competition.dataValues.competitionInitialStockValue)
-        setInterval(matchOrder(competitionId), competition.dataValues.competitionRefreshRate * 1000)
+        setInterval(orderRepository.matmatchOrders(competition.dataValues.id), competition.dataValues.competitionRefreshRate * 100)
 
         res.status(200).json(competition)
       } catch (error) {
@@ -97,17 +98,17 @@ module.exports = {
       res.status(400).json('No Tenant associated')
     }
   },
-  async startStocksAndOrdersForExistingCompanies(competitionId, competitionInitialStockValue) {
+  async startStocksAndOrdersForExistingCompanies (competitionId, competitionInitialStockValue) {
     await companyRepository.startCompaniesStocksAndOrders(competitionId, competitionInitialStockValue)
   },
-  async getCurrDraftOrCompetition(managerId) {
+  async getCurrDraftOrCompetition (managerId) {
     try {
       return await models.Order.findOne({ where: { managerId: managerId, competitionHasFinished: false } })
     } catch (error) {
-      return null;
+      return null
     }
   },
-  async addCompetitionDraft(req, res) {
+  async addCompetitionDraft (req, res) {
     // const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
     const manager = await models.User.findByPk(req.body.managerId)
     const {
@@ -145,7 +146,7 @@ module.exports = {
     }
   },
 
-  async toggleCompetition(req, res) {
+  async toggleCompetition (req, res) {
     console.log(req.query)
     const comp = await models.Competition.findByPk(req.query.id)
     console.log(comp)
@@ -171,7 +172,7 @@ module.exports = {
     }
   },
 
-  async changeSettingsCompetition(req, res) {
+  async changeSettingsCompetition (req, res) {
     console.log(req.query)
     const comp = await models.Competition.findByPk(req.query.id)
     const {
@@ -202,7 +203,7 @@ module.exports = {
       res.status(400).json('No competition associated')
     }
   },
-  async addPlayerCompetitionWithInvite(userId, inviteToken) {
+  async addPlayerCompetitionWithInvite (userId, inviteToken) {
     try {
       const invite = await models.Invite.findOne({ where: { token: inviteToken } })
 

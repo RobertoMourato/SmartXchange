@@ -44,7 +44,6 @@ exports.addCompetitionDraft = async function (req, res) {
     } else {
       res.json('There is an ongoing Competition, you cannot start another one').status(400)
     }
-    res.json(results)
   } catch (e) {
     console.log(e)
     res.sendStatus(500)
@@ -55,7 +54,7 @@ exports.startCompetition = async function (req, res) {
   try {
     const currentCompetition = competitionRepository.getCurrDraftOrCompetition(req.query.managerId)
     if (currentCompetition != null) {
-      const results = await competitionRepository.startCompetition(req, res);
+      const results = await competitionRepository.startCompetition(req, res)
       res.json(results).status(200)
     } else {
       res.json('There is an ongoing Competition, you cannot start another one').status(400)
@@ -196,7 +195,6 @@ exports.getRankingsByPlayerAndCompetition = async function (req, res) {
     res.json(error.message).status(500)
   }
 }
-
 
 exports.getCompetitionLatestRankings = async function (req, res) {
   try {

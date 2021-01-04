@@ -25,7 +25,7 @@ exports.getPlayerPendingOrders = async function (req, res) {
   console.log('pending', username)
   try {
     const results = await orderRepository.getPlayerPendingOrders(username)
-    //console.log('pending', results)
+    // console.log('pending', results)
     // if (results.player.PlayerCompetition[0]) { }
     res.json(results).status(200)
   } catch (error) {
@@ -38,7 +38,7 @@ exports.getPlayerCompleteOrders = async function (req, res) {
   console.log('completed', username)
   try {
     const results = await orderRepository.getPlayerCompletedOrders(username)
-    //console.log(results)
+    // console.log(results)
     // if (results.player.PlayerCompetition[0]) { }
     res.json(results).status(200)
   } catch (error) {
@@ -52,7 +52,7 @@ exports.getPlayerPartiallyMatchedOrders = async function (req, res) {
   console.log(userId)
   try {
     const results = await orderRepository.getPlayerPartiallyMatchedOrders(userId, competitionId)
-    //console.log(results)
+    // console.log(results)
     // if (results.player.PlayerCompetition[0]) { }
     res.json(results).status(200)
   } catch (error) {
@@ -79,12 +79,8 @@ exports.testMatchOrders = async function (req, res) {
   try {
     const results = await orderRepository.matchOrders(1)
 
-
     res.json(results)
-
   } catch (error) {
     res.json(error.message).status(500)
   }
-
-
 }
