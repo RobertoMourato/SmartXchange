@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../user';
 import { Observable } from 'rxjs';
 import { UserService } from '../user.service';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 
 
@@ -53,21 +54,37 @@ export class SuperadminManagerListComponent implements OnInit {
   unverifiedManagers: Observable<User[]>;
   verifiedManagers: Observable<User[]>;
 
-  constructor(private userService: UserService) {
+  constructor(public dialog: MatDialog, private userService: UserService) {
 
   }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.getManagers();
   }
 
-  getUsers() {
-    this.users = this.userService.getUsers();
-
-
-
-    }
+  getManagers(): void{
+    this.users = this.userService.getManagers();
   }
+
+  deleteManagerDialog(id: number): void {
+    const dialogRef = this.dialog.open(DeleteManagerPopupDialogComponent, {
+      height: '350px',
+      width: '600px',
+    });
+
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+
+  deleteManager(id: number) {
+    this.userService.deleteManager(id);
+  }
+
+}
 
 
 
@@ -90,5 +107,25 @@ const ELEMENT_DATA: Manager[] = [
     id: 3, name: 'Larry', email: 'ozawa@comcast.net'
   }
 ];
+
+@Component({
+  selector: 'app-delete-manager-popup-dialog',
+  templateUrl: './delete-manager-popup-dialog.component.html',
+})
+export class DeleteManagerPopupDialogComponent {
+
+  status: string;
+
+  constructor(
+    public dialogRef: MatDialogRef<DeleteManagerPopupDialogComponent>, private http: HttpClient) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+
+
+}
+
 
 

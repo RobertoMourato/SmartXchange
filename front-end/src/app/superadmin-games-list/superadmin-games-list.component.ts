@@ -10,11 +10,12 @@ import { Observable } from 'rxjs';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CompetitionService } from '../competition.service';
-import { map } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { flatMap } from 'rxjs/operators';
 import { User } from '../user';
 import { forkJoin } from 'rxjs';
 import { UserService } from '../user.service';
+
 
 
 @Component({
@@ -56,7 +57,7 @@ export class SuperadminGamesListComponent implements OnInit {
 
 
   getGames(): void {
-    this.games = this.competitionService.getGames().pipe(flatMap(games => this.convertGameData(games)));
+    this.games = this.competitionService.getGames().pipe(mergeMap(games => this.convertGameData(games)));
   }
 
   convertGameData(games: Game[]): Observable<GameToStore[]> {
@@ -116,8 +117,15 @@ export class SuperadminGamesListComponent implements OnInit {
         console.log('The dialog was closed');
       });
     }
-  }
 
+
+
+}
+
+@Component({
+  selector: 'app-end-game-popup-dialog',
+  templateUrl: './end-game-popup-dialog.component.html',
+})
   export class EndGamePopupDialogComponent {
 
     constructor(
@@ -145,4 +153,5 @@ export class SuperadminGamesListComponent implements OnInit {
     playerNames: string[];
     managerName: string;
   }
+
 

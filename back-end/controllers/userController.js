@@ -29,9 +29,8 @@ exports.getUserById = async function (req, res) {
 }
 
 exports.deleteManager = async function (req, res) {
-
   try {
-    const deleted = await userRepository.deleteManager(req.params.id);
+    const deleted = await dbUser.deleteManager(req.params.id);
     res.json(deleted).status(200)
   } catch (error) {
     console.log(error.message)

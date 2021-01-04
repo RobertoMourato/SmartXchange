@@ -2,6 +2,10 @@ table {
   width: 100%;
 }
 
+h3 {
+  text-align: center;
+}
+
 .button1 {
   background-color: white;
   color: #06b164;
