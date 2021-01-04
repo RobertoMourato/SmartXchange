@@ -243,4 +243,8 @@ export class MarketPageListComponent implements OnInit {
     lineSeries.strokeOpacity = 0.5;
     chart.data = this.chartValues
   }
+
+  redirect(): void {
+    window.location.replace('/marketPage');
+  }
 }
