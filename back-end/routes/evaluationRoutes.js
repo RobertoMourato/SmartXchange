@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-var companyController = require('../controllers/companyController'); 
+const companyController = require('../controllers/companyController')
 
-router.get('/all',companyController.getAllEvaluations);
-router.post('/',companyController.addEvaluation);
+router.get('/all', companyController.getAllEvaluations)
+router.post('/', companyController.addEvaluation)
 
-module.exports = router;
+module.exports = router

@@ -12,14 +12,14 @@ module.exports = {
     sourceType: 'module'
   },
   rules: {
-    "eqeqeq": "warn",
+    eqeqeq: 'warn'
   },
   overrides: [
     {
-        "files": ["*.test.js", "*.spec.js"],
-        "rules": {
-            "no-unused-expressions": "off"
-        }
+      files: ['*.test.js', '*.spec.js'],
+      rules: {
+        'no-unused-expressions': 'off'
+      }
     }
-]
+  ]
 }

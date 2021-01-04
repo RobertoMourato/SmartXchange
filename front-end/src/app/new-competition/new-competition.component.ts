@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { SortQuestionsComponent, NewQuestionDialogComponent } from './sort-questions/sort-questions.component';
 
+import { MainNavComponent } from '../main-nav/main-nav.component';
 
 
 @Component({

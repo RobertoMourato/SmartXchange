@@ -1,4 +1,4 @@
-process.env.NODE_ENV = 'test'
+/* process.env.NODE_ENV = 'test'
 
 const chai = require('chai')
 const sinon = require('sinon')
@@ -10,7 +10,7 @@ const proxyquire = require('proxyquire')
 const { makeMockModels } = require('sequelize-test-helpers')
 
 describe('../repository/userRepository', () => {
-  const mockModels = makeMockModels({ User: { findOne: sinon.stub(), findByPk: sinon.stub(), build: sinon.stub(), create: sinon.stub() }, UserType: { findOne: sinon.stub() } }, 'models', 'js')
+  const mockModels = makeMockModels({ User: { findOne: sinon.stub(), findByPk: sinon.stub(), build: sinon.stub(), create: sinon.stub() }, UserType: { findOne: sinon.stub() }, Invite: { findOne: sinon.stub() } }, 'models', 'js')
 
   const repository = proxyquire('../repository/userRepository', {
     '../models': mockModels
@@ -23,7 +23,8 @@ describe('../repository/userRepository', () => {
     name: 'Testy',
     username: 'McTestface',
     email: 'testy.mctestface.test.tes',
-    password: 'ppopo'
+    password: 'ppopo',
+    inviteToken: '123434'
   }
 
   const requestDataManager = {
@@ -33,7 +34,8 @@ describe('../repository/userRepository', () => {
     name: 'Testy',
     username: 'McTestface',
     email: 'testy.mctestface.test.tes',
-    password: 'ppopo'
+    password: 'ppopo',
+    inviteToken: '18726'
   }
   const createArgs = {
     email: 'testy.mctestface.test.tes',
@@ -42,6 +44,16 @@ describe('../repository/userRepository', () => {
     password: 'ppopo',
     tenantId: 2,
     userTypeId: 1,
+    username: 'McTestface'
+  }
+
+  const createArgsManager = {
+    email: 'testy.mctestface.test.tes',
+    managerId: null,
+    name: 'Testy',
+    password: 'ppopo',
+    tenantId: 2,
+    userTypeId: 3,
     username: 'McTestface'
   }
   const createdUser = {
@@ -76,11 +88,37 @@ describe('../repository/userRepository', () => {
     },
     {
       dataValues: {
-        id: 1,
-        userType: 'Entrepeneur',
+        id: 3,
+        userType: 'Manager',
         isManager: true
       }
     }
+  ]
+  const invite = [{
+    dataValues: {
+      id: '1',
+      token: '123434',
+      invitedBy: 2,
+      isManager: 'false',
+      competitionId: '1',
+      isValid: 'true',
+      email: 'mamaa@gmail.com',
+      createdAt: '',
+      updatedAt: ''
+    }
+  }, {
+    dataValues: {
+      id: '2',
+      token: '12333',
+      invitedBy: null,
+      isManager: 'true',
+      competitionId: '1',
+      isValid: 'true',
+      email: 'mamaa@gmail.com',
+      createdAt: '',
+      updatedAt: ''
+    }
+  }
   ]
 
   let result, req, res
@@ -91,6 +129,7 @@ describe('../repository/userRepository', () => {
       mockModels.UserType.findOne.resolves(UserTypes[0])
       mockModels.User.create.resolves({ dataValues: createdUser })
       mockModels.User.build.resolves(createdUser)
+      mockModels.Invite.findOne.resolves(invite[0])
       req = { body: requestData }
       result = await repository.addUser(req, res)
     })
@@ -98,6 +137,7 @@ describe('../repository/userRepository', () => {
     after(sinon.resetHistory)
 
     it('called UserType.findOne, find userType', () => {
+      console.log('reTT', requestData.userType)
       chai.expect(mockModels.UserType.findOne).to.have.been.calledWith(sinon.match({ where: { userType: requestData.userType } }))
     })
 
@@ -106,7 +146,7 @@ describe('../repository/userRepository', () => {
     })
 
     it('called User.create, create User', () => {
-      // console.log(createArgs);
+      console.log(createArgs)
       chai.expect(mockModels.User.create).to.have.been
         .calledWith({
           name: createArgs.name,
@@ -114,7 +154,8 @@ describe('../repository/userRepository', () => {
           email: createArgs.email,
           password: createArgs.password,
           tenantId: createArgs.tenantId,
-          userTypeId: createArgs.userTypeId
+          userTypeId: createArgs.userTypeId,
+          managerId: createArgs.managerId
         })
     })
 
@@ -130,7 +171,8 @@ describe('../repository/userRepository', () => {
     before(async () => {
       mockModels.UserType.findOne.resolves(UserTypes[1])
       mockModels.User.create.resolves({ dataValues: manager })
-      mockModels.User.build.resolves(manager)
+      mockModels.User.build.resolves(manager),
+      mockModels.Invite.findOne.resolves(invite[1])
       req = { body: {} }
       req.body = requestDataManager
       result = await repository.addUser(req, res)
@@ -138,7 +180,7 @@ describe('../repository/userRepository', () => {
 
     after(sinon.resetHistory)
 
-    it('called UserType.findOne, find userType', () => {
+    /*  it('called UserType.findOne, find userType', () => {
       chai.expect(mockModels.UserType.findOne).to.have.been.calledWith(sinon.match({ where: { userType: requestDataManager.userType } }))
     })
 
@@ -150,12 +192,13 @@ describe('../repository/userRepository', () => {
       // console.log(createArgs);
       chai.expect(mockModels.User.create).to.have.been
         .calledWith({
-          name: createArgs.name,
-          username: createArgs.username,
-          email: createArgs.email,
-          password: createArgs.password,
-          tenantId: createArgs.tenantId,
-          userTypeId: createArgs.userTypeId
+          name: createArgsManager.name,
+          username: createArgsManager.username,
+          email: createArgsManager.email,
+          password: createArgsManager.password,
+          tenantId: createArgsManager.tenantId,
+          userTypeId: createArgsManager.userTypeId,
+          managerId: null
         })
     })
 
@@ -263,3 +306,4 @@ describe('../repository/userRepository', () => {
     })
   })
 })
+*/

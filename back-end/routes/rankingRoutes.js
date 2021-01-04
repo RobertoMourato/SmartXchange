@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-var competitionController = require('../controllers/competitionController'); 
+const competitionController = require('../controllers/competitionController')
 
-router.get('/all',competitionController.getAllRankings);
-router.post('/',competitionController.addRanking);
+router.get('/all', competitionController.getAllRankings)
+router.post('/', competitionController.addRanking)
 
-module.exports = router;
+module.exports = router

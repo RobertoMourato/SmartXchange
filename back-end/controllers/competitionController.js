@@ -1,9 +1,8 @@
-const competitionRepository = require("../repository/competitionRepository");
-const tenantRepository = require("../repository/tenantRepository");
-const questionRep = require('../repository/questionRepository');
-const answerRep = require('../repository/answerRepository');
-const rankingRep = require('../repository/rankingRepository');
-const answer = require("../models/answer");
+const competitionRepository = require('../repository/competitionRepository')
+const tenantRepository = require('../repository/tenantRepository')
+const questionRep = require('../repository/questionRepository')
+const answerRep = require('../repository/answerRepository')
+const rankingRep = require('../repository/rankingRepository')
 
 exports.getAllCompetitions = async function (req, res, next) {
   try {
@@ -69,6 +68,27 @@ exports.addQuestion = async function (req, res) {
   }
 }
 
+exports.getQuestions = async function (req, res) {
+  try {
+    // console.log(req.body)
+    const results = await questionRep.getQuestions(req, res)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+exports.getQuestionsByCompId = async function (req, res) {
+  try {
+    // console.log(req.body)
+    const results = await questionRep.getQuestionsByCompId(req, res)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+
 exports.toggleQuestions = async function (req, res) {
   console.log(req.body.selected)
   try {
@@ -96,24 +116,38 @@ exports.answerQuestions = async function (req, res) {
 }
 
 exports.addRanking = async function (req, res) {
-    try {
-        //console.log(req.body)
-        let results = await rankingRep.addRanking(req, res);
-        res.json(results);
-    }
-    catch (e) {
-        console.log(e);
-        res.sendStatus(500);
-    }
+  try {
+    // console.log(req.body)
+    const results = await rankingRep.addRanking(req, res)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
 }
 
 exports.getAllRankings = async function (req, res) {
-    try {
-        let results = await rankingRep.index(req, res);
-        res.json(results);
+  try {
+    const results = await rankingRep.index(req, res)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+
+exports.addPlayerCompetitionWithInvite = async function (req, res) {
+  try {
+    const userId = req.query.userId
+    const inviteToken = req.query.invite
+    const playerCompetition = await competitionRepository.addPlayerCompetitionWithInvite(userId, inviteToken)
+    if (playerCompetition) {
+      res.json(playerCompetition).status(201)
+    } else {
+      res.status(400)
     }
-    catch (e) {
-        console.log(e);
-        res.sendStatus(500);
-    }
+  } catch (error) {
+    console.log(error.message)
+    res.json(error.message).status(500)
+  }
 }
