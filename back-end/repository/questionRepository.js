@@ -53,6 +53,34 @@ module.exports = {
     }
   },
 
+  async getQuestions (req, res) {
+    try {
+      const userId = req.query.userId
+      const playerComp = await models.PlayerCompetition.findOne({ where: { playerId: userId } })
+      if (playerComp) {
+        const question = models.Question
+        return await question.findAll({ where: { competitionId: playerComp.dataValues.competitionId, isSelected: true }, order: [['order', 'ASC']] })
+      }
+    } catch (error) {
+      console.log(error)
+      return false
+    }
+  },
+
+  async getQuestionsByCompId (req, res) {
+    try {
+      const compId = req.query.compId
+      const Comp = await models.PlayerCompetition.findByPk(compId)
+      if (Comp) {
+        const question = models.Question
+        return await question.findAll({ where: { competitionId: compId, isSelected: true }, order: [['order', 'ASC']] })
+      }
+    } catch (error) {
+      console.log(error)
+      return false
+    }
+  },
+
   async toggleQuestion (questionId, isSelected) {
     try {
       await models.Question.update({

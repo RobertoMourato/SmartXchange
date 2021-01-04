@@ -30,21 +30,21 @@ module.exports = {
       res.status(400).json('No company name associated')
     }
   },
-  // async startCompaniesStocksAndOrders (competitionId, competitionInitialStockValue) {
-  //   const companies = await models.Company.findAll(
-  //     {
-  //       include: [{
-  //         model: models.PlayerCompetition,
-  //         where: { competitionId: competitionId },
-  //         required: true
-  //       }]
-  //     }
-  //   )
-  //   console.log(companies)
-  //   companies.forEach(async company => {
-  //     const stocks = await stockRepository.addInitialCompanyStocksAndOrders(company.id, competitionInitialStockValue)
-  //   })
-  // },
+  async startCompaniesStocksAndOrders (competitionId, competitionInitialStockValue) {
+    const companies = await models.Company.findAll(
+      {
+        include: [{
+          model: models.PlayerCompetition,
+          where: { competitionId: competitionId },
+          required: true
+        }]
+      }
+    )
+    console.log(companies)
+    /* companies.forEach(async company => {
+      const stocks = await stockRepository.addInitialCompanyStocksAndOrders(company.id, competitionInitialStockValue)
+    }) */
+  },
 
   async getCompany (companyId) {
     return await models.Company.findOne({
@@ -80,5 +80,21 @@ module.exports = {
         },
         { where: { id: body.id } })
     }
+  },
+
+  async getCompanyByCompetitionId (competitionId) {
+    // const playerComp = await models.PlayerCompetition.findAll({ where: { competitionId: competitionId } })
+    // console.log("entrou1")
+    return await models.PlayerCompetition.findAll({
+      where: {
+        competitionId: competitionId
+      },
+      include: [{
+        model: models.Company,
+        include: {
+          model: models.StockValue
+        }
+      }]
+    })
   }
 }

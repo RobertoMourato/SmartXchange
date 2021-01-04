@@ -30,14 +30,14 @@ export class ChooseTypeComponent implements AfterViewInit {
     console.log(this.compName);
   }
 
-  showCompany(): boolean{
+  showCompany(): boolean {
     if (this.userType === 'Entrepreneur') {
       return true;
     }
     return false;
   }
 
-  completeRegistration(): void{
+  completeRegistration(): void {
     const playerCompetitionId = window.location.search.split('=')[1];
     if (playerCompetitionId !== '') {
       if (this.showCompany() === true) {
@@ -45,12 +45,12 @@ export class ChooseTypeComponent implements AfterViewInit {
       }
       try {
         console.log(this.userType);
-        // this.chooseTypeService
-        //   .completeRegistration(this.userType, playerCompetitionId)
-        //   .subscribe((data) => {
-        //     alert('You\'ve completed your registration!' + data);
-        //     window.location.replace('/portfolio');
-        //   });
+        this.chooseTypeService
+          .completeRegistration(this.userType, playerCompetitionId)
+          .subscribe((data) => {
+            alert('You\'ve completed your registration!' + data);
+            window.location.replace('/portfolio');
+          });
       } catch (error) {
         console.error(error.message);
       }

@@ -27,6 +27,7 @@ import { MainNavComponent } from './main-nav/main-nav.component';
 import { MatTableModule } from '@angular/material/table';
 import { DatePipe } from '@angular/common';
 import { RegisterComponent } from './register/register.component';
+import { MarketPageComponent } from './market-page/market-page.component';
 import { NewCompanyComponent } from './new-company/new-company.component';
 import { CompanyComponent } from './company/company.component';
 import { ChooseTypeComponent } from './choose-type/choose-type.component';
@@ -38,9 +39,10 @@ import { MatRadioModule } from '@angular/material/radio';
     SuperadminNavComponent,
     MarketPageListComponent,
     LoginComponent,
+    RegisterComponent,
+    MarketPageComponent,
     PortfolioComponent,
     MainNavComponent,
-    RegisterComponent,
     NewCompanyComponent,
     CompanyComponent,
     ChooseTypeComponent
@@ -58,12 +60,11 @@ import { MatRadioModule } from '@angular/material/radio';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatTableModule,
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    MatRadioModule,
     AngularEditorModule,
+    MatRadioModule
   ],
   exports: [],
   providers: [DatePipe, NewCompanyComponent],

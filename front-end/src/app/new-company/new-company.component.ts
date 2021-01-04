@@ -21,18 +21,17 @@ export class NewCompanyComponent {
         alert('Company Created' + data);
       });
   }
-  changeCompName(newValue: string): void{
-    console.log('trocou ppor', newValue);
+  changeCompName(newValue: string): void {
     this.compName = newValue;
     console.log(this.compName);
   }
 
-  changeUrl(newValue: string): void{
+  changeUrl(newValue: string): void {
     this.url = newValue;
     console.log(this.url);
   }
 
-  changePitch(newValue: string): void{
+  changePitch(newValue: string): void {
     this.pitch = newValue;
     console.log(this.pitch);
   }

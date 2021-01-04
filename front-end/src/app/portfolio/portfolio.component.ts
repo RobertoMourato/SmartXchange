@@ -46,7 +46,7 @@ export class PortfolioComponent implements OnInit {
 
   }
 
-  getPendingOrders(): void{
+  getPendingOrders(): void {
     const username = window.sessionStorage.getItem('user');
     // console.log(username);
     const arr = [];
@@ -71,7 +71,7 @@ export class PortfolioComponent implements OnInit {
     });
   }
 
-  getCompletedOrders(): void{
+  getCompletedOrders(): void {
     const username = window.sessionStorage.getItem('user');
     console.log('completed', username);
     const arr = [];
@@ -97,7 +97,7 @@ export class PortfolioComponent implements OnInit {
     console.log('completed', this.completedDataSource);
   }
 
-  cancelOrder(id: number): void{
+  cancelOrder(id: number): void {
     this.portfolioService.cancelOrder(id).subscribe((data) => {
       alert(data);
       this.getPendingOrders();

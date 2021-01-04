@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from '../login/login.service';
 import { PlayerCompetition } from '../login/playerCompetition';
 import { Invite } from './invite';
 import { RegisterService } from './register.service';
