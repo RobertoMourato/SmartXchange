@@ -28,7 +28,6 @@ export class CompanyComponent implements OnInit {
     defaultParagraphSeparator: 'p',
     defaultFontName: 'Arial',
     toolbarHiddenButtons: [
-      ['bold']
       ],
     customClasses: [
       {

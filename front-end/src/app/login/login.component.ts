@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService, router: Router) {}
   user: User;
   userType: UserType;
+  competition: Competition;
   playerCompetition: PlayerCompetition;
   competition: Competition;
   ngOnInit(): void {}
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
           this.competition = data.competition;
           console.log(this.user, ' ', this.userType);
           console.log(data.token);
+          window.sessionStorage.setItem('competitionId', String(this.competition.id));
           window.sessionStorage.setItem('userid', String(this.user.id));
           window.sessionStorage.setItem('user', this.user.username);
           window.sessionStorage.setItem('usertype', this.userType.userType);
@@ -46,9 +48,9 @@ export class LoginComponent implements OnInit {
             // criar a playerCompetition atraves do invite e do userId
             /*this.loginService
               .registerPlayercompetition(this.user.id, invite)
-              .subscribe((data) => {
-                console.log(data);
-                this.playerCompetition = data;
+              .subscribe((tdata) => {
+                console.log(tdata);
+                this.playerCompetition = tdata;
                 window.location.replace(
                   '/chooseType?playerCompetition=' + this.playerCompetition.id
                 );

@@ -34,7 +34,7 @@ export class PortfolioOrdersService {
     .pipe(map(this.extractData));
   }
 
-  private extractData(res: Response): Response | {} {
+  private extractData(res: Response): object {
     console.log(res || {});
     return res || {};
   }

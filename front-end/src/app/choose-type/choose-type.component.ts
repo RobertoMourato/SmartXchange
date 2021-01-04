@@ -34,6 +34,7 @@ export class ChooseTypeComponent implements AfterViewInit {
     if (this.userType === 'Entrepreneur') {
       return true;
     }
+    return false;
   }
 
   completeRegistration(): void {
