@@ -15,7 +15,6 @@ exports.getUsers = async function (req, res) {
 
 exports.getUserById = async function (req, res) {
   try {
-    console.log("controller");
     const results = await dbUser.getUserById(req, res)
     if (results !== null) {
       res.json(results)
@@ -30,7 +29,7 @@ exports.getUserById = async function (req, res) {
 
 exports.deleteManager = async function (req, res) {
   try {
-    const deleted = await dbUser.deleteManager(req.params.id);
+    const deleted = await dbUser.deleteManager(req.params.id)
     res.json(deleted).status(200)
   } catch (error) {
     console.log(error.message)
@@ -69,16 +68,16 @@ exports.updateUser = async function (req, res) {
     const { username, name, newUsername, email, password } = req.body
     const constUser = await dbUser.getByUsername(username)
 
-    if (newUsername != undefined) {
+    if (newUsername !== undefined) {
       usernewUsername = await dbUser.getByUsername(newUsername)
     }
     if (constUser) {
       if (!usernewUsername) {
-        req.body.name = (name != undefined ? name : constUser.name)
-        req.body.email = (email != undefined ? email : constUser.email)
-        req.body.password = (password != undefined ? password : constUser.name)
-        req.body.newUsername = (newUsername != undefined ? newUsername : constUser.username)
-        if (name.trim() != '' && email.trim() != '' && password.trim() != '' && username.trim() != '') {
+        req.body.name = (name !== undefined ? name : constUser.name)
+        req.body.email = (email !== undefined ? email : constUser.email)
+        req.body.password = (password !== undefined ? password : constUser.name)
+        req.body.newUsername = (newUsername !== undefined ? newUsername : constUser.username)
+        if (name.trim() !== '' && email.trim() !== '' && password.trim() !== '' && username.trim() !== '') {
           await dbUser.updateUser(req, res)
           res.status(200).json('Tenant updated succesfully!')
         } else {
@@ -111,7 +110,6 @@ exports.completeRegistration = async function (req, res) {
 }
 
 exports.getUsersByCompetition = async function (req, res) {
-  //console.log(req)
   try {
     const users = await dbUser.getUsersByCompetition(req.query.competitionId)
     if (users) {
@@ -126,7 +124,6 @@ exports.getUsersByCompetition = async function (req, res) {
 }
 
 exports.getManagerByCompetitionId = async function (req, res) {
-
   try {
     const manager = await dbUser.getManagerByCompetition(req.query.competitionId)
     if (manager) {
@@ -134,7 +131,6 @@ exports.getManagerByCompetitionId = async function (req, res) {
     } else {
       res.status(400)
     }
-
   } catch (error) {
     console.log(error)
     res.json(error).status(500)

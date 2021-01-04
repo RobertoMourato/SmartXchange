@@ -26,7 +26,7 @@ export class CreateManagerPopupComponent {
     });
   }
 
-  openInvitesDialog() {
+  openInvitesDialog(): void {
     const dialogRef = this.dialog.open(SeeInvitesPopupDialogComponent, {
       height: '350px',
       width: '600px',
@@ -55,7 +55,7 @@ export class CreateManagerPopupDialogComponent {
     this.dialogRef.close();
   }
 
-  sendEmail() {
+  sendEmail(): void {
     const invitedBy = window.sessionStorage.getItem('user');
     this.emailService.sendEmail(this.email, invitedBy);
   }

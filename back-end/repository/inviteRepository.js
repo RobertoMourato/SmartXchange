@@ -7,7 +7,7 @@ module.exports = {
     {"email":"",
     "invitedBy:""}
     */
-  async inviteManager(req, res) {
+  async inviteManager (req, res) {
     const manager = await userRep.getByUsername(req.body.invitedBy)
 
     if (manager) {
@@ -33,7 +33,7 @@ module.exports = {
   "invitedBy:"",
   "competitionId:"",}
   */
-  async inviteUser(req, res) {
+  async inviteUser (req, res) {
     try {
       const manager = await userRep.getByUsername(req.body.invitedBy)
       const competition = await models.Competition.findByPk(req.body.competitionId)
@@ -63,7 +63,7 @@ module.exports = {
     }
   },
 
-  async isManager(req, res) {
+  async isManager (req, res) {
     try {
       const invite = await models.Invite.findOne({ where: { token: req.query.invite } })
       const user = await userRep.getByEmail(invite.dataValues.email)
@@ -78,7 +78,7 @@ module.exports = {
       res.status(400).json(error)
     }
   },
-  async invalidToken(token2) {
+  async invalidToken (token2) {
     console.log(token2)
     try {
       models.Invite.update(
@@ -90,7 +90,7 @@ module.exports = {
       return null
     }
   },
-  async getManagersInvites(superAdminId) {
+  async getManagersInvites (superAdminId) {
     return await models.Invite.findAll({
       where: {
         invitedBy: superAdminId,

@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 
 module.exports = {
 
-  async index(req, res) {
+  async index (req, res) {
     return models.User.findAll()
   },
   /*
@@ -27,7 +27,7 @@ module.exports = {
   }
   */
 
-  async addUser(req, res) {
+  async addUser (req, res) {
     //  console.log(req.body)
     const { name, username, email, password, inviteToken } = req.body
     const invite = await models.Invite.findOne({ where: { token: inviteToken } })
@@ -35,7 +35,7 @@ module.exports = {
     if (invite.dataValues.isValid) {
       const manager = await models.User.findByPk(invite.dataValues.invitedBy)
 
-      if (invite.dataValues.isManager == true && manager == true) {
+      if (invite.dataValues.isManager === true && manager === true) {
         try {
           const user = await models.User.create({
             name: name,
@@ -84,7 +84,7 @@ module.exports = {
     }
   },
 
-  async getUserById(req, res) {
+  async getUserById (req, res) {
     let User = null
     console.log('getById', req.params.id)
     // await user.findOne({ where: { id: req.body.id }, include: ["players", "manager"] })~
@@ -102,7 +102,7 @@ module.exports = {
     return User
   },
 
-  async getByEmail(email) {
+  async getByEmail (email) {
     const user = await models.User.findOne({ where: { email: email } })
     if (user) {
       return models.User.build(user.dataValues)
@@ -110,7 +110,7 @@ module.exports = {
       return null
     }
   },
-  async invalidToken(token2) {
+  async invalidToken (token2) {
     console.log(token2)
     try {
       models.Invite.update(
@@ -122,7 +122,7 @@ module.exports = {
       return null
     }
   },
-  async getByUsername(username) {
+  async getByUsername (username) {
     const user = await models.User.findOne({ where: { username: username } })
     if (user) {
       console.log(user)
@@ -131,7 +131,7 @@ module.exports = {
     return null
   },
 
-  async getUserTypeById(id) {
+  async getUserTypeById (id) {
     const usertype = await models.UserType.findByPk(id)
     if (usertype) {
       return models.UserType.build(usertype.dataValues)
@@ -140,7 +140,7 @@ module.exports = {
     }
   },
 
-  async updateUser(req, res) {
+  async updateUser (req, res) {
     const { username, newUsername, name, email, password } = req.body
 
     const salt = bcrypt.genSaltSync()
@@ -156,18 +156,18 @@ module.exports = {
     })
   },
 
-  async deleteManager(managerId) {
+  async deleteManager (managerId) {
     const managerTypeId = await models.UserType.findOne({ where: { userType: 'Manager' } })
     return await models.User.destroy({
       where: { id: managerId, userTypeId: managerTypeId.dataValues.id }
     })
   },
-  async deleteUser(req) {
+  async deleteUser (req) {
     console.log('entrou')
     await models.User.destroy({ where: { username: req.body.username } })
   },
 
-  async completeRegistration(userT, playerCompetitionId) {
+  async completeRegistration (userT, playerCompetitionId) {
     console.log(userT, playerCompetitionId)
     const type = await models.UserType.findOne({ where: { userType: userT } })
 
@@ -197,7 +197,7 @@ module.exports = {
     }
   },
 
-  async getUsersByCompetition(competitionId) {
+  async getUsersByCompetition (competitionId) {
     console.log('rep', competitionId)
     return await models.User.findAll({
       include: {
@@ -207,7 +207,7 @@ module.exports = {
     })
   },
 
-  async getManagerByCompetition(competitionId) {
+  async getManagerByCompetition (competitionId) {
     console.log('competition', competitionId)
     return await models.User.findOne({
       include: [{

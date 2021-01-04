@@ -12,15 +12,15 @@ export class UserService {
 
   status;
 
-  getUsers():Observable<User[]> {
+  getUsers(): Observable<User[]> {
       return this.http.get<User[]>('/api/users/all');
     }
 
-  getManagers():Observable<User[]> {
+  getManagers(): Observable<User[]> {
     return this.http.get<User[]>('/api/users/all').pipe(map(users => users.filter(user => user.userTypeId === 3)));
   }
 
-  getManagerByCompetitionId(id: number):Observable<User> {
+  getManagerByCompetitionId(id: number): Observable<User> {
     return this.http.get<User>('/api/users/manager/byCompetition?competitionId=' + id);
   }
 

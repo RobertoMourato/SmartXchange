@@ -13,7 +13,7 @@ exports.inviteManager = async function (req, res) {
     if (invite) {
       const emailstatus = await emailService.sendManagerInvite(req, invite.dataValues.token)
 
-      if (emailstatus == 200) {
+      if (emailstatus === 200) {
         return res.status(emailstatus).json('Invite sent succesfully')
       } else {
         return res.status(emailstatus).json('Something went wrong when sending the email')
@@ -51,7 +51,7 @@ exports.inviteUser = async function (req, res) {
     if (invite) {
       const emailstatus = await emailService.sendPlayerInvite(req, invite.dataValues.token)
 
-      if (emailstatus == 200) {
+      if (emailstatus === 200) {
         return res.status(emailstatus).json('Invite sent succesfully')
       } else {
         return res.status(emailstatus).json('Something went wrong when sending the email')
@@ -75,7 +75,7 @@ exports.getManagersInvites = async function (req, res) {
       res.status(400)
     }
   } catch (error) {
-    console.log(e)
+    console.log(error)
     return res.status(500)
   }
 }

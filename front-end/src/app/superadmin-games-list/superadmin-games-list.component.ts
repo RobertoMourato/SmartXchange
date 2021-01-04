@@ -66,18 +66,21 @@ export class SuperadminGamesListComponent implements OnInit {
 
   convertToGameToStore(game: Game): Observable<GameToStore> {
 
-    var newStatus: string;
-    var today = new Date();
+    let newStatus: string;
+    const today = new Date();
 
 
-    let newStartDate = new Date(game.competitionStartDate);
-    let newEndDate = new Date(game.competitionEndDate);
-    if (today < newStartDate)
-      newStatus = "UPCOMING";
-    if (today > newStartDate && today < newEndDate)
-      newStatus = "ONGOING";
-    if (today > newStartDate && today > newEndDate)
-      newStatus = "COMPLETED";
+    const newStartDate = new Date(game.competitionStartDate);
+    const newEndDate = new Date(game.competitionEndDate);
+    if (today < newStartDate) {
+      newStatus = 'UPCOMING';
+    }
+    if (today > newStartDate && today < newEndDate) {
+      newStatus = 'ONGOING';
+    }
+    if (today > newStartDate && today > newEndDate) {
+      newStatus = 'COMPLETED';
+    }
 
     forkJoin({ playerList: this.competitionService.getPlayerNamesFromGame(game.id).pipe(
       map((playerList: User[]) => playerList.map((player: User) => player.name))),
@@ -137,7 +140,7 @@ export class SuperadminGamesListComponent implements OnInit {
 
   }
 
-  interface GameToStore {
+interface GameToStore {
     id: number;
     managerId: number;
     competitionStartDate: Date;

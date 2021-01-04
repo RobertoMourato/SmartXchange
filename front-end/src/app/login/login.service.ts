@@ -22,7 +22,6 @@ export class LoginService {
   }
 
   registerPlayercompetition(userId: number, invite: string): Observable<any> {
-    console.log('registerPlayerCompetition', userId, invite)
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     return this.httpClient
       .post(

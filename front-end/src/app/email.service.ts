@@ -15,7 +15,7 @@ export class EmailService {
     const body = {
       email,
       invitedBy,
-    }
+    };
 
 
     this.http.post('/api/tenants/invite', body).subscribe((s) => {
