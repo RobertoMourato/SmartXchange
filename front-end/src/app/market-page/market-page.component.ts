@@ -21,16 +21,24 @@ export class MarketPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.marketService.GetCompanyByCompetitionId(window.sessionStorage.getItem("competitionId")).subscribe(data => {
+      console.log(data)
       data.forEach(element => {
+
+
+        
         this.ite++;
         if(element.Company != null) {
-          console.log(element)
+          //console.log(element)
           this.companies.push(element.Company.companyName)
-          this.market.push({id: element.Company.id, position: this.ite, name: element.Company.companyName, price: element.Company.companyCurrentStockPrice, gain: 24})
+          this.market.push({id: element.Company.id, position: this.ite, name: element.Company.companyName, price: element.Company.companyCurrentStockPrice, gain: (element.Company.companyCurrentStockPrice - element.Company.StockValues[0].stockValue)/element.Company.StockValues[0].stockValue*100})
         }
       });
       this.dataSource = this.market;
       //console.log(this.market)
     })
+  }
+
+  redirectToCompany(companyId): void {
+    window.location.replace("/market-list?companyId="+companyId)
   }
 }

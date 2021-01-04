@@ -99,9 +99,12 @@ module.exports = {
       where: {
         competitionId: competitionId
       },
-      include: {
-        model: models.Company
-      }
+      include: [{
+        model: models.Company,
+        include: {
+          model: models.StockValue
+        }
+      }] 
     })
   }
 }
