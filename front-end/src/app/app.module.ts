@@ -23,7 +23,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
-import { MatTableModule } from '@angular/material/table' 
+import { MatTableModule } from '@angular/material/table';
 import { DatePipe } from '@angular/common';
 import { RegisterComponent } from './register/register.component';
 import { NewCompanyComponent } from './new-company/new-company.component';
@@ -64,7 +64,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatRadioModule
   ],
   exports: [],
-  providers: [DatePipe,NewCompanyComponent],
+  providers: [DatePipe, NewCompanyComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
