@@ -13,8 +13,7 @@ export class LoginService {
   constructor(private httpClient: HttpClient) {}
 
   login(email2: string, password2: string): Observable<any> {
-    const body = JSON.stringify({ email: email2, password: password2 });
-    console.log(body);
+    const body = JSON.stringify({email: email2, password: password2});
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     return this.httpClient
       .post(this.url + '/login', body, { headers: header })
@@ -22,7 +21,7 @@ export class LoginService {
   }
 
   registerPlayercompetition(userId: number, invite: string): Observable<any> {
-    console.log('registerPlayerCompetition', userId, invite)
+    console.log('registerPlayerCompetition', userId, invite);
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     return this.httpClient
       .post(

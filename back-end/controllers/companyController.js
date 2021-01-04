@@ -12,10 +12,10 @@ exports.addCompany = async function (req, res) {
   }
 }
 
-exports.getCompany = async function (req, res) {
+exports.getMyCompany = async function (req, res) {
   try {
     // console.log(req.body)
-    const results = await db.getCompany(req, res)
+    const results = await db.getMyCompany(req, res)
     res.json(results)
   } catch (e) {
     console.log(e)
@@ -37,6 +37,16 @@ exports.addEvaluation = async function (req, res) {
   try {
     console.log(req.body)
     const results = await evaluationRep.addEvaluation(req, res)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+
+exports.updateCompany = async function (req, res) {
+  try {
+    const results = await db.updateCompany(req.body)
     res.json(results)
   } catch (e) {
     console.log(e)

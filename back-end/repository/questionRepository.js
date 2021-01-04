@@ -92,5 +92,22 @@ module.exports = {
     } catch (error) {
       return error
     }
+  },
+
+  async getQuestionsAndAnswers (userId) {
+    const playerComp = await models.PlayerCompetition.findOne({ where: { playerId: userId } })
+    if (playerComp) {
+      return await models.Question.findAll({
+        where: {
+          competitionId: playerComp.dataValues.competitionId, isSelected: true
+        },
+        order: [
+          ['order', 'ASC']
+        ],
+        include: [
+          'responses'
+        ]
+      })
+    }
   }
 }

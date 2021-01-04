@@ -15,8 +15,15 @@ module.exports = {
 
   async getById (id) {
     const competition = await models.Competition.findByPk(id)
-
+    console.log(competition)
     return models.Competition.build(competition.dataValues)
+  },
+
+  async getByPlayerCompId (id) {
+    const playerComp = await models.PlayerCompetition.findByPk(id)
+    if (playerComp) {
+      return await models.Competition.findByPk(playerComp.dataValues.competitionId)
+    }
   },
 
   async addCompetition (req, res) {
@@ -49,7 +56,7 @@ module.exports = {
         await questionRepository.loadQuestions(competition.dataValues)
         res.status(200).json(competition)
       } catch (error) {
-        res.status(400).json(error)
+
       }
     } else {
       res.status(400).json('No Tenant associated')

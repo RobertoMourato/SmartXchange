@@ -31,7 +31,7 @@ module.exports = {
     }
   },
 
-  async getCompany (req, res) {
+  async getMyCompany (req, res) {
     const userId = req.query.userId
     const playerComp = await models.PlayerCompetition.findOne({ where: { playerid: userId } })
     if (playerComp) {
@@ -41,6 +41,20 @@ module.exports = {
         console.log(error)
         res.status(400).json(error)
       }
+    }
+  },
+
+  async updateCompany (body) {
+    const company = await models.Company.findOne({ where: { id: body.id, playerCompetitionId: body.playerCompetitionId } })
+
+    if (company) {
+      models.Company.update(
+        {
+          companyName: body.companyName,
+          companyWebsiteURL: body.companyWebsiteURL,
+          companyShortPitch: body.companyShortPitch
+        },
+        { where: { id: body.id } })
     }
   }
 }
