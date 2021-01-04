@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Market } from './market';
+import { Router } from '@angular/router';
+import { MarketPageService } from './market-page.service'
 
 @Component({
   selector: 'app-market-page',
@@ -18,9 +20,12 @@ export class MarketPageComponent implements OnInit {
   dataSource = this.market;
 
 
-  constructor() { }
+  constructor(private marketService: MarketPageService, router: Router) { }
 
   ngOnInit(): void {
+    this.marketService.GetCompanyByCompetitionId("1").subscribe(data => {
+      console.log(data)
+    })
   }
 
 }

@@ -5,5 +5,6 @@ const companyController = require('../controllers/companyController.js')
 
 router.get('/getcompany', companyController.getCompany)
 router.post('/createComp', companyController.addCompany)
+router.get('/getcompanybycompetitionid', companyController.getCompanyByCompetitionId)
 
 module.exports = router

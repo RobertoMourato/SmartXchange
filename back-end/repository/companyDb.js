@@ -42,5 +42,18 @@ module.exports = {
         res.status(400).json(error)
       }
     }
+  },
+
+  async getCompanyByCompetitionId (competitionId) {
+    //const playerComp = await models.PlayerCompetition.findAll({ where: { competitionId: competitionId } })
+    console.log("entrou1")
+    return await models.PlayerCompetition.findAll({
+      where: {
+        competitionId: competitionId
+      },
+      include: {
+        model: models.Company
+      }
+    })
   }
 }
