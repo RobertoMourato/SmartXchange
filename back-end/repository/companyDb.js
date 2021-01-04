@@ -31,7 +31,7 @@ module.exports = {
       res.status(400).json('No company name associated')
     }
   },
-  async startCompaniesStocksAndOrders (competitionId, competitionInitialStockValue,competitionNumStocks) {
+  async startCompaniesStocksAndOrders (competitionId, competitionInitialStockValue, competitionNumStocks) {
     const companies = await models.Company.findAll(
       {
         include: [{
