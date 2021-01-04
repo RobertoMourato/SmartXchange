@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
   userType: UserType;
   competition: Competition;
   playerCompetition: PlayerCompetition;
-  competition: Competition;
   ngOnInit(): void {}
   login(email: string, password: string): void {
     if (!this.validateForm(email, password)) {
@@ -54,7 +53,7 @@ export class LoginComponent implements OnInit {
                 window.location.replace(
                   '/chooseType?playerCompetition=' + this.playerCompetition.id
                 );
-              });*/
+              });
           } else {
             window.location.replace('/portfolio');
           }
