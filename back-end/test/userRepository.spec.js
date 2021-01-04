@@ -104,7 +104,7 @@ describe('../repository/userRepository', () => {
       isValid: 'true',
       email: 'mamaa@gmail.com',
       createdAt: '',
-      updatedAt: '',
+      updatedAt: ''
     }
   }, {
     dataValues: {
@@ -116,7 +116,7 @@ describe('../repository/userRepository', () => {
       isValid: 'true',
       email: 'mamaa@gmail.com',
       createdAt: '',
-      updatedAt: '',
+      updatedAt: ''
     }
   }
   ]
@@ -137,7 +137,7 @@ describe('../repository/userRepository', () => {
     after(sinon.resetHistory)
 
     it('called UserType.findOne, find userType', () => {
-      console.log('reTT',requestData.userType)
+      console.log('reTT', requestData.userType)
       chai.expect(mockModels.UserType.findOne).to.have.been.calledWith(sinon.match({ where: { userType: requestData.userType } }))
     })
 
@@ -146,7 +146,7 @@ describe('../repository/userRepository', () => {
     })
 
     it('called User.create, create User', () => {
-       console.log(createArgs);
+      console.log(createArgs)
       chai.expect(mockModels.User.create).to.have.been
         .calledWith({
           name: createArgs.name,
@@ -155,7 +155,7 @@ describe('../repository/userRepository', () => {
           password: createArgs.password,
           tenantId: createArgs.tenantId,
           userTypeId: createArgs.userTypeId,
-          managerId:createArgs.managerId
+          managerId: createArgs.managerId
         })
     })
 
@@ -180,7 +180,7 @@ describe('../repository/userRepository', () => {
 
     after(sinon.resetHistory)
 
-  /*  it('called UserType.findOne, find userType', () => {
+    /*  it('called UserType.findOne, find userType', () => {
       chai.expect(mockModels.UserType.findOne).to.have.been.calledWith(sinon.match({ where: { userType: requestDataManager.userType } }))
     })
 

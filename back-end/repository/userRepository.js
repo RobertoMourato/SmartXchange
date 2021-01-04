@@ -66,6 +66,7 @@ module.exports = {
       } else {
         if (manager) {
           try {
+            console.log('add')
             const user = await models.User.create({
               name: name,
               username: username,
@@ -75,6 +76,7 @@ module.exports = {
               userTypeId: null,
               managerId: manager.dataValues.id
             })
+            console.log('added')
             this.invalidToken(inviteToken)
             return await models.User.build(user.dataValues)
             // console.log('user',user)
@@ -101,7 +103,8 @@ module.exports = {
         User = user
       })
       .catch(error => {
-        res.status(400).send(error)
+        console.log(error)
+        // res.status(400).send(error)
         return null
       })
 
@@ -165,5 +168,35 @@ module.exports = {
   async deleteUser (req) {
     console.log('entrou')
     await models.User.destroy({ where: { username: req.body.username } })
+  },
+
+  async completeRegistration (userT, playerCompetitionId) {
+    console.log(userT, playerCompetitionId)
+    const type = await models.UserType.findOne({ where: { userType: userT } })
+
+    if (type) {
+      await models.PlayerCompetition.update(
+        { completedRegistration: true },
+        {
+          where: { id: playerCompetitionId }
+        })
+
+      const pc = await models.PlayerCompetition.findByPk(playerCompetitionId)
+      console.log('pc', pc)
+      if (pc) {
+        await models.User.update(
+          { userTypeId: type.dataValues.id },
+          { where: { id: pc.dataValues.playerId } })
+
+        const user = await models.User.findOne(
+          { where: { id: pc.dataValues.playerId } }
+        )
+        return user
+      } else {
+        return null
+      }
+    } else {
+      return null
+    }
   }
 }
