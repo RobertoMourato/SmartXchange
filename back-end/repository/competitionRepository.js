@@ -37,7 +37,7 @@ module.exports = {
       competitionRefreshRate, competitionNumStocks, questions
     } = req.body
 
-    if (manager) {
+    if (tenant) {
       try {
         console.log('aqui')
         const managerId = manager.dataValues.id

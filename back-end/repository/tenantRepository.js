@@ -44,6 +44,7 @@ module.exports = {
     } else {
       res.status(400).json('Ivalid arguments!')
     }
+
   },
 
   async getByEmail (email) {
@@ -52,4 +53,6 @@ module.exports = {
       return models.Tenant.build(tenant.dataValues)
     } else { return null }
   }
+
+
 }

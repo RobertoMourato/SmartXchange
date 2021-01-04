@@ -11,7 +11,7 @@ module.exports = {
       userType: {
         type: Sequelize.STRING
       },
-      isManager: {
+      isEntrepreneur: {
         type: Sequelize.BOOLEAN
       },
       createdAt: {
