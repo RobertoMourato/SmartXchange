@@ -65,12 +65,8 @@ exports.testMatchOrders = async function (req, res) {
   try {
     const results = await orderRepository.matchOrders(1)
 
-
     res.json(results)
-
   } catch (error) {
     res.json(error.message).status(500)
   }
-
-
 }

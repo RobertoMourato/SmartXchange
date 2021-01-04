@@ -35,7 +35,7 @@ exports.getUserById = async function (req, res) {
 
 exports.getWallet = async function (req, res) {
   try {
-    const results = await dbUser.getWallet(req.query.userId,req.query.competitionId)
+    const results = await dbUser.getWallet(req.query.userId, req.query.competitionId)
     if (results !== null) {
       res.json(results)
     } else {

@@ -59,7 +59,7 @@ exports.addEvaluation = async function (req, res) {
 exports.getCompanyByCompetitionId = async function (req, res) {
   try {
     // console.log(req.body)
-    const results = await db.getCompanyByCompetitionId(req.query.competitionId);
+    const results = await db.getCompanyByCompetitionId(req.query.competitionId)
     res.json(results)
   } catch (e) {
     console.log(e)
@@ -78,7 +78,7 @@ exports.updateCompany = async function (req, res) {
 
 exports.testeStartCompStocks = async function (req, res) {
   try {
-    const results = await companyDb.startCompaniesStocks(1,1)
+    const results = await companyDb.startCompaniesStocks(1, 1)
     res.json(results).status(200)
   } catch (e) {
     console.log(e)
