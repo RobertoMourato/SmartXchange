@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 
 import { SortQuestionsComponent, NewQuestionDialogComponent } from './sort-questions/sort-questions.component';
-
-import { MainNavComponent } from '../main-nav/main-nav.component';
+import { CompetitionService } from './competition.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,10 +10,38 @@ import { MainNavComponent } from '../main-nav/main-nav.component';
   templateUrl: './new-competition.component.html',
   styleUrls: ['./new-competition.component.css', '../app.component.css']
 })
-export class NewCompetitionComponent implements OnInit {
+export class NewCompetitionComponent implements AfterViewInit {
 
-  ngOnInit(): void {
+  @ViewChild(SortQuestionsComponent) child;
+
+  constructor(private competitionService: CompetitionService, router: Router) {}
+
+  ngAfterViewInit(): void {
+    const questions = this.child.questions;
   }
+
+  // invite_player(){
+    
+  // }
+
+  add_draft(cashAmmount: string, initialValue: string, refresh: string, stocks: string,){
+    const manager_Id = window.sessionStorage.getItem('userid');
+    const endDate =  new Date();
+    const initialBudget = cashAmmount;
+    const initialStock = initialValue;
+    const refreshRate = refresh;
+    const numStocks = stocks;
+    const qs = this.child.questions;
+    this.competitionService.add_draft(manager_Id, endDate, initialBudget, initialStock, refreshRate, numStocks, qs).subscribe(
+      (data) => {
+        console.log(data);
+      }
+    );
+  }
+
+  // start_competition(){
+
+  // }
 
   formatLabel(value: number): string {
     const hours = Math.floor(value);

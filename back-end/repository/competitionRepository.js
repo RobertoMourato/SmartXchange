@@ -45,8 +45,6 @@ module.exports = {
         const competition = await models.Competition.update({
           competitionStartDate: competitionStartDate,
           competitionEndDate: competitionEndDate,
-          competitionMarketOpening: competitionMarketOpening,
-          competitionMarketEnding: competitionMarketEnding,
           competitionInitialBudget: competitionInitialBudget,
           competitionInitialStockValue: competitionInitialStockValue,
           competitionRefreshRate: competitionRefreshRate,

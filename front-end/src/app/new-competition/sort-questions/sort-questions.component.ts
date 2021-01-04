@@ -31,6 +31,7 @@ export class SortQuestionsComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(NewQuestionDialogComponent, {
       width: '50%',
+      // height: '25%',
       data: {question: this.question}
     });
 
@@ -56,9 +57,9 @@ export class NewQuestionDialogComponent {
     public dialogRef: MatDialogRef<NewQuestionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: NewQuestion) {}
 
-  // onNoClick(): void {
-  //   this.dialogRef.close();
-  // }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 }
 
 
