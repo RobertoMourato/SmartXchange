@@ -15,8 +15,7 @@ import { UserType } from './userType';
 export class RegisterComponent implements OnInit {
   constructor(
     private registerService: RegisterService,
-    router: Router,
-    private LoginService: LoginService
+    router: Router
   ) {}
 
   isShown = true;

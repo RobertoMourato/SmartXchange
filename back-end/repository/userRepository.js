@@ -123,7 +123,7 @@ module.exports = {
   async changeWallet (userId, competitionId, num) {
     const wallet = await models.PlayerCompetition.findOne({ where: { playerId: userId, competitionId: competitionId } })
     if (wallet) {
-      return await wallet.increment('wallet', { by: num });
+      return await wallet.increment('wallet', { by: num })
     } else {
       return null
     }

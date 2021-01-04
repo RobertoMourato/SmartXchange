@@ -4,9 +4,9 @@ export class StockValue{
     constructor(
       stockValue: number|null,
       stockValueDate: Date|null
-      ) { 
+      ) {
         this.stockValue = stockValue;
-        this.stockValueDate = stockValueDate
+        this.stockValueDate = stockValueDate;
       }
-};
+}
 

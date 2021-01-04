@@ -16,7 +16,7 @@ export class Company{
       companyCurrentStockPrice: number|null,
       stockValue: number|null,
       stockValueDate: Date|null
-      ) { 
+      ) {
         this.id = id;
         this.playerCompetitionId = playerCompetitionId;
         this.companyName = companyName;
@@ -24,7 +24,7 @@ export class Company{
         this.companyShortPitch = companyShortPitch;
         this.companyCurrentStockPrice = companyCurrentStockPrice;
         this.stockValue = stockValue;
-        this.stockValueDate = stockValueDate
+        this.stockValueDate = stockValueDate;
       }
-};
+}
 

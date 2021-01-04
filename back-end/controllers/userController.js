@@ -35,7 +35,7 @@ exports.getUserById = async function (req, res) {
 
 exports.getWallet = async function (req, res) {
   try {
-    const results = await dbUser.getWallet(req.query.userId,req.query.competitionId)
+    const results = await dbUser.getWallet(req.query.userId, req.query.competitionId)
     if (results !== null) {
       res.json(results)
     } else {
@@ -48,7 +48,7 @@ exports.getWallet = async function (req, res) {
 }
 exports.getWallet = async function (req, res) {
   try {
-    const results = await dbUser.getWallet(req.query.userId,req.query.competitionId)
+    const results = await dbUser.getWallet(req.query.userId, req.query.competitionId)
     if (results !== null) {
       res.json(results)
     } else {
@@ -60,7 +60,7 @@ exports.getWallet = async function (req, res) {
   }
 }
 
-exports.changeWallet= async function (req, res) {
+exports.changeWallet = async function (req, res) {
   try {
     const results = await dbUser.changeWallet(req.query.userId, req.query.competitionId, req.query.num)
     if (results !== null) {

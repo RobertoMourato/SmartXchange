@@ -38,21 +38,21 @@ export class PortfolioComponent implements OnInit {
 
   ngOnInit(): void {
     this.pendingOffers = new Array<Offer>();
-    
-    
+
+
     this.getPendingOrders();
     this.getCompletedOrders();
 
-    
+
   }
 
-  getPendingOrders() {
+  getPendingOrders(): void{
     const username = window.sessionStorage.getItem('user');
-    //console.log(username);
+    // console.log(username);
     const arr = [];
     this.portfolioService.getPendingOrders(username).subscribe((data) => {
        console.log('Pending data', data);
-      data.forEach((element) => {
+       data.forEach((element) => {
         if (element.Company == null) {
           return;
         }
@@ -67,19 +67,19 @@ export class PortfolioComponent implements OnInit {
           date: element.createdAt
         });
       });
-      this.pendingDataSource = new MatTableDataSource<Offer>(arr);
+       this.pendingDataSource = new MatTableDataSource<Offer>(arr);
     });
   }
 
-  getCompletedOrders() {
+  getCompletedOrders(): void{
     const username = window.sessionStorage.getItem('user');
-    console.log('completed',username);
-    const arr =[];
+    console.log('completed', username);
+    const arr = [];
     this.portfolioService.getCompletedOrders(username).subscribe((data) => {
-      console.log('data',data)
+      console.log('data', data);
       data.forEach((element) => {
         if (element.Company == null) {
-          console.log('No company')
+          console.log('No company');
           return;
         }
         arr.push({
@@ -94,10 +94,10 @@ export class PortfolioComponent implements OnInit {
       });
       this.completedDataSource = new MatTableDataSource<Offer>(arr);
     });
-    console.log('completed',this.completedDataSource)
+    console.log('completed', this.completedDataSource);
   }
 
-  cancelOrder(id: number) {
+  cancelOrder(id: number): void{
     this.portfolioService.cancelOrder(id).subscribe((data) => {
       alert(data);
       this.getPendingOrders();

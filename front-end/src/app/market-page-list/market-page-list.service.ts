@@ -33,9 +33,10 @@ export class MarketPageListService {
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     return this.httpClient.get<any>(this.url + '/competition/getCompetition?competitionId=' + competitionId, {headers: header});
   }
-  changeWallet(userId:string, competitionId: string ,num: number): Observable<any>{
+  changeWallet(userId: string, competitionId: string , num: number): Observable<any>{
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
-    return this.httpClient.put<any>(this.url + '/users/changewallet?userId=' + userId + '&competitionId=' + competitionId + '&num=' + num, {headers: header});
+    return this.httpClient.put<any>(this.url + '/users/changewallet?userId=' + userId +
+                                    '&competitionId=' + competitionId + '&num=' + num, {headers: header});
   }
   placeOrder(body: string): Observable<any>{
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
