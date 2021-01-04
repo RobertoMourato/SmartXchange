@@ -64,3 +64,18 @@ exports.inviteUser = async function (req, res) {
     return res.status(500)
   }
 }
+
+exports.getManagersInvites = async function (req, res) {
+  try {
+    console.log(req.query.superAdminId)
+    const invites = await inviteRep.getManagersInvites(req.query.superAdminId)
+    if (invites) {
+      res.json(invites).status(200)
+    } else {
+      res.status(400)
+    }
+  } catch (error) {
+    console.log(e)
+    return res.status(500)
+  }
+}
