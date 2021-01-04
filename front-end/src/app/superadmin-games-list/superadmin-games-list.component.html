@@ -41,10 +41,12 @@
          <div>
           <strong><br>Players:</strong>
           <br>
-          Afonso Teles<br>
-          Maria Teixeira<br>
-          Bernardo Branco<br>
-        </div>
+          <ul>
+            <li *ngFor="let name of game.playerNames">
+               {{ name }}
+            </li>
+          </ul>
+         </div>
         <div >
           <button mat-raised-button waves-effect class="end-game-button" (click)="openDialog()">End Game</button>
         </div>
