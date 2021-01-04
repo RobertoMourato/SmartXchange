@@ -87,7 +87,7 @@ module.exports = {
           }
         })
 
-        this.startStocksAndOrdersForExistingCompanies(competition.dataValues.id, competition.dataValues.competitionInitialStockValue)
+        this.startStocksAndOrdersForExistingCompanies(competition.dataValues.id, competition.dataValues.competitionInitialStockValue, competitionNumStocks)
         setInterval(orderRepository.matmatchOrders(competition.dataValues.id), competition.dataValues.competitionRefreshRate * 100)
 
         res.status(200).json(competition)
@@ -98,8 +98,8 @@ module.exports = {
       res.status(400).json('No Tenant associated')
     }
   },
-  async startStocksAndOrdersForExistingCompanies (competitionId, competitionInitialStockValue) {
-    await companyRepository.startCompaniesStocksAndOrders(competitionId, competitionInitialStockValue)
+  async startStocksAndOrdersForExistingCompanies (competitionId, competitionInitialStockValue, competitionNumStocks) {
+    await companyRepository.startCompaniesStocksAndOrders(competitionId, competitionInitialStockValue, competitionNumStocks)
   },
   async getCurrDraftOrCompetition (managerId) {
     try {
