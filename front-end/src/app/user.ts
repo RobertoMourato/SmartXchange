@@ -1,4 +1,3 @@
-import { EmailForInvite } from './create-manager-popup/create-manager-popup.component';
 
 export interface User {
   id: number;

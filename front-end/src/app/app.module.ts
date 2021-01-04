@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,6 +21,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CreateManagerPopupComponent } from './create-manager-popup/create-manager-popup.component';
+import { CreateManagerPopupDialogComponent } from './create-manager-popup/create-manager-popup.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -54,7 +56,8 @@ import { SuperadminGamesListComponent } from './superadmin-games-list/superadmin
     RegisterComponent,
     CompanyComponent,
     ChooseTypeComponent,
-    NewCompanyComponent
+    NewCompanyComponent,
+    CreateManagerPopupDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +84,8 @@ import { SuperadminGamesListComponent } from './superadmin-games-list/superadmin
     CommonModule,
     RouterModule,
     MatCardModule,
-    MatRadioModule
+    MatRadioModule,
+    ReactiveFormsModule
   ],
   providers: [DatePipe, NewCompanyComponent, UserService],
   bootstrap: [AppComponent]

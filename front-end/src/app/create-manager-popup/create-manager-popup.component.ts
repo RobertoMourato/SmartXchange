@@ -1,9 +1,9 @@
 import {Component, Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { EmailService } from '../email.service';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
-export interface EmailForInvite {
-  email: string;
-}
+
 
 @Component({
   selector: 'app-create-manager-popup',
@@ -12,7 +12,6 @@ export interface EmailForInvite {
 })
 export class CreateManagerPopupComponent {
 
-  email: string;
 
   constructor(public dialog: MatDialog) { }
 
@@ -24,8 +23,6 @@ export class CreateManagerPopupComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.email = result; // check what happens if no input
-      console.log(this.email);
     });
   }
 
@@ -37,8 +34,6 @@ export class CreateManagerPopupComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.email = result; // check what happens if no input
-      console.log(this.email);
     });
   }
 
@@ -51,13 +46,20 @@ export class CreateManagerPopupComponent {
 })
 export class CreateManagerPopupDialogComponent {
 
+  public email: string;
+
   constructor(
-    public dialogRef: MatDialogRef<CreateManagerPopupDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: EmailForInvite) {}
+    public dialogRef: MatDialogRef<CreateManagerPopupDialogComponent>, private emailService: EmailService) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  sendEmail() {
+    const invitedBy = window.sessionStorage.getItem('user');
+    this.emailService.sendEmail(this.email, invitedBy);
+  }
+
 
 }
 
@@ -69,7 +71,7 @@ export class SeeInvitesPopupDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<SeeInvitesPopupDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: EmailForInvite) {}
+    @Inject(MAT_DIALOG_DATA) public emailForInvite: string) {}
 
   onNoClick(): void {
     this.dialogRef.close();

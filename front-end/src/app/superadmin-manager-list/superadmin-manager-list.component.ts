@@ -84,6 +84,8 @@ export class SuperadminManagerListComponent implements OnInit {
     this.userService.deleteManager(id);
   }
 
+
+
 }
 
 
