@@ -64,6 +64,8 @@ import { MatRadioModule } from '@angular/material/radio';
     MatInputModule,
     MatCardModule,
     AngularEditorModule,
+    MatTableModule,
+    MatRadioModule
   ],
   exports: [],
   providers: [DatePipe,NewCompanyComponent],

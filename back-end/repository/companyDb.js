@@ -94,7 +94,7 @@ module.exports = {
 
   async getCompanyByCompetitionId (competitionId) {
     //const playerComp = await models.PlayerCompetition.findAll({ where: { competitionId: competitionId } })
-    console.log("entrou1")
+    //console.log("entrou1")
     return await models.PlayerCompetition.findAll({
       where: {
         competitionId: competitionId
