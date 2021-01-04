@@ -14,6 +14,7 @@ import { map } from 'rxjs/operators';
 import { flatMap } from 'rxjs/operators';
 import { User } from '../user';
 import { forkJoin } from 'rxjs';
+import { UserService } from '../user.service';
 
 
 @Component({
@@ -42,7 +43,7 @@ export class SuperadminGamesListComponent implements OnInit {
 
   games: Observable<GameToStore[]>;
 
-  constructor(public dialog: MatDialog, private competitionService: CompetitionService) {
+  constructor(public dialog: MatDialog, private competitionService: CompetitionService, private userService: UserService) {
 
   }
 
@@ -51,10 +52,12 @@ export class SuperadminGamesListComponent implements OnInit {
     this.getGames();
   }
 
+
+
+
   getGames(): void {
     this.games = this.competitionService.getGames().pipe(flatMap(games => this.convertGameData(games)));
   }
-
 
   convertGameData(games: Game[]): Observable<GameToStore[]> {
     return forkJoin(games.map(game => this.convertToGameToStore(game)));
@@ -62,7 +65,7 @@ export class SuperadminGamesListComponent implements OnInit {
 
   convertToGameToStore(game: Game): Observable<GameToStore> {
 
-    var newStatus = new String;
+    var newStatus: string;
     var today = new Date();
 
 
@@ -75,9 +78,16 @@ export class SuperadminGamesListComponent implements OnInit {
     if (today > newStartDate && today > newEndDate)
       newStatus = "COMPLETED";
 
-    return this.competitionService.getPlayerNamesFromGame(game.id).pipe(
-      map((playerList: User[]) => playerList.map((player: User) => player.name)),
-      map((newPlayerNames: string[]) => ({
+    forkJoin({ playerList: this.competitionService.getPlayerNamesFromGame(game.id).pipe(
+      map((playerList: User[]) => playerList.map((player: User) => player.name))),
+      managerName: this.userService.getManagerByCompetitionId(game.id).pipe(
+        map((user: User) => user.name)) });
+
+    return forkJoin({ playerList: this.competitionService.getPlayerNamesFromGame(game.id).pipe(
+          map((playerList: User[]) => playerList.map((player: User) => player.name))),
+          managerName: this.userService.getManagerByCompetitionId(game.id).pipe(
+        map((user: User) => user.name)) }).pipe(
+      map((gameInfo: {playerList: string[], managerName: string}) => ({
         id: game.id,
         managerId: game.managerId,
         competitionStartDate: game.competitionStartDate,
@@ -90,7 +100,8 @@ export class SuperadminGamesListComponent implements OnInit {
         competitionNumStocks: game.competitionNumStocks,
         competitionHasStarted: game.competitionHasStarted,
         status: newStatus,
-        playerNames: newPlayerNames,
+        playerNames: gameInfo.playerList,
+        managerName: gameInfo.managerName,
     })));
   }
 
@@ -130,7 +141,8 @@ export class SuperadminGamesListComponent implements OnInit {
     competitionInitialRefreshRate: number;
     competitionNumStocks: number;
     competitionHasStarted: number;
-    status: String;
-    playerNames: String[];
+    status: string;
+    playerNames: string[];
+    managerName: string;
   }
 

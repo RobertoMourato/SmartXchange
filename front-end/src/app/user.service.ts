@@ -11,9 +11,12 @@ export class UserService {
 
 
 
- getUsers():Observable<User[]>  {
-    return this.http.get<User[]>('/api/users/all');
+  getUsers():Observable<User[]> {
+      return this.http.get<User[]>('/api/users/all');
+    }
 
+  getManagerByCompetitionId(id: number):Observable<User> {
+    return this.http.get<User>('/api/users/manager/byCompetition?competitionId=' + id);
   }
 
  /*getInvites():Observable<Invite[]> {
