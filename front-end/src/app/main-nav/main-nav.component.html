@@ -8,7 +8,7 @@
     [opened]="(isHandset$ | async) === false"
   >
     <mat-nav-list>
-      <a mat-list-item class="big-icons" href="#">
+      <a mat-list-item class="big-icons" [routerLink]=""  (click)="redirect()">
         <mat-icon matListIcon>home</mat-icon>
         <span>Home</span>
       </a>
