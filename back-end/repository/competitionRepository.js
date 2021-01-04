@@ -80,7 +80,7 @@ module.exports = {
         });
 
         this.startStocksAndOrdersForExistingCompanies(competition.dataValues.id, competition.dataValues.competitionInitialStockValue)
-        //setInterval(matchOrder(competitionId),RefreshRate em milisegundos)
+        setInterval(matchOrder(competitionId), competition.dataValues.competitionRefreshRate * 1000)
 
         res.status(200).json(competition)
       } catch (error) {

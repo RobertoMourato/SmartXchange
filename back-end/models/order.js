@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate (models) {
       this.belongsTo(models.User, { foreignKey: 'playerId', as: 'player' })
-      this.hasMany(models.StockExchange, { foreignKey: 'buyOrderId' })
-      this.hasMany(models.StockExchange, { foreignKey: 'sellOrderId' })
+      this.hasMany(models.StockExchange, { foreignKey: 'buyOrderId' , as: 'buyExchanges'})
+      this.hasMany(models.StockExchange, { foreignKey: 'sellOrderId', as: 'sellExchanges' })
       this.belongsTo(models.Company, { foreignKey: 'companyId'})
     }
   };

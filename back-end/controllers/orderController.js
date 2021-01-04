@@ -45,6 +45,20 @@ exports.getPlayerCompleteOrders = async function (req, res) {
     res.json(error).status(500)
   }
 }
+exports.getPlayerPartiallyMatchedOrders = async function (req, res) {
+  console.log(req.query)
+  const userId = req.query.userId
+  const competitionId = req.query.competitionId
+  console.log(userId)
+  try {
+    const results = await orderRepository.getPlayerPartiallyMatchedOrders(userId, competitionId)
+    console.log(results)
+    // if (results.player.PlayerCompetition[0]) { }
+    res.json(results).status(200)
+  } catch (error) {
+    res.json(error).status(500)
+  }
+}
 
 exports.cancelOrder = async function (req, res) {
   const id = req.params.id
