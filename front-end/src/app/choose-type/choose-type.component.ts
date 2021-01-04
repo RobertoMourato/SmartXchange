@@ -30,7 +30,7 @@ export class ChooseTypeComponent implements AfterViewInit {
     console.log(this.compName);
   }
 
-  showCompany(): boolean{
+  showCompany(): boolean {
     if (this.userType === 'Entrepreneur') {
       return true;
     }

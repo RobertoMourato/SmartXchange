@@ -46,7 +46,7 @@ export class PortfolioComponent implements OnInit {
 
   }
 
-  getPendingOrders(): void{
+  getPendingOrders(): void {
     const username = window.sessionStorage.getItem('user');
     // console.log(username);
     const arr = [];

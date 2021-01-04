@@ -32,5 +32,30 @@ module.exports = {
     } else {
       res.status(400).json('No competition associated')
     }
+  },
+
+  async calculatePointsInvestors (competitionId) {
+    const users = await models.PlayerCompetition.findAll({
+      where: {
+        competitionId: competitionId
+      }
+    })
+    const competition = await models.PlayerCompetition.findOne({
+      where: { id: competitionId }
+    })
+    const rankings = []
+    users.forEach(async element => {
+      const player = element.dataValues
+
+      const r = await models.Ranking.build({
+        playerCompetitionId: competitionId,
+        rankingType: 'Investor',
+        rankingPoints: player.wallet - competition.competitionInitialBudget
+      })
+      rankings.push(r)
+    })
+
+    // sort pelos rankingPoint
+    // create ranking
   }
 }

@@ -36,5 +36,32 @@ module.exports = {
     } else {
       res.status(400).json('No company or user associated')
     }
+  },
+  async addInitialCompanyStocksAndOrders (companyId, competitionInitialStockValue) {
+    const stocks = []
+    try {
+      for (let index = 0; index < 10; index++) {
+        const stock = await models.Stock.create({
+          companyId: companyId,
+          stockValue: competitionInitialStockValue
+        })
+
+        stocks.push(stock)
+
+        /* const order = await models.Order.create({
+          companyId: companyId,
+          orderNumStock: 1,
+          orderValue: competitionInitialStockValue,
+          orderDate: new Date(),
+          orderType: 'Sell',
+          orderStatus: 'Pending'
+        }) */
+      }
+
+      return stocks
+    } catch (error) {
+      console.log(error)
+      return null
+    }
   }
 }

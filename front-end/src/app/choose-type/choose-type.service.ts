@@ -11,11 +11,11 @@ export class ChooseTypeService {
   // private url = 'http://localhost:5000'
   constructor(private httpClient: HttpClient) { }
 
-  completeRegistration(userType: string, playerCompetitionId: string): Observable<any>{
+  completeRegistration(userType: string, playerCompetitionId: string): Observable<object>{
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
-    return this.httpClient.put(this.url + '/users/completeRegistration?userType=' + userType +
-                               '&playerCompetitionId=' + playerCompetitionId, {headers: header})
-                               .pipe(map(this.extractData));
+    return this.httpClient.put(this.url + '/users/completeRegistration?userType=' +
+    userType + '&playerCompetitionId=' + playerCompetitionId, {headers: header})
+    .pipe(map(this.extractData));
   }
 
 

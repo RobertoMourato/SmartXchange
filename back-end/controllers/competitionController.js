@@ -34,6 +34,35 @@ exports.addCompetition = async function (req, res) {
     res.sendStatus(500)
   }
 }
+exports.addCompetitionDraft = async function (req, res) {
+  try {
+    console.log(req.body)
+    const currDraft = await competitionRepository.getCurrDraft(req.body.managerId)
+    if (currDraft != null) {
+      const results = await competitionRepository.addCompetitionDraft(req, res)
+      res.json(results).status(200)
+    } else {
+      res.json('There is an ongoing Competition, you cannot start another one').status(400)
+    }
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+
+exports.startCompetition = async function (req, res) {
+  try {
+    const currentCompetition = competitionRepository.getCurrDraftOrCompetition(req.query.managerId)
+    if (currentCompetition != null) {
+      const results = await competitionRepository.startCompetition(req, res)
+      res.json(results).status(200)
+    } else {
+      res.json('There is an ongoing Competition, you cannot start another one').status(400)
+    }
+  } catch (error) {
+    res.json(error.message).status(500)
+  }
+}
 
 exports.toggleCompetition = async function (req, res) {
   try {

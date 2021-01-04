@@ -30,6 +30,38 @@ module.exports = {
       res.status(400).json('No company name associated')
     }
   },
+  async startCompaniesStocksAndOrders (competitionId, competitionInitialStockValue) {
+    const companies = await models.Company.findAll(
+      {
+        include: [{
+          model: models.PlayerCompetition,
+          where: { competitionId: competitionId },
+          required: true
+        }]
+      }
+    )
+    console.log(companies)
+    /* companies.forEach(async company => {
+      const stocks = await stockRepository.addInitialCompanyStocksAndOrders(company.id, competitionInitialStockValue)
+    }) */
+  },
+
+  async getCompany (companyId) {
+    const company = await models.Company.findByPk(companyId)
+    if (company) {
+      try {
+        return await models.Company.findOne({
+          where: { id: companyId },
+          include: [{
+            model: models.StockValue
+          }]
+        })
+      } catch (error) {
+        console.log(error)
+        // res.status(400).json(error)
+      }
+    }
+  },
 
   async getMyCompany (req, res) {
     const userId = req.query.userId
@@ -56,5 +88,21 @@ module.exports = {
         },
         { where: { id: body.id } })
     }
+  },
+
+  async getCompanyByCompetitionId (competitionId) {
+    // const playerComp = await models.PlayerCompetition.findAll({ where: { competitionId: competitionId } })
+    // console.log("entrou1")
+    return await models.PlayerCompetition.findAll({
+      where: {
+        competitionId: competitionId
+      },
+      include: [{
+        model: models.Company,
+        include: {
+          model: models.StockValue
+        }
+      }]
+    })
   }
 }

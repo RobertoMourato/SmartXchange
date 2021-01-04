@@ -1,5 +1,6 @@
 const models = require('../models')
 const questionRepository = require('./questionRepository.js')
+const companyRepository = require('./companyDb')
 const inviteRepository = require('./inviteRepository')
 
 module.exports = {
@@ -19,11 +20,22 @@ module.exports = {
     return models.Competition.build(competition.dataValues)
   },
 
+  async getCurrentCompetition (managerId) {
+    try {
+      return await models.Order.findOne({ where: { managerId: managerId, competitionHasStarted: true, competitionHasFinished: false } })
+    } catch (error) {
+      return null
+    }
+  },
   async getByPlayerCompId (id) {
-    const playerComp = await models.PlayerCompetition.findByPk(id)
+    const playerComp = await models.PlayerCompetition.findOne({ where: { playerId: id } })
     if (playerComp) {
       return await models.Competition.findByPk(playerComp.dataValues.competitionId)
     }
+  },
+
+  async startCompetition (req, res) {
+
   },
 
   async addCompetition (req, res) {
@@ -32,7 +44,7 @@ module.exports = {
     const {
       competitionStartDate, competitionEndDate, competitionMarketOpening,
       competitionMarketEnding, competitionInitialBudget, competitionInitialStockValue,
-      competitionRefreshRate, competitionNumStocks
+      competitionRefreshRate, competitionNumStocks, questions
     } = req.body
 
     if (manager) {
@@ -40,8 +52,7 @@ module.exports = {
         console.log('aqui')
         const managerId = manager.dataValues.id
         console.log(managerId)
-        const competition = await models.Competition.create({
-          managerId: managerId,
+        const competition = await models.Competition.update({
           competitionStartDate: competitionStartDate,
           competitionEndDate: competitionEndDate,
           competitionMarketOpening: competitionMarketOpening,
@@ -50,19 +61,55 @@ module.exports = {
           competitionInitialStockValue: competitionInitialStockValue,
           competitionRefreshRate: competitionRefreshRate,
           competitionNumStocks: competitionNumStocks,
-          competitionHasStarted: false
+          competitionHasStarted: true,
+          competitionHasFinished: false
+        },
+        {
+          where: { managerId: managerId }, returning: true
         })
 
-        await questionRepository.loadQuestions(competition.dataValues)
+        questions.forEach(async element => {
+          if (element.id == undefined) {
+            await models.Question.create({
+              questionText: element.questionText,
+              competitionId: competition.dataValues.id,
+              order: element.order,
+              isSelected: false
+            })
+          } else {
+            await models.Question.update({
+              questionText: element.questionText,
+              competitionId: competition.dataValues.id,
+              order: element.order,
+              isSelected: false
+            }, {
+              where: { id: element.id }
+            }
+            )
+          }
+        })
+
+        this.startStocksAndOrdersForExistingCompanies(competition.dataValues.id, competition.dataValues.competitionInitialStockValue)
+        // setInterval(matchOrder(competitionId),RefreshRate em milisegundos)
+
         res.status(200).json(competition)
       } catch (error) {
-
+        res.status(400).json(error)
       }
     } else {
       res.status(400).json('No Tenant associated')
     }
   },
-
+  async startStocksAndOrdersForExistingCompanies (competitionId, competitionInitialStockValue) {
+    await companyRepository.startCompaniesStocksAndOrders(competitionId, competitionInitialStockValue)
+  },
+  async getCurrDraftOrCompetition (managerId) {
+    try {
+      return await models.Order.findOne({ where: { managerId: managerId, competitionHasFinished: false } })
+    } catch (error) {
+      return null
+    }
+  },
   async addCompetitionDraft (req, res) {
     // const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
     const manager = await models.User.findByPk(req.body.managerId)
@@ -83,7 +130,8 @@ module.exports = {
           competitionInitialStockValue: competitionInitialStockValue,
           competitionRefreshRate: competitionRefreshRate,
           competitionNumStocks: competitionNumStocks,
-          competitionHasStarted: false
+          competitionHasStarted: false,
+          competitionHasFinished: false
         })
 
         // await questionRepository.loadQuestions(competition.dataValues)
@@ -93,7 +141,7 @@ module.exports = {
 
         res.status(200).json(competition)
       } catch (error) {
-        res.status(400).json(error)
+
       }
     } else {
       res.status(400).json('No Tenant associated')

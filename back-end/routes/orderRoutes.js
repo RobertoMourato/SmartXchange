@@ -8,5 +8,6 @@ router.post('/', orderController.addOrder)
 router.get('/pending/:username', orderController.getPlayerPendingOrders)
 router.get('/completed/:username', orderController.getPlayerCompleteOrders)
 router.put('/cancel/:id', orderController.cancelOrder)
+router.get('/testMatch', orderController.testMatchOrders)
 
 module.exports = router
