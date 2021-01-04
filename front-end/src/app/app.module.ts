@@ -24,7 +24,7 @@ import { LoginComponent } from './login/login.component';
 import { MarketPageListComponent } from './market-page-list/market-page-list.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
-import { MatTableModule } from '@angular/material/table' 
+import { MatTableModule } from '@angular/material/table';
 import { DatePipe } from '@angular/common';
 import { RegisterComponent } from './register/register.component';
 import { MarketPageComponent } from './market-page/market-page.component';
@@ -68,7 +68,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatRadioModule
   ],
   exports: [],
-  providers: [DatePipe,NewCompanyComponent],
+  providers: [DatePipe, NewCompanyComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

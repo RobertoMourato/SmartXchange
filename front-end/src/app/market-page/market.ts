@@ -5,4 +5,3 @@ export interface Market {
   price: number;
   gain: number;
 }
-  

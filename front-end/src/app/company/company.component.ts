@@ -13,7 +13,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 export class CompanyComponent implements OnInit {
   newQuestions: Question[] = [];
   newAnswers: Question[] = [];
-  userType = window.sessionStorage.getItem("usertype");
+  userType = window.sessionStorage.getItem('usertype');
   company: Company;
   hasStarted = false;
   showSettings = false;
@@ -48,7 +48,7 @@ export class CompanyComponent implements OnInit {
   };
   constructor(private companyService: CompanyService, router: Router) { }
   ngOnInit(): void {
-    if(this.userType == 'Entrepreneur'){
+    if (this.userType === 'Entrepreneur'){
       this.showSettings = true;
     }
     else{
