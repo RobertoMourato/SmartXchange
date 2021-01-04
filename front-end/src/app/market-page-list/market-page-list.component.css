@@ -5,3 +5,7 @@ input, select, textarea{
     color: white;
     background: rgb(42, 40, 40);
 }
+.graph-container{
+    height: 300px;
+    width: 400px;
+}

@@ -20,4 +20,12 @@ export class MarketPageListService {
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     return this.httpClient.get<any>(this.url + '/competition/compquestion?userId=' + userId, {headers: header});
   }
+  getWallet(userId: string, competitionId: string): Observable<any>{
+    const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    return this.httpClient.get<any>(this.url + '/users/wallet?userId=' + userId + '&competitionId=' + competitionId, {headers: header});
+  }
+  getStocksOwned(userId: string, companyId: string): Observable<any>{
+    const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    return this.httpClient.get<any>(this.url + '/stocks/stocksowned?companyId=' + companyId + '&userId=' + userId, {headers: header});
+  }
 }

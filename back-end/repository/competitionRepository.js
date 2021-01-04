@@ -28,7 +28,7 @@ module.exports = {
     }
   },
   async getByPlayerCompId (id) {
-    const playerComp = await models.PlayerCompetition.findByPk(id)
+    const playerComp = await models.PlayerCompetition.findOne({ where: { playerId: id } })
     if (playerComp) {
       return await models.Competition.findByPk(playerComp.dataValues.competitionId)
     }
