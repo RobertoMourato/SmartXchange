@@ -1,3 +1,4 @@
+const companyDb = require('../repository/companyDb')
 const db = require('../repository/companyDb')
 const evaluationRep = require('../repository/evaluationRepository')
 
@@ -38,6 +39,16 @@ exports.addEvaluation = async function (req, res) {
     console.log(req.body)
     const results = await evaluationRep.addEvaluation(req, res)
     res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+
+exports.testeStartCompStocks = async function (req, res) {
+  try {
+    const results = await companyDb.startCompaniesStocks(1,1)
+    res.json(results).status(200)
   } catch (e) {
     console.log(e)
     res.sendStatus(500)
