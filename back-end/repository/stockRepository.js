@@ -10,6 +10,12 @@ module.exports = {
         res.status(400).send(error)
       })
   },
+
+  async getStocksOwned(companyId, userId){
+    const stocks = await models.Stock.findAll({ where: { playerId: userId, companyId: companyId } })
+    return stocks
+  },
+
   async addStock(req, res) {
     const company = await models.Company.findByPk(req.query.companyId)
     const user = await models.User.findByPk(req.query.playerId)

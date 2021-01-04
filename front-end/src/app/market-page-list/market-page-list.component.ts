@@ -4,6 +4,7 @@ import { MarketPageListService } from './market-page-list.service';
 import { Company } from './company';
 import { Question } from './question';
 import { StockValue } from './stockValue';
+import { Order } from './order';
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
@@ -17,9 +18,13 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 export class MarketPageListComponent implements OnInit {
   company: Company
   questions: Question[] = [];
+  orders: Order[] = [];
   stockvalues: StockValue[] = [];
   chartValues: object[] = [];
-  wallet: number
+  wallet: number;
+  maxStocks: number;
+  stocksOwned: number;
+  sellOrders: number;
 
   constructor(private marketPageListService: MarketPageListService, router: Router) { }
 
@@ -28,16 +33,16 @@ export class MarketPageListComponent implements OnInit {
     this.QuestionInfo()
     this.WalletInfo()
     this.StocksInfo()
-    this.drawChart()
+    this.OrdersInfo()
+    this.marketPageListService.getCompetition(window.sessionStorage.getItem('competitionId')).subscribe(data => {
+      this.maxStocks = data.competitionNumStocks
+    })   
   }
 
   StocksInfo(): void{
     const companyId = window.location.search.split("=")[1]
-    console.log(companyId)
     this.marketPageListService.getStocksOwned(companyId,window.sessionStorage.getItem("userid")).subscribe(data => {
-      data.forEach(element => {
-      });
-      
+      this.stocksOwned = data.length
     })
   }
 
@@ -49,7 +54,6 @@ export class MarketPageListComponent implements OnInit {
 
   QuestionInfo(): void{
     this.marketPageListService.getQuestionsAndAnswers(window.sessionStorage.getItem("userid")).subscribe(data => {
-      console.log(data)
       data.forEach( element => {
         if (typeof element.responses[0] === 'undefined'){
           element.responses[0] = new Question(element.id,
@@ -71,6 +75,80 @@ export class MarketPageListComponent implements OnInit {
                                               element.responses[0].answerText ) );
       });
     });
+  }
+
+  OrdersInfo(): void{
+    const companyId = window.location.search.split("=")[1]
+    this.marketPageListService.getOrders(companyId,window.sessionStorage.getItem("userid")).subscribe(data => {
+      var count = 0
+      data.forEach(element => {
+        this.orders = element
+        if(element.orderType == 'Sell'){
+          count++;
+        }
+      });
+      this.sellOrders=count
+    })
+  }
+
+  BuyOrder(amount: number, price: number): void{
+    if(amount <= 0 || price <= 0 ){
+      alert("Invalid Order")
+    }
+    else{
+      if(amount > this.maxStocks){
+        alert("This company has only "+this.maxStocks+" stocks")
+      }
+      else{
+        if(price*amount > this.wallet){
+          alert("Not enough money")
+        }
+        else{
+          this.wallet -= price*amount
+          this.marketPageListService.changeWallet(window.sessionStorage.getItem("userid"),window.sessionStorage.getItem("competitionId"),-(price*amount))
+          .subscribe(data => {
+            
+          })
+          const body = JSON.stringify({playerId: window.sessionStorage.getItem("userid"),
+                                       companyId: this.company.id,
+                                       orderNumStock: amount,
+                                       orderValue: price*amount,
+                                       orderDate: new Date(),
+                                       orderType: 'Buy',
+                                       orderStatus: 'Pending',
+           });
+          this.marketPageListService.placeOrder(body).subscribe(data =>{
+            alert("Order placed")
+          })
+        }
+      }
+    } 
+  }
+
+  SellOrder(amount: number, price: number): void{
+    console.log(this.sellOrders)
+    if(amount <= 0 || price <= 0 ){
+      alert("Invalid Order")
+    }
+    else{
+      if(this.stocksOwned - this.sellOrders <= 0){
+        alert("You don't have this many stocks of this company")
+      }
+      else{
+        const body = JSON.stringify({playerId: window.sessionStorage.getItem("userid"),
+                                       companyId: this.company.id,
+                                       orderNumStock: amount,
+                                       orderValue: price*amount,
+                                       orderDate: new Date(),
+                                       orderType: 'Sell',
+                                       orderStatus: 'Pending',
+           });
+          this.marketPageListService.placeOrder(body).subscribe(data =>{
+            alert("Order placed")
+          })
+        this.sellOrders ++;
+      }
+    }
   }
 
   CompanyInfo(): void{
@@ -95,7 +173,6 @@ export class MarketPageListComponent implements OnInit {
         var diff =(new Date(element.stockValueDate).getTime() - tDate.getTime()) / 1000;
         diff /= 60;
         diff = Math.abs(diff)
-        console.log(diff)
         if(diff >= 1){
           this.chartValues.push({
             "date": date,
@@ -118,7 +195,7 @@ export class MarketPageListComponent implements OnInit {
         }
           
       });
-      console.log(typeof(this.stockvalues[0].stockValueDate))
+      this.drawChart()
       this.StringToHTML("short-pitch",this.company.companyShortPitch)
     });
   }
