@@ -20,7 +20,7 @@
         <mat-icon matListIcon>emoji_events</mat-icon>
         <span>Rankings</span>
       </a>
-      <a mat-list-item class="big-icons" href="#">
+      <a mat-list-item class="big-icons" href="portfolio">
         <mat-icon matListIcon>work</mat-icon>
         <span>Portfolio</span>
       </a>
@@ -35,7 +35,7 @@
           <mat-icon matListIcon>settings</mat-icon>
           <span>Settings</span>
         </a>
-        <a mat-list-item class="big-icons">
+        <a mat-list-item (click)="logout()" class="big-icons">
           <mat-icon matListIcon>exit_to_app</mat-icon>
           <span>Log out</span>
         </a>

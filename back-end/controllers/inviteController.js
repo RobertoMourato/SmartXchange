@@ -49,7 +49,7 @@ exports.inviteUser = async function (req, res) {
 
     const invite = await inviteRep.inviteUser(req, res)
     if (invite) {
-      const emailstatus = await emailService.sendPlayerInvite(req, invite.id)
+      const emailstatus = await emailService.sendPlayerInvite(req, invite.dataValues.token)
 
       if (emailstatus == 200) {
         return res.status(emailstatus).json('Invite sent succesfully')

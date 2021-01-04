@@ -21,20 +21,27 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { MatTableModule } from '@angular/material/table' 
+import { DatePipe } from '@angular/common';
 import { RegisterComponent } from './register/register.component';
 import { NewCompanyComponent } from './new-company/new-company.component';
 import { CompanyComponent } from './company/company.component';
-import { MainNavComponent } from './main-nav/main-nav.component';
+import { ChooseTypeComponent } from './choose-type/choose-type.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
     AppComponent,
     SuperadminNavComponent,
     LoginComponent,
+    PortfolioComponent,
+    MainNavComponent,
     RegisterComponent,
     NewCompanyComponent,
     CompanyComponent,
-    MainNavComponent
+    ChooseTypeComponent
   ],
   imports: [
     BrowserModule,
@@ -49,12 +56,15 @@ import { MainNavComponent } from './main-nav/main-nav.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatTableModule,
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
     AngularEditorModule,
+    MatRadioModule
   ],
-  providers: [],
+  exports: [],
+  providers: [DatePipe,NewCompanyComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

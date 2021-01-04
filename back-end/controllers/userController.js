@@ -1,4 +1,6 @@
 const dbUser = require('../repository/userRepository')
+const competitionRepository = require('../repository/competitionRepository')
+const userRepository = require('../repository/userRepository')
 
 exports.getUsers = async function (req, res) {
   try {
@@ -20,7 +22,11 @@ exports.getUserById = async function (req, res) {
   try {
     // console.log("controller");
     const results = await dbUser.getUserById(req, res)
-    res.json(results)
+    if (results !== null) {
+      res.json(results)
+    } else {
+      res.sendStatus(500)
+    }
   } catch (e) {
     console.log(e)
     res.sendStatus(500)
@@ -29,9 +35,14 @@ exports.getUserById = async function (req, res) {
 
 exports.addUser = async function (req, res) {
   try {
-    // console.log(req.body)
-    const results = await dbUser.addUser(req, res)
-    res.json(results)
+    console.log(req.body)
+    const user = await dbUser.addUser(req, res)
+    if (user != null) {
+      const playerCompetition = await competitionRepository.addPlayerCompetitionWithInvite(user.id, req.body.inviteToken)
+      res.json({ user, playerCompetition })
+    } else {
+      res.status(400)
+    }
   } catch (e) {
     console.log(e)
     res.sendStatus(500)
@@ -78,5 +89,19 @@ exports.updateUser = async function (req, res) {
   } catch (e) {
     console.log(e)
     res.sendStatus(500)
+  }
+}
+
+exports.completeRegistration = async function (req, res) {
+  try {
+    const user = await userRepository.completeRegistration(req.query.userType, req.query.playerCompetitionId)
+    if (user != null) {
+      res.json(user).status(200)
+    } else {
+      res.json('Something went wrong').status(400)
+    }
+  } catch (error) {
+    console.log(error.message)
+    res.json(error.message).status(500)
   }
 }
