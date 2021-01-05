@@ -40,12 +40,12 @@ module.exports = {
     // const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
     const manager = await models.User.findByPk(req.body.managerId)
     const {
-      competitionStartDate, competitionEndDate, competitionMarketOpening,
+      competitionId, competitionStartDate, competitionEndDate, competitionMarketOpening,
       competitionMarketEnding, competitionInitialBudget, competitionInitialStockValue,
       competitionRefreshRate, competitionNumStocks, questions
     } = req.body
 
-    if (tenant) {
+    if (manager) {
       try {
         console.log('aqui')
         const managerId = manager.dataValues.id
@@ -61,32 +61,33 @@ module.exports = {
           competitionHasFinished: false
         },
         {
-          where: { managerId: managerId }, returning: true
+          where: { id: competitionId }, returning: true
         })
-
-        questions.forEach(async element => {
-          if (element.id == undefined) {
-            await models.Question.create({
-              questionText: element.questionText,
-              competitionId: competition.dataValues.id,
-              order: element.order,
-              isSelected: false
-            })
-          } else {
-            await models.Question.update({
-              questionText: element.questionText,
-              competitionId: competition.dataValues.id,
-              order: element.order,
-              isSelected: false
-            }, {
-              where: { id: element.id }
-            }
-            )
-          }
-        })
+        console.log(competition)
+        const counter = 0
+        // questions.forEach(async element => {
+        //   if (element.id == undefined) {
+        //     await models.Question.create({
+        //       questionText: element.questionText,
+        //       competitionId: competition.dataValues.id,
+        //       order: counter++,
+        //       isSelected: false
+        //     })
+        //   } else {
+        //     await models.Question.update({
+        //       questionText: element.questionText,
+        //       competitionId: competition.dataValues.id,
+        //       order: counter++,
+        //       isSelected: false
+        //     }, {
+        //       where: { id: element.id }
+        //     }
+        //     )
+          // }
+        // })
 
         this.startStocksAndOrdersForExistingCompanies(competition.dataValues.id, competition.dataValues.competitionInitialStockValue, competitionNumStocks)
-        setInterval(orderRepository.matmatchOrders(competition.dataValues.id), competition.dataValues.competitionRefreshRate * 100)
+        setInterval(orderRepository.matchOrders(competition.dataValues.id), competition.dataValues.competitionRefreshRate * 100)
 
         res.status(200).json(competition)
       } catch (error) {

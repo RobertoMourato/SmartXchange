@@ -29,13 +29,13 @@ export class CompetitionService {
       .pipe(map(this.extractData));
   }
 
-  start_competition(startDate:string, endDate: string, initialBudget:string, initialStock: string, refreshRate: string, numStocks:string, qs: string[]):Observable<any> {
-    const body = JSON.stringify({ competitionStartDate: startDate, competitionEndDate: endDate, competitionMarketOpening: 0,
+  start_competition(manager:string, id: string, startDate:Date, endDate: Date, initialBudget:string, initialStock: string, refreshRate: string, numStocks:string, qs: string[]):Observable<any> {
+    const body = JSON.stringify({managerId: manager, competitionId: id, competitionStartDate: startDate, competitionEndDate: endDate, competitionMarketOpening: 0,
       competitionMarketEnding: 0, competitionInitialBudget: initialBudget, competitionInitialStockValue: initialStock,
       competitionRefreshRate: refreshRate, competitionNumStocks: numStocks, questions:qs });
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     return this.httpClient
-      .post(this.url + '/competition/startCompetition', body, { headers: header })
+      .put(this.url + '/competition/startCompetition', body, { headers: header })
       .pipe(map(this.extractData));
   }
 

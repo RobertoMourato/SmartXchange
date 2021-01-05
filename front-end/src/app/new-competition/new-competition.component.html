@@ -61,7 +61,7 @@
         <button mat-button matStepperNext>Invite</button>
       </form>
       <div fxLayout="row" fxLayoutAlign="center center" > 
-        <button mat-button >Start Competition</button>
+        <button mat-button (click)="start_competition(durationslider.value,cashAmmount.value, initialValue.value, refreshslider.value, numStocks.value)" >Start Competition</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

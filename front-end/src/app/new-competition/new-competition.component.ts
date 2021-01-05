@@ -16,6 +16,7 @@ export class NewCompetitionComponent implements AfterViewInit {
 
   constructor(private competitionService: CompetitionService, router: Router) {}
 
+  competitionId: string
   ngAfterViewInit(): void {
     const questions = this.child.questions;
   }
@@ -24,7 +25,7 @@ export class NewCompetitionComponent implements AfterViewInit {
     
   // }
 
-  add_draft(cashAmmount: string, initialValue: string, refresh: string, stocks: string,){
+  add_draft(cashAmmount: string, initialValue: string, refresh: string, stocks: string){
     const manager_Id = window.sessionStorage.getItem('userid');
     const endDate =  new Date();
     const initialBudget = cashAmmount;
@@ -35,13 +36,27 @@ export class NewCompetitionComponent implements AfterViewInit {
     this.competitionService.add_draft(manager_Id, endDate, initialBudget, initialStock, refreshRate, numStocks, qs).subscribe(
       (data) => {
         console.log(data);
+        this.competitionId = data.id;
       }
     );
   }
 
-  // start_competition(){
-
-  // }
+   start_competition(duration: number, cashAmmount: string, initialValue: string, refresh: string, stocks: string){
+    const manager = window.sessionStorage.getItem('userid');
+    const startDate =  new Date();
+    const seconds = duration*60*60;
+    const endDate = new Date(startDate.getTime() + seconds);
+    const initialBudget = cashAmmount;
+    const initialStock = initialValue;
+    const refreshRate = refresh;
+    const numStocks = stocks;
+    const qs = this.child.questions;
+      this.competitionService.start_competition(manager,this.competitionId, startDate,endDate,initialBudget, initialStock, refreshRate, numStocks,qs).subscribe(
+        (data) => {
+          console.log(data);
+        }
+      );
+   }
 
   formatLabel(value: number): string {
     const hours = Math.floor(value);
