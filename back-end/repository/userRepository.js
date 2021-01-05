@@ -44,7 +44,7 @@ module.exports = {
     if (invite.dataValues.isValid) {
       const manager = await models.User.findByPk(invite.dataValues.invitedBy)
 
-      if (invite.dataValues.isManager == true && manager == true) {
+      if (invite.dataValues.isManager === true && manager === true) {
         try {
           const user = await models.User.create({
             name: name,
@@ -209,7 +209,11 @@ module.exports = {
         const user = await models.User.findOne(
           { where: { id: pc.dataValues.playerId } }
         )
-        return user
+        const competition = await models.Competition.findOne({
+          where: { id: pc.dataValues.competitionId }
+        })
+
+        return { user, competition, type }
       } else {
         return null
       }

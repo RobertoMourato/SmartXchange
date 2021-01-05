@@ -1,0 +1,13 @@
+::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: #06b164; 
+ }
+
+ ::ng-deep .mat-step-header .mat-step-icon-state-edit {
+    background-color: #06b164; 
+ }
+ 
+ ::ng-deep .mat-stepper-next,
+ ::ng-deep .mat-stepper-previous:hover
+ {
+    background: rgba(118, 121, 118, 0.3);
+ }

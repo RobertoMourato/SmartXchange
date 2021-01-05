@@ -5,8 +5,8 @@ import { windowWhen } from 'rxjs/operators';
 import { LoginService } from './login.service';
 import { User } from './user';
 import { UserType } from './userType';
-import { Competition } from './competition';
 import { PlayerCompetition } from './playerCompetition';
+import { Competition } from './competition';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +17,9 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService, router: Router) { }
   user: User;
   userType: UserType;
-  competition: Competition;
   playerCompetition: PlayerCompetition;
-  ngOnInit(): void {}
+  competition: Competition;
+  ngOnInit(): void { }
   login(email: string, password: string): void {
     if (!this.validateForm(email, password)) {
       alert('Email or password invalid');
@@ -29,15 +29,16 @@ export class LoginComponent implements OnInit {
           this.user = data.user;
           this.userType = data.usertype;
           this.competition = data.competition;
-          console.log(this.competition);
+          //console.log(this.competition);
           // console.log(this.user, ' ' , this.userType);
           // console.log(data.token);
-          window.sessionStorage.setItem('competitionId', String(this.competition.id));
           window.sessionStorage.setItem('userid', String(this.user.id));
           window.sessionStorage.setItem('user', this.user.username);
           window.sessionStorage.setItem('usertype', this.userType.userType);
           window.sessionStorage.setItem('token', data.token);
-          window.sessionStorage.setItem('competitionId', String(this.competition.id));
+          if (this.userType.userType === 'Investor' || this.userType.userType === 'Entrepreneur'){
+            window.sessionStorage.setItem('competitionId', String(this.competition.id));
+          }
           // alert(JSON.stringify(data.user) +'\n'+JSON.stringify(data.usertype))
           // window.location.replace("/menu");
           alert('Welcome ' + window.sessionStorage.getItem('user'));

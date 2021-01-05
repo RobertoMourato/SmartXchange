@@ -8,15 +8,15 @@ import { map } from 'rxjs/operators';
 })
 export class HomePageService {
   private url = 'http://localhost:3000';
-  //private url = 'http://localhost:5000'
+  // private url = 'http://localhost:5000'
 
   constructor(private httpClient: HttpClient) {}
 
-  getPlayerCompetitiontInfo(playerId: string, competitionId: string) {}
+  getPlayerCompetitiontInfo(playerId: string, competitionId: string): void {}
 
-  getPlayerRankingsData(playerId: string, competitionId: string) : Observable<any>{
+  getPlayerRankingsData(playerId: string, competitionId: string): Observable<any>{
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
-    console.log('ser', playerId,' ' , competitionId)
+    console.log('ser', playerId, ' ' , competitionId);
     return this.httpClient
       .get(
         this.url +
@@ -29,9 +29,9 @@ export class HomePageService {
       .pipe(map(this.extractData));
   }
 
-  getLatestData(competitionId: string) : Observable<any>{
+  getLatestData(competitionId: string): Observable<any>{
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
-    //console.log('competitionId', competitionId)
+    // console.log('competitionId', competitionId)
     return this.httpClient
       .get(
         this.url +

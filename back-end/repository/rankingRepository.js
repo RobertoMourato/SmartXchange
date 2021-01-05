@@ -1,5 +1,4 @@
 const models = require('../models')
-const sequelize = require('sequelize')
 
 module.exports = {
   async index (req, res) {
@@ -45,20 +44,31 @@ module.exports = {
       where: { id: competitionId }
     })
 
-    let rankings = []
+    const rankings = []
     users.forEach(async element => {
       const player = element.dataValues
 
-      const r = await models.Ranking.build({
+      const rankings = await models.Ranking.build({
         playerCompetitionId: competitionId,
         rankingType: 'Investor',
         rankingPoints: player.wallet - competition.competitionInitialBudget
       })
-      rankings.push(r)
+      rankings.push(rankings)
     })
 
     // sort pelos rankingPoint
+    rankings.sort(function (a, b) { return a.rankingPoints - b.rankingPoints })
+    let count = rankings.length
     // create ranking
+    rankings.forEach(element => {
+      models.Ranking.create({
+        playerCompetitionId: competitionId,
+        rankingType: 'Investor',
+        rankingPoints: element.rankingPoints,
+        rankingPosition: count
+      })
+      count = count - 1
+    })
   },
 
   async getRankingsByPlayerAndCompetition (playerId, competitionId) {
