@@ -2,8 +2,8 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    for(let i=1;i<=10;i++){
-      for(let j=1;j<=50;j++){
+    for (let i = 1; i <= 10; i++) {
+      for (let j = 1; j <= 50; j++) {
         await queryInterface.bulkInsert('Stocks', [{
           companyId: i,
           playerId: null,
@@ -13,7 +13,7 @@ module.exports = {
           updatedAt: new Date()
         }])
       }
-    } 
+    }
   },
 
   down: async (queryInterface, Sequelize) => {

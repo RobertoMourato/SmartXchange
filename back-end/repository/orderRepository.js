@@ -153,12 +153,19 @@ module.exports = {
     }
   },
   async cancelOrder (orderId) {
-    
     try {
-      const wallet = await models.PlayerCompetition.findOne({ where: { playerId: sellerId, competitionId: competitionId } })
       const order = await models.Order.findByPk(orderId)
+
+      const wallet = await models.PlayerCompetition.findOne({
+        where: { playerId: order.playerId },
+        include: {
+          required: true,
+          model: models.Company,
+          where: { id: order.companyId }
+        }
+      })
       if (wallet) {
-        await wallet.increment('wallet', { by: order.orderNumStock * order.orderValue });
+        await wallet.increment('wallet', { by: order.orderNumStock * order.orderValue })
       }
       return models.Order.update(
         { orderStatus: 'Canceled' },
@@ -181,11 +188,11 @@ module.exports = {
       for (const companyId of maps.buyMap.keys()) {
         // console.log(companyId)
         // await buyMap.get(companyId).forOf(async buyOrder => {
-        let maxCompanyValue = 0;
+        let maxCompanyValue = 0
         for (const buyOrder of buyMap.get(companyId)) {
           if (buyOrder.orderNumStock > 0) {
             // console.log('temp', buyOrder)
-           // await sellMap.get(companyId).for(async sellOrder => {
+            // await sellMap.get(companyId).for(async sellOrder => {
             for (const sellOrder of sellMap.get(companyId)) {
               console.log(buyOrder.id, ' - ', sellOrder.id)
               if (buyOrder.orderValue > maxCompanyValue) {
@@ -195,8 +202,8 @@ module.exports = {
                 if (buyOrder.orderNumStock > sellOrder.orderNumStock) {
                   console.log('>')
                   // create stock exchanges, update wallet, update stocks
-                  await this.exchangeStocks(buyOrder.id, sellOrder.id, sellOrder.orderNumStock, buyOrder.orderValue, 
-                                            buyOrder.playerId, sellOrder.playerId, companyId, competitionId)
+                  await this.exchangeStocks(buyOrder.id, sellOrder.id, sellOrder.orderNumStock, buyOrder.orderValue,
+                    buyOrder.playerId, sellOrder.playerId, companyId, competitionId)
                   // complete sellorder bd
                   sellOrder.orderStatus = 'Completed'
                   await this.completeOrder(sellOrder.id)
@@ -209,8 +216,8 @@ module.exports = {
                   if (buyOrder.orderNumStock === sellOrder.orderNumStock) {
                     console.log('=')
                     // create stock exchanges, update wallet, update stocks
-                    await this.exchangeStocks(buyOrder.id, sellOrder.id, sellOrder.orderNumStock, buyOrder.orderValue, 
-                                              buyOrder.playerId, sellOrder.playerId, companyId, competitionId)
+                    await this.exchangeStocks(buyOrder.id, sellOrder.id, sellOrder.orderNumStock, buyOrder.orderValue,
+                      buyOrder.playerId, sellOrder.playerId, companyId, competitionId)
                     // complete both order
                     await this.completeOrder(sellOrder.id)
                     sellOrder.orderStatus = 'Completed'
@@ -219,14 +226,14 @@ module.exports = {
                     // retira as orders do map
                     sellOrder.orderNumStock = 0
                     buyOrder.orderNumStock = 0
-                    break;
+                    break
                     // vai para a próxima buyOrder
                   } else {
                     // buy order stocks < sell order stocks
                     console.log('<')
                     // create stock exchanges, update wallet, update stocks
-                    await this.exchangeStocks(buyOrder.id, sellOrder.id, buyOrder.orderNumStock, buyOrder.orderValue, 
-                                              buyOrder.playerId, sellOrder.playerId, companyId, competitionId)
+                    await this.exchangeStocks(buyOrder.id, sellOrder.id, buyOrder.orderNumStock, buyOrder.orderValue,
+                      buyOrder.playerId, sellOrder.playerId, companyId, competitionId)
                     // complete purchase order bd
                     await this.completeOrder(buyOrder.id)
                     buyOrder.orderStatus = 'Completed'
@@ -234,7 +241,7 @@ module.exports = {
                     sellOrder.orderStatus = 'Partially Matched'
                     sellOrder.orderNumStock = sellOrder.orderNumStock - buyOrder.orderNumStock
                     buyOrder.orderNumStock = 0
-                    break;
+                    break
                     // vai para a proxima buyOrder
                   }
                 }
@@ -244,7 +251,7 @@ module.exports = {
         }
         await this.changeCompanyMaxStockValue(companyId, maxCompanyValue)
 
-        //assert das PartiallyMatched - cria orders novas para o novo match das orders que faltam 
+        // assert das PartiallyMatched - cria orders novas para o novo match das orders que faltam
         await this.assertPartiallyMatched(buyMap.get(companyId), sellMap.get(companyId))
       }
     }
@@ -361,9 +368,9 @@ module.exports = {
     }
 
     const wallet = await models.PlayerCompetition.findOne({ where: { playerId: sellerId, competitionId: competitionId } })
-      if (wallet) {
-        await wallet.increment('wallet', { by: payment });
-      }
+    if (wallet) {
+      await wallet.increment('wallet', { by: payment })
+    }
     // teste
     // const stocksF = await models.Stock.findAll();
     // console.log(stocksF)
@@ -388,12 +395,12 @@ module.exports = {
       return null
     }
   },
-  async changeCompanyMaxStockValue(companyId, maxCompanyValue) {
+  async changeCompanyMaxStockValue (companyId, maxCompanyValue) {
     try {
       await models.Company.update({
         currentStockPrice: maxCompanyValue
       },
-        { where: { id: companyId } })
+      { where: { id: companyId } })
 
       await models.StockValue.create({
         companyId: companyId,
@@ -405,7 +412,7 @@ module.exports = {
     }
   },
 
-  async assertPartiallyMatched(buyOrders, sellOrders) {
+  async assertPartiallyMatched (buyOrders, sellOrders) {
     for (const buyOrder of buyOrders) {
       if (buyOrder.orderStatus == 'Partially Matched') {
         await models.Order.create({
