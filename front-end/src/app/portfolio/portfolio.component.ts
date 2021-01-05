@@ -4,7 +4,7 @@ import { Offer } from './Offer';
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { PortfolioOrdersService } from './portfolio-orders.service';
 import { DatePipe } from '@angular/common';
-import { MatTableModule } from '@angular/material/table'  
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-portfolio',
@@ -63,7 +63,7 @@ export class PortfolioComponent implements OnInit {
           date: element.createdAt
         });
       });
-       this.pendingDataSource = new MatTableDataSource<Offer>(arr);
+      this.pendingDataSource = new MatTableDataSource<Offer>(arr);
     });
   }
 

@@ -35,14 +35,6 @@ module.exports = {
     }
   },
 
-  async getCurrentCompetition (managerId) {
-    try {
-      return await models.Order.findOne({ where: { managerId: managerId, competitionHasStarted: true, competitionHasFinished: false } })
-    } catch (error) {
-      return null
-    }
-  },
-
   async startCompetition (req, res) {
     // const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
     const manager = await models.User.findByPk(req.body.managerId)

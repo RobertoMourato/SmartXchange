@@ -6,7 +6,7 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import { HomePageService } from './home-page.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatTableModule } from '@angular/material/table'  
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-home-page-investor',
@@ -17,7 +17,7 @@ export class HomePageInvestorComponent implements OnInit {
   user: User;
   rankings: Ranking[] = [];
   playerRatings = [];
-  headers: String[] = ['Position', 'Name', 'Points'];
+  headers: string[] = ['Position', 'Name', 'Points'];
   dataSource: MatTableDataSource<Ranking>;
   // dataSource = this.rankings;
   playerOrder: number;
@@ -30,45 +30,45 @@ export class HomePageInvestorComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPlayerRankingData();
-    this.getLatestRankings()
+    this.getLatestRankings();
     this.WalletInfo();
     this.StockInfo();
     this.StockValues();
   }
 
   WalletInfo(): void{
-    this.homePageService.getWallet(window.sessionStorage.getItem("userid"), 
-                                   window.sessionStorage.getItem("competitionId"))
-                                   .subscribe(data => { this.wallet = data.wallet })
+    this.homePageService.getWallet(window.sessionStorage.getItem('userid'),
+                                   window.sessionStorage.getItem('competitionId'))
+                                   .subscribe(data => { this.wallet = data.wallet; });
   }
 
   StockValues(): void{
-    this.homePageService.getAllMyOrders(window.sessionStorage.getItem("userid"))
+    this.homePageService.getAllMyOrders(window.sessionStorage.getItem('userid'))
                                         .subscribe(data => {
-                                          var value = 0;
+                                          let value = 0;
                                           data.forEach(element => {
-                                            if(element.orderStatus == 'Completed'){
-                                              if(element.orderType == 'Buy'){
-                                                value -= (element.orderNumStock * element.orderValue)
+                                            if (element.orderStatus === 'Completed'){
+                                              if (element.orderType === 'Buy'){
+                                                value -= (element.orderNumStock * element.orderValue);
                                               }
                                               else{
-                                                value += (element.orderNumStock * element.orderValue)
+                                                value += (element.orderNumStock * element.orderValue);
                                               }
                                             }
                                           });
                                           this.stockValue = value;
-                                        })
+                                        });
   }
 
   StockInfo(): void{
-    this.homePageService.getAllMyStocks(window.sessionStorage.getItem("userid"))
-                                        .subscribe(data => { 
-                                          var count = 0;
+    this.homePageService.getAllMyStocks(window.sessionStorage.getItem('userid'))
+                                        .subscribe(data => {
+                                          let count = 0;
                                           data.forEach(element => {
                                           count ++;
                                         });
-                                        this.stockAmount = count;
-                                      })
+                                          this.stockAmount = count;
+                                      });
   }
 
   getLatestRankings(): void {
@@ -85,7 +85,7 @@ export class HomePageInvestorComponent implements OnInit {
         if (element.PlayerCompetition.User.id === playerId) {
           this.playerOrder = element.rankingPosition;
         }
-        arr.push(new Ranking(element.rankingPosition, element.PlayerCompetition.User.name, element.rankingPoints, element.createdAt))
+        arr.push(new Ranking(element.rankingPosition, element.PlayerCompetition.User.name, element.rankingPoints, element.createdAt));
       });
       this.dataSource = new MatTableDataSource<Ranking>(arr);
       const final = [];

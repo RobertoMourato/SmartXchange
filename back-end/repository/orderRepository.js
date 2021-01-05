@@ -37,7 +37,7 @@ module.exports = {
       where: { companyId: companyId, playerId: userId }
     })
   },
-  
+
   async getAllMyOrders (userId) {
     return await models.Order.findAll({
       where: { playerId: userId }

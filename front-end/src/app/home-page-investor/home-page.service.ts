@@ -51,7 +51,7 @@ export class HomePageService {
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     return this.httpClient.get<any>(this.url + '/stocks/allstocksowned?userId=' + userId, {headers: header});
   }
-  
+
   getAllMyOrders(userId: string): Observable<any>{
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     return this.httpClient.get<any>(this.url + '/order/getallmyorders?userId=' + userId, {headers: header});
