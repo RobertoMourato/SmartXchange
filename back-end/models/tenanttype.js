@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   TenantType.init({
-    tenantType: DataTypes.STRING,
+    tenantType: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'TenantType'

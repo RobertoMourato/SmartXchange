@@ -138,7 +138,7 @@ exports.updateUser = async function (req, res) {
 
 exports.completeRegistration = async function (req, res) {
   try {
-    const user = await userRepository.completeRegistration(req.query.userType, req.query.playerCompetitionId)
+    const user = await dbUser.completeRegistration(req.query.userType, req.query.playerCompetitionId)
     if (user !== null) {
       res.json(user).status(200)
     } else {
