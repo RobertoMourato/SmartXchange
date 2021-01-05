@@ -28,7 +28,7 @@ module.exports = {
     const tenantType = await models.TenantType.findOne({ where: { tenantType: req.body.type } })
     const { name, username, email, password } = req.body
 
-    if (name.trim() != '' && username.trim() != '' && email.trim('') && password.trim('')) { // Fazer verificações aqui dos atributos
+    if (name.trim() !== '' && username.trim() !== '' && email.trim('') && password.trim('')) { // Fazer verificações aqui dos atributos
       if (tenantType) {
         try {
           const typeId = tenantType.dataValues.id
@@ -52,4 +52,5 @@ module.exports = {
       return models.Tenant.build(tenant.dataValues)
     } else { return null }
   }
+
 }

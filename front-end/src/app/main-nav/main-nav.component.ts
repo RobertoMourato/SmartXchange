@@ -18,6 +18,16 @@ export class MainNavComponent {
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 
+  redirect(): void{
+    console.log('redirect');
+    if (window.sessionStorage.getItem('usertype') === 'Manager'){
+      window.location.replace('/home-manager');
+    }else{
+      window.location.replace('/portfolio');
+    }
+
+  }
+
   logout(): void {
     console.log('logout');
     window.sessionStorage.removeItem('user');

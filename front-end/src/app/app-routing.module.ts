@@ -10,6 +10,8 @@ import { MarketPageComponent } from './market-page/market-page.component';
 import { NewCompanyComponent } from './new-company/new-company.component';
 import { CompanyComponent } from './company/company.component';
 import { ChooseTypeComponent } from './choose-type/choose-type.component';
+import { NewCompetitionComponent } from './new-competition/new-competition.component';
+import { ManagerHomepageComponent } from './manager-homepage/manager-homepage.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -22,6 +24,8 @@ const routes: Routes = [
   { path: 'newcompany', component: NewCompanyComponent },
   { path: 'mycompany', component: CompanyComponent },
   { path: 'chooseType', component: ChooseTypeComponent },
+  { path: 'new-competition', component: NewCompetitionComponent },
+  { path: 'home-manager', component: ManagerHomepageComponent }
 ];
 
 @NgModule({
@@ -29,4 +33,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
