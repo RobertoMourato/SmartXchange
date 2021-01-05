@@ -4,6 +4,7 @@ import { Offer } from './Offer';
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { PortfolioOrdersService } from './portfolio-orders.service';
 import { DatePipe } from '@angular/common';
+import { MatTableModule } from '@angular/material/table'  
 
 @Component({
   selector: 'app-portfolio',
@@ -41,9 +42,9 @@ export class PortfolioComponent implements OnInit {
     this.getCompletedOrders();
   }
 
-  getPendingOrders() {
+  getPendingOrders(): void {
     const username = window.sessionStorage.getItem('user');
-    //console.log(username);
+    // console.log(username);
     const arr = [];
     this.portfolioService.getPendingOrders(username).subscribe((data) => {
       // console.log('Pending data', data);
@@ -67,7 +68,7 @@ export class PortfolioComponent implements OnInit {
     });
   }
 
-  getCompletedOrders() {
+  getCompletedOrders(): void {
     const username = window.sessionStorage.getItem('user');
     const userId = window.sessionStorage.getItem('userid');
     const competitionId = window.sessionStorage.getItem('competitionId');
@@ -79,7 +80,7 @@ export class PortfolioComponent implements OnInit {
       console.log(data)
       data.forEach((element) => {
         if (element.Company == null) {
-          console.log('No company')
+          console.log('No company');
           return;
         }
         arr.push({
@@ -119,7 +120,7 @@ export class PortfolioComponent implements OnInit {
 
   }
 
-  cancelOrder(id: number) {
+  cancelOrder(id: number): void {
     this.portfolioService.cancelOrder(id).subscribe((data) => {
       alert(data);
       this.getPendingOrders();

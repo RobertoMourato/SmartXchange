@@ -33,6 +33,47 @@ exports.getUserById = async function (req, res) {
   }
 }
 
+exports.getWallet = async function (req, res) {
+  try {
+    const results = await dbUser.getWallet(req.query.userId, req.query.competitionId)
+    if (results !== null) {
+      res.json(results)
+    } else {
+      res.sendStatus(500)
+    }
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+exports.getWallet = async function (req, res) {
+  try {
+    const results = await dbUser.getWallet(req.query.userId, req.query.competitionId)
+    if (results !== null) {
+      res.json(results)
+    } else {
+      res.sendStatus(500)
+    }
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+
+exports.changeWallet = async function (req, res) {
+  try {
+    const results = await dbUser.changeWallet(req.query.userId, req.query.competitionId, req.query.num)
+    if (results !== null) {
+      res.json(results)
+    } else {
+      res.sendStatus(500)
+    }
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+
 exports.addUser = async function (req, res) {
   try {
     console.log(req.body)

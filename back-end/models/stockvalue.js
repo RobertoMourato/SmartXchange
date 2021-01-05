@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   StockValue.init({
-    stockId: DataTypes.INTEGER,
+    companyId: DataTypes.INTEGER,
     stockValue: DataTypes.INTEGER,
     stockValueDate: DataTypes.DATE
   }, {

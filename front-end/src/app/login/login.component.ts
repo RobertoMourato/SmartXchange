@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
           this.user = data.user;
           this.userType = data.usertype;
           this.competition = data.competition;
-          console.log(this.competition);
+          //console.log(this.competition);
           // console.log(this.user, ' ' , this.userType);
           // console.log(data.token);
           window.sessionStorage.setItem('competitionId', String(this.competition.id));
@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
           window.sessionStorage.setItem('user', this.user.username);
           window.sessionStorage.setItem('usertype', this.userType.userType);
           window.sessionStorage.setItem('token', data.token);
+          window.sessionStorage.setItem('competitionId', String(this.competition.id));
           // alert(JSON.stringify(data.user) +'\n'+JSON.stringify(data.usertype))
           // window.location.replace("/menu");
           alert('Welcome ' + window.sessionStorage.getItem('user'));
@@ -44,12 +45,12 @@ export class LoginComponent implements OnInit {
           if (window.location.search.includes('?invite')) {
             const invite = window.location.search.split('=')[1];
 
-            //criar a playerCompetition atraves do invite e do userId
+            // criar a playerCompetition atraves do invite e do userId
             this.loginService
               .registerPlayercompetition(this.user.id, invite)
-              .subscribe((data) => {
-                console.log(data);
-                this.playerCompetition = data;
+              .subscribe(data2 => {
+                console.log(data2);
+                this.playerCompetition = data2;
                 window.location.replace(
                   '/chooseType?playerCompetition=' + this.playerCompetition.id
                 );

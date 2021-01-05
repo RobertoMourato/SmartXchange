@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from './user';
 import { Ranking } from './ranking';
-
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import { HomePageService } from './home-page.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table'  
 
 @Component({
   selector: 'app-home-page-investor',

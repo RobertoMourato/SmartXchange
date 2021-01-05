@@ -12,38 +12,23 @@ module.exports = {
       })
   },
   async addOrder (req, res) {
+    const body = req.body
     // const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
-    const company = await models.Company.findByPk(req.query.companyId)
-    const user = await models.User.findByPk(req.query.userId)
-    const {
-      orderNumStock,
-      orderValue,
-      orderDate,
-      orderType,
-      orderStatus
-    } = req.body
-
+    const company = await models.Company.findByPk(body.companyId)
+    const user = await models.User.findByPk(body.playerId)
     if (company && user) {
-      try {
-        console.log('aqui')
-        const companyId = company.dataValues.id
-        const playerId = user.dataValues.id
-        const order = await models.Order.create(
-          {
-            companyId: companyId,
-            playerId: playerId,
-            orderNumStock: orderNumStock,
-            orderValue: orderValue,
-            orderDate: orderDate,
-            orderType: orderType,
-            orderStatus: orderStatus
-          })
-        res.status(200).json(order)
-      } catch (error) {
-        res.status(400).json(error)
-      }
+      return await models.Order.create(
+        {
+          companyId: body.companyId,
+          playerId: body.playerId,
+          orderNumStock: body.orderNumStock,
+          orderValue: body.orderValue,
+          orderDate: body.orderDate,
+          orderType: body.orderType,
+          orderStatus: body.orderStatus
+        })
     } else {
-      res.status(400).json('No company or user associated')
+      return false
     }
   },
 
