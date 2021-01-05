@@ -2,6 +2,7 @@ const models = require('../models')
 const questionRepository = require('./questionRepository.js')
 const companyRepository = require('./companyDb')
 const inviteRepository = require('./inviteRepository')
+const orderRepository = require('./orderRepository')
 
 module.exports = {
   async index (req, res) {
@@ -20,13 +21,6 @@ module.exports = {
     return models.Competition.build(competition.dataValues)
   },
 
-  async getCurrentCompetition (managerId) {
-    try {
-      return await models.Order.findOne({ where: { managerId: managerId, competitionHasStarted: true, competitionHasFinished: false } })
-    } catch (error) {
-      return null
-    }
-  },
   async getByPlayerCompId (id) {
     const playerComp = await models.PlayerCompetition.findOne({ where: { playerId: id } })
     if (playerComp) {
@@ -34,11 +28,15 @@ module.exports = {
     }
   },
 
-  async startCompetition (req, res) {
-
+  async getCurrentCompetition (managerId) {
+    try {
+      return await models.Order.findOne({ where: { managerId: managerId, competitionHasStarted: true, competitionHasFinished: false } })
+    } catch (error) {
+      return null
+    }
   },
 
-  async addCompetition (req, res) {
+  async startCompetition (req, res) {
     // const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
     const manager = await models.User.findByPk(req.body.managerId)
     const {
@@ -89,8 +87,8 @@ module.exports = {
           }
         })
 
-        this.startStocksAndOrdersForExistingCompanies(competition.dataValues.id, competition.dataValues.competitionInitialStockValue)
-        // setInterval(matchOrder(competitionId),RefreshRate em milisegundos)
+        this.startStocksAndOrdersForExistingCompanies(competition.dataValues.id, competition.dataValues.competitionInitialStockValue, competitionNumStocks)
+        setInterval(orderRepository.matmatchOrders(competition.dataValues.id), competition.dataValues.competitionRefreshRate * 100)
 
         res.status(200).json(competition)
       } catch (error) {
@@ -100,8 +98,8 @@ module.exports = {
       res.status(400).json('No Tenant associated')
     }
   },
-  async startStocksAndOrdersForExistingCompanies (competitionId, competitionInitialStockValue) {
-    await companyRepository.startCompaniesStocksAndOrders(competitionId, competitionInitialStockValue)
+  async startStocksAndOrdersForExistingCompanies (competitionId, competitionInitialStockValue, competitionNumStocks) {
+    await companyRepository.startCompaniesStocksAndOrders(competitionId, competitionInitialStockValue, competitionNumStocks)
   },
   async getCurrDraftOrCompetition (managerId) {
     try {
