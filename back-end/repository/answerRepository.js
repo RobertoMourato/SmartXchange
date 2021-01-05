@@ -21,7 +21,7 @@ module.exports = {
         // console.log('NEEEEW', answerText, companyId, questionId)
         const newText = answerText
         // await this.updateAnswer(answerText, companyId, questionId)
-        answer = await models.Answer.update({
+        const answer = await models.Answer.update({
           answerText: newText
         }, {
           where: {

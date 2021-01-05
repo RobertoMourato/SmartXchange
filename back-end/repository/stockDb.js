@@ -1,6 +1,6 @@
 const mysql = require('mysql')
 
-pool = mysql.createPool({
+const pool = mysql.createPool({
   password: 'SmartXchange',
   user: 'SmartXChange',
   database: 'mydb',

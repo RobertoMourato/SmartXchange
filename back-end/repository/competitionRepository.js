@@ -40,8 +40,7 @@ module.exports = {
     // const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
     const manager = await models.User.findByPk(req.body.managerId)
     const {
-      competitionId, competitionStartDate, competitionEndDate, competitionMarketOpening,
-      competitionMarketEnding, competitionInitialBudget, competitionInitialStockValue,
+      competitionId, competitionStartDate, competitionEndDate, competitionInitialBudget, competitionInitialStockValue,
       competitionRefreshRate, competitionNumStocks, questions
     } = req.body
 
@@ -64,7 +63,7 @@ module.exports = {
           where: { id: competitionId }, returning: true
         })
         console.log(competition)
-        const counter = 0
+        console.log(questions)
         // questions.forEach(async element => {
         //   if (element.id == undefined) {
         //     await models.Question.create({
