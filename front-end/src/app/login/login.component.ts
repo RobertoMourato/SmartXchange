@@ -5,8 +5,8 @@ import { windowWhen } from 'rxjs/operators';
 import { LoginService } from './login.service';
 import { User } from './user';
 import { UserType } from './userType';
-import { PlayerCompetition } from './playerCompetition';
 import { Competition } from './competition';
+import { PlayerCompetition } from './playerCompetition';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +17,9 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService, router: Router) { }
   user: User;
   userType: UserType;
-  playerCompetition: PlayerCompetition;
   competition: Competition;
-  ngOnInit(): void { }
+  playerCompetition: PlayerCompetition;
+  ngOnInit(): void {}
   login(email: string, password: string): void {
     if (!this.validateForm(email, password)) {
       alert('Email or password invalid');
@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
           window.sessionStorage.setItem('user', this.user.username);
           window.sessionStorage.setItem('usertype', this.userType.userType);
           window.sessionStorage.setItem('token', data.token);
+          window.sessionStorage.setItem('competitionId', String(this.competition.id));
           // alert(JSON.stringify(data.user) +'\n'+JSON.stringify(data.usertype))
           // window.location.replace("/menu");
           alert('Welcome ' + window.sessionStorage.getItem('user'));
@@ -44,12 +45,12 @@ export class LoginComponent implements OnInit {
           if (window.location.search.includes('?invite')) {
             const invite = window.location.search.split('=')[1];
 
-            //criar a playerCompetition atraves do invite e do userId
+            // criar a playerCompetition atraves do invite e do userId
             this.loginService
               .registerPlayercompetition(this.user.id, invite)
-              .subscribe((data) => {
-                console.log(data);
-                this.playerCompetition = data;
+              .subscribe(data2 => {
+                console.log(data2);
+                this.playerCompetition = data2;
                 window.location.replace(
                   '/chooseType?playerCompetition=' + this.playerCompetition.id
                 );

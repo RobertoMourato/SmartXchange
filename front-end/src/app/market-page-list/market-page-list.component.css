@@ -1,0 +1,17 @@
+body{
+    height: 100%;
+}
+input, select, textarea{
+    color: white;
+    background: rgb(42, 40, 40);
+}
+.graph-container{
+    height: 300px;
+    width: 400px    ;
+}
+.company-container:first-child{
+    color: #06b164;
+}
+.company-container:first-child:hover{
+    cursor: pointer;
+}

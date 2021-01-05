@@ -12,7 +12,17 @@ exports.getAllOrders = async function (req, res) {
 exports.addOrder = async function (req, res) {
   try {
     console.log(req.body)
-    const results = await orderRepository.addOrder(req, res)
+    console.log('adicionando order')
+    const results = await orderRepository.addOrder(req.body)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+exports.getMyOrders = async function (req, res) {
+  try {
+    const results = await orderRepository.getMyOrders(req.query.companyId, req.query.userId)
     res.json(results)
   } catch (e) {
     console.log(e)
@@ -25,6 +35,7 @@ exports.getPlayerPendingOrders = async function (req, res) {
   console.log('pending',username)
   try {
     const results = await orderRepository.getPlayerPendingOrders(username)
+    console.log('pending', results)
     // if (results.player.PlayerCompetition[0]) { }
     res.json(results).status(200)
   } catch (error) {
@@ -37,6 +48,7 @@ exports.getPlayerCompleteOrders = async function (req, res) {
   console.log('completed', username)
   try {
     const results = await orderRepository.getPlayerCompletedOrders(username)
+    console.log(results)
     // if (results.player.PlayerCompetition[0]) { }
     res.json(results).status(200)
   } catch (error) {
@@ -63,12 +75,8 @@ exports.testMatchOrders = async function (req, res) {
   try {
     const results = await orderRepository.matchOrders(1)
 
-
     res.json(results)
-
   } catch (error) {
     res.json(error.message).status(500)
   }
-
-
 }

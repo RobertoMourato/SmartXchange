@@ -20,3 +20,13 @@ exports.addStock = async function (req, res) {
     res.sendStatus(500)
   }
 }
+
+exports.getStocksOwned = async function (req, res) {
+  try {
+    const results = await stockRepository.getStocksOwned(req.query.userId, req.query.companyId)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}

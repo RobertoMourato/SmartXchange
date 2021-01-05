@@ -37,65 +37,59 @@ export class PortfolioComponent implements OnInit {
   constructor(private portfolioService: PortfolioOrdersService, public datepipe: DatePipe) { }
 
   ngOnInit(): void {
-    //this.pendingOffers = new Array<Offer>();
+    this.pendingOffers = new Array<Offer>();
+
+
     this.getPendingOrders();
     this.getCompletedOrders();
 
 
   }
 
-  getPendingOrders() {
+  getPendingOrders(): void {
     const username = window.sessionStorage.getItem('user');
-    //console.log(username);
+    // console.log(username);
     const arr = [];
     this.portfolioService.getPendingOrders(username).subscribe((data) => {
-      //console.log('data', data);
-      if (data.length == 0) { console.log("Pending empty"); } else {
-        data.forEach((element) => {
-          if (element.Company == null) {
-            return;
-          }
-          console.log(element)
-          arr.push({
-            id: element.id,
-            type: element.orderType,
-            company: element.Company.companyName,
-            status: element.orderStatus,
-            qt: element.orderNumStock,
-            offer: element.orderValue,
-            date: element.createdAt
-          });
+       console.log('Pending data', data);
+       data.forEach((element) => {
+        if (element.Company == null) {
+          return;
+        }
+
+        arr.push({
+          id: element.id,
+          type: element.orderType,
+          company: element.Company.companyName,
+          status: element.orderStatus,
+          qt: element.orderNumStock,
+          offer: element.orderValue,
+          date: element.createdAt
         });
-        console.log('pending', arr)
-        this.pendingDataSource = new MatTableDataSource<Offer>(arr);
-      }
+      });
+       this.pendingDataSource = new MatTableDataSource<Offer>(arr);
     });
   }
 
-  getCompletedOrders() {
+  getCompletedOrders(): void {
     const username = window.sessionStorage.getItem('user');
-    //console.log('completed',username);
+    console.log('completed', username);
     const arr = [];
     this.portfolioService.getCompletedOrders(username).subscribe((data) => {
-      console.log('data', data)
-      if (data.length == 0) {
-        console.log("Completed empty")
-      }
-      else {
-        data.forEach((element) => {
-          if (element.Company == null) {
-            console.log('No company')
-            return;
-          }
-          arr.push({
-            id: element.id,
-            type: element.orderType,
-            company: element.Company.companyName,
-            status: element.orderStatus,
-            qt: element.orderNumStock,
-            offer: element.orderValue,
-            date: this.datepipe.transform(element.createdAt, 'dd/MM/yyyy hh:mm')
-          });
+      console.log('data', data);
+      data.forEach((element) => {
+        if (element.Company == null) {
+          console.log('No company');
+          return;
+        }
+        arr.push({
+          id: element.id,
+          type: element.orderType,
+          company: element.Company.companyName,
+          status: element.orderStatus,
+          qt: element.orderNumStock,
+          offer: element.orderValue,
+          date: this.datepipe.transform(element.createdAt, 'dd/MM/yyyy hh:mm')
         });
         console.log('completed', arr)
         this.completedDataSource = new MatTableDataSource<Offer>(arr);
@@ -105,7 +99,7 @@ export class PortfolioComponent implements OnInit {
     // console.log('completed',this.completedDataSource)
   }
 
-  cancelOrder(id: number) {
+  cancelOrder(id: number): void {
     this.portfolioService.cancelOrder(id).subscribe((data) => {
       alert(data);
       this.getPendingOrders();

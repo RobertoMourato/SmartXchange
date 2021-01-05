@@ -13,10 +13,21 @@ exports.addCompany = async function (req, res) {
   }
 }
 
+exports.getMyCompany = async function (req, res) {
+  try {
+    // console.log(req.body)
+    const results = await db.getMyCompany(req, res)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+
 exports.getCompany = async function (req, res) {
   try {
     // console.log(req.body)
-    const results = await db.getCompany(req, res)
+    const results = await db.getCompany(req.query.companyId)
     res.json(results)
   } catch (e) {
     console.log(e)
@@ -45,9 +56,29 @@ exports.addEvaluation = async function (req, res) {
   }
 }
 
+exports.getCompanyByCompetitionId = async function (req, res) {
+  try {
+    // console.log(req.body)
+    const results = await db.getCompanyByCompetitionId(req.query.competitionId)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+exports.updateCompany = async function (req, res) {
+  try {
+    const results = await db.updateCompany(req.body)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+
 exports.testeStartCompStocks = async function (req, res) {
   try {
-    const results = await companyDb.startCompaniesStocks(1,1)
+    const results = await companyDb.startCompaniesStocks(1, 1)
     res.json(results).status(200)
   } catch (e) {
     console.log(e)

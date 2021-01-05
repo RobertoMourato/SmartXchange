@@ -2,7 +2,7 @@ const models = require('../models')
 const sequelize = require('sequelize')
 
 module.exports = {
-  async index(req, res) {
+  async index (req, res) {
     const ranking = models.Ranking
     await ranking.findAll().then(ranking => {
       res.status(200).json(ranking)
@@ -11,7 +11,7 @@ module.exports = {
         res.status(400).send(error)
       })
   },
-  async addRanking(req, res) {
+  async addRanking (req, res) {
     const playercomp = await models.PlayerCompetition.findOne({ where: { playerId: req.body.playerId, competitionId: req.body.competitionId } })
     const {
       rankingPosition,
@@ -35,7 +35,7 @@ module.exports = {
     }
   },
 
-  async calculatePointsInvestors(competitionId) {
+  async calculatePointsInvestors (competitionId) {
     const users = await models.PlayerCompetition.findAll({
       where: {
         competitionId: competitionId
@@ -46,6 +46,7 @@ module.exports = {
     })
 
     let rankings = []
+    const rankings = []
     users.forEach(async element => {
       const player = element.dataValues
 
@@ -55,61 +56,9 @@ module.exports = {
         rankingPoints: player.wallet - competition.competitionInitialBudget
       })
       rankings.push(r)
-    });
+    })
 
-
-    //sort pelos rankingPoint 
-    r.sort(function (a, b) { return a.rankingPoints - b.rankingPoints })
-
-    var count = r.length;
-    //create ranking
-    r.forEach(element => {
-      models.Ranking.create({
-        playerCompetitionId: competitionId,
-        rankingType: 'Investor',
-        rankingPoints: element.rankingPoints,
-        rankingPosition: count
-      })
-      count = count - 1;
-    });
-
-  },
-
-  async getRankingsByPlayerAndCompetition(playerId, competitionId) {
-    try {
-      return await models.Ranking.findAll({
-        order: [['createdAt', 'ASC']],
-        include: {
-          model: models.PlayerCompetition,
-          where: {
-            playerId: playerId,
-            competitionId: competitionId
-          }
-        }
-      })
-    } catch (error) {
-      return null;
-    }
-  },
-  async getCompetitionLatestRankings(competitionId) {
-    try {
-      const lastUpdate = await models.Ranking.max('createdAt');
-      return await models.Ranking.findAll({
-        order: [['rankingPosition', 'ASC']],
-        where: { createdAt: lastUpdate },
-        include: {
-          model: models.PlayerCompetition,
-          where: {
-            competitionId: competitionId
-          },
-          include: {
-            model: models.User
-          }
-        }
-      })
-    } catch (error) {
-      console.log(error.message)
-      return null;
-    }
+    // sort pelos rankingPoint
+    // create ranking
   }
 }
