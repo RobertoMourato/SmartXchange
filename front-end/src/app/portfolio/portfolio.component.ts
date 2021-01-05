@@ -4,7 +4,7 @@ import { Offer } from './Offer';
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { PortfolioOrdersService } from './portfolio-orders.service';
 import { DatePipe } from '@angular/common';
-import { MatTableModule } from '@angular/material/table'  
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-portfolio',
@@ -64,7 +64,6 @@ export class PortfolioComponent implements OnInit {
         });
       });
       this.pendingDataSource = new MatTableDataSource<Offer>(arr);
-      console.log('pending', this.pendingDataSource);
     });
   }
 
@@ -77,7 +76,6 @@ export class PortfolioComponent implements OnInit {
     const arr = [];
     this.portfolioService.getCompletedOrders(username).subscribe((data) => {
       // console.log('data', data)
-      console.log(data);
       data.forEach((element) => {
         if (element.Company == null) {
           console.log('No company');
@@ -113,7 +111,6 @@ export class PortfolioComponent implements OnInit {
         });
 
         this.completedDataSource = new MatTableDataSource<Offer>(arr);
-        console.log('completed', this.completedDataSource);
       });
 
     });
