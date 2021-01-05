@@ -35,6 +35,7 @@ module.exports = {
   */
   async inviteUser (req, res) {
     try {
+      console.log(req.body)
       const manager = await userRep.getByUsername(req.body.invitedBy)
       const competition = await models.Competition.findByPk(req.body.competitionId)
 

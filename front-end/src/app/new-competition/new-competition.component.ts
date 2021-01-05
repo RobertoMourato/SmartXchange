@@ -21,9 +21,14 @@ export class NewCompetitionComponent implements AfterViewInit {
     const questions = this.child.questions;
   }
 
-  // invite_player(){
-    
-  // }
+  invite_player(email:string){
+    const manager_Id = window.sessionStorage.getItem('user');
+    this.competitionService.invite_player(manager_Id, this.competitionId,email).subscribe(
+      (data) => {
+        console.log(data);
+      }
+    );
+  }
 
   add_draft(cashAmmount: string, initialValue: string, refresh: string, stocks: string){
     const manager_Id = window.sessionStorage.getItem('userid');

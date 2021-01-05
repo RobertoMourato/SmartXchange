@@ -54,11 +54,11 @@
     </mat-step>
     <mat-step>
       <form>
-        <ng-template matStepLabel>Invite players</ng-template>
+        <ng-template matStepLabel >Invite players</ng-template>
         <mat-form-field>
-          <input matInput required/>
+          <input matInput #email required/>
         </mat-form-field>
-        <button mat-button matStepperNext>Invite</button>
+        <button mat-button matStepperNext (click)="invite_player(email.value)" >Invite</button>
       </form>
       <div fxLayout="row" fxLayoutAlign="center center" > 
         <button mat-button (click)="start_competition(durationslider.value,cashAmmount.value, initialValue.value, refreshslider.value, numStocks.value)" >Start Competition</button>
