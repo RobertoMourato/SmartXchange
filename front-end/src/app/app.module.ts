@@ -6,7 +6,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,8 +28,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CreateManagerPopupComponent } from './create-manager-popup/create-manager-popup.component';
 import { CreateManagerPopupDialogComponent } from './create-manager-popup/create-manager-popup.component';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatTableModule } from '@angular/material/table';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -39,7 +36,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 
-import { LoginComponent } from './login/login.component';
+
 import { SuperadminNavComponent } from './superadmin-nav/superadmin-nav.component';
 import { NewCompetitionComponent } from './new-competition/new-competition.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -47,8 +44,6 @@ import { LoginComponent } from './login/login.component';
 import { MatSelectModule } from '@angular/material/select';
 import { HomePageInvestorComponent } from './home-page-investor/home-page-investor.component';
 import { MatTableModule } from '@angular/material/table';
-import { MainNavComponent } from './main-nav/main-nav.component';
-import { PortfolioComponent } from './portfolio/portfolio.component';
 import { MarketPageListComponent } from './market-page-list/market-page-list.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
@@ -62,7 +57,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { SortQuestionsComponent, NewQuestionDialogComponent } from './new-competition/sort-questions/sort-questions.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
-import { IssueService } from './issue.service';
 import { UserService } from './user.service';
 import { SuperadminGamesListComponent } from './superadmin-games-list/superadmin-games-list.component';
 
@@ -70,7 +64,6 @@ import { SuperadminGamesListComponent } from './superadmin-games-list/superadmin
 @NgModule({
   declarations: [
     AppComponent,
-    SuperadminNavComponent,
     ManagerHomepageComponent,
     ManagerHomepageCompetitionComponent,
     ManagerHomepageBusinessComponent,
@@ -82,61 +75,36 @@ import { SuperadminGamesListComponent } from './superadmin-games-list/superadmin
     MarketPageListComponent,
     LoginComponent,
     SuperadminGamesListComponent,
-    MainNavComponent,
     HomePageInvestorComponent,
     MarketPageComponent,
-    MainNavComponent,
     PortfolioComponent,
-    RegisterComponent,
     RegisterComponent,
     CompanyComponent,
     ChooseTypeComponent,
     MainNavComponent,
     NewCompanyComponent,
-    CreateManagerPopupDialogComponent
-    CompanyComponent,
-    ChooseTypeComponent,
+    CreateManagerPopupDialogComponent,
     NewCompetitionComponent,
     SortQuestionsComponent,
-    NewQuestionDialogComponent,
-    MarketPageComponent,
+    NewQuestionDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    FlexLayoutModule,
-    HttpClientModule,
     BrowserAnimationsModule,
     LayoutModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
     MatRippleModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatDialogModule,
-    MatGridListModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatListModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDialogModule,
-    MatTableModule,
     MatExpansionModule,
     FormsModule,
     HttpClientModule,
     MatSelectModule,
     CommonModule,
     RouterModule,
-    MatCardModule,
-    MatRadioModule,
     ReactiveFormsModule,
     MatRadioModule,
     MatStepperModule,

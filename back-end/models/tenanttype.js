@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
   };
   TenantType.init({
     tenantType: DataTypes.STRING,
-    isManager: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'TenantType'

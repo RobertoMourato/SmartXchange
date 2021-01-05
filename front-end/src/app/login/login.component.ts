@@ -26,6 +26,9 @@ export class LoginComponent implements OnInit {
     } else {
       this.loginService.login(email, password).subscribe(
         (data) => {
+          if(data.tenant !== undefined){
+            window.location.replace('/manager_superadmin_list')
+          }
           this.user = data.user;
           this.userType = data.usertype;
           this.competition = data.competition;
