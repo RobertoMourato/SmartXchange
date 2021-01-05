@@ -152,6 +152,7 @@ export class HomePageInvestorComponent implements OnInit {
     dateAxis.renderer.labels.template.fill = am4core.color('#FFF');
 
     const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    valueAxis.renderer.inversed = true;
     valueAxis.renderer.grid.template.stroke = am4core.color('#FFF');
     valueAxis.renderer.labels.template.fill = am4core.color('#FFF');
     valueAxis.title.text = 'Rankings';
