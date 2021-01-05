@@ -1,7 +1,7 @@
 stages:
   - install-dependencies
   - security
-  - code_analysis
+  - code-analysis
   - test
   - build
   - deploy
@@ -35,7 +35,7 @@ checking-security:
     - npm audit
 
 linting:
-  stage: code_analysis
+  stage: code-analysis
   image: node:latest
   script:
     - cd back-end
@@ -53,6 +53,40 @@ testing:
     - npm test
     #- cd ../front-end
     #- ng test
+
+building-staging:
+  stage: build
+  services:
+    - docker:18-dind
+  image: docker:latest
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - cd back-end
+    - docker build -t $CI_REGISTRY_IMAGE/back-end:staging .
+    - docker push $CI_REGISTRY_IMAGE/back-end:staging
+    - cd ../front-end
+    - docker build -t $CI_REGISTRY_IMAGE/front-end:staging .
+    - docker push $CI_REGISTRY_IMAGE/front-end:staging
+  only:
+    - merge_request
+  except:
+    - master
+
+building-production:
+  stage: build
+  services:
+    - docker:18-dind
+  image: docker:latest
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - cd back-end
+    - docker build -t $CI_REGISTRY_IMAGE/back-end:staging .
+    - docker push $CI_REGISTRY_IMAGE/back-end:staging
+    - cd ../front-end
+    - docker build -t $CI_REGISTRY_IMAGE/front-end:staging .
+    - docker push $CI_REGISTRY_IMAGE/front-end:staging
+  only:
+    - master
 
 #staging:
 #  type: deploy
