@@ -67,10 +67,10 @@ building-staging:
     - cd ../front-end
     - docker build -t $CI_REGISTRY_IMAGE/front-end:staging .
     - docker push $CI_REGISTRY_IMAGE/front-end:staging
-  #only:
-  #  - merge_request
-  #except:
-  #  - master
+  only:
+    - merge_request
+  except:
+    - master
 
 building-production:
   stage: build
