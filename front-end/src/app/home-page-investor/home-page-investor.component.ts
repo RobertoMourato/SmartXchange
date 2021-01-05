@@ -17,13 +17,14 @@ export class HomePageInvestorComponent implements OnInit {
   user: User;
   rankings: Ranking[] = [];
   playerRatings = [];
-  headers: String[] = ['Position', 'Name', 'Gain'];
+  headers: String[] = ['Position', 'Name', 'Points'];
   dataSource: MatTableDataSource<Ranking>;
   // dataSource = this.rankings;
   playerOrder: number;
   wallet: number;
   stockValue: number;
   stockAmount: number;
+  initialBudget: number;
 
   constructor(private homePageService: HomePageService) { }
 
@@ -84,7 +85,7 @@ export class HomePageInvestorComponent implements OnInit {
         if (element.PlayerCompetition.User.id == playerId) {
           this.playerOrder = element.rankingPosition
         }
-        arr.push(new Ranking(element.rankingPosition, element.PlayerCompetition.User.name, 0, element.createdAt))
+        arr.push(new Ranking(element.rankingPosition, element.PlayerCompetition.User.name, element.rankingPoints, element.createdAt))
       });
       this.dataSource = new MatTableDataSource<Ranking>(arr)
       const final = []
