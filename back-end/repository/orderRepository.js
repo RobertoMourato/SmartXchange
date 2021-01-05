@@ -198,7 +198,9 @@ module.exports = {
                   await this.exchangeStocks(buyOrder.id, sellOrder.id, sellOrder.orderNumStock, buyOrder.orderValue, 
                                             buyOrder.playerId, sellOrder.playerId, companyId, competitionId)
                   // complete sellorder bd
+                  sellOrder.orderStatus = 'Completed'
                   await this.completeOrder(sellOrder.id)
+                  buyOrder.orderStatus = 'Partially Matched'
                   await this.updateToPartiallyMatched(buyOrder.id)
                   // atualiza local numStock, next sell order
                   buyOrder.orderNumStock = buyOrder.orderNumStock - sellOrder.orderNumStock
@@ -211,7 +213,9 @@ module.exports = {
                                               buyOrder.playerId, sellOrder.playerId, companyId, competitionId)
                     // complete both order
                     await this.completeOrder(sellOrder.id)
+                    sellOrder.orderStatus = 'Completed'
                     await this.completeOrder(buyOrder.id)
+                    buyOrder.orderStatus = 'Completed'
                     // retira as orders do map
                     sellOrder.orderNumStock = 0
                     buyOrder.orderNumStock = 0
@@ -225,7 +229,9 @@ module.exports = {
                                               buyOrder.playerId, sellOrder.playerId, companyId, competitionId)
                     // complete purchase order bd
                     await this.completeOrder(buyOrder.id)
+                    buyOrder.orderStatus = 'Completed'
                     await this.updateToPartiallyMatched(sellOrder.id)
+                    sellOrder.orderStatus = 'Partially Matched'
                     sellOrder.orderNumStock = sellOrder.orderNumStock - buyOrder.orderNumStock
                     buyOrder.orderNumStock = 0
                     break;
