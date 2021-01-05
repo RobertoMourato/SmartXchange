@@ -42,6 +42,7 @@ exports.sendPlayerInvite = async function (req, invite) {
 
   transport.sendMail(mailOptions, (error, info) => {
     if (error) {
+      console.log(error)
       // res.send("Error! Something went wrong with the invitation!");
       return 400
     }

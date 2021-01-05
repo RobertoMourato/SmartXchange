@@ -206,7 +206,11 @@ module.exports = {
         const user = await models.User.findOne(
           { where: { id: pc.dataValues.playerId } }
         )
-        return user
+        const competition = await models.Competition.findOne({
+          where: { id: pc.dataValues.competitionId }
+        })
+
+        return { user, competition, type }
       } else {
         return null
       }

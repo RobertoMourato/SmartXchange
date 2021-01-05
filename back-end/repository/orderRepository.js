@@ -11,7 +11,8 @@ module.exports = {
         res.status(400).send(error)
       })
   },
-  async addOrder (body) {
+  async addOrder (req, res) {
+    const body = req.body
     // const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
     const company = await models.Company.findByPk(body.companyId)
     const user = await models.User.findByPk(body.playerId)
@@ -37,26 +38,33 @@ module.exports = {
     })
   },
 
+  async getAllMyOrders (userId) {
+    return await models.Order.findAll({
+      where: { playerId: userId }
+    })
+  },
+
   async getPlayerPendingOrders (username) {
     return await models.Order.findAll({
       where: { orderStatus: 'Pending' },
-      include: [{
-        model: models.Company
-      }, {
-        model: models.User,
-        where: { username: username },
-        as: 'player',
-        required: true,
-        include: {
-          model: models.PlayerCompetition,
+      include: [
+        {
+          model: models.Company
+        }, {
+          model: models.User,
+          where: { username: username },
+          as: 'player',
           required: true,
           include: {
-            model: models.Competition,
+            model: models.PlayerCompetition,
             required: true,
-            where: { competitionHasStarted: true, competitionHasFinished: false }
+            include: {
+              model: models.Competition,
+              required: true,
+              where: { competitionHasStarted: true, competitionHasFinished: false }
+            }
           }
-        }
-      }]
+        }]
     })
   },
   async getPlayerCompletedOrders (username) {
@@ -81,12 +89,69 @@ module.exports = {
         }
       }]
     })
-
     /* return await models.Order.findAll({
        include: ['company']
      }) */
   },
 
+  async getPlayerPartiallyMatchedOrders (userId, competitionId) {
+    console.log('getPartial', userId, competitionId)
+    const orders = await models.Order.findAll({
+      where: { orderStatus: 'Partially Matched' },
+      include: [
+        {
+          required: true,
+          model: models.StockExchange,
+          as: 'buyExchanges'
+        }, {
+          model: models.Company
+
+        },
+        {
+          model: models.User,
+          where: { id: userId },
+          as: 'player',
+          include: [{
+            model: models.PlayerCompetition,
+            required: true,
+            include: {
+              model: models.Competition,
+              where: { id: competitionId }
+            }
+          }]
+        }]
+
+    })
+
+    if (orders) {
+      return orders
+    } else {
+      return await models.Order.findAll({
+        where: { orderStatus: 'Partially Matched' },
+        include: [
+          {
+            required: true,
+            model: models.StockExchange,
+            as: 'sellExchanges'
+          }, {
+            model: models.Company
+          },
+          {
+            model: models.User,
+            where: { id: userId },
+            as: 'player',
+            include: [{
+              model: models.PlayerCompetition,
+              required: true,
+              include: {
+                model: models.Competition,
+                where: { id: competitionId }
+              }
+            }]
+          }]
+      })
+    }
+  },
   async cancelOrder (orderId) {
     try {
       return models.Order.update(
@@ -103,7 +168,7 @@ module.exports = {
     // console.log('maps', maps)
     const buyMap = maps.buyMap
     const sellMap = maps.sellMap
-    if (buyMap != undefined && sellMap != undefined) {
+    if (buyMap !== undefined && sellMap !== undefined) {
       console.log('buy', maps.buyMap)
       console.log('sell', maps.sellMap)
 
@@ -126,7 +191,7 @@ module.exports = {
                   buyOrder.orderNumStock = buyOrder.orderNumStock - sellOrder.orderNumStock
                   sellOrder.orderNumStock = 0
                 } else {
-                  if (buyOrder.orderNumStock == sellOrder.orderNumStock) {
+                  if (buyOrder.orderNumStock === sellOrder.orderNumStock) {
                     console.log('=')
                     // create stock exchanges, update wallet, update stocks
                     await this.exchangeStocks(buyOrder.id, sellOrder.id, sellOrder.orderNumStock, buyOrder.orderValue, buyOrder.playerId, sellOrder.playerId, companyId)
@@ -192,7 +257,7 @@ module.exports = {
 
       // buyOrders
       const companyOrders = buyMap.get(element.companyId)
-      if (companyOrders != undefined) {
+      if (companyOrders !== undefined) {
         const order = models.Order.build(element)
         companyOrders.push(order.dataValues)
         buyMap.set(element.companyId, companyOrders)
@@ -208,7 +273,7 @@ module.exports = {
       const element = order.dataValues
       // SellOrders
       const companyOrders = sellMap.get(element.companyId)
-      if (companyOrders != undefined) {
+      if (companyOrders !== undefined) {
         const order = models.Order.build(element)
         companyOrders.push(order.dataValues)
         sellMap.set(element.companyId, companyOrders)
@@ -260,7 +325,7 @@ module.exports = {
     })
 
     // firstOrders (when competition starts) playerId is null
-    if (sellerId != null) {
+    if (sellerId !== null) {
       await models.PlayerCompetition.update({
         wallet: Sequelize.literal('wallet +' + payment)
       }, {

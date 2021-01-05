@@ -81,7 +81,7 @@ exports.addUser = async function (req, res) {
   try {
     console.log(req.body)
     const user = await dbUser.addUser(req, res)
-    if (user != null) {
+    if (user !== null) {
       const playerCompetition = await competitionRepository.addPlayerCompetitionWithInvite(user.id, req.body.inviteToken)
       res.json({ user, playerCompetition })
     } else {
@@ -138,8 +138,8 @@ exports.updateUser = async function (req, res) {
 
 exports.completeRegistration = async function (req, res) {
   try {
-    const user = await dbUser.completeRegistration(req.query.userType, req.query.playerCompetitionId)
-    if (user != null) {
+    const user = await userRepository.completeRegistration(req.query.userType, req.query.playerCompetitionId)
+    if (user !== null) {
       res.json(user).status(200)
     } else {
       res.json('Something went wrong').status(400)
