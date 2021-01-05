@@ -75,9 +75,9 @@ export class PortfolioComponent implements OnInit {
     const username = window.sessionStorage.getItem('user');
     console.log('completed', username);
     const arr = [];
-    this.portfolioService.getCompletedOrders(username).subscribe((data) => {
+    this.portfolioService.getCompletedOrders(username).subscribe(data => {
       console.log('data', data);
-      data.forEach((element) => {
+      data.forEach(element => {
         if (element.Company == null) {
           console.log('No company');
           return;
@@ -94,7 +94,7 @@ export class PortfolioComponent implements OnInit {
         console.log('completed', arr)
         this.completedDataSource = new MatTableDataSource<Offer>(arr);
       }
-    });
+    )});
 
     // console.log('completed',this.completedDataSource)
   }

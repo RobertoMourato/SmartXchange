@@ -46,7 +46,6 @@ module.exports = {
     })
 
     let rankings = []
-    const rankings = []
     users.forEach(async element => {
       const player = element.dataValues
 

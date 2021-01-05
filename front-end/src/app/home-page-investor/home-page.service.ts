@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ConeColumn } from '@amcharts/amcharts4/charts';
 
 @Injectable({
   providedIn: 'root',
