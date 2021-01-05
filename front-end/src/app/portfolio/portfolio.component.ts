@@ -4,6 +4,7 @@ import { Offer } from './Offer';
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { PortfolioOrdersService } from './portfolio-orders.service';
 import { DatePipe } from '@angular/common';
+import { MatTableModule } from '@angular/material/table'  
 
 @Component({
   selector: 'app-portfolio',

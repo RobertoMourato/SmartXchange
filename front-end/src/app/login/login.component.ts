@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
           this.user = data.user;
           this.userType = data.usertype;
           this.competition = data.competition;
-          console.log(this.competition);
+          //console.log(this.competition);
           // console.log(this.user, ' ' , this.userType);
           // console.log(data.token);
           window.sessionStorage.setItem('userid', String(this.user.id));
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
             // criar a playerCompetition atraves do invite e do userId
             this.loginService
               .registerPlayercompetition(this.user.id, invite)
-              .subscribe((data2) => {
+              .subscribe(data2 => {
                 console.log(data2);
                 this.playerCompetition = data2;
                 window.location.replace(

@@ -43,10 +43,20 @@ module.exports = {
     )
     console.log(companies)
     companies.forEach(async company => {
-      await stockRepository.addInitialCompanyStocksAndOrders(company.id, competitionInitialStockValue, competitionNumStocks)
+      await stockRepository.addInitialCompanyStocksAndOrders(company.id, competitionInitialStockValue)
     })
   },
-  async getCompany (req, res) {
+
+  async getCompany (companyId) {
+    return await models.Company.findOne({
+      where: { id: companyId },
+      include: [{
+        model: models.StockValue
+      }]
+    })
+  },
+
+  async getMyCompany (req, res) {
     const userId = req.query.userId
     const playerComp = await models.PlayerCompetition.findOne({ where: { playerid: userId } })
     if (playerComp) {
@@ -71,5 +81,21 @@ module.exports = {
         },
         { where: { id: body.id } })
     }
+  },
+
+  async getCompanyByCompetitionId (competitionId) {
+    // const playerComp = await models.PlayerCompetition.findAll({ where: { competitionId: competitionId } })
+    // console.log("entrou1")
+    return await models.PlayerCompetition.findAll({
+      where: {
+        competitionId: competitionId
+      },
+      include: [{
+        model: models.Company,
+        include: {
+          model: models.StockValue
+        }
+      }]
+    })
   }
 }

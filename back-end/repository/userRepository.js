@@ -111,6 +111,24 @@ module.exports = {
     return User
   },
 
+  async getWallet (userId, competitionId) {
+    const wallet = await models.PlayerCompetition.findOne({ where: { playerId: userId, competitionId: competitionId } })
+    if (wallet) {
+      return models.PlayerCompetition.build(wallet.dataValues)
+    } else {
+      return null
+    }
+  },
+
+  async changeWallet (userId, competitionId, num) {
+    const wallet = await models.PlayerCompetition.findOne({ where: { playerId: userId, competitionId: competitionId } })
+    if (wallet) {
+      return await wallet.increment('wallet', { by: num })
+    } else {
+      return null
+    }
+  },
+
   async getByEmail (email) {
     const user = await models.User.findOne({ where: { email: email } })
     if (user) {
@@ -191,7 +209,11 @@ module.exports = {
         const user = await models.User.findOne(
           { where: { id: pc.dataValues.playerId } }
         )
-        return user
+        const competition = await models.Competition.findOne({
+          where: { id: pc.dataValues.competitionId }
+        })
+
+        return { user, competition, type }
       } else {
         return null
       }

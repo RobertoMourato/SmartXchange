@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from '../login/login.service';
 import { PlayerCompetition } from '../login/playerCompetition';
 import { Invite } from './invite';
 import { RegisterService } from './register.service';
@@ -15,8 +14,7 @@ import { UserType } from './userType';
 export class RegisterComponent implements OnInit {
   constructor(
     private registerService: RegisterService,
-    router: Router,
-    private loginService: LoginService
+    router: Router
   ) {}
 
   isShown = true;

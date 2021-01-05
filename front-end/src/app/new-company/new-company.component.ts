@@ -22,7 +22,6 @@ export class NewCompanyComponent {
       });
   }
   changeCompName(newValue: string): void {
-    console.log('trocou ppor', newValue);
     this.compName = newValue;
     console.log(this.compName);
   }
