@@ -30,25 +30,26 @@ export class ChooseTypeComponent implements AfterViewInit {
     console.log(this.compName);
   }
 
-  showCompany() {
-    if (this.userType == 'Entrepreneur') {
+  showCompany(): boolean {
+    if (this.userType === 'Entrepreneur') {
       return true;
     }
+    return false;
   }
 
-  completeRegistration() {
+  completeRegistration(): void {
     const playerCompetitionId = window.location.search.split('=')[1];
-    if (playerCompetitionId != '') {
-      if (this.showCompany() == true) {
+    if (playerCompetitionId !== '') {
+      if (this.showCompany() === true) {
         this.child.onSubmit(playerCompetitionId);
       }
       try {
-        console.log(this.userType)
+        console.log(this.userType);
         this.chooseTypeService
           .completeRegistration(this.userType, playerCompetitionId)
           .subscribe((data) => {
-            alert("You've completed your registration!"+ data)
-            window.location.replace('/portfolio')
+            alert('You\'ve completed your registration!' + data);
+            window.location.replace('/portfolio');
           });
       } catch (error) {
         console.error(error.message);

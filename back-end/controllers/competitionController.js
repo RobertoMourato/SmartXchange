@@ -44,7 +44,6 @@ exports.addCompetitionDraft = async function (req, res) {
     } else {
       res.json('There is an ongoing Competition, you cannot start another one').status(400)
     }
-    res.json(results)
   } catch (e) {
     console.log(e)
     res.sendStatus(500)
@@ -53,9 +52,9 @@ exports.addCompetitionDraft = async function (req, res) {
 
 exports.startCompetition = async function (req, res) {
   try {
-    const currentCompetition = competitionRepository.getCurrDraftOrCompetition(managerId)
+    const currentCompetition = competitionRepository.getCurrDraftOrCompetition(req.query.managerId)
     if (currentCompetition != null) {
-      const results = await competitionRepository.startCompetition(req, res);
+      const results = await competitionRepository.startCompetition(req, res)
       res.json(results).status(200)
     } else {
       res.json('There is an ongoing Competition, you cannot start another one').status(400)
@@ -98,20 +97,10 @@ exports.addQuestion = async function (req, res) {
   }
 }
 
-exports.getQuestions = async function (req, res) {
+exports.getQuestionsAndAnswers = async function (req, res) {
   try {
     // console.log(req.body)
-    const results = await questionRep.getQuestions(req, res)
-    res.json(results)
-  } catch (e) {
-    console.log(e)
-    res.sendStatus(500)
-  }
-}
-exports.getQuestionsByCompId = async function (req, res) {
-  try {
-    // console.log(req.body)
-    const results = await questionRep.getQuestionsByCompId(req, res)
+    const results = await questionRep.getQuestionsAndAnswers(req.query.userId)
     res.json(results)
   } catch (e) {
     console.log(e)
@@ -159,6 +148,15 @@ exports.addRanking = async function (req, res) {
 exports.getAllRankings = async function (req, res) {
   try {
     const results = await rankingRep.index(req, res)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+exports.getById = async function (req, res) {
+  try {
+    const results = await competitionRepository.getById(req.query.competitionId)
     res.json(results)
   } catch (e) {
     console.log(e)

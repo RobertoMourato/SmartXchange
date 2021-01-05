@@ -102,6 +102,15 @@ module.exports = {
     return User
   },
 
+  async getWallet (userId, competitionId) {
+    const wallet = await models.PlayerCompetition.findOne({ where: { playerId: userId, competitionId: competitionId } })
+    if (wallet) {
+      return models.PlayerCompetition.build(wallet.dataValues)
+    } else {
+      return null
+    }
+  },
+
   async getByEmail (email) {
     const user = await models.User.findOne({ where: { email: email } })
     if (user) {

@@ -7,6 +7,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+
+import { AngularEditorModule } from '@kolkov/angular-editor';
+
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SuperadminNavComponent } from './superadmin-nav/superadmin-nav.component';
@@ -29,10 +32,12 @@ import { MatCardModule } from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MarketPageListComponent } from './market-page-list/market-page-list.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { DatePipe } from '@angular/common';
 import { RegisterComponent } from './register/register.component';
+import { MarketPageComponent } from './market-page/market-page.component';
 import { NewCompanyComponent } from './new-company/new-company.component';
 import { CompanyComponent } from './company/company.component';
 import { ChooseTypeComponent } from './choose-type/choose-type.component';
@@ -49,13 +54,16 @@ import { SuperadminGamesListComponent } from './superadmin-games-list/superadmin
     SuperadminNavComponent,
     SuperadminManagerListComponent,
     CreateManagerPopupComponent,
+    MarketPageListComponent,
     LoginComponent,
     SuperadminGamesListComponent,
     MainNavComponent,
+    MarketPageComponent,
     PortfolioComponent,
     RegisterComponent,
     CompanyComponent,
     ChooseTypeComponent,
+    MainNavComponent,
     NewCompanyComponent,
     CreateManagerPopupDialogComponent
   ],
@@ -85,8 +93,10 @@ import { SuperadminGamesListComponent } from './superadmin-games-list/superadmin
     RouterModule,
     MatCardModule,
     MatRadioModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularEditorModule,
   ],
+  exports: [],
   providers: [DatePipe, NewCompanyComponent, UserService],
   bootstrap: [AppComponent]
 })

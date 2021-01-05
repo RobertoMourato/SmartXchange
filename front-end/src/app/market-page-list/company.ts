@@ -5,13 +5,17 @@ export class Company{
     companyWebsiteURL: string|null;
     companyShortPitch: string|null;
     companyCurrentStockPrice: number|null;
+    stockValue: number|null;
+    stockValueDate: Date|null;
     constructor(
       id: number,
       playerCompetitionId: number|null,
       companyName: string,
       companyWebsiteURL: string|null,
       companyShortPitch: string|null,
-      companyCurrentStockPrice: number|null
+      companyCurrentStockPrice: number|null,
+      stockValue: number|null,
+      stockValueDate: Date|null
       ) {
         this.id = id;
         this.playerCompetitionId = playerCompetitionId;
@@ -19,6 +23,8 @@ export class Company{
         this.companyWebsiteURL = companyWebsiteURL;
         this.companyShortPitch = companyShortPitch;
         this.companyCurrentStockPrice = companyCurrentStockPrice;
+        this.stockValue = stockValue;
+        this.stockValueDate = stockValueDate;
       }
 }
 

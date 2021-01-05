@@ -10,12 +10,12 @@ export class NewCompanyService {
   private url = 'http://localhost:3000';
   // private url = 'http://localhost:5000'
   constructor(private httpClient: HttpClient) { }
-  CreateNewCompany(playerCompetitionId :string ,compName:String, compUrl:String, pitch:String): Observable<any>{
-    const body = JSON.stringify({playerCompetitionId:playerCompetitionId,
-                                 companyName: compName, 
+  CreateNewCompany(playerCompetitionId: string , compName: string, compUrl: string, pitch: string): Observable<any>{
+    const body = JSON.stringify({playerCompetitionId,
+                                 companyName: compName,
                                  companyWebsiteURL: compUrl,
                                  companyShortPitch: pitch,
-                                 companyCurrentStockPrice:'0'});
+                                 companyCurrentStockPrice: '0'});
     console.log(body);
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     return this.httpClient.post(this.url + '/companies/createComp', body, {headers: header})

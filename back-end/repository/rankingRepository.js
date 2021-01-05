@@ -1,7 +1,7 @@
 const models = require('../models')
 
 module.exports = {
-  async index(req, res) {
+  async index (req, res) {
     const ranking = models.Ranking
     await ranking.findAll().then(ranking => {
       res.status(200).json(ranking)
@@ -10,7 +10,7 @@ module.exports = {
         res.status(400).send(error)
       })
   },
-  async addRanking(req, res) {
+  async addRanking (req, res) {
     const playercomp = await models.PlayerCompetition.findOne({ where: { playerId: req.body.playerId, competitionId: req.body.competitionId } })
     const {
       rankingPosition,
@@ -34,7 +34,7 @@ module.exports = {
     }
   },
 
-  async calculatePointsInvestors(competitionId) {
+  async calculatePointsInvestors (competitionId) {
     const users = await models.PlayerCompetition.findAll({
       where: {
         competitionId: competitionId
@@ -43,8 +43,7 @@ module.exports = {
     const competition = await models.PlayerCompetition.findOne({
       where: { id: competitionId }
     })
-
-    let rankings = []
+    const rankings = []
     users.forEach(async element => {
       const player = element.dataValues
 
@@ -54,23 +53,9 @@ module.exports = {
         rankingPoints: player.wallet - competition.competitionInitialBudget
       })
       rankings.push(r)
-    });
+    })
 
-
-    //sort pelos rankingPoint 
-    r.sort(function (a, b) { return a.rankingPoints - b.rankingPoints })
-
-    var count = r.length;
-    //create ranking
-    r.forEach(element => {
-      models.Ranking.create({
-        playerCompetitionId: competitionId,
-        rankingType: 'Investor',
-        rankingPoints: element.rankingPoints,
-        rankingPosition: count
-      })
-      count = count -1;
-    });
-
+    // sort pelos rankingPoint
+    // create ranking
   }
 }
