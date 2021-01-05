@@ -25,15 +25,15 @@
             </mat-slider>
             <mat-form-field appearance="legacy">
               <mat-label>Initial Company Value</mat-label>
-              <input matInput #initialValue placeholder="" />
+              <input matInput #initialValue type="number" placeholder="" />
             </mat-form-field>
             <mat-form-field appearance="legacy">
               <mat-label>Number of Initial Stocks</mat-label>
-              <input matInput #numStocks placeholder="" />
+              <input matInput #numStocks type="number" placeholder="" />
             </mat-form-field>
             <mat-form-field appearance="legacy">
               <mat-label>Investor Initial Cash</mat-label>
-              <input matInput #cashAmmount placeholder="" />
+              <input matInput #cashAmmount type="number" placeholder="" />
             </mat-form-field>
           </div>
         </div>
@@ -48,8 +48,8 @@
         <app-sort-questions></app-sort-questions>
       </div>
       <div fxLayoutAlign="space-between center" style="margin-top: 20px">
-        <button mat-button matStepperPrevious (click)="add_draft(cashAmmount.value, initialValue.value, refreshslider.value, numStocks.value)">Back</button>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button matStepperPrevious >Back</button>
+        <button mat-button matStepperNext (click)="add_draft(cashAmmount.value, initialValue.value, refreshslider.value, numStocks.value)">Next</button>
       </div>
     </mat-step>
     <mat-step>
@@ -58,10 +58,10 @@
         <mat-form-field>
           <input matInput required/>
         </mat-form-field>
-        <button mat-button matStepperNext (click)="invite_player(email.value,password.value)">Invite</button>
+        <button mat-button matStepperNext>Invite</button>
       </form>
       <div fxLayout="row" fxLayoutAlign="center center" > 
-        <button mat-button (click)="start_competition(email.value,password.value)">Start Competition</button>
+        <button mat-button >Start Competition</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

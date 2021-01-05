@@ -34,9 +34,10 @@ import { LoginComponent } from './login/login.component';
 import { SuperadminNavComponent } from './superadmin-nav/superadmin-nav.component';
 import { NewCompetitionComponent } from './new-competition/new-competition.component';
 import { AppRoutingModule } from './app-routing.module';
-import { PortfolioComponent } from './portfolio/portfolio.component';
+import { HomePageInvestorComponent } from './home-page-investor/home-page-investor.component';
+import { MatTableModule } from '@angular/material/table';
 import { MainNavComponent } from './main-nav/main-nav.component';
-import { MatTableModule } from '@angular/material/table'
+import { PortfolioComponent } from './portfolio/portfolio.component';
 import { DatePipe } from '@angular/common';
 import { RegisterComponent } from './register/register.component';
 import { NewCompanyComponent } from './new-company/new-company.component';
@@ -44,6 +45,7 @@ import { CompanyComponent } from './company/company.component';
 import { ChooseTypeComponent } from './choose-type/choose-type.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { SortQuestionsComponent, NewQuestionDialogComponent } from './new-competition/sort-questions/sort-questions.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [
@@ -56,8 +58,9 @@ import { SortQuestionsComponent, NewQuestionDialogComponent } from './new-compet
     ManagerHomepageDialogComponent,
     SuperadminNavComponent,
     LoginComponent,
-    PortfolioComponent,
+    HomePageInvestorComponent,
     MainNavComponent,
+    PortfolioComponent,
     RegisterComponent,
     NewCompanyComponent,
     CompanyComponent,
@@ -86,7 +89,6 @@ import { SortQuestionsComponent, NewQuestionDialogComponent } from './new-compet
     MatGridListModule,
     FormsModule,
     ReactiveFormsModule,
-
     MatListModule,
     MatTableModule,
     MatFormFieldModule,
@@ -103,9 +105,10 @@ import { SortQuestionsComponent, NewQuestionDialogComponent } from './new-compet
     MatSliderModule,
     MatCheckboxModule,
     MatDialogModule,
+    AngularEditorModule,
   ],
   exports: [],
   providers: [DatePipe, NewCompanyComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

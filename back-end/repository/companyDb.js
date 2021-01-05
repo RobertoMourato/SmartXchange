@@ -1,10 +1,9 @@
 const models = require('../models')
-const company = require('../models/company')
 const stockRepository = require('../repository/stockRepository')
 
 module.exports = {
 
-  async addCompany(req, res) {
+  async addCompany (req, res) {
     const {
       playerCompetitionId,
       companyName,
@@ -32,7 +31,7 @@ module.exports = {
       res.status(400).json('No company name associated')
     }
   },
-  async startCompaniesStocksAndOrders(competitionId, competitionInitialStockValue) {
+  async startCompaniesStocksAndOrders (competitionId, competitionInitialStockValue, competitionNumStocks) {
     const companies = await models.Company.findAll(
       {
         include: [{
@@ -44,10 +43,10 @@ module.exports = {
     )
     console.log(companies)
     companies.forEach(async company => {
-      const stocks = await stockRepository.addInitialCompanyStocksAndOrders(company.id, competitionInitialStockValue)
-    });
+      await stockRepository.addInitialCompanyStocksAndOrders(company.id, competitionInitialStockValue, competitionNumStocks)
+    })
   },
-  async getCompany(req, res) {
+  async getCompany (req, res) {
     const userId = req.query.userId
     const playerComp = await models.PlayerCompetition.findOne({ where: { playerid: userId } })
     if (playerComp) {
@@ -57,6 +56,20 @@ module.exports = {
         console.log(error)
         res.status(400).json(error)
       }
+    }
+  },
+
+  async updateCompany (body) {
+    const company = await models.Company.findOne({ where: { id: body.id, playerCompetitionId: body.playerCompetitionId } })
+
+    if (company) {
+      models.Company.update(
+        {
+          companyName: body.companyName,
+          companyWebsiteURL: body.companyWebsiteURL,
+          companyShortPitch: body.companyShortPitch
+        },
+        { where: { id: body.id } })
     }
   }
 }

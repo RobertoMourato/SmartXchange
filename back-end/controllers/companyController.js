@@ -47,8 +47,17 @@ exports.addEvaluation = async function (req, res) {
 
 exports.testeStartCompStocks = async function (req, res) {
   try {
-    const results = await companyDb.startCompaniesStocks(1,1)
+    const results = await companyDb.startCompaniesStocks(1, 1)
     res.json(results).status(200)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+exports.updateCompany = async function (req, res) {
+  try {
+    const results = await db.updateCompany(req.body)
+    res.json(results)
   } catch (e) {
     console.log(e)
     res.sendStatus(500)
