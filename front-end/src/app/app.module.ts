@@ -1,12 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
 import { AngularEditorModule } from '@kolkov/angular-editor';
-
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SuperadminNavComponent } from './superadmin-nav/superadmin-nav.component';
@@ -21,10 +18,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
-import { MarketPageListComponent } from './market-page-list/market-page-list.component';
-import { PortfolioComponent } from './portfolio/portfolio.component';
-import { MainNavComponent } from './main-nav/main-nav.component';
+import { HomePageInvestorComponent } from './home-page-investor/home-page-investor.component';
 import { MatTableModule } from '@angular/material/table';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
+import { MarketPageListComponent } from './market-page-list/market-page-list.component';
 import { DatePipe } from '@angular/common';
 import { RegisterComponent } from './register/register.component';
 import { MarketPageComponent } from './market-page/market-page.component';
@@ -39,6 +37,13 @@ import { MatRadioModule } from '@angular/material/radio';
     SuperadminNavComponent,
     MarketPageListComponent,
     LoginComponent,
+    HomePageInvestorComponent,
+    MainNavComponent,
+    PortfolioComponent,
+    RegisterComponent,
+    NewCompanyComponent,
+    CompanyComponent,
+    ChooseTypeComponent,
     RegisterComponent,
     MarketPageComponent,
     PortfolioComponent,
@@ -63,11 +68,12 @@ import { MatRadioModule } from '@angular/material/radio';
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
+    MatRadioModule,
     AngularEditorModule,
-    MatRadioModule
+    MatTableModule
   ],
   exports: [],
   providers: [DatePipe, NewCompanyComponent],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

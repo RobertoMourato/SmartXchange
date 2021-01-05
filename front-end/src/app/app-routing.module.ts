@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
+import { HomePageInvestorComponent } from './home-page-investor/home-page-investor.component';
 import { MarketPageListComponent } from './market-page-list/market-page-list.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { RegisterComponent } from './register/register.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'market-list', component: MarketPageListComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'home-investor', component: HomePageInvestorComponent },
   { path: 'marketPage', component: MarketPageComponent },
   { path: 'portfolio', component: PortfolioComponent },
   { path: 'register', component: RegisterComponent },

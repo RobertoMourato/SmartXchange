@@ -11,7 +11,8 @@ module.exports = {
         res.status(400).send(error)
       })
   },
-  async addOrder (body) {
+  async addOrder (req, res) {
+    const body = req.body
     // const tenant = await models.Tenant.findOne({ where: { tenant: req.body.id } });
     const company = await models.Company.findByPk(body.companyId)
     const user = await models.User.findByPk(body.playerId)
@@ -31,32 +32,27 @@ module.exports = {
     }
   },
 
-  async getMyOrders (companyId, userId) {
-    return await models.Order.findAll({
-      where: { companyId: companyId, playerId: userId }
-    })
-  },
-
   async getPlayerPendingOrders (username) {
     return await models.Order.findAll({
       where: { orderStatus: 'Pending' },
-      include: [{
-        model: models.Company
-      }, {
-        model: models.User,
-        where: { username: username },
-        as: 'player',
-        required: true,
-        include: {
-          model: models.PlayerCompetition,
+      include: [
+        {
+          model: models.Company
+        }, {
+          model: models.User,
+          where: { username: username },
+          as: 'player',
           required: true,
           include: {
-            model: models.Competition,
+            model: models.PlayerCompetition,
             required: true,
-            where: { competitionHasStarted: true, competitionHasFinished: false }
+            include: {
+              model: models.Competition,
+              required: true,
+              where: { competitionHasStarted: true, competitionHasFinished: false }
+            }
           }
-        }
-      }]
+        }]
     })
   },
   async getPlayerCompletedOrders (username) {
@@ -81,12 +77,69 @@ module.exports = {
         }
       }]
     })
-
     /* return await models.Order.findAll({
        include: ['company']
      }) */
   },
 
+  async getPlayerPartiallyMatchedOrders (userId, competitionId) {
+    console.log('getPartial', userId, competitionId)
+    const orders = await models.Order.findAll({
+      where: { orderStatus: 'Partially Matched' },
+      include: [
+        {
+          required: true,
+          model: models.StockExchange,
+          as: 'buyExchanges'
+        }, {
+          model: models.Company
+
+        },
+        {
+          model: models.User,
+          where: { id: userId },
+          as: 'player',
+          include: [{
+            model: models.PlayerCompetition,
+            required: true,
+            include: {
+              model: models.Competition,
+              where: { id: competitionId }
+            }
+          }]
+        }]
+
+    })
+
+    if (orders) {
+      return orders
+    } else {
+      return await models.Order.findAll({
+        where: { orderStatus: 'Partially Matched' },
+        include: [
+          {
+            required: true,
+            model: models.StockExchange,
+            as: 'sellExchanges'
+          }, {
+            model: models.Company
+          },
+          {
+            model: models.User,
+            where: { id: userId },
+            as: 'player',
+            include: [{
+              model: models.PlayerCompetition,
+              required: true,
+              include: {
+                model: models.Competition,
+                where: { id: competitionId }
+              }
+            }]
+          }]
+      })
+    }
+  },
   async cancelOrder (orderId) {
     try {
       return models.Order.update(

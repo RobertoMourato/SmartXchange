@@ -16,7 +16,8 @@ module.exports = {
             tableName: 'Users'
           },
           key: 'id'
-        }
+        },
+        onDelete: 'SET NULL'
       },
       companyId: {
         allowNull: false,
