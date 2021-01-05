@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 })
 export class PortfolioOrdersService {
   private url = 'http://localhost:3000';
-  //private url = 'http://localhost:5000'
+  // private url = 'http://localhost:5000'
 
   constructor(private httpClient: HttpClient) { }
 
@@ -27,7 +27,7 @@ export class PortfolioOrdersService {
   }
 
   getPartiallyMatchedOrders(userId: string, competitionId: string): Observable<any> {
-    console.log('id and compid', userId, competitionId)
+    console.log('id and compid', userId, competitionId);
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     return this.httpClient
       .get(this.url + '/order/partiallyMatched?userId=' + userId + '&competitionId=' + competitionId, { headers: header })
@@ -41,7 +41,7 @@ export class PortfolioOrdersService {
       .pipe(map(this.extractData));
   }
 
-  private extractData(res: Response) {
+  private extractData(res: Response): object {
     console.log(res || {});
     return res || {};
   }

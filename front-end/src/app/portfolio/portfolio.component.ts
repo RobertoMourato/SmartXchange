@@ -41,9 +41,9 @@ export class PortfolioComponent implements OnInit {
     this.getCompletedOrders();
   }
 
-  getPendingOrders() {
+  getPendingOrders(): void {
     const username = window.sessionStorage.getItem('user');
-    //console.log(username);
+    // console.log(username);
     const arr = [];
     this.portfolioService.getPendingOrders(username).subscribe((data) => {
       // console.log('Pending data', data);
@@ -63,11 +63,11 @@ export class PortfolioComponent implements OnInit {
         });
       });
       this.pendingDataSource = new MatTableDataSource<Offer>(arr);
-      console.log('pending', this.pendingDataSource)
+      console.log('pending', this.pendingDataSource);
     });
   }
 
-  getCompletedOrders() {
+  getCompletedOrders(): void {
     const username = window.sessionStorage.getItem('user');
     const userId = window.sessionStorage.getItem('userid');
     const competitionId = window.sessionStorage.getItem('competitionId');
@@ -76,10 +76,10 @@ export class PortfolioComponent implements OnInit {
     const arr = [];
     this.portfolioService.getCompletedOrders(username).subscribe((data) => {
       // console.log('data', data)
-      console.log(data)
+      console.log(data);
       data.forEach((element) => {
         if (element.Company == null) {
-          console.log('No company')
+          console.log('No company');
           return;
         }
         arr.push({
@@ -92,12 +92,12 @@ export class PortfolioComponent implements OnInit {
           date: this.datepipe.transform(element.createdAt, 'dd/MM/yyyy hh:mm')
         });
       });
-      //console.log(arr)
-      this.portfolioService.getPartiallyMatchedOrders(userId, competitionId).subscribe((data) => {
+      // console.log(arr)
+      this.portfolioService.getPartiallyMatchedOrders(userId, competitionId).subscribe((data2) => {
         // console.log('data', data)
-        data.forEach((element) => {
+        data2.forEach((element) => {
           if (element.Company == null) {
-            console.log('No company')
+            console.log('No company');
             return;
           }
           arr.push({
@@ -105,21 +105,21 @@ export class PortfolioComponent implements OnInit {
             type: element.orderType,
             company: element.Company.companyName,
             status: element.orderStatus,
-            qt: element.buyExchanges != undefined ? element.buyExchanges.length : element.sellExchanges.length,
+            qt: element.buyExchanges !== undefined ? element.buyExchanges.length : element.sellExchanges.length,
             offer: element.orderValue,
             date: this.datepipe.transform(element.createdAt, 'dd/MM/yyyy hh:mm')
           });
         });
 
         this.completedDataSource = new MatTableDataSource<Offer>(arr);
-        console.log('completed', this.completedDataSource)
-      })
+        console.log('completed', this.completedDataSource);
+      });
 
     });
 
   }
 
-  cancelOrder(id: number) {
+  cancelOrder(id: number): void {
     this.portfolioService.cancelOrder(id).subscribe((data) => {
       alert(data);
       this.getPendingOrders();

@@ -44,7 +44,7 @@ module.exports = {
     if (invite.dataValues.isValid) {
       const manager = await models.User.findByPk(invite.dataValues.invitedBy)
 
-      if (invite.dataValues.isManager == true && manager == true) {
+      if (invite.dataValues.isManager === true && manager === true) {
         try {
           const user = await models.User.create({
             name: name,

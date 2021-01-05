@@ -10,10 +10,10 @@ export class ManagerHomepageBusinessComponent implements OnInit {
   participants: number;
   businessForm;
   constructor(
-    //private cartService: CartService,
+    // private cartService: CartService,
     private formBuilder: FormBuilder,
-    ) { 
-    
+    ) {
+
     this.businessForm = this.formBuilder.group({
     value: '',
     activities: '',
@@ -27,11 +27,11 @@ export class ManagerHomepageBusinessComponent implements OnInit {
  }
   ngOnInit(): void {
 
-    //this.items = this.cartService.getItems();
+    // this.items = this.cartService.getItems();
   }
-  onSubmit(competitionData) {
+  onSubmit(competitionData): void{
     // Process checkout data here
-    //this.items = this.cartService.clearCart();
+    // this.items = this.cartService.clearCart();
     this.businessForm.reset();
 
     console.warn('Your  have updated business model', competitionData);

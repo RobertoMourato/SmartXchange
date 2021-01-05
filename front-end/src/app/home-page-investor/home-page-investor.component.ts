@@ -17,7 +17,7 @@ export class HomePageInvestorComponent implements OnInit {
   user: User;
   rankings: Ranking[] = [];
   playerRatings = [];
-  headers: String[] = ['Position', 'Name', 'Gain', 'Percentage'];
+  headers: string[] = ['Position', 'Name', 'Gain', 'Percentage'];
   dataSource: MatTableDataSource<Ranking>;
   // dataSource = this.rankings;
   playerOrder: number;
@@ -26,7 +26,7 @@ export class HomePageInvestorComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPlayerRankingData();
-    this.getLatestRankings()
+    this.getLatestRankings();
   }
 
   getLatestRankings(): void {
@@ -36,33 +36,33 @@ export class HomePageInvestorComponent implements OnInit {
     const playerId = window.sessionStorage.getItem('userid');
 
     this.homePageService.getLatestData(competitionId).subscribe((data) => {
-      //console.log('data', data)
+      // console.log('data', data)
       const arr = [];
       data.forEach(element => {
         // console.log('element', element)
-        if (element.PlayerCompetition.User.id == playerId) {
-          this.playerOrder = element.rankingPosition
+        if (element.PlayerCompetition.User.id === playerId) {
+          this.playerOrder = element.rankingPosition;
         }
-        arr.push(new Ranking(element.rankingPosition, element.PlayerCompetition.User.name, 0, 0, element.createdAt))
+        arr.push(new Ranking(element.rankingPosition, element.PlayerCompetition.User.name, 0, 0, element.createdAt));
       });
-      this.dataSource = new MatTableDataSource<Ranking>(arr)
-      const final = []
+      this.dataSource = new MatTableDataSource<Ranking>(arr);
+      const final = [];
       try {
-        if (this.playerOrder == 1) {
-          final.push(arr[0], arr[1], arr[2])
+        if (this.playerOrder === 1) {
+          final.push(arr[0], arr[1], arr[2]);
         } else {
-          if (this.playerOrder == arr.length) {
-            final.push(arr[arr.length - 3], arr[arr.length - 2], arr[arr.length - 1])
+          if (this.playerOrder === arr.length) {
+            final.push(arr[arr.length - 3], arr[arr.length - 2], arr[arr.length - 1]);
           } else {
-            final.push(arr[this.playerOrder - 2], arr[this.playerOrder - 1], arr[this.playerOrder])
+            final.push(arr[this.playerOrder - 2], arr[this.playerOrder - 1], arr[this.playerOrder]);
           }
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
 
-      this.dataSource = new MatTableDataSource<Ranking>(final)
-    })
+      this.dataSource = new MatTableDataSource<Ranking>(final);
+    });
   }
 
   getPlayerRankingData(): void {
@@ -72,7 +72,7 @@ export class HomePageInvestorComponent implements OnInit {
       .getPlayerRankingsData(playerId, competitionId)
       .subscribe(async (data) => {
         await data.forEach(element => {
-          this.playerRatings.push({ "value": element.rankingPosition, "date": element.createdAt })
+          this.playerRatings.push({ value: element.rankingPosition, date: element.createdAt });
         });
         this.buildGraph();
       });
@@ -84,46 +84,46 @@ export class HomePageInvestorComponent implements OnInit {
     // Themes end
 
     // Create chart instance
-    let chart = am4core.create('chartdiv', am4charts.XYChart);
+    const chart = am4core.create('chartdiv', am4charts.XYChart);
 
     const t = [{
-      "date": "2013-01-29",
-      "value": 84
+      date: '2013-01-29',
+      value: 84
     }, {
-      "date": "2013-01-30",
-      "value": 81
-    }]
-    console.log('t', t)
+      date: '2013-01-30',
+      value: 81
+    }];
+    console.log('t', t);
     this.playerRatings.forEach(element => {
 
     });
-    console.log(this.playerRatings)
+    console.log(this.playerRatings);
     chart.data = this.playerRatings;
-    console.log('chart', chart.data)
+    console.log('chart', chart.data);
 
     // Set input format for the dates
     chart.dateFormatter.inputDateFormat = 'yyyy-MM-ddHH:mm';
 
     // Create axes
-    let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+    const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.grid.template.stroke = am4core.color('#FFF');
-    dateAxis.renderer.labels.template.fill = am4core.color("#FFF");
+    dateAxis.renderer.labels.template.fill = am4core.color('#FFF');
 
-    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.renderer.grid.template.stroke = am4core.color('#FFF');
-    valueAxis.renderer.labels.template.fill = am4core.color("#FFF");
-    valueAxis.title.text = "Rankings";
+    valueAxis.renderer.labels.template.fill = am4core.color('#FFF');
+    valueAxis.title.text = 'Rankings';
     valueAxis.min = 0;
     valueAxis.title.stroke = am4core.color('#FFF');
 
     // Create series
-    let series = chart.series.push(new am4charts.LineSeries());
+    const series = chart.series.push(new am4charts.LineSeries());
     series.dataFields.valueY = 'value';
     series.dataFields.dateX = 'date';
     series.tooltipText = '{value}';
     series.strokeWidth = 2;
     series.minBulletDistance = 15;
-    series.stroke = am4core.color("#06b164");
+    series.stroke = am4core.color('#06b164');
 
     // Drop-shaped tooltips
     series.tooltip.background.cornerRadius = 20;
@@ -134,12 +134,12 @@ export class HomePageInvestorComponent implements OnInit {
     series.tooltip.label.textAlign = 'middle';
 
     // Make bullets grow on hover
-    let bullet = series.bullets.push(new am4charts.CircleBullet());
+    const bullet = series.bullets.push(new am4charts.CircleBullet());
     bullet.circle.strokeWidth = 2;
     bullet.circle.radius = 4;
     bullet.circle.fill = am4core.color('#FFF');
 
-    let bullethover = bullet.states.create('hover');
+    const bullethover = bullet.states.create('hover');
     bullethover.properties.scale = 1.3;
 
     // Make a panning cursor

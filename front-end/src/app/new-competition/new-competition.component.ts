@@ -16,29 +16,29 @@ export class NewCompetitionComponent implements AfterViewInit {
 
   constructor(private competitionService: CompetitionService, router: Router) {}
 
-  competitionId: string
+  competitionId: string;
   ngAfterViewInit(): void {
     const questions = this.child.questions;
   }
 
-  invite_player(email:string){
-    const manager_Id = window.sessionStorage.getItem('user');
-    this.competitionService.invite_player(manager_Id, this.competitionId,email).subscribe(
+  invite_player(email: string): void{
+    const manager = window.sessionStorage.getItem('user');
+    this.competitionService.invite_player(manager, this.competitionId, email).subscribe(
       (data) => {
         console.log(data);
       }
     );
   }
 
-  add_draft(cashAmmount: string, initialValue: string, refresh: string, stocks: string){
-    const manager_Id = window.sessionStorage.getItem('userid');
+  add_draft(cashAmmount: string, initialValue: string, refresh: string, stocks: string): void{
+    const manager = window.sessionStorage.getItem('userid');
     const endDate =  new Date();
     const initialBudget = cashAmmount;
     const initialStock = initialValue;
     const refreshRate = refresh;
     const numStocks = stocks;
     const qs = this.child.questions;
-    this.competitionService.add_draft(manager_Id, endDate, initialBudget, initialStock, refreshRate, numStocks, qs).subscribe(
+    this.competitionService.add_draft(manager, endDate, initialBudget, initialStock, refreshRate, numStocks, qs).subscribe(
       (data) => {
         console.log(data);
         this.competitionId = data.id;
@@ -46,17 +46,18 @@ export class NewCompetitionComponent implements AfterViewInit {
     );
   }
 
-   start_competition(duration: number, cashAmmount: string, initialValue: string, refresh: string, stocks: string){
+   start_competition(duration: number, cashAmmount: string, initialValue: string, refresh: string, stocks: string): void{
     const manager = window.sessionStorage.getItem('userid');
     const startDate =  new Date();
-    const seconds = duration*60*60;
+    const seconds = duration * 60 * 60;
     const endDate = new Date(startDate.getTime() + seconds);
     const initialBudget = cashAmmount;
     const initialStock = initialValue;
     const refreshRate = refresh;
     const numStocks = stocks;
     const qs = this.child.questions;
-      this.competitionService.start_competition(manager,this.competitionId, startDate,endDate,initialBudget, initialStock, refreshRate, numStocks,qs).subscribe(
+    this.competitionService.start_competition(manager, this.competitionId, startDate, endDate, initialBudget,
+       initialStock, refreshRate, numStocks, qs).subscribe(
         (data) => {
           console.log(data);
         }

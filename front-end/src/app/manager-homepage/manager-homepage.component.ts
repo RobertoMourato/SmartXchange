@@ -11,11 +11,11 @@ export class ManagerHomepageComponent implements OnInit {
   breakpoint;
   constructor() { }
 
-  ngOnInit() {
-    if(window.innerWidth <= 700){
+  ngOnInit(): void {
+    if (window.innerWidth <= 700){
       this.breakpoint = 1;
      }
-     else if(window.innerWidth <= 1200){
+     else if (window.innerWidth <= 1200){
        this.breakpoint = 2;
      }
      else{
@@ -23,11 +23,11 @@ export class ManagerHomepageComponent implements OnInit {
      }
 }
 
-onResize(event) {
-  if(event.target.innerWidth <= 700){
+onResize(event): void {
+  if (event.target.innerWidth <= 700){
    this.breakpoint = 1;
   }
-  else if(event.target.innerWidth <= 1200){
+  else if (event.target.innerWidth <= 1200){
     this.breakpoint = 2;
   }
   else{

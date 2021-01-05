@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ManagerHomepageDialogComponent } from '../manager-homepage-dialog/manager-homepage-dialog.component';
-//import { competitionSettings } from '../cart.service';
-//import { CartService } from '../cart.service';
+// import { competitionSettings } from '../cart.service';
+// import { CartService } from '../cart.service';
 import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-manager-homepage-competition',
@@ -14,11 +14,11 @@ export class ManagerHomepageCompetitionComponent implements OnInit {
   participants: number;
   competitionForm;
   constructor(
-    //private cartService: CartService,
+    // private cartService: CartService,
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
-    ) { 
-    
+    ) {
+
     this.competitionForm = this.formBuilder.group({
     rate: '',
     companyValue: '',
@@ -28,21 +28,21 @@ export class ManagerHomepageCompetitionComponent implements OnInit {
  }
   ngOnInit(): void {
 
-    //this.items = this.cartService.getItems();
+    // this.items = this.cartService.getItems();
     this.participants = 0;
   }
-  onSubmit(competitionData) {
+  onSubmit(competitionData): void {
     // Process checkout data here
     this.competitionForm.reset();
-    //send info
+    // send info
   }
-  openDialog(competitionData: any){
-    let dialogRef = this.dialog.open(ManagerHomepageDialogComponent);
+  openDialog(competitionData: any): void{
+    const dialogRef = this.dialog.open(ManagerHomepageDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
-      if(`${result}` == "true"){
+      if (`${result}` === 'true'){
         console.warn('Your order has been submitted', competitionData);
       }
-        //send info
+        // send info
       else{
 
           }

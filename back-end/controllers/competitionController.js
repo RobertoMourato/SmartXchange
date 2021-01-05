@@ -39,10 +39,10 @@ exports.addCompetitionDraft = async function (req, res) {
     console.log(req.body)
     // const currDraft = await competitionRepository.getCurrDraft(req.body.managerId)
     // if (currDraft != null) {
-      const results = await competitionRepository.addCompetitionDraft(req, res)
-      res.json(results).status(200)
+    const results = await competitionRepository.addCompetitionDraft(req, res)
+    res.json(results).status(200)
     // } else {
-      // res.json('There is an ongoing Competition, you cannot start another one').status(400)
+    // res.json('There is an ongoing Competition, you cannot start another one').status(400)
     // }
   } catch (e) {
     console.log(e)
@@ -52,12 +52,11 @@ exports.addCompetitionDraft = async function (req, res) {
 
 exports.startCompetition = async function (req, res) {
   try {
-
     // const currentCompetition = competitionRepository.getCurrDraftOrCompetition(req.query.managerId)
     // if (currentCompetition != null) {
-      console.log(req.body)
-      const results = await competitionRepository.startCompetition(req, res)
-      res.json(results).status(200)
+    console.log(req.body)
+    const results = await competitionRepository.startCompetition(req, res)
+    res.json(results).status(200)
     // } else {
     //   console.log('entrou aqui')
     //   res.json('There is an ongoing Competition, you cannot start another one').status(400)

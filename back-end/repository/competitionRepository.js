@@ -83,7 +83,7 @@ module.exports = {
         //       where: { id: element.id }
         //     }
         //     )
-          // }
+        // }
         // })
 
         this.startStocksAndOrdersForExistingCompanies(competition.dataValues.id, competition.dataValues.competitionInitialStockValue, competitionNumStocks)
@@ -130,12 +130,11 @@ module.exports = {
           competitionHasStarted: false,
           competitionHasFinished: false
         })
-        console.log(competition);
+        console.log(competition)
         // await questionRepository.loadQuestions(competition.dataValues)
         questions.forEach(async element => {
           console.log(element)
           await questionRepository.addQuestion(element, competition.dataValues.id)
-          
         })
 
         res.status(200).json(competition)
@@ -153,7 +152,7 @@ module.exports = {
     console.log(comp)
     if (comp) {
       try {
-        if (comp.competitionHasStarted == 0) {
+        if (comp.competitionHasStarted === 0) {
           models.Competition.update(
             { competitionHasStarted: true },
             { returning: true, where: { id: req.query.id } }
@@ -208,7 +207,7 @@ module.exports = {
     try {
       const invite = await models.Invite.findOne({ where: { token: inviteToken } })
 
-      if (invite && invite.dataValues.isManager == false && invite.dataValues.isValid == true) {
+      if (invite && invite.dataValues.isManager === false && invite.dataValues.isValid === true) {
         const pc = await models.PlayerCompetition.create({
           playerId: userId,
           competitionId: invite.dataValues.competitionId,

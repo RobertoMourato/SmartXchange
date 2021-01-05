@@ -11,7 +11,7 @@ module.exports = {
         }
       })
       if (!response) {
-        var answer = await models.Answer.create({
+        const answer = await models.Answer.create({
           questionId: questionId,
           companyId: companyId,
           answerText: answerText

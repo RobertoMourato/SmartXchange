@@ -37,7 +37,7 @@ exports.addUser = async function (req, res) {
   try {
     console.log(req.body)
     const user = await dbUser.addUser(req, res)
-    if (user != null) {
+    if (user !== null) {
       const playerCompetition = await competitionRepository.addPlayerCompetitionWithInvite(user.id, req.body.inviteToken)
       res.json({ user, playerCompetition })
     } else {
@@ -65,16 +65,16 @@ exports.updateUser = async function (req, res) {
     const { username, name, newUsername, email, password } = req.body
     const constUser = await dbUser.getByUsername(username)
 
-    if (newUsername != undefined) {
+    if (newUsername !== undefined) {
       usernewUsername = await dbUser.getByUsername(newUsername)
     }
     if (constUser) {
       if (!usernewUsername) {
-        req.body.name = (name != undefined ? name : constUser.name)
-        req.body.email = (email != undefined ? email : constUser.email)
-        req.body.password = (password != undefined ? password : constUser.name)
-        req.body.newUsername = (newUsername != undefined ? newUsername : constUser.username)
-        if (name.trim() != '' && email.trim() != '' && password.trim() != '' && username.trim() != '') {
+        req.body.name = (name !== undefined ? name : constUser.name)
+        req.body.email = (email !== undefined ? email : constUser.email)
+        req.body.password = (password !== undefined ? password : constUser.name)
+        req.body.newUsername = (newUsername !== undefined ? newUsername : constUser.username)
+        if (name.trim() !== '' && email.trim() !== '' && password.trim() !== '' && username.trim() !== '') {
           await dbUser.updateUser(req, res)
           res.status(200).json('Tenant updated succesfully!')
         } else {
@@ -95,7 +95,7 @@ exports.updateUser = async function (req, res) {
 exports.completeRegistration = async function (req, res) {
   try {
     const user = await userRepository.completeRegistration(req.query.userType, req.query.playerCompetitionId)
-    if (user != null) {
+    if (user !== null) {
       res.json(user).status(200)
     } else {
       res.json('Something went wrong').status(400)
