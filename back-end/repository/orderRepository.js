@@ -156,7 +156,7 @@ module.exports = {
     // console.log('maps', maps)
     const buyMap = maps.buyMap
     const sellMap = maps.sellMap
-    if (buyMap != undefined && sellMap != undefined) {
+    if (buyMap !== undefined && sellMap !== undefined) {
       console.log('buy', maps.buyMap)
       console.log('sell', maps.sellMap)
 
@@ -179,7 +179,7 @@ module.exports = {
                   buyOrder.orderNumStock = buyOrder.orderNumStock - sellOrder.orderNumStock
                   sellOrder.orderNumStock = 0
                 } else {
-                  if (buyOrder.orderNumStock == sellOrder.orderNumStock) {
+                  if (buyOrder.orderNumStock === sellOrder.orderNumStock) {
                     console.log('=')
                     // create stock exchanges, update wallet, update stocks
                     await this.exchangeStocks(buyOrder.id, sellOrder.id, sellOrder.orderNumStock, buyOrder.orderValue, buyOrder.playerId, sellOrder.playerId, companyId)
@@ -245,7 +245,7 @@ module.exports = {
 
       // buyOrders
       const companyOrders = buyMap.get(element.companyId)
-      if (companyOrders != undefined) {
+      if (companyOrders !== undefined) {
         const order = models.Order.build(element)
         companyOrders.push(order.dataValues)
         buyMap.set(element.companyId, companyOrders)
@@ -261,7 +261,7 @@ module.exports = {
       const element = order.dataValues
       // SellOrders
       const companyOrders = sellMap.get(element.companyId)
-      if (companyOrders != undefined) {
+      if (companyOrders !== undefined) {
         const order = models.Order.build(element)
         companyOrders.push(order.dataValues)
         sellMap.set(element.companyId, companyOrders)
@@ -313,7 +313,7 @@ module.exports = {
     })
 
     // firstOrders (when competition starts) playerId is null
-    if (sellerId != null) {
+    if (sellerId !== null) {
       await models.PlayerCompetition.update({
         wallet: Sequelize.literal('wallet +' + payment)
       }, {

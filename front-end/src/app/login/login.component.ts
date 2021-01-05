@@ -32,12 +32,13 @@ export class LoginComponent implements OnInit {
           //console.log(this.competition);
           // console.log(this.user, ' ' , this.userType);
           // console.log(data.token);
-          window.sessionStorage.setItem('competitionId', String(this.competition.id));
           window.sessionStorage.setItem('userid', String(this.user.id));
           window.sessionStorage.setItem('user', this.user.username);
           window.sessionStorage.setItem('usertype', this.userType.userType);
           window.sessionStorage.setItem('token', data.token);
-          window.sessionStorage.setItem('competitionId', String(this.competition.id));
+          if (this.userType.userType === 'Investor' || this.userType.userType === 'Entrepreneur'){
+            window.sessionStorage.setItem('competitionId', String(this.competition.id));
+          }
           // alert(JSON.stringify(data.user) +'\n'+JSON.stringify(data.usertype))
           // window.location.replace("/menu");
           alert('Welcome ' + window.sessionStorage.getItem('user'));

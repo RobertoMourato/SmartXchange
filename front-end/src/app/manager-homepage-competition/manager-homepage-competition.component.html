@@ -1,0 +1,34 @@
+<div class="container">
+    <h1 class="title">Competition Settings<div>
+            <p class="participants">{{participants}} participants</p>
+        </div>
+    </h1>
+    <div>
+        <div>
+            <label>Duration
+            </label>
+            <input id="duration" type="text" formControlName="duration">
+            <button style="margin-left: 1em;">Prolong Game</button>
+        </div>
+        <form [formGroup]="competitionForm" (ngSubmit)="onSubmit(competitionForm.value)">
+
+            <div>
+                <label>Refresh rate</label> <input id="rate" type="text" formControlName="rate">
+            </div>
+            <div>
+                <label>Initial company value </label><input id="companyValue" type="text"
+                    formControlName="companyValue">
+            </div>
+            <div>
+                <label>Number of initial stocks</label><input id="stocks" type="text" formControlName="stocks">
+            </div>
+            <div>
+                <label>Investor initial cash </label><input id="cash" type="text" formControlName="cash">
+            </div>
+            <div>
+            <button style="float: left;" (click)="openDialog(competitionForm.value)">Call dividends </button>
+            <button style="float: right;"class="submit" type="submit">Create Competition </button>
+            </div>
+        </form>
+    </div>
+</div>
