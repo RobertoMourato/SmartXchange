@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
   userType: UserType;
   competition: Competition;
   playerCompetition: PlayerCompetition;
-  competition: Competition;
   ngOnInit(): void {}
   login(email: string, password: string): void {
     if (!this.validateForm(email, password)) {
@@ -46,15 +45,15 @@ export class LoginComponent implements OnInit {
             const invite = window.location.search.split('=')[1];
 
             // criar a playerCompetition atraves do invite e do userId
-            /*this.loginService
+            this.loginService
               .registerPlayercompetition(this.user.id, invite)
-              .subscribe((tdata) => {
-                console.log(tdata);
-                this.playerCompetition = tdata;
+              .subscribe(data2 => {
+                console.log(data2);
+                this.playerCompetition = data2;
                 window.location.replace(
                   '/chooseType?playerCompetition=' + this.playerCompetition.id
                 );
-              });*/
+              });
           } else {
             window.location.replace('/portfolio');
           }

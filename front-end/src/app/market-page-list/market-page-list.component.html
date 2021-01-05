@@ -2,6 +2,7 @@
     <body>
         <div class="page-container" fxLayout="row" fxLayoutAlign="center center">
             <div class="company-container">
+                <h2 (click)="redirect()"><mat-icon>keyboard_backspace</mat-icon> Go Back</h2>
                 <mat-card>
                     <mat-card-header>
                         <mat-card-title>{{company.companyName}}</mat-card-title>
@@ -30,8 +31,8 @@
                                 <input matInput #price placeholder="{{company.companyCurrentStockPrice}}">
                             </mat-card-content>
                             <mat-card-actions>
-                                <button mat-button>Buy</button>
-                                <button mat-button>Sell</button>
+                                <button mat-button (click) = "BuyOrder(amount.value, price.value)">Buy</button>
+                                <button mat-button (click) = "SellOrder(amount.value, price.value)">Sell</button>
                             </mat-card-actions>
                         </mat-card>
                     </div>
@@ -39,7 +40,7 @@
                         <h3><mat-icon>account_balance_wallet</mat-icon> Wallet</h3>
                         <mat-card class="wallet-card" fxLayout="column">
                             <mat-label>Cash in account {{ wallet }}</mat-label>
-                            <mat-label>Stock Amount Owned 10</mat-label>
+                            <mat-label>Stock Amount Owned {{ stocksOwned }}</mat-label>
                         </mat-card>
                     </div>  
                 </div>
