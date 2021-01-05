@@ -21,6 +21,15 @@ module.exports = {
       tenanttype_id: '1',
       createdAt: new Date(),
       updatedAt: new Date()
+    },
+    {
+      name: 'Sharna Barber',
+      username: 'sharny',
+      email: 'sharnab@gmail.com',
+      password: bcrypt.hashSync('1234', salt),
+      tenanttype_id: '1',
+      createdAt: new Date(),
+      updatedAt: new Date()
     }])
   },
 
