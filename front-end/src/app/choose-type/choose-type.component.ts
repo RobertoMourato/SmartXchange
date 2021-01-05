@@ -19,8 +19,8 @@ export class ChooseTypeComponent implements AfterViewInit {
   constructor(private chooseTypeService: ChooseTypeService) { }
 
   userType: string;
-  user: User
-  competition: Competition
+  user: User;
+  competition: Competition;
   compName: string;
   url: string;
   pitch: string;
@@ -51,9 +51,9 @@ export class ChooseTypeComponent implements AfterViewInit {
         this.chooseTypeService
           .completeRegistration(this.userType, playerCompetitionId)
           .subscribe((data) => {
-            console.log(data)
+            console.log(data);
             this.user = data.user;
-            this.competition = data.competition
+            this.competition = data.competition;
             window.sessionStorage.setItem('competitionId', String(data.competition.id));
             window.sessionStorage.setItem('userid', String(data.user.id));
             window.sessionStorage.setItem('user', data.user.username);

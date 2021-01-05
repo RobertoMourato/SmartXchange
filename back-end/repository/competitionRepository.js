@@ -21,18 +21,17 @@ module.exports = {
     return models.Competition.build(competition.dataValues)
   },
 
-  async getByPlayerCompId (id) {
-    const playerComp = await models.PlayerCompetition.findOne({ where: { playerId: id } })
-    if (playerComp) {
-      return await models.Competition.findByPk(playerComp.dataValues.competitionId)
-    }
-  },
-
   async getCurrentCompetition (managerId) {
     try {
       return await models.Order.findOne({ where: { managerId: managerId, competitionHasStarted: true, competitionHasFinished: false } })
     } catch (error) {
       return null
+    }
+  },
+  async getByPlayerCompId (id) {
+    const playerComp = await models.PlayerCompetition.findOne({ where: { playerId: id } })
+    if (playerComp) {
+      return await models.Competition.findByPk(playerComp.dataValues.competitionId)
     }
   },
 

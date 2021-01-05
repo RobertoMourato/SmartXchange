@@ -32,6 +32,18 @@ module.exports = {
     }
   },
 
+  async getMyOrders (companyId, userId) {
+    return await models.Order.findAll({
+      where: { companyId: companyId, playerId: userId }
+    })
+  },
+
+  async getAllMyOrders (userId) {
+    return await models.Order.findAll({
+      where: { playerId: userId }
+    })
+  },
+
   async getPlayerPendingOrders (username) {
     return await models.Order.findAll({
       where: { orderStatus: 'Pending' },

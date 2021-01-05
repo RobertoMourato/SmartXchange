@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ConeColumn } from '@amcharts/amcharts4/charts';
 
 @Injectable({
   providedIn: 'root',
@@ -41,6 +40,21 @@ export class HomePageService {
         { headers: header }
       )
       .pipe(map(this.extractData));
+  }
+
+  getWallet(userId: string, competitionId: string): Observable<any>{
+    const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    return this.httpClient.get<any>(this.url + '/users/wallet?userId=' + userId + '&competitionId=' + competitionId, {headers: header});
+  }
+
+  getAllMyStocks(userId: string): Observable<any>{
+    const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    return this.httpClient.get<any>(this.url + '/stocks/allstocksowned?userId=' + userId, {headers: header});
+  }
+
+  getAllMyOrders(userId: string): Observable<any>{
+    const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    return this.httpClient.get<any>(this.url + '/order/getallmyorders?userId=' + userId, {headers: header});
   }
 
   private extractData(res: Response): object {
