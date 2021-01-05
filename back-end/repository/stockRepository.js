@@ -15,6 +15,11 @@ module.exports = {
     const stocks = await models.Stock.findAll({ where: { playerId: userId, companyId: companyId } })
     return stocks
   },
+  
+  async getAllStocksOwned (userId) {
+    const stocks = await models.Stock.findAll({ where: { playerId: userId} })
+    return stocks
+  },
 
   async addStock (req, res) {
     const company = await models.Company.findByPk(req.query.companyId)

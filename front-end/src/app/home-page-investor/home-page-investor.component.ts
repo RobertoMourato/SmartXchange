@@ -17,16 +17,57 @@ export class HomePageInvestorComponent implements OnInit {
   user: User;
   rankings: Ranking[] = [];
   playerRatings = [];
-  headers: String[] = ['Position', 'Name', 'Gain', 'Percentage'];
+  headers: String[] = ['Position', 'Name', 'Gain'];
   dataSource: MatTableDataSource<Ranking>;
   // dataSource = this.rankings;
   playerOrder: number;
+  wallet: number;
+  stockValue: number;
+  stockAmount: number;
 
   constructor(private homePageService: HomePageService) { }
 
   ngOnInit(): void {
     this.getPlayerRankingData();
     this.getLatestRankings()
+    this.WalletInfo();
+    this.StockInfo();
+    this.StockValues();
+  }
+
+  WalletInfo(): void{
+    this.homePageService.getWallet(window.sessionStorage.getItem("userid"), 
+                                   window.sessionStorage.getItem("competitionId"))
+                                   .subscribe(data => { this.wallet = data.wallet })
+  }
+
+  StockValues(): void{
+    this.homePageService.getAllMyOrders(window.sessionStorage.getItem("userid"))
+                                        .subscribe(data => {
+                                          var value = 0;
+                                          data.forEach(element => {
+                                            if(element.orderStatus == 'Completed'){
+                                              if(element.orderType == 'Buy'){
+                                                value -= (element.orderNumStock * element.orderValue)
+                                              }
+                                              else{
+                                                value += (element.orderNumStock * element.orderValue)
+                                              }
+                                            }
+                                          });
+                                          this.stockValue = value;
+                                        })
+  }
+
+  StockInfo(): void{
+    this.homePageService.getAllMyStocks(window.sessionStorage.getItem("userid"))
+                                        .subscribe(data => { 
+                                          var count = 0;
+                                          data.forEach(element => {
+                                          count ++;
+                                        });
+                                        this.stockAmount = count;
+                                      })
   }
 
   getLatestRankings(): void {
@@ -43,7 +84,7 @@ export class HomePageInvestorComponent implements OnInit {
         if (element.PlayerCompetition.User.id == playerId) {
           this.playerOrder = element.rankingPosition
         }
-        arr.push(new Ranking(element.rankingPosition, element.PlayerCompetition.User.name, 0, 0, element.createdAt))
+        arr.push(new Ranking(element.rankingPosition, element.PlayerCompetition.User.name, 0, element.createdAt))
       });
       this.dataSource = new MatTableDataSource<Ranking>(arr)
       const final = []

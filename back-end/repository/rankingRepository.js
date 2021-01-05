@@ -59,5 +59,43 @@ module.exports = {
 
     // sort pelos rankingPoint
     // create ranking
+  },
+
+  async getRankingsByPlayerAndCompetition (playerId, competitionId) {
+    try {
+      return await models.Ranking.findAll({
+        order: [['createdAt', 'ASC']],
+        include: {
+          model: models.PlayerCompetition,
+          where: {
+            playerId: playerId,
+            competitionId: competitionId
+          }
+        }
+      })
+    } catch (error) {
+      return null
+    }
+  },
+  async getCompetitionLatestRankings (competitionId) {
+    try {
+      const lastUpdate = await models.Ranking.max('createdAt')
+      return await models.Ranking.findAll({
+        order: [['rankingPosition', 'ASC']],
+        where: { createdAt: lastUpdate },
+        include: {
+          model: models.PlayerCompetition,
+          where: {
+            competitionId: competitionId
+          },
+          include: {
+            model: models.User
+          }
+        }
+      })
+    } catch (error) {
+      console.log(error.message)
+      return null
+    }
   }
 }

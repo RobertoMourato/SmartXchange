@@ -20,9 +20,20 @@ exports.addOrder = async function (req, res) {
     res.sendStatus(500)
   }
 }
+
 exports.getMyOrders = async function (req, res) {
   try {
     const results = await orderRepository.getMyOrders(req.query.companyId, req.query.userId)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+
+exports.getAllMyOrders = async function (req, res) {
+  try {
+    const results = await orderRepository.getAllMyOrders(req.query.userId)
     res.json(results)
   } catch (e) {
     console.log(e)
