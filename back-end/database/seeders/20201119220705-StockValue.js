@@ -2,13 +2,15 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('StockValues', [{
-      companyId: '1',
-      stockValue: '20',
-      stockValueDate: new Date(),
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }])
+    for (let i = 1; i <= 10; i++) {
+      await queryInterface.bulkInsert('StockValues', [{
+        companyId: i,
+        stockValue: '10',
+        stockValueDate: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }])
+    }
   },
 
   down: async (queryInterface, Sequelize) => {

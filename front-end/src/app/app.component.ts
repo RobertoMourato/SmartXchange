@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { User } from './user';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,7 +9,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   title = 'smartxchange';
   constructor() {
   }
+
+
+
+
+
+
 }

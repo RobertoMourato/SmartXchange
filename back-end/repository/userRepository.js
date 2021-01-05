@@ -4,16 +4,7 @@ const bcrypt = require('bcryptjs')
 module.exports = {
 
   async index (req, res) {
-    let results
-    await models.User.findAll()
-      .then((users) => {
-        results = users
-      })
-      .catch(error => {
-        console.log(error)
-        return null
-      })
-    return results
+    return models.User.findAll()
   },
   /*
   //add Manager
@@ -94,10 +85,10 @@ module.exports = {
   },
 
   async getUserById (req, res) {
-    const user = models.User
     let User = null
+    console.log('getById', req.params.id)
     // await user.findOne({ where: { id: req.body.id }, include: ["players", "manager"] })~
-    await user.findOne({ where: { id: req.body.id } })
+    await models.User.findOne({ where: { id: req.params.id } })
       .then(user => {
         // res.status(200).json(users)
         User = user
@@ -183,6 +174,12 @@ module.exports = {
     })
   },
 
+  async deleteManager (managerId) {
+    const managerTypeId = await models.UserType.findOne({ where: { userType: 'Manager' } })
+    return await models.User.destroy({
+      where: { id: managerId, userTypeId: managerTypeId.dataValues.id }
+    })
+  },
   async deleteUser (req) {
     console.log('entrou')
     await models.User.destroy({ where: { username: req.body.username } })
@@ -220,5 +217,32 @@ module.exports = {
     } else {
       return null
     }
+  },
+
+  async getUsersByCompetition (competitionId) {
+    console.log('rep', competitionId)
+    return await models.User.findAll({
+      include: {
+        model: models.PlayerCompetition,
+        where: { competitionId: competitionId }
+      }
+    })
+  },
+
+  async getManagerByCompetition (competitionId) {
+    console.log('competition', competitionId)
+    return await models.User.findOne({
+      include: [{
+        model: models.Competition,
+        where: { id: competitionId },
+        as: 'competitions',
+        required: true
+      }, {
+        model: models.UserType,
+        where: { userType: 'Manager' },
+        required: true
+      }
+      ]
+    })
   }
 }

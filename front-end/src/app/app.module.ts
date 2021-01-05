@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -19,8 +22,13 @@ import { ManagerHomepageCompetitionComponent } from './manager-homepage-competit
 import { ManagerHomepageBusinessComponent } from './manager-homepage-business/manager-homepage-business.component';
 import { ManagerHomepageParticipantsComponent } from './manager-homepage-participants/manager-homepage-participants.component';
 import { ManagerHomepageDialogComponent } from './manager-homepage-dialog/manager-homepage-dialog.component';
+import { SuperadminManagerListComponent } from './superadmin-manager-list/superadmin-manager-list.component';
+import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { CreateManagerPopupComponent } from './create-manager-popup/create-manager-popup.component';
+import { CreateManagerPopupDialogComponent } from './create-manager-popup/create-manager-popup.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -28,15 +36,17 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 
-import { LoginComponent } from './login/login.component';
+
 import { SuperadminNavComponent } from './superadmin-nav/superadmin-nav.component';
 import { NewCompetitionComponent } from './new-competition/new-competition.component';
 import { AppRoutingModule } from './app-routing.module';
+import { LoginComponent } from './login/login.component';
+import { MatSelectModule } from '@angular/material/select';
 import { HomePageInvestorComponent } from './home-page-investor/home-page-investor.component';
 import { MatTableModule } from '@angular/material/table';
-import { MainNavComponent } from './main-nav/main-nav.component';
-import { PortfolioComponent } from './portfolio/portfolio.component';
 import { MarketPageListComponent } from './market-page-list/market-page-list.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
+import { MainNavComponent } from './main-nav/main-nav.component';
 import { DatePipe } from '@angular/common';
 import { RegisterComponent } from './register/register.component';
 import { MarketPageComponent } from './market-page/market-page.component';
@@ -47,55 +57,55 @@ import { MatRadioModule } from '@angular/material/radio';
 import { SortQuestionsComponent, NewQuestionDialogComponent } from './new-competition/sort-questions/sort-questions.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
+import { UserService } from './user.service';
+import { SuperadminGamesListComponent } from './superadmin-games-list/superadmin-games-list.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
-    SuperadminNavComponent,
     ManagerHomepageComponent,
     ManagerHomepageCompetitionComponent,
     ManagerHomepageBusinessComponent,
     ManagerHomepageParticipantsComponent,
     ManagerHomepageDialogComponent,
     SuperadminNavComponent,
+    SuperadminManagerListComponent,
+    CreateManagerPopupComponent,
     MarketPageListComponent,
     LoginComponent,
+    SuperadminGamesListComponent,
     HomePageInvestorComponent,
     MarketPageComponent,
-    MainNavComponent,
     PortfolioComponent,
     RegisterComponent,
-    NewCompanyComponent,
     CompanyComponent,
     ChooseTypeComponent,
+    MainNavComponent,
+    NewCompanyComponent,
+    CreateManagerPopupDialogComponent,
     NewCompetitionComponent,
     SortQuestionsComponent,
-    NewQuestionDialogComponent,
-    MarketPageComponent,
+    NewQuestionDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    FlexLayoutModule,
-    HttpClientModule,
     BrowserAnimationsModule,
     LayoutModule,
-    FormsModule,
-    ReactiveFormsModule,
+    MatRippleModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatDialogModule,
-    MatGridListModule,
+    MatExpansionModule,
     FormsModule,
+    HttpClientModule,
+    MatSelectModule,
+    CommonModule,
+    RouterModule,
     ReactiveFormsModule,
-    MatListModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
     MatRadioModule,
     MatStepperModule,
     MatFormFieldModule,
@@ -111,7 +121,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     MatTableModule
   ],
   exports: [],
-  providers: [DatePipe, NewCompanyComponent],
+  providers: [DatePipe, NewCompanyComponent, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

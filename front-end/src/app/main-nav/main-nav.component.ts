@@ -23,7 +23,7 @@ export class MainNavComponent {
     if (window.sessionStorage.getItem('usertype') === 'Manager'){
       window.location.replace('/home-manager');
     }else{
-      window.location.replace('/portfolio');
+      window.location.replace('/home-investor');
     }
 
   }
