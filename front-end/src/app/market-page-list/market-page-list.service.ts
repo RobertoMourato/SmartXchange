@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient , HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,26 @@ export class MarketPageListService {
   getStocksOwned(userId: string, companyId: string): Observable<any>{
     const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
     return this.httpClient.get<any>(this.url + '/stocks/stocksowned?companyId=' + companyId + '&userId=' + userId, {headers: header});
+  }
+  getCompetition(competitionId: string): Observable<any>{
+    const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    return this.httpClient.get<any>(this.url + '/competition/getCompetition?competitionId=' + competitionId, {headers: header});
+  }
+  changeWallet(userId: string, competitionId: string , num: number): Observable<any>{
+    const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    return this.httpClient.put<any>(this.url + '/users/changewallet?userId=' + userId +
+                                    '&competitionId=' + competitionId + '&num=' + num, {headers: header});
+  }
+  placeOrder(body: string): Observable<any>{
+    const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    return this.httpClient.post<any>(this.url + '/order/addOrder', body, {headers: header}).pipe(map(this.extractData));
+  }
+  getOrders(companyId: string, userId: string): Observable<any>{
+    const header = new HttpHeaders({ 'Content-Type': 'application/JSON' });
+    return this.httpClient.get<any>(this.url + '/order/getmyorders?companyId=' + companyId + '&userId=' + userId, {headers: header});
+  }
+  private extractData(res: Response): object {
+    console.log(res || {});
+    return res || {};
   }
 }

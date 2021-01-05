@@ -47,20 +47,12 @@ module.exports = {
   },
 
   async getCompany (companyId) {
-    const company = await models.Company.findByPk(companyId)
-    if (company) {
-      try {
-        return await models.Company.findOne({
-          where: { id: companyId },
-          include: [{
-            model: models.StockValue
-          }]
-        })
-      } catch (error) {
-        console.log(error)
-        // res.status(400).json(error)
-      }
-    }
+    return await models.Company.findOne({
+      where: { id: companyId },
+      include: [{
+        model: models.StockValue
+      }]
+    })
   },
 
   async getMyCompany (req, res) {
