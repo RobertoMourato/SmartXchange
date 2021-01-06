@@ -44,7 +44,6 @@ linting:
     - npm install -g @angular/cli@latest
     - ng lint
 
-
 testing:
   stage: test
   image: node:latest
@@ -68,9 +67,10 @@ building-staging:
     - docker build -t $CI_REGISTRY_IMAGE/front-end:staging .
     - docker push $CI_REGISTRY_IMAGE/front-end:staging
   only:
-    - merge_request
-  except:
-    - master
+    - sprint-1
+    - sprint-2
+    - sprint-3
+    - sprint-4
 
 building-production:
   stage: build
@@ -88,14 +88,33 @@ building-production:
   only:
     - master
 
-#staging:
-#  type: deploy
-#  stage: staging
-#  script:
+deploying-staging:
+  stage: deploy
+  image: alpine
+  before_script:
+    - apk add openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+  script:
+    - ssh -o StrictHostKeyChecking=no $USER@$STAGING_SERVER "cd t3g3; git checkout $CI_COMMIT_REF_NAME; git pull https://$AUX_1:$AUX_2@gitlab.com/feup-tbs/ldso2021/t3g3.git; cd staging\ vs\ production/production; sudo docker-compose stop && sudo docker-compose rm; cd ../staging; sudo docker-compose up -d --build"
+  only:
+    - sprint-1
+    - sprint-2
+    - sprint-3
+    - sprint-4
 
-#production:
-#  type: deploy
-#  stage: production
-#  script:
-#  only:
-#    - master
+deploying-production:
+  stage: deploy
+  image: alpine
+  before_script:
+    - apk add openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+  script:
+    - ssh -o StrictHostKeyChecking=no $USER@$PRODUCTION_SERVER "cd t3g3; git checkout $CI_COMMIT_REF_NAME; git pull https://$AUX_1:$AUX_2@gitlab.com/feup-tbs/ldso2021/t3g3.git; cd staging\ vs\ production/staging; sudo docker-compose stop && sudo docker-compose rm; cd ../production; sudo docker-compose up -d --build"
+  only:
+    - master
