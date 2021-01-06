@@ -1,0 +1,31 @@
+<body>
+
+    <div class="register-card">
+        
+
+        <div style="display:table-cell; vertical-align:middle; align-items:center">
+        <!---- <h1 style="color:#1a5d0c; font-weight: 500" >SmartXChange</h1>-->
+            <img src="assets/Logo.png" class="logo" width="250px" alt="Logo" />
+        </div>
+        
+        <form>
+            <input type="text" #name name="name" placeholder="Name">
+            <input type="text" #username name="username" placeholder="Username">
+            <input type="text" #email name="email" placeholder="Email">
+            <input type="password" #password name="password" placeholder="Password">
+            <!--<label *ngIf="isShown">
+                <input type="radio" #usertype name="usertype" value="1">Entrepreneur
+            </label>
+            <label *ngIf="isShown">
+                <input type="radio" #usertype name="usertype" value="2">Investor
+            </label>-->
+            <input type="submit" name="register" class="register register-submit" value="Register"
+                (click)="register(name.value,username.value,email.value,password.value)">
+        </form>
+
+        <div class="register-help">
+            <a href="#">Login</a>
+        </div>
+    </div>
+
+</body>

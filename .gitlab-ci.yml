@@ -1,58 +1,120 @@
-image: node:latest
-
 stages:
-  - build
-  - code_analysis
+  - install-dependencies
+  - security
+  - code-analysis
   - test
-  - staging
-  - production
+  - build
+  - deploy
 
 cache:
   paths:
     - back-end/node_modules/
-#    - front-end/node_modules/
+    - front-end/node_modules/
 
-install_dependencies:
-  stage: build
+installing-dependencies:
+  stage: install-dependencies
+  image: node:latest
   script:
     - cd back-end
     - npm install
-#    - cd ..
-#    - cd front-end
-#    - npm install
-#    - npm install -g @angular/cli@latest
+    - cd ../front-end
+    - npm install
+    - npm install -g @angular/cli@latest
   artifacts:
     paths:
       - back-end/node_modules/
-#      - front-end/node_modules/
+      - front-end/node_modules/
+
+checking-security:
+  stage: security
+  image: node:latest
+  script:
+    - cd back-end
+    - npm audit
+    - cd ../front-end
+    - npm audit
 
 linting:
-  stage: code_analysis
+  stage: code-analysis
+  image: node:latest
   script:
     - cd back-end
     - npm run lint
-#    - cd ..
-#    - cd front-end
-#    - ng lint
-
+    - cd ../front-end
+    - npm install -g @angular/cli@latest
+    - ng lint
 
 testing:
   stage: test
+  image: node:latest
   script:
     - cd back-end
     - npm test
-#    - cd ..
-#    - cd front-end
-#    - ng test
+    #- cd ../front-end
+    #- ng test
 
-#staging:
-#  type: deploy
-#  stage: staging
-#  script:
+building-staging:
+  stage: build
+  services:
+    - docker:18-dind
+  image: docker:latest
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - cd back-end
+    - docker build -t $CI_REGISTRY_IMAGE/back-end:staging .
+    - docker push $CI_REGISTRY_IMAGE/back-end:staging
+    - cd ../front-end
+    - docker build -t $CI_REGISTRY_IMAGE/front-end:staging .
+    - docker push $CI_REGISTRY_IMAGE/front-end:staging
+  only:
+    - sprint-1
+    - sprint-2
+    - sprint-3
+    - sprint-4
 
-#production:
-#  type: deploy
-#  stage: production
-#  script:
-#  only:
-#    - master
+building-production:
+  stage: build
+  services:
+    - docker:18-dind
+  image: docker:latest
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - cd back-end
+    - docker build -t $CI_REGISTRY_IMAGE/back-end:staging .
+    - docker push $CI_REGISTRY_IMAGE/back-end:staging
+    - cd ../front-end
+    - docker build -t $CI_REGISTRY_IMAGE/front-end:staging .
+    - docker push $CI_REGISTRY_IMAGE/front-end:staging
+  only:
+    - master
+
+deploying-staging:
+  stage: deploy
+  image: alpine
+  before_script:
+    - apk add openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+  script:
+    - ssh -o StrictHostKeyChecking=no $USER@$STAGING_SERVER "cd t3g3; git checkout $CI_COMMIT_REF_NAME; git pull https://$AUX_1:$AUX_2@gitlab.com/feup-tbs/ldso2021/t3g3.git; cd staging\ vs\ production/production; sudo docker-compose stop && sudo docker-compose rm; cd ../staging; sudo docker-compose up -d --build"
+  only:
+    - sprint-1
+    - sprint-2
+    - sprint-3
+    - sprint-4
+
+deploying-production:
+  stage: deploy
+  image: alpine
+  before_script:
+    - apk add openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+  script:
+    - ssh -o StrictHostKeyChecking=no $USER@$PRODUCTION_SERVER "cd t3g3; git checkout $CI_COMMIT_REF_NAME; git pull https://$AUX_1:$AUX_2@gitlab.com/feup-tbs/ldso2021/t3g3.git; cd staging\ vs\ production/staging; sudo docker-compose stop && sudo docker-compose rm; cd ../production; sudo docker-compose up -d --build"
+  only:
+    - master

@@ -59,5 +59,18 @@ In this sprint we established the final version of the database model aproved by
 - Fixed pipeline (ENOENT err). #77 
 
 
+## Sprint 4 - 2021-01-05
+For this final Sprint we've worked in getting the most on the visual side of the project trying to get as much value for the application has possible. We have created various pages for all of the users to use, but is still far from the final version, that we would be proud to release.
 
+### Added
+ - Started competition. #11
+ - Define competition details/New Game Form #12/#74
+ - Home Page Player #29
+ - Create Account (Player) #40 #93
+ - Create company/investor #94
+ - Market Page #95
+ - Portfolio #96
+ - Buy/Sell Stocks #98
 
+### Changed
+- Updated database attributes 

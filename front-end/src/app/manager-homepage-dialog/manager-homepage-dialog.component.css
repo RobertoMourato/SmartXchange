@@ -1,0 +1,60 @@
+
+.red-button{
+    display: inline-block;
+    border: none;
+    padding: 0.5vw 1vw;
+    margin: 0;
+    text-decoration: none;
+    background: #B10606;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background 250ms ease-in-out, 
+                transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.green-button{
+    display: inline-block;
+    border: none;
+    padding: 0.5vw 1vw;
+    margin: 0;
+    text-decoration: none;
+    background: #06B164;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background 250ms ease-in-out, 
+                transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+
+.red-button:hover{
+    background: #e44848;
+}
+
+
+.green-button:hover{
+    background: #4bdb9a;;
+}
+
+button:focus {
+    outline: transparent;
+}
+
+button:active {
+    transform: scale(0.99);
+}
+
+.mat-dialog-container {
+    background: black;
+}

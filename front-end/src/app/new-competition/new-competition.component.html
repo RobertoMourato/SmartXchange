@@ -1,0 +1,69 @@
+<app-main-nav>
+  <mat-card style="width: 75%; margin: 20px auto;">
+  <mat-horizontal-stepper [linear]="true" #stepper>
+    <mat-step>
+      <form>
+        <ng-template matStepLabel>Define competition settings</ng-template>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <div fxLayout="column"  style="width: 50%;">
+            <mat-label>Duration: {{ formatLabel(durationslider.value) }}</mat-label>
+            <mat-slider 
+              #durationslider
+              step="0.25"
+              min="0.25"
+              max="2"
+              value="1.5">
+            </mat-slider>
+            
+            <mat-label>Refresh Rate: {{refreshslider.value}} seconds</mat-label>
+            <mat-slider
+              #refreshslider
+              tickInterval="1"
+              min="1"
+              max="60"
+              value="30">
+            </mat-slider>
+            <mat-form-field appearance="legacy">
+              <mat-label>Initial Company Value</mat-label>
+              <input matInput #initialValue type="number" placeholder="" />
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+              <mat-label>Number of Initial Stocks</mat-label>
+              <input matInput #numStocks type="number" placeholder="" />
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+              <mat-label>Investor Initial Cash</mat-label>
+              <input matInput #cashAmmount type="number" placeholder="" />
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+      <div fxLayoutAlign="end end" style="margin-top: 20px">
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Select questions</ng-template>
+      <div fxLayout="row" fxLayoutAlign="center center" > 
+        <app-sort-questions></app-sort-questions>
+      </div>
+      <div fxLayoutAlign="space-between center" style="margin-top: 20px">
+        <button mat-button matStepperPrevious >Back</button>
+        <button mat-button matStepperNext (click)="add_draft(cashAmmount.value, initialValue.value, refreshslider.value, numStocks.value)">Next</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <form>
+        <ng-template matStepLabel >Invite players</ng-template>
+        <mat-form-field>
+          <input matInput #email required/>
+        </mat-form-field>
+        <button mat-button matStepperNext (click)="invite_player(email.value)" >Invite</button>
+      </form>
+      <div fxLayout="row" fxLayoutAlign="center center" > 
+        <button mat-button (click)="start_competition(durationslider.value,cashAmmount.value, initialValue.value, refreshslider.value, numStocks.value)" >Start Competition</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</mat-card>
+</app-main-nav>

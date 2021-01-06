@@ -1,0 +1,25 @@
+<app-main-nav>
+  <body fxLayout="row" fxLayoutAlign="center">
+    <div style="align-items: center center; width: 70%">
+      <h1>You're registered for this competition! Pick your role</h1>
+      <div>{{ compName }}</div>
+      <mat-radio-group
+        [(ngModel)]="userType"
+        aria-labelledby="choose-radio-group"
+      >
+        <mat-radio-button value="Entrepreneur">Entrepreneur</mat-radio-button>
+        <mat-radio-button value="Investor">Investor</mat-radio-button>
+      </mat-radio-group>
+      <app-new-company *ngIf="showCompany()"></app-new-company>
+      <div>
+        <button
+          style="align-self: auto"
+          mat-flat-button
+          (click)="completeRegistration()"
+        >
+          Complete Competition Registration
+        </button>
+      </div>
+    </div>
+  </body>
+</app-main-nav>

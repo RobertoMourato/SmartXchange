@@ -9,14 +9,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       managerId: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.INTEGER,
         references: {
           model: {
             tableName: 'Users'
           },
           key: 'id'
-        }
+        },
+        onDelete: 'SET NULL'
       },
       companyId: {
         allowNull: false,

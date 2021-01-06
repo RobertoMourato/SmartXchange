@@ -1,15 +1,12 @@
 const dbUser = require('../repository/userRepository')
+const competitionRepository = require('../repository/competitionRepository')
 
 exports.getUsers = async function (req, res) {
   try {
     // console.log("controller");
     const results = await dbUser.index()
     console.log(results)
-    if (results) {
-      res.status(200).json(results)
-    } else {
-      res.sendStatus(400)
-    }
+    res.status(200).json(results)
   } catch (e) {
     console.log(e)
     res.sendStatus(500)
@@ -18,9 +15,62 @@ exports.getUsers = async function (req, res) {
 
 exports.getUserById = async function (req, res) {
   try {
-    // console.log("controller");
     const results = await dbUser.getUserById(req, res)
-    res.json(results)
+    if (results !== null) {
+      res.json(results)
+    } else {
+      res.sendStatus(500)
+    }
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+
+exports.deleteManager = async function (req, res) {
+  try {
+    const deleted = await dbUser.deleteManager(req.params.id)
+    res.json(deleted).status(200)
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+exports.getWallet = async function (req, res) {
+  try {
+    const results = await dbUser.getWallet(req.query.userId, req.query.competitionId)
+    if (results !== null) {
+      res.json(results)
+    } else {
+      res.sendStatus(500)
+    }
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+exports.getWallet = async function (req, res) {
+  try {
+    const results = await dbUser.getWallet(req.query.userId, req.query.competitionId)
+    if (results !== null) {
+      res.json(results)
+    } else {
+      res.sendStatus(500)
+    }
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+
+exports.changeWallet = async function (req, res) {
+  try {
+    const results = await dbUser.changeWallet(req.query.userId, req.query.competitionId, req.query.num)
+    if (results !== null) {
+      res.json(results)
+    } else {
+      res.sendStatus(500)
+    }
   } catch (e) {
     console.log(e)
     res.sendStatus(500)
@@ -29,9 +79,14 @@ exports.getUserById = async function (req, res) {
 
 exports.addUser = async function (req, res) {
   try {
-    // console.log(req.body)
-    const results = await dbUser.addUser(req, res)
-    res.json(results)
+    console.log(req.body)
+    const user = await dbUser.addUser(req, res)
+    if (user !== null) {
+      const playerCompetition = await competitionRepository.addPlayerCompetitionWithInvite(user.id, req.body.inviteToken)
+      res.json({ user, playerCompetition })
+    } else {
+      res.status(400)
+    }
   } catch (e) {
     console.log(e)
     res.sendStatus(500)
@@ -54,16 +109,16 @@ exports.updateUser = async function (req, res) {
     const { username, name, newUsername, email, password } = req.body
     const constUser = await dbUser.getByUsername(username)
 
-    if (newUsername != undefined) {
+    if (newUsername !== undefined) {
       usernewUsername = await dbUser.getByUsername(newUsername)
     }
     if (constUser) {
       if (!usernewUsername) {
-        req.body.name = (name != undefined ? name : constUser.name)
-        req.body.email = (email != undefined ? email : constUser.email)
-        req.body.password = (password != undefined ? password : constUser.name)
-        req.body.newUsername = (newUsername != undefined ? newUsername : constUser.username)
-        if (name.trim() != '' && email.trim() != '' && password.trim() != '' && username.trim() != '') {
+        req.body.name = (name !== undefined ? name : constUser.name)
+        req.body.email = (email !== undefined ? email : constUser.email)
+        req.body.password = (password !== undefined ? password : constUser.name)
+        req.body.newUsername = (newUsername !== undefined ? newUsername : constUser.username)
+        if (name.trim() !== '' && email.trim() !== '' && password.trim() !== '' && username.trim() !== '') {
           await dbUser.updateUser(req, res)
           res.status(200).json('Tenant updated succesfully!')
         } else {
@@ -78,5 +133,47 @@ exports.updateUser = async function (req, res) {
   } catch (e) {
     console.log(e)
     res.sendStatus(500)
+  }
+}
+
+exports.completeRegistration = async function (req, res) {
+  try {
+    const user = await dbUser.completeRegistration(req.query.userType, req.query.playerCompetitionId)
+    if (user !== null) {
+      res.json(user).status(200)
+    } else {
+      res.json('Something went wrong').status(400)
+    }
+  } catch (error) {
+    console.log(error.message)
+    res.json(error.message).status(500)
+  }
+}
+
+exports.getUsersByCompetition = async function (req, res) {
+  try {
+    const users = await dbUser.getUsersByCompetition(req.query.competitionId)
+    if (users) {
+      res.json(users).status(200)
+    } else {
+      res.status(400)
+    }
+  } catch (error) {
+    console.log(error)
+    res.json(error).status(500)
+  }
+}
+
+exports.getManagerByCompetitionId = async function (req, res) {
+  try {
+    const manager = await dbUser.getManagerByCompetition(req.query.competitionId)
+    if (manager) {
+      res.json(manager).status(200)
+    } else {
+      res.status(400)
+    }
+  } catch (error) {
+    console.log(error)
+    res.json(error).status(500)
   }
 }

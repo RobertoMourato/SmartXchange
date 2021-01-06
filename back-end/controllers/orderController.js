@@ -12,10 +12,96 @@ exports.getAllOrders = async function (req, res) {
 exports.addOrder = async function (req, res) {
   try {
     console.log(req.body)
-    const results = await orderRepository.addOrder(req, res)
+    console.log('adicionando order')
+    const results = await orderRepository.addOrder(req.body)
     res.json(results)
   } catch (e) {
     console.log(e)
     res.sendStatus(500)
+  }
+}
+
+exports.getMyOrders = async function (req, res) {
+  try {
+    const results = await orderRepository.getMyOrders(req.query.companyId, req.query.userId)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+
+exports.getAllMyOrders = async function (req, res) {
+  try {
+    const results = await orderRepository.getAllMyOrders(req.query.userId)
+    res.json(results)
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500)
+  }
+}
+
+exports.getPlayerPendingOrders = async function (req, res) {
+  const username = req.params.username
+  console.log('pending', username)
+  try {
+    const results = await orderRepository.getPlayerPendingOrders(username)
+    // console.log('pending', results)
+    // if (results.player.PlayerCompetition[0]) { }
+    res.json(results).status(200)
+  } catch (error) {
+    res.json(error).status(500)
+  }
+}
+
+exports.getPlayerCompleteOrders = async function (req, res) {
+  const username = req.params.username
+  console.log('completed', username)
+  try {
+    const results = await orderRepository.getPlayerCompletedOrders(username)
+    // console.log(results)
+    // if (results.player.PlayerCompetition[0]) { }
+    res.json(results).status(200)
+  } catch (error) {
+    res.json(error).status(500)
+  }
+}
+exports.getPlayerPartiallyMatchedOrders = async function (req, res) {
+  console.log(req.query)
+  const userId = req.query.userId
+  const competitionId = req.query.competitionId
+  console.log(userId)
+  try {
+    const results = await orderRepository.getPlayerPartiallyMatchedOrders(userId, competitionId)
+    // console.log(results)
+    // if (results.player.PlayerCompetition[0]) { }
+    res.json(results).status(200)
+  } catch (error) {
+    res.json(error).status(500)
+  }
+}
+
+exports.cancelOrder = async function (req, res) {
+  const id = req.params.id
+
+  try {
+    const results = await orderRepository.cancelOrder(id)
+    if (results != null) {
+      res.json(results).status(200)
+    } else {
+      res.json('This order can\'t be canceled').status(400)
+    }
+  } catch (error) {
+    res.json(error).status(500)
+  }
+}
+
+exports.testMatchOrders = async function (req, res) {
+  try {
+    const results = await orderRepository.matchOrders(1)
+
+    res.json(results)
+  } catch (error) {
+    res.json(error.message).status(500)
   }
 }

@@ -32,5 +32,80 @@ module.exports = {
     } else {
       res.status(400).json('No competition associated')
     }
+  },
+
+  async calculatePointsInvestors (competitionId) {
+    const users = await models.PlayerCompetition.findAll({
+      where: {
+        competitionId: competitionId
+      }
+    })
+    const competition = await models.PlayerCompetition.findOne({
+      where: { id: competitionId }
+    })
+
+    const rankings = []
+    users.forEach(async element => {
+      const player = element.dataValues
+
+      const rankings = await models.Ranking.build({
+        playerCompetitionId: competitionId,
+        rankingType: 'Investor',
+        rankingPoints: player.wallet - competition.competitionInitialBudget
+      })
+      rankings.push(rankings)
+    })
+
+    // sort pelos rankingPoint
+    rankings.sort(function (a, b) { return a.rankingPoints - b.rankingPoints })
+    let count = rankings.length
+    // create ranking
+    rankings.forEach(element => {
+      models.Ranking.create({
+        playerCompetitionId: competitionId,
+        rankingType: 'Investor',
+        rankingPoints: element.rankingPoints,
+        rankingPosition: count
+      })
+      count = count - 1
+    })
+  },
+
+  async getRankingsByPlayerAndCompetition (playerId, competitionId) {
+    try {
+      return await models.Ranking.findAll({
+        order: [['createdAt', 'ASC']],
+        include: {
+          model: models.PlayerCompetition,
+          where: {
+            playerId: playerId,
+            competitionId: competitionId
+          }
+        }
+      })
+    } catch (error) {
+      return null
+    }
+  },
+  async getCompetitionLatestRankings (competitionId) {
+    try {
+      const lastUpdate = await models.Ranking.max('createdAt')
+      return await models.Ranking.findAll({
+        order: [['rankingPosition', 'ASC']],
+        where: { createdAt: lastUpdate },
+        include: {
+          model: models.PlayerCompetition,
+          where: {
+            competitionId: competitionId
+          },
+          include: {
+            model: models.User
+          }
+        }
+      })
+    } catch (error) {
+      console.log(error.message)
+      return null
+    }
   }
 }
