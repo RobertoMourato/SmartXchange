@@ -1,0 +1,42 @@
+table {
+  width: 100%;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-game-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-game-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-game-row td {
+  border-bottom-width: 0;
+}
+
+.example-game-detail {
+  overflow: hidden;
+}
+
+.example-game-description {
+  padding: 16px;
+}
+
+.example-game-description-attribution {
+  opacity: 0.5;
+}
+
+.end-game-button {
+  justify-content: flex-end;
+  font-weight: bold;
+  background-color: red;
+  color: white;
+  margin-right: 30px;
+  float: right;
+  margin-top: 15px;
+  margin-bottom: 30px;
+}

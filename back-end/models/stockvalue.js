@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate (models) {
-      this.belongsTo(models.Stock, { foreignKey: 'stockId' })
+      this.belongsTo(models.Company, { foreignKey: 'companyId' })
     }
   };
   StockValue.init({
-    stockId: DataTypes.INTEGER,
+    companyId: DataTypes.INTEGER,
     stockValue: DataTypes.INTEGER,
     stockValueDate: DataTypes.DATE
   }, {

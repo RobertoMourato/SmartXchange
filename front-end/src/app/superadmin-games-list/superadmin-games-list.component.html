@@ -1,0 +1,67 @@
+<app-superadmin-nav>
+
+  <p><strong> Games List </strong></p>
+  <table mat-table [dataSource]="games" multiTemplateDataRows class="mat-elevation-z8">
+    <ng-container matColumnDef="ID">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let game"> {{game.id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Manager ID">
+      <th mat-header-cell *matHeaderCellDef> Manager ID </th>
+      <td mat-cell *matCellDef="let game"> {{game.managerId}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Manager Name">
+      <th mat-header-cell *matHeaderCellDef> Manager Name </th>
+      <td mat-cell *matCellDef="let game"> {{game.managerName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Begins In">
+      <th mat-header-cell *matHeaderCellDef> Begins In </th>
+      <td mat-cell *matCellDef="let game">
+        {{game.competitionStartDate | date:'MM/dd/yyyy hh:mm:ss'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Ends In">
+      <th mat-header-cell *matHeaderCellDef> Ends In </th>
+      <td mat-cell *matCellDef="let game">
+        {{game.competitionEndDate | date:'MM/dd/yyyy hh:mm:ss'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let game"> {{game.status}} </td>
+    </ng-container>
+
+    ['ID', 'Manager ID', 'Manager Name', 'Begins In', 'Ends In', 'Status'];
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let game" [attr.colspan]="headElements.length">
+
+
+
+        <div class="example-game-detail" [@detailExpand]="game == expandedElement ? 'expanded' : 'collapsed'">
+          <div>
+            <strong><br>Players:</strong>
+            <br>
+            <ul>
+              <li *ngFor="let name of game.playerNames">
+                {{ name }}
+              </li>
+            </ul>
+          </div>
+          <div>
+            <!--<button *ngIf="game.status != 'COMPLETED'" mat-raised-button waves-effect class="end-game-button" (click)="openDialog()">End Game</button>-->
+          </div>
+        </div>
+
+
+
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="headElements"></tr>
+    <tr mat-row *matRowDef="let element; columns: headElements;" class="example-game-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+  </table>
+
+</app-superadmin-nav>

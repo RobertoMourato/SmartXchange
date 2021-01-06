@@ -35,6 +35,7 @@ module.exports = {
   */
   async inviteUser (req, res) {
     try {
+      console.log(req.body)
       const manager = await userRep.getByUsername(req.body.invitedBy)
       const competition = await models.Competition.findByPk(req.body.competitionId)
 
@@ -61,5 +62,42 @@ module.exports = {
     } catch (error) {
       res.status(400).json(error)
     }
+  },
+
+  async isManager (req, res) {
+    try {
+      const invite = await models.Invite.findOne({ where: { token: req.query.invite } })
+      const user = await userRep.getByEmail(invite.dataValues.email)
+      if (invite != null) {
+        return { invite, user }
+      } else {
+        console.log('ee')
+        //  res.json("Error! Invalid competition!");
+        return null
+      }
+    } catch (error) {
+      res.status(400).json(error)
+    }
+  },
+  async invalidToken (token2) {
+    console.log(token2)
+    try {
+      models.Invite.update(
+        { isValid: false },
+        { returning: true, where: { token: token2 } }
+      )
+    } catch (error) {
+      console.log('nao invalidou')
+      return null
+    }
+  },
+  async getManagersInvites (superAdminId) {
+    return await models.Invite.findAll({
+      where: {
+        invitedBy: superAdminId,
+        isValid: true,
+        isManager: true
+      }
+    })
   }
 }

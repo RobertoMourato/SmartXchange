@@ -9,7 +9,9 @@
     "test:coverage": "nyc mocha --exit",
     "dev": "nodemon index.js",
     "lint": "eslint --ext .js ./",
-    "lint:fix": "eslint --ext .js ./ --fix"
+    "lint:fix": "eslint --ext .js ./ --fix",
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:seed": "sequelize-cli db:seed:all"
   },
   "author": "Lucas Stein",
   "license": "ISC",

@@ -1,0 +1,38 @@
+p {
+  padding: 15px;
+  font-weight: bold;
+}
+
+.button1 {
+  background-color: white;
+  color: #06b164;
+  font-weight: bold;
+}
+
+.button2 {
+  background-color:  #06b164;
+  color: white;
+  display: inline-block;
+  font-weight: bold;
+  margin-right: 20px;
+  float: right;
+}
+
+.button3 {
+  background-color: red;
+  color: white;
+  float: left;
+  font-weight: bold;
+}
+
+.popup {
+  padding: 15px;
+  border: 1px;
+  width: 80%;
+}
+
+.popup-dialog .mat-dialog-content {
+  background-color: whitesmoke;
+  width: 250px;
+  height: 250px
+}

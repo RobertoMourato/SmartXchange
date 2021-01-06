@@ -4,9 +4,7 @@ services:
   smartxchange-front-end:
     restart: always
     container_name: smartxchange-front-end
-    build:
-      context: .
-      dockerfile: docker-dev.dockerfile
+    build: .
     volumes:
       - '.:/app'   
     ports:
