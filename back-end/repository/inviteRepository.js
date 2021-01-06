@@ -90,5 +90,14 @@ module.exports = {
       console.log('nao invalidou')
       return null
     }
+  },
+  async getManagersInvites (superAdminId) {
+    return await models.Invite.findAll({
+      where: {
+        invitedBy: superAdminId,
+        isValid: true,
+        isManager: true
+      }
+    })
   }
 }

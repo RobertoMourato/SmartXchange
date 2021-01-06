@@ -18,4 +18,12 @@ export class SuperadminNavComponent {
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 
+  logout(): void {
+    console.log('logout');
+    window.sessionStorage.removeItem('user');
+    window.sessionStorage.removeItem('usertype');
+    window.sessionStorage.removeItem('token');
+
+    window.location.replace('/login');
+  }
 }

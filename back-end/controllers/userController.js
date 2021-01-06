@@ -1,17 +1,12 @@
 const dbUser = require('../repository/userRepository')
 const competitionRepository = require('../repository/competitionRepository')
-const userRepository = require('../repository/userRepository')
 
 exports.getUsers = async function (req, res) {
   try {
     // console.log("controller");
     const results = await dbUser.index()
     console.log(results)
-    if (results) {
-      res.status(200).json(results)
-    } else {
-      res.sendStatus(400)
-    }
+    res.status(200).json(results)
   } catch (e) {
     console.log(e)
     res.sendStatus(500)
@@ -20,7 +15,6 @@ exports.getUsers = async function (req, res) {
 
 exports.getUserById = async function (req, res) {
   try {
-    // console.log("controller");
     const results = await dbUser.getUserById(req, res)
     if (results !== null) {
       res.json(results)
@@ -30,6 +24,15 @@ exports.getUserById = async function (req, res) {
   } catch (e) {
     console.log(e)
     res.sendStatus(500)
+  }
+}
+
+exports.deleteManager = async function (req, res) {
+  try {
+    const deleted = await dbUser.deleteManager(req.params.id)
+    res.json(deleted).status(200)
+  } catch (error) {
+    console.log(error.message)
   }
 }
 
@@ -135,7 +138,7 @@ exports.updateUser = async function (req, res) {
 
 exports.completeRegistration = async function (req, res) {
   try {
-    const user = await userRepository.completeRegistration(req.query.userType, req.query.playerCompetitionId)
+    const user = await dbUser.completeRegistration(req.query.userType, req.query.playerCompetitionId)
     if (user !== null) {
       res.json(user).status(200)
     } else {
@@ -144,5 +147,33 @@ exports.completeRegistration = async function (req, res) {
   } catch (error) {
     console.log(error.message)
     res.json(error.message).status(500)
+  }
+}
+
+exports.getUsersByCompetition = async function (req, res) {
+  try {
+    const users = await dbUser.getUsersByCompetition(req.query.competitionId)
+    if (users) {
+      res.json(users).status(200)
+    } else {
+      res.status(400)
+    }
+  } catch (error) {
+    console.log(error)
+    res.json(error).status(500)
+  }
+}
+
+exports.getManagerByCompetitionId = async function (req, res) {
+  try {
+    const manager = await dbUser.getManagerByCompetition(req.query.competitionId)
+    if (manager) {
+      res.json(manager).status(200)
+    } else {
+      res.status(400)
+    }
+  } catch (error) {
+    console.log(error)
+    res.json(error).status(500)
   }
 }
